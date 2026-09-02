@@ -81,6 +81,44 @@ test("presents the closing conversion section from the design reference", async 
   );
 });
 
+test("presents the reference footer navigation columns", async ({ page }) => {
+  await page.goto("/");
+
+  const footer = page.locator("footer#company");
+  await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
+  await expect(
+    footer.getByText(
+      "Intelligent energy management built for commercial properties, hospitality, and institutional residential buildings.",
+    ),
+  ).toBeVisible();
+  await expect(
+    footer.getByText("Proudly serving North America including the Caribbean."),
+  ).toBeVisible();
+
+  const footerNavigation = footer.getByRole("navigation", {
+    name: "Footer navigation",
+  });
+
+  for (const heading of ["Technology", "Solutions", "Company", "Resources"]) {
+    await expect(
+      footerNavigation.getByRole("heading", { name: heading }),
+    ).toBeVisible();
+  }
+
+  await expect(
+    footerNavigation.getByRole("link", { name: "Energy Optimization" }),
+  ).toBeVisible();
+  await expect(
+    footerNavigation.getByRole("link", { name: "Multifamily Housing" }),
+  ).toBeVisible();
+  await expect(
+    footerNavigation.getByRole("link", { name: "Contact & Support" }),
+  ).toBeVisible();
+  await expect(
+    footerNavigation.getByRole("link", { name: "ROI Calculator" }),
+  ).toBeVisible();
+});
+
 test("provides navigation appropriate to the viewport", async ({ page }) => {
   await page.goto("/");
 
