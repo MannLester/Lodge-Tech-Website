@@ -1,6 +1,7 @@
 import { HeroSection } from "@/features/home/ui/hero-section";
 import { IndustriesSection } from "@/features/home/ui/industries-section";
 import { PlatformSection } from "@/features/home/ui/platform-section";
+import { ProcessSection } from "@/features/home/ui/process-section";
 import { ProductSection } from "@/features/home/ui/product-section";
 import { ResultsSection } from "@/features/home/ui/results-section";
 import { SiteHeader } from "@/features/home/ui/site-header";
@@ -17,6 +18,7 @@ export default function HomePage() {
         <PlatformSection />
         <IndustriesSection />
         <ResultsSection />
+        <ProcessSection />
       </main>
     </div>
   );
