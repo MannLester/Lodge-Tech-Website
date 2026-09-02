@@ -87,11 +87,6 @@ export function ResultsSection() {
             </article>
           ))}
         </div>
-
-        <p className="text-muted text-xs leading-5 lg:col-span-2">
-          Reference-design figures are provisional and require client
-          verification before production launch.
-        </p>
       </div>
     </section>
   );
