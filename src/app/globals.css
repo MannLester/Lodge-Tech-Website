@@ -8,6 +8,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-brand: var(--brand);
+  --color-brand-fill: var(--brand-fill);
   --color-brand-strong: var(--brand-strong);
   --color-brand-soft: var(--brand-soft);
   --shadow-soft: 0 20px 60px var(--shadow-color);
@@ -23,6 +24,7 @@
   --muted: #536159;
   --border: #dce3dd;
   --brand: #397847;
+  --brand-fill: #397847;
   --brand-strong: #245d34;
   --brand-soft: #e4efe5;
   --shadow-color: rgb(16 25 20 / 0.12);
@@ -37,6 +39,7 @@
   --muted: #abb5ad;
   --border: #303833;
   --brand: #79b683;
+  --brand-fill: #397847;
   --brand-strong: #9dcea4;
   --brand-soft: #1c3823;
   --shadow-color: rgb(0 0 0 / 0.36);
@@ -132,6 +135,14 @@ button {
 
   .section-band {
     padding-block: 5.5rem;
+  }
+
+  .snap-row {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
   }
 }
 

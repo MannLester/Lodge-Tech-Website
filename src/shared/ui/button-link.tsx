@@ -11,7 +11,7 @@ type ButtonLinkProps = {
 
 const variants = {
   primary:
-    "border-brand bg-brand text-white hover:border-brand-strong hover:bg-brand-strong",
+    "border-brand-fill bg-brand-fill text-white hover:border-brand-strong hover:bg-brand-strong",
   outline:
     "border-border bg-surface text-foreground hover:border-brand hover:text-brand-strong",
   text: "border-transparent bg-transparent text-foreground hover:text-brand-strong",

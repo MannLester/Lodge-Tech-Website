@@ -28,12 +28,12 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 sm:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <ButtonLink href="#contact">Get a Savings Analysis</ButtonLink>
         </div>
 
-        <div className="flex items-center gap-2 sm:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <ThemeToggle />
           <button
             aria-controls="mobile-navigation"
@@ -56,7 +56,7 @@ export function SiteHeader() {
       {menuOpen ? (
         <nav
           aria-label="Mobile navigation"
-          className="border-border bg-background border-t px-4 py-5 sm:hidden"
+          className="border-border bg-background border-t px-4 py-5 lg:hidden"
           id="mobile-navigation"
         >
           <div className="mx-auto grid max-w-md gap-1">

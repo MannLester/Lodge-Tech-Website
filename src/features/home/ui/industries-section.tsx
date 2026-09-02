@@ -46,7 +46,7 @@ export function IndustriesSection() {
                     className="aspect-[4/3] min-h-44"
                     label={industry.mediaLabel}
                   />
-                  <span className="border-background bg-brand shadow-card absolute -bottom-5 left-4 grid size-11 place-items-center rounded-lg border text-white">
+                  <span className="border-background bg-brand-fill shadow-card absolute -bottom-5 left-4 grid size-11 place-items-center rounded-lg border text-white">
                     <Icon aria-hidden size={22} />
                   </span>
                 </div>

@@ -51,7 +51,7 @@ export function ClosingFooter() {
             </a>
           </div>
 
-          <div className="flex items-center gap-3 border-l border-white/30 pl-0 lg:pl-6">
+          <div className="flex items-center gap-3 lg:border-l lg:border-white/30 lg:pl-6">
             <ShieldCheck aria-hidden size={38} />
             <p className="text-xs leading-5 font-semibold uppercase">
               <span className="block text-lg">40+ years</span>

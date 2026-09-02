@@ -28,7 +28,7 @@ export function ProcessSection() {
               className="border-border bg-surface flex min-h-20 items-center gap-4 rounded-lg border p-4 lg:block lg:min-h-32"
               key={step}
             >
-              <span className="bg-brand grid size-9 shrink-0 place-items-center rounded-full text-sm font-semibold text-white">
+              <span className="bg-brand-fill grid size-9 shrink-0 place-items-center rounded-full text-sm font-semibold text-white">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <span className="text-foreground text-base font-semibold lg:mt-5 lg:block">
