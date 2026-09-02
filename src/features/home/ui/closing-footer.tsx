@@ -1,12 +1,42 @@
-import { Globe2 } from "lucide-react";
-
-import { navigationItems } from "@/features/home/model/home-content";
 import { BrandMark } from "@/shared/ui/brand-mark";
 
-const footerLinks = [
-  ...navigationItems,
-  { href: "#contact", label: "Resources" },
-  { href: "#contact", label: "Contact" },
+const footerLinkGroups = [
+  {
+    label: "Technology",
+    links: [
+      { href: "#technology", label: "Energy Optimization" },
+      { href: "#technology", label: "Hardware Platform" },
+      { href: "#technology", label: "Cloud Interface" },
+      { href: "#technology", label: "Utility Rebate Capture" },
+    ],
+  },
+  {
+    label: "Solutions",
+    links: [
+      { href: "#industries", label: "Hospitality" },
+      { href: "#industries", label: "Multifamily Housing" },
+      { href: "#industries", label: "Senior & Assisted Living" },
+      { href: "#industries", label: "Student Dormitories" },
+    ],
+  },
+  {
+    label: "Company",
+    links: [
+      { href: "#company", label: "About Us" },
+      { href: "#results", label: "Case Studies" },
+      { href: "#contact", label: "Partner Network" },
+      { href: "#contact", label: "Contact & Support" },
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      { href: "#contact", label: "Blog" },
+      { href: "#contact", label: "White Papers" },
+      { href: "#contact", label: "Webinars" },
+      { href: "#contact", label: "ROI Calculator" },
+    ],
+  },
 ] as const;
 
 export function ClosingFooter() {
@@ -70,33 +100,47 @@ export function ClosingFooter() {
       </section>
 
       <footer
-        className="border-border bg-background border-t py-8"
+        className="border-border border-t bg-[#f7fafb] py-10"
         id="company"
       >
-        <div className="section-shell grid items-center gap-7 lg:grid-cols-[auto_1fr_auto]">
-          <BrandMark />
+        <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">
+          <div className="max-w-64">
+            <BrandMark />
+            <p className="text-muted mt-4 text-sm leading-6">
+              Intelligent energy management built for commercial properties,
+              hospitality, and institutional residential buildings.
+            </p>
+            <p className="text-muted mt-4 text-sm leading-6">
+              Proudly serving North America including the Caribbean.
+            </p>
+          </div>
 
           <nav
             aria-label="Footer navigation"
-            className="flex flex-wrap gap-x-5 gap-y-3 lg:justify-center"
+            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {footerLinks.map((link) => (
-              <a
-                className="text-muted hover:text-brand-strong text-xs font-semibold transition-colors"
-                href={link.href}
-                key={link.label}
-              >
-                {link.label}
-              </a>
+            {footerLinkGroups.map((group) => (
+              <div key={group.label}>
+                <h2 className="text-foreground text-xs font-bold tracking-wide uppercase">
+                  {group.label}
+                </h2>
+                <ul className="mt-4 space-y-3">
+                  {group.links.map((link) => (
+                    <li key={`${group.label}-${link.label}`}>
+                      <a
+                        className="text-muted hover:text-brand-strong text-sm transition-colors"
+                        href={link.href}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </nav>
-
-          <div className="text-muted flex items-center gap-3 text-sm lg:max-w-64 lg:justify-self-end">
-            <Globe2 aria-hidden className="text-brand shrink-0" size={24} />
-            <span>Proudly serving North America, including the Caribbean.</span>
-          </div>
         </div>
-        <div className="section-shell border-border text-muted mt-7 border-t pt-5 text-xs">
+        <div className="section-shell border-border text-muted mt-10 border-t pt-5 text-xs">
           &copy; 2026 Lodging Technologies. All rights reserved.
         </div>
       </footer>
