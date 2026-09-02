@@ -1,12 +1,12 @@
-import { FoundationStatus } from "@/features/home/ui/foundation-status";
+import { HeroSection } from "@/features/home/ui/hero-section";
 import { SiteHeader } from "@/features/home/ui/site-header";
 
 export default function HomePage() {
   return (
     <div id="top">
       <SiteHeader />
-      <main className="grid min-h-screen place-items-center px-6 py-16">
-        <FoundationStatus />
+      <main>
+        <HeroSection />
       </main>
     </div>
   );
