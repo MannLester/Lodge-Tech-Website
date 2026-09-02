@@ -66,7 +66,7 @@ export function ResultsSection() {
                   </div>
                 </dl>
                 <a
-                  className="text-brand-strong mt-5 inline-flex items-center gap-2 text-sm font-semibold"
+                  className="text-brand-strong hover:text-brand mt-5 inline-flex items-center gap-2 text-sm font-semibold transition-colors"
                   href="#contact"
                 >
                   View Case Study
