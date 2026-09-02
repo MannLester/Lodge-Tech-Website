@@ -1,3 +1,4 @@
+import { ClosingFooter } from "@/features/home/ui/closing-footer";
 import { HeroSection } from "@/features/home/ui/hero-section";
 import { IndustriesSection } from "@/features/home/ui/industries-section";
 import { PlatformSection } from "@/features/home/ui/platform-section";
@@ -20,6 +21,7 @@ export default function HomePage() {
         <ResultsSection />
         <ProcessSection />
       </main>
+      <ClosingFooter />
     </div>
   );
 }
