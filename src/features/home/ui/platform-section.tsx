@@ -20,7 +20,7 @@ export function PlatformSection() {
       <div className="section-shell grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="order-2 lg:order-1 lg:col-span-7">
           <MediaPlaceholder
-            className="shadow-soft aspect-[16/10] min-h-64"
+            className="shadow-soft aspect-[16/10]"
             label="Cloud dashboard and connected device imagery"
           />
         </div>

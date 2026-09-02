@@ -24,7 +24,7 @@ export function HeroSection() {
             className="text-foreground mt-4 text-5xl leading-[1.04] font-semibold sm:text-6xl lg:text-7xl"
             id="hero-heading"
           >
-            Energy wasted is money lost.
+            Energy wasted is money lost.{" "}
             <span className="text-brand-strong mt-2 block">
               We make buildings use less.
             </span>
