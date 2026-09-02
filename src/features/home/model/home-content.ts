@@ -127,10 +127,28 @@ export const caseStudies = [
 ] as const;
 
 export const turnkeySteps = [
-  "Analyze",
-  "Engineer",
-  "Incentivize",
-  "Install",
-  "Optimize",
-  "Maintain",
+  {
+    description: "Assess your building and identify savings opportunities.",
+    title: "Analyze",
+  },
+  {
+    description: "Design a solution tailored to your property.",
+    title: "Engineer",
+  },
+  {
+    description: "Identify and secure available utility incentives.",
+    title: "Incentivize",
+  },
+  {
+    description: "Deploy the system with minimal disruption.",
+    title: "Install",
+  },
+  {
+    description: "Fine-tune performance using real-time data.",
+    title: "Optimize",
+  },
+  {
+    description: "Monitor and support the system for lasting savings.",
+    title: "Maintain",
+  },
 ] as const;
