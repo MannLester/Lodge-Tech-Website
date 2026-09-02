@@ -45,12 +45,10 @@ export function HeroSection() {
             className="mt-6 text-4xl leading-[1.04] font-semibold text-[#0b1324] sm:text-5xl"
             id="hero-heading"
           >
-            Energy wasted
-            <br />
+            Energy wasted <br />
             is money lost.{" "}
             <span className="mt-2 block text-[#008ec5]">
-              We make buildings
-              <br />
+              We make buildings <br />
               use less.
             </span>
           </h1>
