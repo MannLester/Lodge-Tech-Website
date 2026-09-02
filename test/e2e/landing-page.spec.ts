@@ -33,9 +33,14 @@ test("presents the closing conversion section from the design reference", async 
       name: "Your building is already consuming energy. Let's make it consume less.",
     }),
   ).toBeVisible();
+  await expect(
+    contactSection.getByText(
+      "Request a data-backed savings projection. See your building's exact runtime reduction opportunity and utility incentive alignment - at no cost.",
+    ),
+  ).toBeVisible();
 
   await expect(
-    contactSection.getByRole("link", { name: "Get a Savings Analysis" }),
+    contactSection.getByRole("link", { name: "Get a Free Savings Analysis" }),
   ).toBeVisible();
   await expect(
     contactSection.getByRole("link", { name: "Request a Demo" }),
@@ -47,17 +52,18 @@ test("presents the closing conversion section from the design reference", async 
     "40 plus years of energy intelligence",
   );
   await expect(experienceBadge).toContainText("40+");
+  await expect(experienceBadge).toContainText("YEARS");
   await expect(experienceBadge).toContainText("of Energy Intelligence");
 
   const sectionStyles = await contactSection.evaluate((section) => {
     const styles = window.getComputedStyle(section);
     return {
-      backgroundColor: styles.backgroundColor,
+      backgroundImage: styles.backgroundImage,
       height: section.getBoundingClientRect().height,
     };
   });
   const primaryCta = contactSection.getByRole("link", {
-    name: "Get a Savings Analysis",
+    name: "Get a Free Savings Analysis",
   });
   const primaryCtaLineHeight = await primaryCta.evaluate((link) => {
     const styles = window.getComputedStyle(link);
@@ -66,12 +72,10 @@ test("presents the closing conversion section from the design reference", async 
       lineHeight: Number.parseFloat(styles.lineHeight),
     };
   });
-  const viewport = page.viewportSize();
 
-  expect(sectionStyles.backgroundColor).toBe("rgb(6, 61, 36)");
-  expect(sectionStyles.height).toBeLessThan(
-    viewport && viewport.width >= 1024 ? 300 : 380,
-  );
+  expect(sectionStyles.backgroundImage).toContain("radial-gradient");
+  expect(sectionStyles.backgroundImage).toContain("rgb(22, 76, 104)");
+  expect(sectionStyles.height).toBeGreaterThanOrEqual(400);
   expect(primaryCtaLineHeight.height).toBeLessThan(
     primaryCtaLineHeight.lineHeight * 3,
   );
