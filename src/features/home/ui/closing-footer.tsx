@@ -14,12 +14,12 @@ export function ClosingFooter() {
     <>
       <section
         aria-labelledby="contact-heading"
-        className="bg-[#123f29] py-10 text-white"
+        className="bg-[#0c3b50] py-10 text-white"
         id="contact"
       >
         <div className="section-shell grid items-center gap-7 lg:grid-cols-[1fr_auto_auto]">
           <div>
-            <p className="text-sm font-semibold text-[#b9dabf]">
+            <p className="text-sm font-semibold text-[#b6dcea]">
               Your building is already consuming energy.
             </p>
             <h2
@@ -32,7 +32,7 @@ export function ClosingFooter() {
 
           <div className="grid gap-3 sm:grid-cols-3">
             <a
-              className="contact-primary inline-flex min-h-11 items-center justify-center rounded-md border border-white bg-white px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-[#e4efe5]"
+              className="contact-primary inline-flex min-h-11 items-center justify-center rounded-md border border-white bg-white px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-[#e1f4fa]"
               href="#contact"
             >
               Get a Savings Analysis

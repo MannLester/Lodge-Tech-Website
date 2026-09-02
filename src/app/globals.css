@@ -20,14 +20,14 @@
   --background: #ffffff;
   --foreground: #101914;
   --surface: #ffffff;
-  --surface-muted: #f3f6f2;
-  --muted: #536159;
-  --border: #dce3dd;
-  --brand: #397847;
-  --brand-fill: #397847;
-  --brand-strong: #245d34;
-  --brand-soft: #e4efe5;
-  --shadow-color: rgb(16 25 20 / 0.12);
+  --surface-muted: #f3f8fa;
+  --muted: #53636b;
+  --border: #dce7eb;
+  --brand: #008ec5;
+  --brand-fill: #008ec5;
+  --brand-strong: #007fa9;
+  --brand-soft: #eef8fb;
+  --shadow-color: rgb(11 19 36 / 0.12);
 }
 
 :root[data-theme="dark"] {
@@ -35,13 +35,13 @@
   --background: #0b0c10;
   --foreground: #f4f7f4;
   --surface: #15181b;
-  --surface-muted: #1d2220;
-  --muted: #abb5ad;
-  --border: #303833;
-  --brand: #79b683;
-  --brand-fill: #397847;
-  --brand-strong: #9dcea4;
-  --brand-soft: #1c3823;
+  --surface-muted: #17242a;
+  --muted: #aabac1;
+  --border: #30434b;
+  --brand: #42b8e8;
+  --brand-fill: #008ec5;
+  --brand-strong: #8bd8f5;
+  --brand-soft: #123544;
   --shadow-color: rgb(0 0 0 / 0.36);
 }
 
@@ -129,11 +129,11 @@ button {
 }
 
 .contact-primary {
-  color: #123f29;
+  color: #075a7b;
 }
 
 .contact-secondary:hover {
-  color: #123f29;
+  color: #075a7b;
 }
 
 @media (min-width: 48rem) {
