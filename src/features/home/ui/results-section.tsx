@@ -1,8 +1,13 @@
 import { ArrowRight } from "lucide-react";
 
+import hospitalityImage from "../../../../assets/hospitality.png";
+import multifamilyImage from "../../../../assets/multifamily.png";
+import seniorLivingImage from "../../../../assets/senior_living.png";
 import { caseStudies } from "@/features/home/model/home-content";
-import { MediaPlaceholder } from "@/shared/ui/media-placeholder";
+import { MediaImage } from "@/shared/ui/media-image";
 import { SectionHeading } from "@/shared/ui/section-heading";
+
+const caseStudyImages = [hospitalityImage, multifamilyImage, seniorLivingImage];
 
 export function ResultsSection() {
   return (
@@ -20,14 +25,16 @@ export function ResultsSection() {
         />
 
         <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:overflow-visible">
-          {caseStudies.map((study) => (
+          {caseStudies.map((study, index) => (
             <article
               className="border-border bg-surface overflow-hidden rounded-lg border"
               key={study.sector}
             >
-              <MediaPlaceholder
+              <MediaImage
+                alt={`${study.sector} case study property image`}
                 className="aspect-[16/9] min-h-44 rounded-none border-x-0 border-t-0"
-                label={`${study.sector} case study property image`}
+                sizes="(max-width: 767px) 82vw, 33vw"
+                src={caseStudyImages[index]}
               />
               <div className="p-5">
                 <p className="eyebrow">{study.sector}</p>

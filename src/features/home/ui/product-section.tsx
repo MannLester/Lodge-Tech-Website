@@ -1,9 +1,12 @@
-import { Droplets, Fan, Lightbulb, Thermometer } from "lucide-react";
-
+import auxiliaryImage from "../../../../assets/auxiliary.png";
+import exhaustImage from "../../../../assets/exhaust.png";
+import hvacImage from "../../../../assets/hvac.png";
+import lightingImage from "../../../../assets/lighting.png";
 import { products } from "@/features/home/model/home-content";
+import { MediaImage } from "@/shared/ui/media-image";
 import { SectionHeading } from "@/shared/ui/section-heading";
 
-const productIcons = [Thermometer, Lightbulb, Fan, Droplets] as const;
+const productImages = [hvacImage, lightingImage, exhaustImage, auxiliaryImage];
 
 export function ProductSection() {
   return (
@@ -21,25 +24,19 @@ export function ProductSection() {
 
         <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
           {products.map((product, index) => {
-            const Icon = productIcons[index];
+            const image = productImages[index];
 
             return (
               <article
                 className="border-border bg-surface overflow-hidden rounded-lg border"
                 key={product.title}
               >
-                <div
-                  aria-label={`${product.mediaLabel} placeholder`}
-                  className="border-border bg-background grid aspect-[4/3] place-items-center border-b"
-                  role="img"
-                >
-                  <div className="text-muted grid justify-items-center gap-3 px-4 text-center">
-                    <Icon aria-hidden className="text-brand" size={52} />
-                    <span className="text-xs font-semibold uppercase">
-                      Product image placeholder
-                    </span>
-                  </div>
-                </div>
+                <MediaImage
+                  alt={product.mediaLabel}
+                  className="aspect-[4/3] rounded-none border-x-0 border-t-0"
+                  sizes="(max-width: 767px) 82vw, (max-width: 1023px) 45vw, 25vw"
+                  src={image}
+                />
                 <div className="p-5">
                   <h3 className="text-foreground text-lg font-semibold">
                     {product.title}

@@ -1,7 +1,8 @@
 import { Check } from "lucide-react";
 
+import platformImage from "../../../../assets/platform.png";
 import { ButtonLink } from "@/shared/ui/button-link";
-import { MediaPlaceholder } from "@/shared/ui/media-placeholder";
+import { MediaImage } from "@/shared/ui/media-image";
 
 const platformCapabilities = [
   "Real-time portfolio visibility",
@@ -19,9 +20,12 @@ export function PlatformSection() {
     >
       <div className="section-shell grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="order-2 lg:order-1 lg:col-span-7">
-          <MediaPlaceholder
+          <MediaImage
+            alt="Cloud dashboard and connected device imagery"
             className="shadow-soft aspect-[16/10]"
-            label="Cloud dashboard and connected device imagery"
+            imageClassName="object-cover object-left"
+            sizes="(max-width: 1023px) 100vw, 58vw"
+            src={platformImage}
           />
         </div>
 
