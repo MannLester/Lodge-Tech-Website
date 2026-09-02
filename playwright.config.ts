@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const port = 3100;
+const port = 3000;
 
 export default defineConfig({
   testDir: "./test/e2e",
@@ -15,8 +15,44 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "desktop-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { height: 900, width: 1440 },
+      },
+    },
+    {
+      name: "tablet-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        hasTouch: true,
+        viewport: { height: 1024, width: 768 },
+      },
+    },
+    {
+      name: "compact-desktop-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { height: 768, width: 1024 },
+      },
+    },
+    {
+      name: "mobile-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        hasTouch: true,
+        isMobile: true,
+        viewport: { height: 844, width: 390 },
+      },
+    },
+    {
+      name: "narrow-mobile-chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+        hasTouch: true,
+        isMobile: true,
+        viewport: { height: 800, width: 360 },
+      },
     },
   ],
   webServer: {

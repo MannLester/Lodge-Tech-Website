@@ -14,6 +14,13 @@ When the supplied references differ, use this order:
 
 Do not invent claims, case-study details, contact information, or client assets when the references do not provide an approved value.
 
+## Approved visual direction
+
+- The green-accented composition in `reference_image.jpg` is the primary visual target for the public landing page.
+- The approved blueprint continues to define required sections, content hierarchy, conversion goals, and Day/Night theme behavior.
+- Low-resolution or non-photographic placeholders are acceptable during implementation when final logo, product, platform, property, or industry assets are unavailable.
+- Placeholder media must reserve stable responsive dimensions so final assets can be substituted without restructuring the page.
+
 ## Approved public experience
 
 - Responsive landing page for desktop, tablet, and mobile.
@@ -50,9 +57,8 @@ This is not a full CRM. Sales pipelines, automation, assignments, bulk messaging
 
 The proposal calls this an initial baseline. Any provider or architecture change that materially affects scope, schedule, migration work, or cost requires approval before implementation.
 
-## Decisions required before public UI implementation
+## Decisions required before production launch
 
-- Resolve whether production styling is strictly monochromatic as specified by the blueprint or uses the green brand accents shown in the reference image.
 - Standardize the primary CTA as either "Get a Savings Analysis" or "Get a Free Savings Analysis."
 - Approve every public statistic and case-study claim before publication.
 - Supply the final logo, approved product photography, industry photography, and platform imagery.
