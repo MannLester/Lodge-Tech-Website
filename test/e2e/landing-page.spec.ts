@@ -147,9 +147,17 @@ test("persists the selected color theme", async ({ page }) => {
   });
   await page.goto("/");
 
+  const nightLayer = page.locator('[data-hero-layer="night"]');
+  await expect(nightLayer).toHaveCSS("opacity", "0");
+
   await page.getByRole("button", { name: "Switch to night mode" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(nightLayer).toHaveCSS("opacity", "1");
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator('[data-hero-layer="night"]')).toHaveCSS(
+    "opacity",
+    "1",
+  );
 });
