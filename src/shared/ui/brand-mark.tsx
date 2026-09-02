@@ -9,13 +9,13 @@ export function BrandMark() {
     >
       <ChartNoAxesColumnIncreasing
         aria-hidden
-        className="text-brand"
+        className="text-[#1386b8]"
         size={30}
         strokeWidth={2.4}
       />
       <span className="text-foreground leading-none font-bold">
         <span className="block text-base sm:text-lg">LODGING</span>
-        <span className="text-brand block text-[0.58rem] uppercase sm:text-[0.66rem]">
+        <span className="block text-[0.58rem] text-[#1386b8] uppercase sm:text-[0.66rem]">
           Technologies
         </span>
       </span>

@@ -6,20 +6,19 @@ import { useState } from "react";
 import { navigationItems } from "@/features/home/model/home-content";
 import { BrandMark } from "@/shared/ui/brand-mark";
 import { ButtonLink } from "@/shared/ui/button-link";
-import { ThemeToggle } from "@/shared/ui/theme-toggle";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="border-border bg-background sticky top-0 z-50 border-b">
-      <div className="section-shell flex min-h-20 items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 border-b border-[#e7edf1] bg-white">
+      <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <BrandMark />
 
         <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
           {navigationItems.map((item) => (
             <a
-              className="text-muted hover:text-brand-strong text-sm font-semibold transition-colors"
+              className="text-[0.875rem] font-normal text-[#343b40] transition-colors hover:text-[#1386b8]"
               href={item.href}
               key={item.href}
             >
@@ -28,18 +27,21 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <ThemeToggle />
-          <ButtonLink href="#contact">Get a Savings Analysis</ButtonLink>
+        <div className="hidden items-center lg:flex">
+          <ButtonLink
+            className="!min-h-10 !rounded-md !border-[#1386b8] !bg-[#1386b8] !px-5 !py-2 !text-[0.8125rem] !text-white hover:!border-[#0d709c] hover:!bg-[#0d709c]"
+            href="#contact"
+          >
+            Get a Savings Analysis
+          </ButtonLink>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
           <button
             aria-controls="mobile-navigation"
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-            className="border-border bg-surface hover:bg-surface-muted grid size-10 cursor-pointer place-items-center border transition-colors"
+            className="grid size-10 cursor-pointer place-items-center rounded-md border border-[#dce5ea] bg-white text-[#17232b] transition-colors hover:bg-[#f1f7fa]"
             onClick={() => setMenuOpen((open) => !open)}
             title={menuOpen ? "Close navigation" : "Open navigation"}
             type="button"
@@ -56,13 +58,13 @@ export function SiteHeader() {
       {menuOpen ? (
         <nav
           aria-label="Mobile navigation"
-          className="border-border bg-background border-t px-4 py-5 lg:hidden"
+          className="border-t border-[#e7edf1] bg-white px-4 py-5 lg:hidden"
           id="mobile-navigation"
         >
           <div className="mx-auto grid max-w-md gap-1">
             {navigationItems.map((item) => (
               <a
-                className="border-border border-b px-2 py-3 text-base font-semibold"
+                className="border-b border-[#e7edf1] px-2 py-3 text-base font-normal text-[#343b40]"
                 href={item.href}
                 key={item.href}
                 onClick={() => setMenuOpen(false)}
@@ -70,7 +72,10 @@ export function SiteHeader() {
                 {item.label}
               </a>
             ))}
-            <ButtonLink className="mt-4 w-full" href="#contact">
+            <ButtonLink
+              className="mt-4 w-full !border-[#1386b8] !bg-[#1386b8] !text-white hover:!border-[#0d709c] hover:!bg-[#0d709c]"
+              href="#contact"
+            >
               Get a Savings Analysis
             </ButtonLink>
           </div>
