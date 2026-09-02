@@ -1,5 +1,6 @@
 import { HeroSection } from "@/features/home/ui/hero-section";
 import { SiteHeader } from "@/features/home/ui/site-header";
+import { ValueSection } from "@/features/home/ui/value-section";
 
 export default function HomePage() {
   return (
@@ -7,6 +8,7 @@ export default function HomePage() {
       <SiteHeader />
       <main>
         <HeroSection />
+        <ValueSection />
       </main>
     </div>
   );
