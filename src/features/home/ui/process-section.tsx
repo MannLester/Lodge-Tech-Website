@@ -1,3 +1,5 @@
+import { ButtonLink } from "@/shared/ui/button-link";
+
 import { turnkeySteps } from "@/features/home/model/home-content";
 import { SectionHeading } from "@/shared/ui/section-heading";
 
@@ -36,6 +38,12 @@ export function ProcessSection() {
             </li>
           ))}
         </ol>
+
+        <div className="mt-8 flex justify-center">
+          <ButtonLink className="!text-white" href="#contact" showArrow>
+            Our Process
+          </ButtonLink>
+        </div>
       </div>
     </section>
   );
