@@ -4,7 +4,9 @@ import {
   Building2,
   CalendarDays,
 } from "lucide-react";
+import Image from "next/image";
 
+import heroHouseImage from "../../../../assets/day_house.png";
 import { proofStats } from "@/features/home/model/home-content";
 import { ButtonLink } from "@/shared/ui/button-link";
 
@@ -14,67 +16,85 @@ export function HeroSection() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="border-border bg-background border-b"
+      className="relative isolate overflow-hidden border-b border-[#dbe8ef] bg-[#f7fbfd]"
       id="technology"
     >
-      <div className="section-shell grid gap-10 py-12 sm:py-16 lg:min-h-[36rem] lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-14">
-        <div className="lg:col-span-5 lg:pr-4">
-          <p className="eyebrow">Proven experience. Intelligent solutions.</p>
+      <div className="absolute inset-0 z-0">
+        <Image
+          alt=""
+          className="object-cover object-[58%_center]"
+          fill
+          placeholder="blur"
+          preload
+          quality={95}
+          sizes="100vw"
+          src={heroHouseImage}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_28%,rgba(255,255,255,0.58)_43%,rgba(255,255,255,0.12)_62%,rgba(255,255,255,0)_78%)] lg:bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_25%,rgba(255,255,255,0.5)_40%,rgba(255,255,255,0.08)_57%,rgba(255,255,255,0)_72%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(247,251,253,0.34)_0%,rgba(247,251,253,0)_34%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.86)_0%,rgba(255,255,255,0.62)_72%,rgba(255,255,255,0)_100%)] lg:hidden" />
+      </div>
+
+      <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[38rem] lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-16">
+        <div className="max-w-2xl lg:col-span-6 lg:pr-4">
+          <p className="flex items-center gap-3 text-xs leading-tight font-bold tracking-[0.18em] text-[#007fa9] uppercase">
+            <span className="h-0.5 w-6 bg-[#007fa9]" aria-hidden />
+            Proven experience. Intelligent solutions.
+          </p>
           <h1
-            className="text-foreground mt-4 text-5xl leading-[1.04] font-semibold sm:text-6xl lg:text-7xl"
+            className="mt-6 text-5xl leading-[1.04] font-semibold text-[#0b1324] sm:text-6xl"
             id="hero-heading"
           >
-            Energy wasted is money lost.{" "}
-            <span className="text-brand-strong mt-2 block">
-              We make buildings use less.
+            Energy wasted
+            <br />
+            is money lost.{" "}
+            <span className="mt-2 block text-[#008ec5]">
+              We make buildings
+              <br />
+              use less.
             </span>
           </h1>
-          <p className="text-muted mt-6 max-w-xl text-base leading-7 sm:text-lg">
+          <p className="mt-7 max-w-xl text-base leading-7 text-[#273647] sm:text-lg">
             Intelligent energy management that reduces HVAC runtime, lowers
             demand, and delivers real savings without compromising comfort.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonLink href="#contact">Get a Savings Analysis</ButtonLink>
-            <ButtonLink href="#platform" variant="outline">
+            <ButtonLink
+              className="!border-[#008ec5] !bg-[#008ec5] px-6 !text-white hover:!border-[#007fa9] hover:!bg-[#007fa9]"
+              href="#contact"
+            >
+              Get a Free Savings Analysis
+            </ButtonLink>
+            <ButtonLink
+              className="!border-[#172033] !bg-transparent px-6 !text-[#172033] hover:!border-[#008ec5] hover:!text-[#008ec5]"
+              href="#platform"
+              variant="outline"
+            >
               Request a Demo
             </ButtonLink>
-            <ButtonLink href="#contact" showArrow variant="text">
-              Talk to an Expert
-            </ButtonLink>
           </div>
         </div>
 
-        <div className="relative lg:col-span-4 lg:self-stretch">
-          <div
-            aria-label="Modern energy-efficient property image placeholder"
-            className="border-border bg-surface-muted grid aspect-[4/5] min-h-80 place-items-center overflow-hidden rounded-lg border lg:absolute lg:inset-0"
-            role="img"
-          >
-            <div className="text-muted grid justify-items-center gap-4 px-8 text-center">
-              <Building2 aria-hidden className="text-brand" size={76} />
-              <span className="max-w-48 text-xs font-semibold uppercase">
-                Property hero image placeholder
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 lg:col-span-3 lg:grid-cols-1">
+        <div className="rounded-lg border border-white/55 bg-white/58 p-5 shadow-[0_24px_70px_rgb(11_19_36_/_0.18)] backdrop-blur-md sm:p-6 lg:col-span-4 lg:col-start-9 lg:justify-self-end">
           {proofStats.map((stat, index) => {
             const Icon = statIcons[index];
 
             return (
               <article
-                className="border-border bg-surface shadow-card min-h-36 rounded-lg border p-4 sm:p-5 lg:min-h-0"
+                className="grid grid-cols-[3rem_1fr] items-center gap-x-4 py-4 first:pt-0 last:pb-0"
                 key={stat.label}
               >
-                <Icon aria-hidden className="text-brand" size={24} />
-                <p className="text-foreground mt-3 text-2xl leading-none font-semibold">
-                  {stat.value}
-                </p>
-                <p className="text-muted mt-2 text-xs leading-5 sm:text-sm">
-                  {stat.label}
-                </p>
+                <span className="grid size-10 place-items-center rounded-md bg-[#eef8fb] text-[#008ec5] shadow-[0_1px_0_rgb(255_255_255_/_0.8)]">
+                  <Icon aria-hidden size={22} />
+                </span>
+                <span>
+                  <span className="block text-2xl leading-none font-semibold text-[#0b1324] sm:text-3xl">
+                    {stat.value}
+                  </span>
+                  <span className="mt-1 block max-w-60 text-sm leading-5 text-[#37475a]">
+                    {stat.label}
+                  </span>
+                </span>
               </article>
             );
           })}
