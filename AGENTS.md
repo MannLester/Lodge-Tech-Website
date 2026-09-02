@@ -14,7 +14,9 @@ These instructions apply only to this project folder.
 - Name branches according to the work, using a clear prefix such as `feature/`, `fix/`, `docs/`, `test/`, `refactor/`, or `chore/`.
 - Break work into the maximum practical number of independently understandable commits. Do not split an indivisible change merely to increase the commit count.
 - Follow the workspace's modular commit-and-push rules when commits or a push are requested.
-- Do not commit, push, merge, or open a pull request unless the user explicitly selects and approves that action.
+- Approval to execute a selected task also authorizes its commits, merge, and push after successful verification unless the user explicitly says otherwise.
+- After approved work is complete and verified, merge the task branch into `main` and push both `main` and the task branch to `origin` without requiring another reminder.
+- Do not open a pull request unless the user explicitly requests one.
 
 ## Required workflow
 
