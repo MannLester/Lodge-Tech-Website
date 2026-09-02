@@ -1,4 +1,4 @@
-import { Globe2, Leaf } from "lucide-react";
+import { Globe2 } from "lucide-react";
 
 import { navigationItems } from "@/features/home/model/home-content";
 import { BrandMark } from "@/shared/ui/brand-mark";
@@ -14,41 +14,40 @@ export function ClosingFooter() {
     <>
       <section
         aria-labelledby="contact-heading"
-        className="bg-[#063d24] py-5 text-white sm:py-6"
+        className="min-h-[25rem] bg-[radial-gradient(circle_at_50%_35%,#164c68_0%,#0d344b_42%,#061b2a_100%)] py-20 text-white sm:py-24 lg:py-28"
         id="contact"
       >
-        <div className="section-shell grid items-center gap-5 lg:grid-cols-[1fr_auto_auto]">
-          <div className="flex min-w-0 items-center gap-4">
-            <div
-              aria-hidden
-              className="hidden size-12 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/5 text-[#5cae57] sm:flex"
-            >
-              <Leaf size={28} strokeWidth={1.7} />
-            </div>
+        <div className="section-shell flex flex-col items-center justify-center text-center">
+          <div className="mx-auto max-w-3xl">
             <h2
-              className="max-w-3xl text-xl leading-tight font-bold text-white sm:text-2xl lg:text-3xl"
+              className="text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl"
               id="contact-heading"
             >
               Your building is already consuming energy. Let&apos;s make it
               consume less.
             </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 font-medium text-white/55 sm:text-base">
+              Request a data-backed savings projection. See your building&apos;s
+              exact runtime reduction opportunity and utility incentive
+              alignment - at no cost.
+            </p>
           </div>
 
-          <div className="grid w-full max-w-[33rem] gap-3 sm:grid-cols-3 lg:w-[29rem] xl:w-[33rem]">
+          <div className="mt-8 grid w-full max-w-2xl gap-3 sm:grid-cols-3">
             <a
-              className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#2f8a39] bg-[#2f8a39] px-4 py-2 text-xs font-semibold text-white transition-colors hover:border-[#3fa64c] hover:bg-[#3fa64c]"
+              className="contact-primary inline-flex min-h-10 items-center justify-center rounded-md border border-white bg-white px-4 py-2 text-xs font-semibold whitespace-nowrap transition-colors hover:bg-[#e1f4fa]"
               href="#contact"
             >
-              Get a Savings Analysis
+              Get a Free Savings Analysis
             </a>
             <a
-              className="inline-flex min-h-10 items-center justify-center rounded-md border border-white/70 bg-transparent px-4 py-2 text-xs font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+              className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#0096d7] bg-[#0096d7] px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-[#26b7ef]"
               href="#contact"
             >
               Request a Demo
             </a>
             <a
-              className="inline-flex min-h-10 items-center justify-center rounded-md border border-white/70 bg-transparent px-4 py-2 text-xs font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+              className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#0086bd]/70 bg-transparent px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-white/10"
               href="#contact"
             >
               Talk to an Expert
@@ -57,12 +56,13 @@ export function ClosingFooter() {
 
           <div
             aria-label="40 plus years of energy intelligence"
-            className="inline-flex w-fit items-center gap-3 justify-self-start text-white lg:justify-self-end"
+            className="mt-10 inline-flex items-center gap-3 rounded-lg bg-white px-5 py-3 text-[#0b1216] shadow-[0_18px_55px_rgba(0,0,0,0.24)]"
           >
-            <p className="flex size-12 items-center justify-center rounded-full border border-white/55 text-center text-lg leading-none font-bold">
-              40+
+            <p className="text-center leading-none font-bold">
+              <span className="block text-2xl">40+</span>
+              <span className="text-[0.62rem]">YEARS</span>
             </p>
-            <p className="max-w-28 text-left text-xs leading-4 font-bold tracking-wide text-white uppercase">
+            <p className="max-w-24 text-left text-xs leading-4 font-semibold text-[#27343b]">
               of Energy Intelligence
             </p>
           </div>
@@ -70,10 +70,10 @@ export function ClosingFooter() {
       </section>
 
       <footer
-        className="border-border bg-background border-t py-5"
+        className="border-border bg-background border-t py-8"
         id="company"
       >
-        <div className="section-shell grid items-center gap-5 lg:grid-cols-[auto_1fr_auto]">
+        <div className="section-shell grid items-center gap-7 lg:grid-cols-[auto_1fr_auto]">
           <BrandMark />
 
           <nav
@@ -96,7 +96,7 @@ export function ClosingFooter() {
             <span>Proudly serving North America, including the Caribbean.</span>
           </div>
         </div>
-        <div className="section-shell text-muted mt-4 text-xs lg:text-center">
+        <div className="section-shell border-border text-muted mt-7 border-t pt-5 text-xs">
           &copy; 2026 Lodging Technologies. All rights reserved.
         </div>
       </footer>
