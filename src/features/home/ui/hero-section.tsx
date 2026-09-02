@@ -35,7 +35,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.86)_0%,rgba(255,255,255,0.62)_72%,rgba(255,255,255,0)_100%)] lg:hidden" />
       </div>
 
-      <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[38rem] lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-16">
+      <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[calc(100dvh-4.25rem)] lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-16">
         <div className="max-w-2xl lg:col-span-6 lg:pr-4">
           <p className="flex items-center gap-3 text-xs leading-tight font-bold tracking-[0.18em] text-[#007fa9] uppercase">
             <span className="h-0.5 w-6 bg-[#007fa9]" aria-hidden />
