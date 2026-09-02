@@ -1,11 +1,4 @@
-import {
-  ArrowRight,
-  BriefcaseBusiness,
-  Building2,
-  GraduationCap,
-  HeartPulse,
-  Hotel,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import dayNightImage from "../../../../assets/day_night.png";
 import hospitalityImage from "../../../../assets/hospitality.png";
@@ -15,14 +8,6 @@ import studentHousingImage from "../../../../assets/student_housing.png";
 import { industries } from "@/features/home/model/home-content";
 import { MediaImage } from "@/shared/ui/media-image";
 import { SectionHeading } from "@/shared/ui/section-heading";
-
-const industryIcons = [
-  Hotel,
-  Building2,
-  HeartPulse,
-  GraduationCap,
-  BriefcaseBusiness,
-] as const;
 
 const industryImages = [
   hospitalityImage,
@@ -50,23 +35,20 @@ export function IndustriesSection() {
 
         <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-5">
           {industries.map((industry, index) => {
-            const Icon = industryIcons[index];
             const image = industryImages[index];
 
             return (
-              <article className="min-w-0" key={industry.title}>
-                <div className="relative">
-                  <MediaImage
-                    alt={industry.mediaLabel}
-                    className="aspect-[4/3] min-h-44 lg:min-h-0"
-                    sizes="(max-width: 767px) 82vw, (max-width: 1023px) 45vw, 20vw"
-                    src={image}
-                  />
-                  <span className="border-background bg-brand-fill shadow-card absolute -bottom-5 left-4 grid size-11 place-items-center rounded-lg border text-white">
-                    <Icon aria-hidden size={22} />
-                  </span>
-                </div>
-                <div className="pt-9">
+              <article
+                className="border-border bg-surface flex min-w-0 flex-col overflow-hidden rounded-lg border"
+                key={industry.title}
+              >
+                <MediaImage
+                  alt={industry.mediaLabel}
+                  className="aspect-[4/3] min-h-44 rounded-none border-x-0 border-t-0 lg:min-h-0"
+                  sizes="(max-width: 767px) 82vw, (max-width: 1023px) 45vw, 20vw"
+                  src={image}
+                />
+                <div className="flex flex-1 flex-col p-5">
                   <h3 className="text-foreground text-lg font-semibold">
                     {industry.title}
                   </h3>
@@ -74,7 +56,7 @@ export function IndustriesSection() {
                     {industry.description}
                   </p>
                   <a
-                    className="text-brand-strong mt-4 inline-flex items-center gap-2 text-sm font-semibold"
+                    className="text-brand-strong hover:text-brand mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold transition-colors"
                     href="#contact"
                   >
                     Learn More
