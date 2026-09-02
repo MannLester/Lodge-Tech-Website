@@ -54,7 +54,7 @@ export function HeroSection() {
               use less.
             </span>
           </h1>
-          <p className="mt-7 max-w-xl text-sm leading-6 text-[#273647] sm:text-base sm:leading-7">
+          <p className="mt-7 max-w-[22rem] text-sm leading-6 text-[#273647] sm:max-w-[34rem] sm:text-base sm:leading-7">
             Intelligent energy management that reduces HVAC runtime, lowers
             demand, and delivers real savings without compromising comfort.
           </p>
