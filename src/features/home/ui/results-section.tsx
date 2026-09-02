@@ -37,8 +37,10 @@ export function ResultsSection() {
                 src={caseStudyImages[index]}
               />
               <div className="flex flex-1 flex-col p-5">
-                <p className="eyebrow">{study.sector}</p>
-                <p className="text-muted mt-2 text-sm">{study.location}</p>
+                <p className="eyebrow">
+                  {study.sector} <span aria-hidden>·</span> {study.location}
+                </p>
+                <p className="text-muted mt-2 text-sm">{study.property}</p>
                 <div className="mt-6">
                   <p className="text-foreground text-4xl leading-none font-semibold">
                     {study.reduction}
@@ -48,21 +50,21 @@ export function ResultsSection() {
                   </p>
                 </div>
                 <dl className="mt-6 grid grid-cols-2 gap-4">
-                  <div>
-                    <dt className="text-muted text-[0.68rem] font-semibold uppercase">
-                      Utility Incentive
-                    </dt>
-                    <dd className="text-foreground mt-1 text-base font-semibold">
+                  <div className="flex flex-col">
+                    <dd className="text-foreground order-1 text-base font-semibold">
                       {study.utilityIncentive}
                     </dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted text-[0.68rem] font-semibold uppercase">
-                      Payback
+                    <dt className="text-muted order-2 mt-1 text-[0.68rem] font-semibold uppercase">
+                      Utility Incentive
                     </dt>
-                    <dd className="text-foreground mt-1 text-base font-semibold">
+                  </div>
+                  <div className="flex flex-col">
+                    <dd className="text-foreground order-1 text-base font-semibold">
                       {study.payback}
                     </dd>
+                    <dt className="text-muted order-2 mt-1 text-[0.68rem] font-semibold uppercase">
+                      Payback
+                    </dt>
                   </div>
                 </dl>
                 <a
