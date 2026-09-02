@@ -128,6 +128,14 @@ button {
   scroll-snap-align: start;
 }
 
+.contact-primary {
+  color: #123f29;
+}
+
+.contact-secondary:hover {
+  color: #123f29;
+}
+
 @media (min-width: 48rem) {
   .section-shell {
     width: min(100% - 3rem, 75rem);

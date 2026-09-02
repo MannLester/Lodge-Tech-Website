@@ -32,19 +32,19 @@ export function ClosingFooter() {
 
           <div className="grid gap-3 sm:grid-cols-3">
             <a
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-white bg-white px-5 py-2.5 text-sm font-semibold text-[#123f29] transition-colors hover:bg-[#e4efe5]"
+              className="contact-primary inline-flex min-h-11 items-center justify-center rounded-md border border-white bg-white px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-[#e4efe5]"
               href="#contact"
             >
               Get a Savings Analysis
             </a>
             <a
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-white/70 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white hover:text-[#123f29]"
+              className="contact-secondary inline-flex min-h-11 items-center justify-center rounded-md border border-white/70 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white"
               href="#contact"
             >
               Request a Demo
             </a>
             <a
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-white/70 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white hover:text-[#123f29]"
+              className="contact-secondary inline-flex min-h-11 items-center justify-center rounded-md border border-white/70 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white"
               href="#contact"
             >
               Talk to an Expert
