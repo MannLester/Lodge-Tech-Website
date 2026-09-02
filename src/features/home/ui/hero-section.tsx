@@ -36,13 +36,13 @@ export function HeroSection() {
       </div>
 
       <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[calc(100dvh-4.25rem)] lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-16">
-        <div className="max-w-2xl lg:col-span-6 lg:pr-4">
-          <p className="flex items-center gap-3 text-xs leading-tight font-bold tracking-[0.18em] text-[#007fa9] uppercase">
+        <div className="max-w-2xl lg:col-span-6 lg:-translate-x-10 lg:pr-4 xl:-translate-x-14">
+          <p className="flex items-center gap-3 text-[0.6875rem] leading-tight font-bold tracking-[0.18em] text-[#007fa9] uppercase">
             <span className="h-0.5 w-6 bg-[#007fa9]" aria-hidden />
             Proven experience. Intelligent solutions.
           </p>
           <h1
-            className="mt-6 text-5xl leading-[1.04] font-semibold text-[#0b1324] sm:text-6xl"
+            className="mt-6 text-4xl leading-[1.04] font-semibold text-[#0b1324] sm:text-5xl"
             id="hero-heading"
           >
             Energy wasted
@@ -54,7 +54,7 @@ export function HeroSection() {
               use less.
             </span>
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-7 text-[#273647] sm:text-lg">
+          <p className="mt-7 max-w-xl text-sm leading-6 text-[#273647] sm:text-base sm:leading-7">
             Intelligent energy management that reduces HVAC runtime, lowers
             demand, and delivers real savings without compromising comfort.
           </p>
