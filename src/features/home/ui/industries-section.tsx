@@ -43,7 +43,7 @@ export function IndustriesSection() {
               <article className="min-w-0" key={industry.title}>
                 <div className="relative">
                   <MediaPlaceholder
-                    className="aspect-[4/3] min-h-44"
+                    className="aspect-[4/3] min-h-44 lg:min-h-0"
                     label={industry.mediaLabel}
                   />
                   <span className="border-background bg-brand-fill shadow-card absolute -bottom-5 left-4 grid size-11 place-items-center rounded-lg border text-white">
