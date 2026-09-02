@@ -153,6 +153,14 @@ test("persists the selected color theme", async ({ page }) => {
   await page.getByRole("button", { name: "Switch to night mode" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(nightLayer).toHaveCSS("opacity", "1");
+  await expect(page.getByRole("banner")).not.toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
+  await expect(page.locator("footer#company")).not.toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
 
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
