@@ -100,7 +100,7 @@ export function ClosingFooter() {
       </section>
 
       <footer
-        className="border-border border-t bg-[#f7fafb] py-10"
+        className="border-border bg-surface-muted border-t py-10"
         id="company"
       >
         <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">

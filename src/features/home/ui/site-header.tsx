@@ -11,14 +11,14 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#e7edf1] bg-white">
+    <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
       <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <BrandMark />
 
         <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
           {navigationItems.map((item) => (
             <a
-              className="text-[0.875rem] font-normal text-[#343b40] transition-colors hover:text-[#1386b8]"
+              className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
               href={item.href}
               key={item.href}
             >
@@ -41,7 +41,7 @@ export function SiteHeader() {
             aria-controls="mobile-navigation"
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-            className="grid size-10 cursor-pointer place-items-center rounded-md border border-[#dce5ea] bg-white text-[#17232b] transition-colors hover:bg-[#f1f7fa]"
+            className="border-border bg-surface text-foreground hover:bg-surface-muted grid size-10 cursor-pointer place-items-center rounded-md border transition-colors"
             onClick={() => setMenuOpen((open) => !open)}
             title={menuOpen ? "Close navigation" : "Open navigation"}
             type="button"
@@ -58,13 +58,13 @@ export function SiteHeader() {
       {menuOpen ? (
         <nav
           aria-label="Mobile navigation"
-          className="border-t border-[#e7edf1] bg-white px-4 py-5 lg:hidden"
+          className="border-border bg-surface border-t px-4 py-5 transition-colors lg:hidden"
           id="mobile-navigation"
         >
           <div className="mx-auto grid max-w-md gap-1">
             {navigationItems.map((item) => (
               <a
-                className="border-b border-[#e7edf1] px-2 py-3 text-base font-normal text-[#343b40]"
+                className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
                 href={item.href}
                 key={item.href}
                 onClick={() => setMenuOpen(false)}
