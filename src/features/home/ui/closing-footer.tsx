@@ -14,7 +14,7 @@ export function ClosingFooter() {
     <>
       <section
         aria-labelledby="contact-heading"
-        className="min-h-[25rem] bg-[#071015] py-20 text-white sm:py-24 lg:py-28"
+        className="min-h-[25rem] bg-[radial-gradient(circle_at_50%_35%,#164c68_0%,#0d344b_42%,#061b2a_100%)] py-20 text-white sm:py-24 lg:py-28"
         id="contact"
       >
         <div className="section-shell flex flex-col items-center justify-center text-center">
@@ -35,19 +35,19 @@ export function ClosingFooter() {
 
           <div className="mt-8 grid w-full max-w-2xl gap-3 sm:grid-cols-3">
             <a
-              className="contact-primary inline-flex min-h-12 items-center justify-center rounded-md border border-white bg-white px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#e1f4fa]"
+              className="contact-primary inline-flex min-h-10 items-center justify-center rounded-md border border-white bg-white px-4 py-2 text-xs font-semibold whitespace-nowrap transition-colors hover:bg-[#e1f4fa]"
               href="#contact"
             >
               Get a Free Savings Analysis
             </a>
             <a
-              className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#0096d7] bg-[#0096d7] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-[#26b7ef]"
+              className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#0096d7] bg-[#0096d7] px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-[#26b7ef]"
               href="#contact"
             >
               Request a Demo
             </a>
             <a
-              className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#0086bd]/70 bg-transparent px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-white/10"
+              className="inline-flex min-h-10 items-center justify-center rounded-md border border-[#0086bd]/70 bg-transparent px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-white/10"
               href="#contact"
             >
               Talk to an Expert
