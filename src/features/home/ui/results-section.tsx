@@ -16,7 +16,7 @@ export function ResultsSection() {
       className="section-band bg-background"
       id="results"
     >
-      <div className="section-shell">
+      <div className="section-shell grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,2fr)] lg:items-start lg:gap-14">
         <SectionHeading
           description="Independent measurement and verification connects equipment performance to measurable operating outcomes."
           eyebrow="Proven results"
@@ -24,10 +24,10 @@ export function ResultsSection() {
           title="Real projects. Measurable savings."
         />
 
-        <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:overflow-visible">
+        <div className="snap-row md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:overflow-visible">
           {caseStudies.map((study, index) => (
             <article
-              className="border-border bg-surface overflow-hidden rounded-lg border"
+              className="border-border bg-surface flex min-w-0 flex-col overflow-hidden rounded-lg border"
               key={study.sector}
             >
               <MediaImage
@@ -36,21 +36,21 @@ export function ResultsSection() {
                 sizes="(max-width: 767px) 82vw, 33vw"
                 src={caseStudyImages[index]}
               />
-              <div className="p-5">
+              <div className="flex flex-1 flex-col p-5">
                 <p className="eyebrow">{study.sector}</p>
                 <p className="text-muted mt-2 text-sm">{study.location}</p>
-                <dl className="border-border mt-5 grid grid-cols-3 gap-3 border-y py-4">
+                <div className="mt-6">
+                  <p className="text-foreground text-4xl leading-none font-semibold">
+                    {study.reduction}
+                  </p>
+                  <p className="text-muted mt-2 text-xs">
+                    HVAC Runtime Reduction
+                  </p>
+                </div>
+                <dl className="mt-6 grid grid-cols-2 gap-4">
                   <div>
                     <dt className="text-muted text-[0.68rem] font-semibold uppercase">
-                      Runtime
-                    </dt>
-                    <dd className="text-foreground mt-1 text-xl font-semibold">
-                      {study.reduction}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted text-[0.68rem] font-semibold uppercase">
-                      Incentive
+                      Utility Incentive
                     </dt>
                     <dd className="text-foreground mt-1 text-base font-semibold">
                       {study.utilityIncentive}
@@ -66,7 +66,7 @@ export function ResultsSection() {
                   </div>
                 </dl>
                 <a
-                  className="text-brand-strong hover:text-brand mt-5 inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+                  className="text-brand-strong hover:text-brand mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold transition-colors"
                   href="#contact"
                 >
                   View Case Study
@@ -77,7 +77,7 @@ export function ResultsSection() {
           ))}
         </div>
 
-        <p className="text-muted mt-5 text-xs leading-5">
+        <p className="text-muted text-xs leading-5 lg:col-span-2">
           Reference-design figures are provisional and require client
           verification before production launch.
         </p>
