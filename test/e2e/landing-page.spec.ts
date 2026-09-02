@@ -58,13 +58,27 @@ test("presents the closing conversion section from the design reference", async 
   const sectionStyles = await contactSection.evaluate((section) => {
     const styles = window.getComputedStyle(section);
     return {
-      backgroundColor: styles.backgroundColor,
+      backgroundImage: styles.backgroundImage,
       height: section.getBoundingClientRect().height,
     };
   });
+  const primaryCta = contactSection.getByRole("link", {
+    name: "Get a Free Savings Analysis",
+  });
+  const primaryCtaLineHeight = await primaryCta.evaluate((link) => {
+    const styles = window.getComputedStyle(link);
+    return {
+      height: link.getBoundingClientRect().height,
+      lineHeight: Number.parseFloat(styles.lineHeight),
+    };
+  });
 
-  expect(sectionStyles.backgroundColor).toBe("rgb(7, 16, 21)");
+  expect(sectionStyles.backgroundImage).toContain("radial-gradient");
+  expect(sectionStyles.backgroundImage).toContain("rgb(22, 76, 104)");
   expect(sectionStyles.height).toBeGreaterThanOrEqual(400);
+  expect(primaryCtaLineHeight.height).toBeLessThan(
+    primaryCtaLineHeight.lineHeight * 3,
+  );
 });
 
 test("provides navigation appropriate to the viewport", async ({ page }) => {
