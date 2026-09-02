@@ -79,6 +79,14 @@ a {
   text-decoration: none;
 }
 
+.text-brand {
+  color: var(--brand);
+}
+
+.text-brand-strong {
+  color: var(--brand-strong);
+}
+
 button {
   color: inherit;
 }
