@@ -103,6 +103,7 @@ export const caseStudies = [
   {
     location: "Miami, FL",
     payback: "1.8 yrs",
+    property: "The Plaza Resort · 420 Keys",
     reduction: "42%",
     sector: "Hotel",
     utilityIncentive: "$182,000",
@@ -110,6 +111,7 @@ export const caseStudies = [
   {
     location: "Toronto, ON",
     payback: "1.9 yrs",
+    property: "Coleridge Towers · 280 Units",
     reduction: "38%",
     sector: "Multifamily",
     utilityIncentive: "$215,000",
@@ -117,6 +119,7 @@ export const caseStudies = [
   {
     location: "Chicago, IL",
     payback: "2.1 yrs",
+    property: "Assisted Living Facility",
     reduction: "35%",
     sector: "Senior Living",
     utilityIncentive: "$156,000",
