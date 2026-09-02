@@ -14,7 +14,9 @@ These instructions apply only to this project folder.
 - Name branches according to the work, using a clear prefix such as `feature/`, `fix/`, `docs/`, `test/`, `refactor/`, or `chore/`.
 - Break work into the maximum practical number of independently understandable commits. Do not split an indivisible change merely to increase the commit count.
 - Follow the workspace's modular commit-and-push rules when commits or a push are requested.
-- Do not commit, push, merge, or open a pull request unless the user explicitly selects and approves that action.
+- Approval to execute a selected task also authorizes its commits, merge, and push after successful verification unless the user explicitly says otherwise.
+- After approved work is complete and verified, merge the task branch into `main` and push both `main` and the task branch to `origin` without requiring another reminder.
+- Do not open a pull request unless the user explicitly requests one.
 
 ## Required workflow
 
@@ -30,3 +32,13 @@ For every new body of work, follow these gates in order:
 Do not combine the selection, explanation, approval, and execution gates. Do not begin implementation merely because a task was selected; explicit approval after the explanation is required.
 
 If new information materially changes the approved scope during execution, stop, explain the change, and obtain fresh approval before continuing.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

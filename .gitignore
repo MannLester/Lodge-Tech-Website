@@ -6,6 +6,7 @@ node_modules/
 out/
 
 # Test output
+.cache/
 coverage/
 playwright-report/
 test-results/
