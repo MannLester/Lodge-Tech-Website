@@ -23,37 +23,34 @@ export function ProductSection() {
   return (
     <section
       aria-labelledby="products-heading"
-      className="section-band bg-surface-muted"
+      className="section-band bg-background"
     >
       <div className="section-shell">
         <SectionHeading
-          description="One connected platform coordinates the systems that shape comfort, demand, and operating cost."
+          description="One platform. Many ways to save."
           eyebrow="More than HVAC"
           id="products-heading"
-          title="Intelligent energy management for the whole building."
+          title="Intelligent energy management for more than HVAC."
         />
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
-          <div className="snap-row md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:col-span-7">
+        <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:items-start lg:gap-16">
+          <div className="snap-row md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
             {products.map((product, index) => {
               const image = productImages[index];
 
               return (
-                <article
-                  className="border-border bg-surface overflow-hidden rounded-lg border"
-                  key={product.title}
-                >
+                <article className="min-w-0 text-center" key={product.title}>
                   <MediaImage
                     alt={product.mediaLabel}
-                    className="aspect-[4/3] rounded-none border-x-0 border-t-0"
-                    sizes="(max-width: 767px) 82vw, (max-width: 1023px) 45vw, 30vw"
+                    className="aspect-square rounded-md"
+                    sizes="(max-width: 767px) 54vw, (max-width: 1023px) 36vw, 11vw"
                     src={image}
                   />
-                  <div className="p-5">
-                    <h3 className="text-foreground text-lg font-semibold">
+                  <div className="mx-auto mt-4 max-w-36">
+                    <h3 className="text-foreground text-sm leading-tight font-semibold">
                       {product.title}
                     </h3>
-                    <p className="text-muted mt-2 text-sm leading-6">
+                    <p className="text-muted mt-2 text-xs leading-5">
                       {product.description}
                     </p>
                   </div>
@@ -64,30 +61,30 @@ export function ProductSection() {
 
           <aside
             aria-labelledby="platform-heading"
-            className="border-border bg-surface shadow-soft overflow-hidden rounded-lg border lg:col-span-5"
+            className="lg:-mt-30"
             id="platform"
           >
             <MediaImage
               alt="Cloud dashboard and connected device imagery"
-              className="aspect-[16/10] rounded-none border-x-0 border-t-0"
-              imageClassName="object-cover object-left"
-              sizes="(max-width: 1023px) 100vw, 42vw"
+              className="mx-auto aspect-[16/10] max-w-[32rem] border-0 bg-transparent"
+              imageClassName="object-contain object-center"
+              sizes="(max-width: 1023px) 92vw, 39vw"
               src={platformImage}
             />
-            <div className="p-6">
+            <div className="mt-7 max-w-[33rem]">
               <p className="eyebrow">The platform</p>
               <h3
-                className="text-foreground mt-3 text-2xl leading-tight font-semibold"
+                className="text-foreground mt-3 text-2xl leading-tight font-semibold sm:text-3xl"
                 id="platform-heading"
               >
                 Building intelligence in the cloud.
               </h3>
-              <p className="text-muted mt-4 text-sm leading-6">
+              <p className="text-muted mt-4 text-sm leading-6 sm:text-base sm:leading-7">
                 Monitor, analyze, and optimize properties from one connected
                 view. The platform surfaces the information teams need to act
                 quickly and operate intelligently.
               </p>
-              <ul className="mt-5 grid gap-3">
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:hidden">
                 {platformCapabilities.map((capability) => (
                   <li
                     className="flex items-center gap-3 text-sm"
@@ -101,7 +98,7 @@ export function ProductSection() {
                 ))}
               </ul>
               <ButtonLink
-                className="mt-6"
+                className="!text-brand-strong hover:!text-brand mt-6 !min-h-0 !justify-start !px-0 !py-0"
                 href="#contact"
                 showArrow
                 variant="text"
