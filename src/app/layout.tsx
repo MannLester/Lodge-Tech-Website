@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
+import { siteConfig } from "@/shared/config/site";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Lodging Technologies",
-  description: "Intelligent energy management for smarter buildings.",
+  title: siteConfig.name,
+  description: siteConfig.description,
 };
 
 type RootLayoutProps = Readonly<{
