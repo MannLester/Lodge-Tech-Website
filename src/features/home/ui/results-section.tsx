@@ -17,12 +17,21 @@ export function ResultsSection() {
       id="results"
     >
       <div className="section-shell grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,2fr)] lg:items-start lg:gap-14">
-        <SectionHeading
-          description="Independent measurement and verification connects equipment performance to measurable operating outcomes."
-          eyebrow="Proven results"
-          id="results-heading"
-          title="Real projects. Measurable savings."
-        />
+        <div>
+          <SectionHeading
+            description="Independent measurement and verification connects equipment performance to measurable operating outcomes."
+            eyebrow="Proven results"
+            id="results-heading"
+            title="Real projects. Measurable savings."
+          />
+          <a
+            className="text-brand-strong hover:text-brand mt-6 inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+            href="#contact"
+          >
+            View All Case Studies
+            <ArrowRight aria-hidden size={15} />
+          </a>
+        </div>
 
         <div className="snap-row md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:overflow-visible">
           {caseStudies.map((study, index) => (
@@ -49,20 +58,20 @@ export function ResultsSection() {
                     HVAC Runtime Reduction
                   </p>
                 </div>
-                <dl className="mt-6 grid grid-cols-2 gap-4">
-                  <div className="flex flex-col">
-                    <dd className="text-foreground order-1 text-base font-semibold">
+                <dl className="mt-6 grid gap-5">
+                  <div>
+                    <dd className="text-foreground text-base font-semibold">
                       {study.utilityIncentive}
                     </dd>
-                    <dt className="text-muted order-2 mt-1 text-[0.68rem] font-semibold uppercase">
+                    <dt className="text-muted mt-1 text-[0.68rem] uppercase">
                       Utility Incentive
                     </dt>
                   </div>
-                  <div className="flex flex-col">
-                    <dd className="text-foreground order-1 text-base font-semibold">
+                  <div>
+                    <dd className="text-foreground text-base font-semibold">
                       {study.payback}
                     </dd>
-                    <dt className="text-muted order-2 mt-1 text-[0.68rem] font-semibold uppercase">
+                    <dt className="text-muted mt-1 text-[0.68rem] uppercase">
                       Payback
                     </dt>
                   </div>
