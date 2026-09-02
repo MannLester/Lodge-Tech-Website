@@ -15,7 +15,7 @@ describe("HeroSection", () => {
     expect(screen.getByText("40+")).toBeInTheDocument();
     expect(screen.getByText("100,000+")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Get a Savings Analysis" }),
+      screen.getByRole("link", { name: "Get a Free Savings Analysis" }),
     ).toHaveAttribute("href", "#contact");
   });
 });
