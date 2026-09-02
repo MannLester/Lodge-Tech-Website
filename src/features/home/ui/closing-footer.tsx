@@ -1,4 +1,4 @@
-import { Globe2, ShieldCheck } from "lucide-react";
+import { Globe2 } from "lucide-react";
 
 import { navigationItems } from "@/features/home/model/home-content";
 import { BrandMark } from "@/shared/ui/brand-mark";
@@ -14,48 +14,56 @@ export function ClosingFooter() {
     <>
       <section
         aria-labelledby="contact-heading"
-        className="bg-[#0c3b50] py-10 text-white"
+        className="min-h-[25rem] bg-[#071015] py-20 text-white sm:py-24 lg:py-28"
         id="contact"
       >
-        <div className="section-shell grid items-center gap-7 lg:grid-cols-[1fr_auto_auto]">
-          <div>
-            <p className="text-sm font-semibold text-[#b6dcea]">
-              Your building is already consuming energy.
-            </p>
+        <div className="section-shell flex flex-col items-center justify-center text-center">
+          <div className="mx-auto max-w-3xl">
             <h2
-              className="mt-2 text-2xl leading-tight font-semibold sm:text-3xl"
+              className="text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl"
               id="contact-heading"
             >
-              Let&apos;s make it consume less.
+              Your building is already consuming energy. Let&apos;s make it
+              consume less.
             </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 font-medium text-white/55 sm:text-base">
+              Request a data-backed savings projection. See your building&apos;s
+              exact runtime reduction opportunity and utility incentive
+              alignment - at no cost.
+            </p>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="mt-8 grid w-full max-w-2xl gap-3 sm:grid-cols-3">
             <a
-              className="contact-primary inline-flex min-h-11 items-center justify-center rounded-md border border-white bg-white px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-[#e1f4fa]"
+              className="contact-primary inline-flex min-h-12 items-center justify-center rounded-md border border-white bg-white px-5 py-3 text-sm font-semibold transition-colors hover:bg-[#e1f4fa]"
               href="#contact"
             >
-              Get a Savings Analysis
+              Get a Free Savings Analysis
             </a>
             <a
-              className="contact-secondary inline-flex min-h-11 items-center justify-center rounded-md border border-white/70 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white"
+              className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#0096d7] bg-[#0096d7] px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-[#26b7ef]"
               href="#contact"
             >
               Request a Demo
             </a>
             <a
-              className="contact-secondary inline-flex min-h-11 items-center justify-center rounded-md border border-white/70 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white"
+              className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#0086bd]/70 bg-transparent px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-[#26b7ef] hover:bg-white/10"
               href="#contact"
             >
               Talk to an Expert
             </a>
           </div>
 
-          <div className="flex items-center gap-3 lg:border-l lg:border-white/30 lg:pl-6">
-            <ShieldCheck aria-hidden size={38} />
-            <p className="text-xs leading-5 font-semibold uppercase">
-              <span className="block text-lg">40+ years</span>
-              of energy intelligence
+          <div
+            aria-label="40 plus years of energy intelligence"
+            className="mt-10 inline-flex items-center gap-3 rounded-lg bg-white px-5 py-3 text-[#0b1216] shadow-[0_18px_55px_rgba(0,0,0,0.24)]"
+          >
+            <p className="text-center leading-none font-bold">
+              <span className="block text-2xl">40+</span>
+              <span className="text-[0.62rem]">YEARS</span>
+            </p>
+            <p className="max-w-24 text-left text-xs leading-4 font-semibold text-[#27343b]">
+              of Energy Intelligence
             </p>
           </div>
         </div>

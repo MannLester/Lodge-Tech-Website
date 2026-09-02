@@ -22,6 +22,51 @@ test("renders the complete landing page without document overflow", async ({
   expect(hasDocumentOverflow).toBe(false);
 });
 
+test("presents the closing conversion section from the design reference", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const contactSection = page.locator("#contact");
+  await expect(
+    contactSection.getByRole("heading", {
+      name: "Your building is already consuming energy. Let's make it consume less.",
+    }),
+  ).toBeVisible();
+  await expect(
+    contactSection.getByText(
+      "Request a data-backed savings projection. See your building's exact runtime reduction opportunity and utility incentive alignment - at no cost.",
+    ),
+  ).toBeVisible();
+
+  await expect(
+    contactSection.getByRole("link", { name: "Get a Free Savings Analysis" }),
+  ).toBeVisible();
+  await expect(
+    contactSection.getByRole("link", { name: "Request a Demo" }),
+  ).toBeVisible();
+  await expect(
+    contactSection.getByRole("link", { name: "Talk to an Expert" }),
+  ).toBeVisible();
+  const experienceBadge = contactSection.getByLabel(
+    "40 plus years of energy intelligence",
+  );
+  await expect(experienceBadge).toContainText("40+");
+  await expect(experienceBadge).toContainText("YEARS");
+  await expect(experienceBadge).toContainText("of Energy Intelligence");
+
+  const sectionStyles = await contactSection.evaluate((section) => {
+    const styles = window.getComputedStyle(section);
+    return {
+      backgroundColor: styles.backgroundColor,
+      height: section.getBoundingClientRect().height,
+    };
+  });
+
+  expect(sectionStyles.backgroundColor).toBe("rgb(7, 16, 21)");
+  expect(sectionStyles.height).toBeGreaterThanOrEqual(400);
+});
+
 test("provides navigation appropriate to the viewport", async ({ page }) => {
   await page.goto("/");
 
