@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "//#build:app": {
+      "dependsOn": ["//#typecheck:app"],
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+    },
+    "//#lint:app": {
+      "outputs": []
+    },
+    "//#typecheck:app": {
+      "outputs": ["tsconfig.tsbuildinfo"]
+    },
+    "//#format:check:app": {
+      "outputs": []
+    },
+    "//#test:unit": {
+      "outputs": []
+    },
+    "//#test:e2e:app": {
+      "dependsOn": ["//#build:app"],
+      "outputs": ["playwright-report/**", "test-results/**"]
+    }
+  }
+}
