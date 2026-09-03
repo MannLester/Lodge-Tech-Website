@@ -1,6 +1,13 @@
 // @vitest-environment node
 
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockedFunction,
+} from "vitest";
 
 vi.mock("server-only", () => ({}));
 
@@ -35,10 +42,10 @@ function request(
 
 describe("POST /api/inquiries", () => {
   let repository: InquiryRepository;
-  let create: ReturnType<typeof vi.fn>;
+  let create: MockedFunction<InquiryRepository["create"]>;
 
   beforeEach(() => {
-    create = vi.fn().mockResolvedValue(undefined);
+    create = vi.fn<InquiryRepository["create"]>().mockResolvedValue(undefined);
     repository = { create };
   });
 
