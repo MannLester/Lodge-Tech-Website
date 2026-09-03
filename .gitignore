@@ -7,7 +7,9 @@ out/
 
 # Test output
 .cache/
+.turbo/
 coverage/
+dist/
 playwright-report/
 test-results/
 
@@ -34,11 +36,3 @@ npm-debug.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
-
-# Local handoff/reference material
-AGENTS.md
-docs/project-context.md
-bugs/
-resources/
-reference_image.jpg
-*.pdf

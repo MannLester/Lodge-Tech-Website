@@ -6,30 +6,20 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "packageManager": "npm@10.9.7",
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "pnpm --filter @lodging-technologies/web dev",
+    "build": "turbo run build",
     "db:test": "supabase test db",
-    "start": "next start",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
+    "start": "pnpm --filter @lodging-technologies/web start",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm run format:check && npm run test"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.114.0",
-    "jose": "^6.2.10",
-    "lucide-react": "1.39.0",
-    "next": "16.3.4",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "server-only": "0.0.1",
-    "zod": "4.5.4"
+    "format:check": "turbo run format:check",
+    "test": "turbo run test",
+    "test:watch": "pnpm --filter @lodging-technologies/web test:watch",
+    "test:e2e": "turbo run test:e2e",
+    "check": "turbo run lint typecheck format:check test"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",
@@ -48,6 +38,7 @@
     "prettier-plugin-tailwindcss": "0.8.1",
     "supabase": "^2.116.0",
     "tailwindcss": "4.3.3",
+    "turbo": "2.10.12",
     "typescript": "6.0.3",
     "vitest": "4.1.11"
   }
