@@ -1,0 +1,32 @@
+{
+  "name": "@lodging-technologies/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./brand-mark": "./src/brand-mark.tsx",
+    "./button": "./src/button.tsx",
+    "./button-link": "./src/button-link.tsx",
+    "./media-image": "./src/media-image.tsx",
+    "./media-placeholder": "./src/media-placeholder.tsx",
+    "./section-heading": "./src/section-heading.tsx",
+    "./theme-script": "./src/theme-script.tsx",
+    "./theme-toggle": "./src/theme-toggle.tsx"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "pnpm -C ../.. exec eslint packages/ui",
+    "typecheck": "tsc -b --pretty false",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4"
+  },
+  "peerDependencies": {
+    "lucide-react": "1.39.0",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  }
+}
