@@ -27,10 +27,10 @@ export function IndustriesSection() {
       <div className="section-shell">
         <SectionHeading
           align="center"
-          description="Flexible energy-management strategies built around how each property is actually occupied and operated."
-          eyebrow="Built for every industry"
+          description="Flexible energy-management strategies for properties with repeatable rooms, variable occupancy, and meaningful controllable loads."
+          eyebrow="Industries"
           id="industries-heading"
-          title="One platform, many property types."
+          title="Built for lodging and residential-scale portfolios."
         />
 
         <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-5">

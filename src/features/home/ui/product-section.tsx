@@ -14,9 +14,9 @@ const productImages = [hvacImage, lightingImage, exhaustImage, auxiliaryImage];
 
 const platformCapabilities = [
   "Real-time portfolio visibility",
-  "Advanced analytics and alarms",
-  "Diagnostics and benchmarking",
-  "Predictive operating insights",
+  "GEM Link Wireless connectivity",
+  "Equipment diagnostics and alarms",
+  "Performance benchmarking",
 ] as const;
 
 export function ProductSection() {
@@ -27,10 +27,10 @@ export function ProductSection() {
     >
       <div className="section-shell">
         <SectionHeading
-          description="One platform. Many ways to save."
-          eyebrow="More than HVAC"
+          description="GEM Link Wireless and GEM Stat ET connect occupancy intelligence with equipment control across the loads that drive operating expense."
+          eyebrow="Products"
           id="products-heading"
-          title="Intelligent energy management for more than HVAC."
+          title="Controls for HVAC, lighting, appliances, and auxiliary loads."
         />
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:items-start lg:gap-16">
@@ -77,12 +77,13 @@ export function ProductSection() {
                 className="text-foreground mt-3 text-2xl leading-tight font-semibold sm:text-3xl"
                 id="platform-heading"
               >
-                Building intelligence in the cloud.
+                Cloud visibility for connected building intelligence.
               </h3>
               <p className="text-muted mt-4 text-sm leading-6 sm:text-base sm:leading-7">
                 Monitor, analyze, and optimize properties from one connected
-                view. The platform surfaces the information teams need to act
-                quickly and operate intelligently.
+                view. Portfolio teams can see operating patterns, verify system
+                health, and make practical adjustments without walking every
+                room.
               </p>
               <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:hidden">
                 {platformCapabilities.map((capability) => (
@@ -103,7 +104,7 @@ export function ProductSection() {
                 showArrow
                 variant="text"
               >
-                Explore the Platform
+                Request Platform Demo
               </ButtonLink>
             </div>
           </aside>

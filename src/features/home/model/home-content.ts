@@ -27,81 +27,86 @@ export const proofTickerItems = [
 export const valuePropositions = [
   {
     description:
-      "Cut HVAC runtime by up to 45%, depending on baseline conditions.",
-    title: "Reduce Energy",
+      "Reduce HVAC, lighting, and appliance waste with controls that respond to occupancy and operating patterns.",
+    title: "Reduce Energy Expense",
   },
   {
-    description: "Reduce both total energy use and costly peak demand.",
+    description:
+      "Coordinate equipment behavior to lower total consumption and costly peak demand.",
     title: "Lower Demand",
   },
   {
-    description: "Identify, manage, and secure available utility incentives.",
+    description:
+      "Identify, manage, and secure available utility incentives where programs support the project.",
     title: "Utility Incentives",
   },
   {
     description:
-      "Combine financing and incentives to improve monthly cash flow.",
+      "Structure projects around practical payback, incentives, and operating savings.",
     title: "Positive Cash Flow",
   },
   {
-    description: "Move from analysis to installation and ongoing maintenance.",
+    description:
+      "Move from analysis to installation, optimization, and ongoing support with one accountable team.",
     title: "Turnkey Solutions",
   },
 ] as const;
 
 export const products = [
   {
-    description: "Adjust room conditions around real occupancy and demand.",
-    mediaLabel: "Occupancy HVAC product image",
-    title: "Occupancy HVAC",
+    description:
+      "Wireless occupancy-based HVAC control for guest rooms, units, and managed spaces.",
+    mediaLabel: "GEM Stat ET product image",
+    title: "GEM Stat ET",
   },
   {
-    description: "Coordinate efficient lighting without compromising comfort.",
+    description:
+      "Networked control that links thermostats, lighting, appliances, and portfolio visibility.",
+    mediaLabel: "GEM Link Wireless product image",
+    title: "GEM Link Wireless",
+  },
+  {
+    description:
+      "Lighting strategies that reduce waste while preserving expected comfort and safety.",
     mediaLabel: "Lighting control product image",
     title: "Lighting Controls",
   },
   {
     description:
-      "Reduce unnecessary ventilation runtime while protecting air quality.",
-    mediaLabel: "Exhaust fan control product image",
-    title: "Exhaust Fans",
-  },
-  {
-    description:
-      "Schedule domestic hot water and other high-load equipment intelligently.",
-    mediaLabel: "DHW and load control product image",
-    title: "DHW & Load Control",
+      "Appliance and auxiliary load coordination for equipment that should not run unmanaged.",
+    mediaLabel: "Appliance control product image",
+    title: "Appliance Controls",
   },
 ] as const;
 
 export const industries = [
   {
     description:
-      "Reduce energy use around the clock without compromising guest comfort.",
+      "Reduce energy expense across guest rooms, common areas, and variable occupancy patterns.",
     mediaLabel: "Hospitality property photography",
     title: "Hospitality",
   },
   {
     description:
-      "Apply intelligent control across apartments, shared spaces, and amenities.",
+      "Apply intelligent control across apartments, shared spaces, amenities, and portfolio operations.",
     mediaLabel: "Multifamily property photography",
     title: "Multifamily",
   },
   {
     description:
-      "Maintain comfort and control across resident rooms and common areas.",
+      "Maintain comfort and predictable control across resident rooms and common areas.",
     mediaLabel: "Senior living photography",
     title: "Senior & Assisted Living",
   },
   {
     description:
-      "Manage thousands of spaces across varied schedules and occupancy patterns.",
+      "Manage high-volume rooms and shared spaces across varied academic schedules.",
     mediaLabel: "Student housing photography",
     title: "Student Housing",
   },
   {
     description:
-      "Stop conditioning empty spaces and optimize around real building use.",
+      "Control HVAC, lighting, and appliance loads around real building use.",
     mediaLabel: "Commercial office photography",
     title: "Commercial & Office",
   },
@@ -136,27 +141,32 @@ export const caseStudies = [
 
 export const turnkeySteps = [
   {
-    description: "Assess your building and identify savings opportunities.",
+    description:
+      "Assess building systems, utility data, and controllable load opportunities.",
     title: "Analyze",
   },
   {
-    description: "Design a solution tailored to your property.",
+    description:
+      "Engineer a property-specific GEM Link Wireless and GEM Stat ET plan.",
     title: "Engineer",
   },
   {
-    description: "Identify and secure available utility incentives.",
+    description:
+      "Map eligible measures to available utility incentive programs.",
     title: "Incentivize",
   },
   {
-    description: "Deploy the system with minimal disruption.",
+    description:
+      "Deploy controls with minimal disruption to residents, guests, and staff.",
     title: "Install",
   },
   {
-    description: "Fine-tune performance using real-time data.",
+    description:
+      "Tune schedules, thresholds, and operating rules from field data.",
     title: "Optimize",
   },
   {
-    description: "Monitor and support the system for lasting savings.",
+    description: "Monitor performance and support teams after installation.",
     title: "Maintain",
   },
 ] as const;

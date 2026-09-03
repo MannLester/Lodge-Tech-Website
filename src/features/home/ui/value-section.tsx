@@ -27,10 +27,10 @@ export function ValueSection() {
       <div className="section-shell">
         <SectionHeading
           align="center"
-          description="We combine proven technology, utility incentives, and turnkey execution to deliver positive cash flow from month one."
+          description="Lodging Technologies aligns controls, incentives, and turnkey execution around measurable building operating expense."
           eyebrow="Energy follows occupancy"
           id="value-heading"
-          title="Smarter control. Real results."
+          title="Reduce waste where buildings actually spend energy."
         />
 
         <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-5">

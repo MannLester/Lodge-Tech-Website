@@ -12,10 +12,10 @@ export function ProcessSection() {
       <div className="section-shell">
         <SectionHeading
           align="center"
-          description="One accountable team carries the work from initial analysis through long-term performance."
+          description="One accountable team carries the work from data review through installation, optimization, and support."
           eyebrow="The turnkey process"
           id="process-heading"
-          title="We handle everything from start to finish."
+          title="A complete path from savings analysis to supported control."
         />
 
         <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
@@ -41,7 +41,7 @@ export function ProcessSection() {
 
         <div className="mt-8 flex justify-center">
           <ButtonLink className="!text-white" href="#contact" showArrow>
-            Our Process
+            Plan My Project
           </ButtonLink>
         </div>
       </div>
