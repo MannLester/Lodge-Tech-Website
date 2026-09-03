@@ -27,3 +27,9 @@ src/app -> src/features -> src/shared
 ```
 
 Keep provider-specific code behind the feature or shared module that owns the contract. Keep secrets and server-only imports out of client component dependency graphs.
+
+## Inquiry intake
+
+The home form and `POST /api/inquiries` share the Zod contract in `src/shared/inquiries`. The Route Handler delegates persistence to the inquiry repository, which is the only feature module that uses the server-only Supabase client. Browser code never connects to Supabase directly.
+
+Supabase migrations are versioned in `supabase/migrations`. The inquiries table has forced Row Level Security and grants no table access to `anon` or `authenticated`; the server-held service role performs intake inserts.
