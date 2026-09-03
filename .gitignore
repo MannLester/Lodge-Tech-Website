@@ -12,8 +12,7 @@ playwright-report/
 test-results/
 
 # Environment files
-.env
-.env.*
+.env*
 !.env.example
 
 # Deployment
