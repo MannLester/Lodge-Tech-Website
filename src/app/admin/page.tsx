@@ -3,7 +3,10 @@ import type { Metadata } from "next";
 import { readAdminSession } from "@/features/admin-auth/server/session";
 import { AdminDashboardPlaceholder } from "@/features/admin-auth/ui/admin-dashboard-placeholder";
 import { AdminSignIn } from "@/features/admin-auth/ui/admin-sign-in";
-import { loadAdminInquiries } from "@/features/inquiry/server/admin-inquiries";
+import {
+  loadAdminFollowUps,
+  loadAdminInquiries,
+} from "@/features/inquiry/server/admin-inquiries";
 
 type View = "dashboard" | "inquiries" | "follow-ups" | "reports";
 
@@ -39,6 +42,7 @@ export default async function AdminPage({
   return (
     <AdminDashboardPlaceholder
       inquiryResult={await loadAdminInquiries()}
+      followUpResult={await loadAdminFollowUps()}
       session={session}
       view={view}
     />

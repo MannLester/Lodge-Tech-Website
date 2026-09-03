@@ -2,9 +2,20 @@ import { Inbox, LogOut, ShieldCheck } from "lucide-react";
 
 import type { AdminSession } from "@/features/admin-auth/model/admin-session-token";
 import { logoutAdmin } from "@/features/admin-auth/server/actions";
-import type { InquiryStatus } from "@/features/inquiry/data/inquiry-repository";
+import type {
+  Inquiry,
+  InquiryStatus,
+} from "@/features/inquiry/data/inquiry-repository";
+import { summarizeInquiries } from "@/features/inquiry/model/admin-report";
 import { updateInquiryStatus } from "@/features/inquiry/server/admin-actions";
-import type { AdminInquiryResult } from "@/features/inquiry/server/admin-inquiries";
+import {
+  completeFollowUp,
+  createFollowUp,
+} from "@/features/inquiry/server/follow-up-actions";
+import type {
+  AdminFollowUpResult,
+  AdminInquiryResult,
+} from "@/features/inquiry/server/admin-inquiries";
 import { BrandMark } from "@/shared/ui/brand-mark";
 
 type View = "dashboard" | "inquiries" | "follow-ups" | "reports";
@@ -12,6 +23,7 @@ type Props = Readonly<{
   session: AdminSession;
   view: View;
   inquiryResult: AdminInquiryResult;
+  followUpResult: AdminFollowUpResult;
 }>;
 const navItems: { label: string; view: View }[] = [
   { label: "Dashboard", view: "dashboard" },
@@ -25,6 +37,7 @@ export function AdminDashboardPlaceholder({
   session,
   view,
   inquiryResult,
+  followUpResult,
 }: Props) {
   const inquiries = inquiryResult.ok ? inquiryResult.inquiries : [];
   const expiresAt = new Intl.DateTimeFormat("en", {
@@ -113,16 +126,18 @@ export function AdminDashboardPlaceholder({
             </>
           )}
           {view === "inquiries" && <InquiryList result={inquiryResult} />}
-          {(view === "follow-ups" || view === "reports") && (
+          {view === "follow-ups" && (
             <section className="border-border bg-surface rounded-lg border p-6">
               <p className="eyebrow">Light CRM</p>
-              <h1 className="mt-2 text-2xl font-bold">
-                {view === "follow-ups" ? "Follow-ups" : "Reports"}
-              </h1>
-              <p className="text-muted mt-3 text-sm">
-                This workspace is ready for the next workflow slice.
-              </p>
+              <h1 className="mt-2 text-2xl font-bold">Follow-ups</h1>
+              <FollowUpWorkspace
+                inquiryResult={inquiryResult}
+                result={followUpResult}
+              />
             </section>
+          )}
+          {view === "reports" && (
+            <ReportsWorkspace inquiries={inquiries} result={inquiryResult} />
           )}
           <section className="border-border bg-surface rounded-lg border border-dashed p-6">
             <h2 className="text-lg font-bold">Session details</h2>
@@ -144,6 +159,187 @@ export function AdminDashboardPlaceholder({
         </div>
       </section>
     </main>
+  );
+}
+
+function FollowUpWorkspace({
+  inquiryResult,
+  result,
+}: {
+  inquiryResult: AdminInquiryResult;
+  result: AdminFollowUpResult;
+}) {
+  if (!result.ok)
+    return <p className="text-muted mt-3 text-sm">{result.message}</p>;
+  const inquiryNames = new Map(
+    inquiryResult.ok
+      ? inquiryResult.inquiries.map((inquiry) => [
+          inquiry.id,
+          `${inquiry.name} at ${inquiry.company}`,
+        ])
+      : [],
+  );
+  return (
+    <>
+      <form
+        action={createFollowUp}
+        className="border-border mt-6 grid gap-3 rounded-md border p-4 sm:grid-cols-2"
+      >
+        <label className="text-sm font-semibold">
+          Inquiry
+          <select
+            className="border-border bg-surface mt-1 w-full rounded-md border px-3 py-2"
+            name="inquiry_id"
+            required
+          >
+            <option value="">Select an inquiry</option>
+            {inquiryNames.size === 0
+              ? null
+              : [...inquiryNames].map(([id, name]) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
+          </select>
+        </label>
+        <label className="text-sm font-semibold">
+          Task
+          <input
+            className="border-border bg-surface mt-1 w-full rounded-md border px-3 py-2"
+            name="title"
+            placeholder="Call prospect"
+            required
+          />
+        </label>
+        <label className="text-sm font-semibold">
+          Due date
+          <input
+            className="border-border bg-surface mt-1 w-full rounded-md border px-3 py-2"
+            name="due_at"
+            type="date"
+          />
+        </label>
+        <label className="text-sm font-semibold">
+          Notes
+          <textarea
+            className="border-border bg-surface mt-1 w-full rounded-md border px-3 py-2"
+            name="notes"
+            rows={2}
+          />
+        </label>
+        <button
+          className="bg-brand rounded-md px-4 py-2 text-sm font-bold text-white sm:col-span-2 sm:w-fit"
+          type="submit"
+        >
+          Add follow-up
+        </button>
+      </form>
+      {result.followUps.length === 0 ? (
+        <p className="text-muted mt-6 text-sm">
+          No follow-ups yet. Add the next action for an inquiry above.
+        </p>
+      ) : (
+        <div className="mt-6 grid gap-3">
+          {result.followUps.map((followUp) => (
+            <article
+              className="border-border rounded-md border p-4"
+              key={followUp.id}
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <h2
+                    className={
+                      followUp.completed_at
+                        ? "text-muted font-bold line-through"
+                        : "font-bold"
+                    }
+                  >
+                    {followUp.title}
+                  </h2>
+                  <p className="text-muted mt-1 text-sm">
+                    {inquiryNames.get(followUp.inquiry_id) ?? "Unknown inquiry"}
+                    {followUp.due_at ? ` · Due ${followUp.due_at}` : ""}
+                  </p>
+                  {followUp.notes ? (
+                    <p className="mt-2 text-sm">{followUp.notes}</p>
+                  ) : null}
+                </div>
+                {followUp.completed_at ? (
+                  <span className="text-muted text-sm font-semibold">
+                    Completed
+                  </span>
+                ) : (
+                  <form action={completeFollowUp}>
+                    <input name="id" type="hidden" value={followUp.id} />
+                    <button
+                      className="text-brand-strong text-sm font-bold"
+                      type="submit"
+                    >
+                      Mark complete
+                    </button>
+                  </form>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+function ReportsWorkspace({
+  inquiries,
+  result,
+}: {
+  inquiries: Inquiry[];
+  result: AdminInquiryResult;
+}) {
+  if (!result.ok)
+    return (
+      <section className="border-border bg-surface rounded-lg border p-6">
+        <p className="eyebrow">CRM reporting</p>
+        <h1 className="mt-2 text-2xl font-bold">Reports</h1>
+        <p className="text-muted mt-3 text-sm">{result.message}</p>
+      </section>
+    );
+  const summary = summarizeInquiries(inquiries);
+  const propertyCounts = Object.entries(summary.byPropertyType);
+  return (
+    <section className="border-border bg-surface rounded-lg border p-6">
+      <p className="eyebrow">CRM reporting</p>
+      <h1 className="mt-2 text-2xl font-bold">Reports</h1>
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <Metric label="Total inquiries" value={summary.total} />
+        <Metric label="Open inquiries" value={summary.open} />
+        <Metric label="Closed inquiries" value={summary.closed} />
+      </div>
+      <h2 className="mt-8 text-lg font-bold">By property type</h2>
+      <div className="mt-3 grid gap-2">
+        {propertyCounts.length === 0 ? (
+          <p className="text-muted text-sm">No inquiry data yet.</p>
+        ) : (
+          propertyCounts.map(([type, count]) => (
+            <div
+              className="border-border flex justify-between rounded-md border px-3 py-2 text-sm"
+              key={type}
+            >
+              <span>{type}</span>
+              <strong>{count}</strong>
+            </div>
+          ))
+        )}
+      </div>
+    </section>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <article className="border-border rounded-md border p-4">
+      <p className="text-muted text-sm font-semibold">{label}</p>
+      <p className="mt-2 text-2xl font-bold">{value}</p>
+    </article>
   );
 }
 
