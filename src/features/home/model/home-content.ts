@@ -12,8 +12,16 @@ export const proofStats = [
     label: "Installations Across North America & the Caribbean",
     value: "100,000+",
   },
-  { label: "Reduction in HVAC Runtime", value: "Up to 45%" },
-  { label: "in Utility Incentives Secured for Our Clients", value: "Millions" },
+  {
+    label: "HVAC, Lighting, and Appliance Energy Expense Reduction",
+    value: "40%",
+  },
+  { label: "in Utility Incentives Secured for Clients", value: "Millions" },
+] as const;
+
+export const proofTickerItems = [
+  "Energy expense reduction strategies built for HVAC, lighting, and appliance loads.",
+  "GEM Link Wireless and GEM Stat ET connect occupancy intelligence with practical building control.",
 ] as const;
 
 export const valuePropositions = [

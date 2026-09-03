@@ -8,9 +8,11 @@ import Image from "next/image";
 
 import heroHouseImage from "../../../../assets/day_house.png";
 import heroHouseNightImage from "../../../../assets/day_night.png";
-import { proofStats } from "@/features/home/model/home-content";
+import {
+  proofStats,
+  proofTickerItems,
+} from "@/features/home/model/home-content";
 import { ButtonLink } from "@/shared/ui/button-link";
-import { ThemeToggle } from "@/shared/ui/theme-toggle";
 
 const statIcons = [CalendarDays, Building2, Activity, BadgeDollarSign] as const;
 
@@ -47,39 +49,31 @@ export function HeroSection() {
         <div className="hero-mobile-gradient absolute inset-0 lg:hidden" />
       </div>
 
-      <div className="section-shell pointer-events-none absolute inset-x-0 top-4 z-20 flex justify-end sm:top-5">
-        <div className="hero-theme-toggle pointer-events-auto">
-          <ThemeToggle />
-        </div>
-      </div>
-
       <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[calc(100dvh-4.25rem)] lg:grid-cols-12 lg:items-center lg:gap-6 lg:py-16">
         <div className="max-w-2xl lg:col-span-6 lg:-translate-x-10 lg:pr-4 xl:-translate-x-14">
           <p className="hero-eyebrow flex items-center gap-3 text-[0.6875rem] leading-tight font-bold tracking-[0.18em] uppercase">
             <span className="hero-eyebrow-line h-0.5 w-6" aria-hidden />
-            Proven experience. Intelligent solutions.
+            Since 1980. Proven experience. Intelligent solutions.
           </p>
           <h1
+            aria-label="Reduce HVAC, Lighting, and Appliance Energy Expense 40% with GEM Link Wireless and GEM Stat ET."
             className="hero-heading mt-6 text-4xl leading-[1.04] font-semibold sm:text-5xl"
             id="hero-heading"
           >
-            Energy wasted <br />
-            is money lost.{" "}
-            <span className="hero-heading-accent mt-2 block">
-              We make buildings <br />
-              use less.
+            Reduce HVAC, Lighting, and Appliance Energy Expense{" "}
+            <span className="hero-heading-accent">40%</span>
+            <span className="mt-3 block text-2xl leading-tight sm:text-3xl">
+              with GEM Link Wireless and GEM Stat ET.
             </span>
           </h1>
           <p className="hero-copy mt-7 max-w-[22rem] text-sm leading-6 sm:max-w-[31rem] sm:text-base sm:leading-7">
-            Intelligent energy management that reduces HVAC runtime, lowers
-            demand, and delivers real savings without compromising comfort.
+            Intelligent energy management for lodging, multifamily, senior
+            living, student housing, and commercial properties, built to lower
+            expense without compromising comfort.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonLink
-              className="!border-[#008ec5] !bg-[#008ec5] px-6 !text-white hover:!border-[#007fa9] hover:!bg-[#007fa9]"
-              href="#contact"
-            >
-              Get a Free Savings Analysis
+            <ButtonLink className="px-6 !text-white" href="#contact">
+              Get a Savings Analysis
             </ButtonLink>
             <ButtonLink
               className="hero-secondary-cta !bg-transparent px-6"
@@ -114,6 +108,18 @@ export function HeroSection() {
               </article>
             );
           })}
+        </div>
+      </div>
+      <div className="border-border/70 bg-surface/85 relative z-10 border-t backdrop-blur-md">
+        <div
+          aria-label="Proof ticker"
+          className="section-shell grid gap-3 py-4 text-sm font-semibold sm:grid-cols-2"
+        >
+          {proofTickerItems.map((item) => (
+            <p className="text-muted" key={item}>
+              {item}
+            </p>
+          ))}
         </div>
       </div>
     </section>
