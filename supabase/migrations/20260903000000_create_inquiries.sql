@@ -7,8 +7,8 @@ create table public.inquiries (
   property_type text not null,
   message text not null,
   status text not null default 'New',
-  created_at timestamptz not null default timezone('utc', now()),
-  updated_at timestamptz not null default timezone('utc', now()),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
 
   constraint inquiries_name_length check (char_length(name) between 1 and 100),
   constraint inquiries_email_length check (char_length(email) between 3 and 254),
@@ -40,7 +40,7 @@ language plpgsql
 set search_path = ''
 as $$
 begin
-  new.updated_at = timezone('utc', now());
+  new.updated_at = now();
   return new;
 end;
 $$;
