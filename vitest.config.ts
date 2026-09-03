@@ -2,18 +2,21 @@ import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
+const repoRoot = fileURLToPath(new URL(".", import.meta.url));
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@": fileURLToPath(new URL("./apps/web/src", import.meta.url)),
     },
   },
+  root: repoRoot,
   test: {
     environment: "jsdom",
-    include: ["src/**/*.test.{ts,tsx}"],
+    include: ["apps/web/src/**/*.test.{ts,tsx}", "packages/**/*.test.{ts,tsx}"],
     maxWorkers: 1,
     pool: "threads",
-    setupFiles: ["./test/vitest.setup.ts"],
+    setupFiles: ["./apps/web/test/vitest.setup.ts"],
   },
 });

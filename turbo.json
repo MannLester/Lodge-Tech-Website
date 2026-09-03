@@ -1,25 +1,27 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "//#build:app": {
-      "dependsOn": ["//#typecheck:app"],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+    "build": {
+      "dependsOn": ["^build", "typecheck"],
+      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
-    "//#lint:app": {
+    "lint": {
       "outputs": []
     },
-    "//#typecheck:app": {
-      "outputs": ["tsconfig.tsbuildinfo"]
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": ["tsconfig.tsbuildinfo", "dist/tsconfig.tsbuildinfo"]
     },
-    "//#format:check:app": {
+    "format:check": {
       "outputs": []
     },
-    "//#test:unit": {
+    "test": {
+      "dependsOn": ["^build"],
       "outputs": []
     },
-    "//#test:e2e:app": {
-      "dependsOn": ["//#build:app"],
-      "outputs": ["playwright-report/**", "test-results/**"]
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "outputs": ["../../playwright-report/**", "../../test-results/**"]
     }
   }
 }

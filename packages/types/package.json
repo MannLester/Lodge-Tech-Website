@@ -1,0 +1,16 @@
+{
+  "name": "@lodging-technologies/types",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./database": "./src/database.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "pnpm -C ../.. exec eslint packages/types",
+    "typecheck": "tsc -b --pretty false",
+    "format:check": "prettier --check ."
+  }
+}

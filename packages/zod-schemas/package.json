@@ -1,0 +1,20 @@
+{
+  "name": "@lodging-technologies/zod-schemas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./inquiries": "./src/inquiries.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "lint": "pnpm -C ../.. exec eslint packages/zod-schemas",
+    "typecheck": "tsc -b --pretty false",
+    "format:check": "prettier --check .",
+    "test": "vitest run --config ../../vitest.config.ts packages/zod-schemas/src"
+  },
+  "dependencies": {
+    "zod": "4.5.4"
+  }
+}

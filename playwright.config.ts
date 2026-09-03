@@ -8,7 +8,7 @@ const port = 3000;
 process.env.SESSION_SECRET ??= "playwright-demo-admin-session-secret-000000";
 
 export default defineConfig({
-  testDir: "./test/e2e",
+  testDir: "./apps/web/test/e2e",
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
@@ -63,7 +63,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `pnpm run dev --hostname 127.0.0.1 --port ${port}`,
+    command: `pnpm --filter @lodging-technologies/web dev --hostname 127.0.0.1 --port ${port}`,
     reuseExistingServer: !process.env.CI,
     url: `http://127.0.0.1:${port}`,
   },
