@@ -181,6 +181,13 @@ test("persists the selected color theme", async ({ page }) => {
 });
 
 test("validates and completes the frontend inquiry form", async ({ page }) => {
+  await page.route("**/api/inquiries", async (route) => {
+    await route.fulfill({
+      body: JSON.stringify({ ok: true }),
+      contentType: "application/json",
+      status: 201,
+    });
+  });
   await page.goto("/");
 
   const form = page.getByRole("form", { name: "Savings analysis inquiry" });
@@ -197,15 +204,13 @@ test("validates and completes the frontend inquiry form", async ({ page }) => {
   await form.getByLabel("Name").fill("Morgan Lee");
   await form.getByLabel("Work email").fill("morgan@example.com");
   await form.getByLabel("Property or company").fill("Harbor Hotel");
-  await form.getByLabel("Property type").selectOption("Hospitality");
+  await form.getByLabel("Property type").selectOption("hospitality");
   await form
     .getByLabel("Project notes")
     .fill("We want to review HVAC and lighting savings.");
   await form.getByRole("button", { name: "Submit Inquiry" }).click();
 
   await expect(
-    form.getByText(
-      "Thanks. Your savings analysis request is ready for follow-up.",
-    ),
+    form.getByText("Thanks. Your savings analysis request has been submitted."),
   ).toBeVisible();
 });

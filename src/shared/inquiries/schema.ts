@@ -48,8 +48,13 @@ export const inquirySubmissionSchema = z
       .transform((value) => normalizeWhitespace(value).toLowerCase())
       .pipe(
         z
-          .email("Enter a valid email address.")
-          .max(254, "Keep the email under 254 characters."),
+          .string()
+          .min(1, "Enter your email.")
+          .pipe(
+            z
+              .email("Enter a valid email address.")
+              .max(254, "Keep the email under 254 characters."),
+          ),
       ),
     message: normalizedText({
       max: 5000,
