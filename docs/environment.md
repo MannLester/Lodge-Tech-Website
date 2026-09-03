@@ -6,9 +6,10 @@ Copy `.env.example` to `.env.local` for local development and replace every Supa
 
 - `NEXT_PUBLIC_SITE_URL` is the canonical origin for the current environment. It is safe to expose to browser code.
 - `SUPABASE_URL` identifies the approved Supabase project.
-- `SUPABASE_ANON_KEY` is the browser-safe project key used with Row Level Security.
 - `SUPABASE_SERVICE_ROLE_KEY` is a privileged server credential. Never expose it through a `NEXT_PUBLIC_` variable or import server environment configuration into a client component.
 
 Configure the same names separately in Vercel Preview and Production. Do not reuse production secrets in local or preview environments.
+
+The public form does not use a Supabase anonymous key. It posts to the same-origin Next.js route, and only that server route can access the service-role credential.
 
 Environment values are validated only when a feature requests them, allowing the frontend foundation to build before Supabase access is supplied. A feature that depends on missing or invalid configuration fails immediately instead of continuing with partial configuration.
