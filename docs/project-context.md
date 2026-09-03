@@ -8,16 +8,17 @@ Build a conversion-focused B2B energy-management website for Lodging Technologie
 
 When the supplied references differ, use this order:
 
-1. `Lodging_Technologies_Approved_Website_Design_Blueprint_Presentation1.pdf` defines the approved page structure, content hierarchy, themes, and conversion goals.
-2. `reference_image.jpg` guides composition, density, section rhythm, and target visual quality. It is not an approved source for unverified business claims or production-ready assets.
-3. `Lodging-Technologies-Landing-Page-Proposal.pdf` defines scope boundaries, technical direction, delivery requirements, and the inquiry-management workflow.
+1. `LODGING-TECHNOLOGIES-MASTER-WEBSITE-DESIGN-ARCHITECTURE-BLUEPRINT-V.2-1.pdf` defines the current approved page structure, content hierarchy, day/night theme contract, conversion goals, and visual direction.
+2. `Lodging_Technologies_Approved_Website_Design_Blueprint_Presentation1.pdf` is historical context only where it does not conflict with V2.
+3. `reference_image.jpg` guides composition, density, section rhythm, and target visual quality. It is not an approved source for unverified business claims or production-ready assets.
+4. `Lodging-Technologies-Landing-Page-Proposal.pdf` defines scope boundaries, technical direction, delivery requirements, and the inquiry-management workflow.
 
 Do not invent claims, case-study details, contact information, or client assets when the references do not provide an approved value.
 
 ## Approved visual direction
 
-- The green-accented composition in `reference_image.jpg` is the primary visual target for the public landing page.
-- The approved blueprint continues to define required sections, content hierarchy, conversion goals, and Day/Night theme behavior.
+- V2 supersedes the old green-accent direction. Use a restrained monochrome foundation with navy structure and cyan action accents.
+- The approved V2 blueprint defines required sections, content hierarchy, conversion goals, and Day/Night theme behavior.
 - Low-resolution or non-photographic placeholders are acceptable during implementation when final logo, product, platform, property, or industry assets are unavailable.
 - Placeholder media must reserve stable responsive dimensions so final assets can be substituted without restructuring the page.
 
@@ -25,22 +26,18 @@ Do not invent claims, case-study details, contact information, or client assets 
 
 - Responsive landing page for desktop, tablet, and mobile.
 - Header navigation: Technology, Solutions, Industries, Results, and Company.
-- Hero message: "Energy wasted is money lost. We make buildings use less."
+- Hero message: "Reduce HVAC, Lighting, and Appliance Energy Expense 40%."
 - Primary conversion actions for a savings analysis and product demo.
-- Proof statistics for experience, installations, savings, and secured incentives.
+- Proof statistics for experience, installations, energy expense reduction, and secured incentives.
 - Value propositions: Reduce Energy, Lower Demand, Utility Incentives, Positive Cash Flow, and Turnkey Solutions.
-- Product showcase: Occupancy HVAC, Lighting Controls, Exhaust Fans, and DHW & Load Control.
-- Cloud platform, industries, case studies, turnkey process, closing conversion banner, and footer.
+- Product showcase: GEM Stat ET, GEM Link Wireless, Lighting Controls, and Appliance Controls.
+- Cloud platform, industries, evidence-safe results, turnkey process, closing conversion banner, validated frontend inquiry form, and footer.
 - Global Day/Night theme architecture.
 - Basic metadata, accessibility, browser QA, and optimized media delivery.
 
 ## Approved inquiry workflow
 
-- Validate and securely persist public inquiry submissions.
-- Protect all administrator routes and inquiry data from public access.
-- Show sender name, email, property or company, message, and submission time.
-- Allow an authorized administrator to view inquiry details.
-- Track New, Contacted, and Closed statuses and filter by status.
+This V2 alignment pass provides a frontend-only validated inquiry form with a clear success state. Backend persistence, Supabase storage, administrator routes, status tracking, and deployment plumbing remain deferred until those credentials and production decisions are supplied.
 
 This is not a full CRM. Sales pipelines, automation, assignments, bulk messaging, analytics, external CRM synchronization, and multi-role administration are outside the approved scope.
 
@@ -48,9 +45,9 @@ This is not a full CRM. Sales pipelines, automation, assignments, bulk messaging
 
 - Next.js App Router with React and TypeScript.
 - Tailwind CSS for the responsive design system.
-- Zod for server-side input and environment validation.
-- Next.js Route Handlers for inquiry intake and status changes.
-- Supabase PostgreSQL, Supabase Auth, versioned SQL migrations, least-privilege grants, and Row Level Security.
+- Zod for server-side input and environment validation when backend features are enabled.
+- Next.js Route Handlers for inquiry intake and status changes are deferred.
+- Supabase PostgreSQL, Supabase Auth, versioned SQL migrations, least-privilege grants, and Row Level Security are deferred.
 - Vertical Slice Architecture grouping feature UI, validation, server logic, data access, and tests.
 - Vitest for fast automated checks and Playwright for critical browser workflows.
 - Vercel local, preview, and production environments.
@@ -59,7 +56,7 @@ The proposal calls this an initial baseline. Any provider or architecture change
 
 ## Decisions required before production launch
 
-- Standardize the primary CTA as either "Get a Savings Analysis" or "Get a Free Savings Analysis."
+- Confirm whether the production primary CTA should remain "Get a Savings Analysis."
 - Approve every public statistic and case-study claim before publication.
 - Supply the final logo, approved product photography, industry photography, and platform imagery.
 - Supply company copy, contact information, resource links, and any legal footer content.
