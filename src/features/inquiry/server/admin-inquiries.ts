@@ -1,6 +1,10 @@
 import "server-only";
 
 import { readAdminSession } from "@/features/admin-auth/server/session";
+import {
+  followUpRepository,
+  type FollowUp,
+} from "../data/follow-up-repository";
 
 import {
   supabaseInquiryRepository,
@@ -11,6 +15,8 @@ import {
 
 export type AdminInquiryResult =
   { ok: true; inquiries: Inquiry[] } | { ok: false; message: string };
+export type AdminFollowUpResult =
+  { ok: true; followUps: FollowUp[] } | { ok: false; message: string };
 
 async function requireAdmin() {
   const session = await readAdminSession();
@@ -42,4 +48,17 @@ export async function changeInquiryStatus(
   if (!repository.updateStatus)
     throw new Error("Inquiry updates are unavailable");
   await repository.updateStatus(id, status);
+}
+
+export async function loadAdminFollowUps(): Promise<AdminFollowUpResult> {
+  try {
+    await requireAdmin();
+    return { ok: true, followUps: await followUpRepository.list() };
+  } catch {
+    return {
+      ok: false,
+      message:
+        "Follow-ups could not be loaded. Check the Supabase configuration.",
+    };
+  }
 }

@@ -40,6 +40,33 @@ export type Database = {
         };
         Relationships: [];
       };
+      follow_ups: {
+        Row: {
+          id: string;
+          inquiry_id: string;
+          title: string;
+          notes: string | null;
+          due_at: string | null;
+          completed_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          inquiry_id: string;
+          title: string;
+          notes?: string | null;
+          due_at?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          title?: string;
+          notes?: string | null;
+          due_at?: string | null;
+          completed_at?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<never, never>;
     Functions: Record<never, never>;
