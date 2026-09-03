@@ -7,9 +7,12 @@ test("renders the complete landing page without document overflow", async ({
 
   await expect(
     page.getByRole("heading", {
-      name: "Energy wasted is money lost. We make buildings use less.",
+      name: "Reduce HVAC, Lighting, and Appliance Energy Expense 40% with GEM Link Wireless and GEM Stat ET.",
     }),
   ).toBeVisible();
+  await expect(page.getByLabel("Proof ticker")).toContainText(
+    "GEM Link Wireless and GEM Stat ET",
+  );
   await expect(page.locator("#industries")).toBeVisible();
   await expect(page.locator("#results")).toBeVisible();
   await expect(page.locator("#contact")).toBeVisible();
@@ -30,17 +33,17 @@ test("presents the closing conversion section from the design reference", async 
   const contactSection = page.locator("#contact");
   await expect(
     contactSection.getByRole("heading", {
-      name: "Your building is already consuming energy. Let's make it consume less.",
+      name: "Ready to reduce HVAC, lighting, and appliance energy expense?",
     }),
   ).toBeVisible();
   await expect(
     contactSection.getByText(
-      "Request a data-backed savings projection. See your building's exact runtime reduction opportunity and utility incentive alignment - at no cost.",
+      "Request a savings analysis for GEM Link Wireless, GEM Stat ET, and turnkey controls across your property portfolio.",
     ),
   ).toBeVisible();
 
   await expect(
-    contactSection.getByRole("link", { name: "Get a Free Savings Analysis" }),
+    contactSection.getByRole("link", { name: "Get a Savings Analysis" }),
   ).toBeVisible();
   await expect(
     contactSection.getByRole("link", { name: "Request a Demo" }),
@@ -49,11 +52,11 @@ test("presents the closing conversion section from the design reference", async 
     contactSection.getByRole("link", { name: "Talk to an Expert" }),
   ).toBeVisible();
   const experienceBadge = contactSection.getByLabel(
-    "40 plus years of energy intelligence",
+    "Since 1980 energy intelligence",
   );
-  await expect(experienceBadge).toContainText("40+");
-  await expect(experienceBadge).toContainText("YEARS");
-  await expect(experienceBadge).toContainText("of Energy Intelligence");
+  await expect(experienceBadge).toContainText("1980");
+  await expect(experienceBadge).toContainText("LEGACY");
+  await expect(experienceBadge).toContainText("40+ years");
 
   const sectionStyles = await contactSection.evaluate((section) => {
     const styles = window.getComputedStyle(section);
@@ -63,7 +66,7 @@ test("presents the closing conversion section from the design reference", async 
     };
   });
   const primaryCta = contactSection.getByRole("link", {
-    name: "Get a Free Savings Analysis",
+    name: "Get a Savings Analysis",
   });
   const primaryCtaLineHeight = await primaryCta.evaluate((link) => {
     const styles = window.getComputedStyle(link);
@@ -88,7 +91,7 @@ test("presents the reference footer navigation columns", async ({ page }) => {
   await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
   await expect(
     footer.getByText(
-      "Intelligent energy management built for commercial properties, hospitality, and institutional residential buildings.",
+      "GEM Link Wireless and GEM Stat ET energy management for lodging, multifamily, senior living, student housing, and commercial properties.",
     ),
   ).toBeVisible();
   await expect(
@@ -115,7 +118,7 @@ test("presents the reference footer navigation columns", async ({ page }) => {
     footerNavigation.getByRole("link", { name: "Contact & Support" }),
   ).toBeVisible();
   await expect(
-    footerNavigation.getByRole("link", { name: "ROI Calculator" }),
+    footerNavigation.getByRole("link", { name: "Savings Analysis" }),
   ).toBeVisible();
 });
 
@@ -150,8 +153,15 @@ test("persists the selected color theme", async ({ page }) => {
   const nightLayer = page.locator('[data-hero-layer="night"]');
   await expect(nightLayer).toHaveCSS("opacity", "0");
 
-  await page.getByRole("button", { name: "Switch to night mode" }).click();
+  const themeSwitch = page.getByRole("switch", {
+    name: "Switch to night mode",
+  });
+  await expect(themeSwitch).toHaveAttribute("aria-checked", "false");
+  await themeSwitch.click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(
+    page.getByRole("switch", { name: "Switch to day mode" }),
+  ).toHaveAttribute("aria-checked", "true");
   await expect(nightLayer).toHaveCSS("opacity", "1");
   await expect(page.getByRole("banner")).not.toHaveCSS(
     "background-color",
@@ -168,4 +178,34 @@ test("persists the selected color theme", async ({ page }) => {
     "opacity",
     "1",
   );
+});
+
+test("validates and completes the frontend inquiry form", async ({ page }) => {
+  await page.goto("/");
+
+  const form = page.getByRole("form", { name: "Savings analysis inquiry" });
+  await form.getByRole("button", { name: "Submit Inquiry" }).click();
+
+  await expect(form.getByText("Enter your name.")).toBeVisible();
+  await expect(form.getByText("Enter your email.")).toBeVisible();
+  await expect(form.getByText("Enter your property or company.")).toBeVisible();
+  await expect(form.getByText("Select a property type.")).toBeVisible();
+  await expect(
+    form.getByText("Tell us a little about the project."),
+  ).toBeVisible();
+
+  await form.getByLabel("Name").fill("Morgan Lee");
+  await form.getByLabel("Work email").fill("morgan@example.com");
+  await form.getByLabel("Property or company").fill("Harbor Hotel");
+  await form.getByLabel("Property type").selectOption("Hospitality");
+  await form
+    .getByLabel("Project notes")
+    .fill("We want to review HVAC and lighting savings.");
+  await form.getByRole("button", { name: "Submit Inquiry" }).click();
+
+  await expect(
+    form.getByText(
+      "Thanks. Your savings analysis request is ready for follow-up.",
+    ),
+  ).toBeVisible();
 });

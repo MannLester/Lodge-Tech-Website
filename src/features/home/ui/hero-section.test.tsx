@@ -1,45 +1,23 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
 import { HeroSection } from "./hero-section";
 
 describe("HeroSection", () => {
-  afterEach(() => {
-    delete document.documentElement.dataset.theme;
-    window.localStorage.clear();
-  });
-
-  it("communicates the primary outcome and proof points", () => {
+  it("communicates the V2 primary outcome, proof points, and ticker", () => {
     render(<HeroSection />);
 
     expect(
       screen.getByRole("heading", {
-        name: "Energy wasted is money lost. We make buildings use less.",
+        name: "Reduce HVAC, Lighting, and Appliance Energy Expense 40% with GEM Link Wireless and GEM Stat ET.",
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("40+")).toBeInTheDocument();
     expect(screen.getByText("100,000+")).toBeInTheDocument();
+    expect(screen.getAllByText("40%")).toHaveLength(2);
     expect(
-      screen.getByRole("link", { name: "Get a Free Savings Analysis" }),
+      screen.getByRole("link", { name: "Get a Savings Analysis" }),
     ).toHaveAttribute("href", "#contact");
-  });
-
-  it("integrates the accessible day and night control with the hero layers", () => {
-    document.documentElement.dataset.theme = "light";
-    const { container } = render(<HeroSection />);
-
-    expect(container.querySelector('[data-hero-layer="night"]')).toBeTruthy();
-
-    const hero = within(container);
-    const nightModeButton = hero.getByRole("button", {
-      name: "Switch to night mode",
-    });
-    fireEvent.click(nightModeButton);
-
-    expect(document.documentElement.dataset.theme).toBe("dark");
-    expect(window.localStorage.getItem("theme")).toBe("dark");
-    expect(
-      hero.getByRole("button", { name: "Switch to day mode" }),
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Proof ticker")).toBeInTheDocument();
   });
 });
