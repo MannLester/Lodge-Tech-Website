@@ -111,6 +111,25 @@ describe("POST /api/inquiries", () => {
     expect(create).not.toHaveBeenCalled();
   });
 
+  it("accepts the public forwarded origin when the internal URL differs", async () => {
+    const proxiedRequest = new Request("http://localhost:3000/api/inquiries", {
+      body: JSON.stringify(validBody),
+      headers: {
+        "Content-Type": "application/json",
+        Host: "localhost:3000",
+        Origin: "https://preview.example.com",
+        "X-Forwarded-Host": "preview.example.com",
+        "X-Forwarded-Proto": "https",
+      },
+      method: "POST",
+    });
+
+    const response = await createPostInquiryHandler(repository)(proxiedRequest);
+
+    expect(response.status).toBe(201);
+    expect(create).toHaveBeenCalledOnce();
+  });
+
   it("rejects non-JSON content", async () => {
     const response = await createPostInquiryHandler(repository)(
       request("plain text", { "Content-Type": "text/plain" }),

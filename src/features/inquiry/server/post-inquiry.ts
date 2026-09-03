@@ -25,7 +25,25 @@ function hasAllowedOrigin(request: Request) {
   if (!origin) return false;
 
   try {
-    return new URL(origin).origin === new URL(request.url).origin;
+    const originUrl = new URL(origin);
+    const requestUrl = new URL(request.url);
+    const forwardedHost = request.headers
+      .get("x-forwarded-host")
+      ?.split(",", 1)[0]
+      .trim();
+    const forwardedProtocol = request.headers
+      .get("x-forwarded-proto")
+      ?.split(",", 1)[0]
+      .trim();
+    const requestHost =
+      forwardedHost || request.headers.get("host") || requestUrl.host;
+    const requestProtocol =
+      forwardedProtocol || requestUrl.protocol.slice(0, -1);
+
+    return (
+      originUrl.host === requestHost &&
+      originUrl.protocol === `${requestProtocol}:`
+    );
   } catch {
     return false;
   }
