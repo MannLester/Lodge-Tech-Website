@@ -1,4 +1,15 @@
-import { Inbox, LogOut, ShieldCheck } from "lucide-react";
+import {
+  BarChart3,
+  Check,
+  CheckCircle2,
+  Clock3,
+  Inbox,
+  LayoutDashboard,
+  ListTodo,
+  LogOut,
+  Save,
+  ShieldCheck,
+} from "lucide-react";
 
 import type { AdminSession } from "@/features/admin-auth/model/admin-session-token";
 import { logoutAdmin } from "@/features/admin-auth/server/actions";
@@ -25,12 +36,13 @@ type Props = Readonly<{
   inquiryResult: AdminInquiryResult;
   followUpResult: AdminFollowUpResult;
 }>;
-const navItems: { label: string; view: View }[] = [
-  { label: "Dashboard", view: "dashboard" },
-  { label: "Inquiries", view: "inquiries" },
-  { label: "Follow-ups", view: "follow-ups" },
-  { label: "Reports", view: "reports" },
-];
+const navItems: { label: string; view: View; icon: typeof LayoutDashboard }[] =
+  [
+    { label: "Dashboard", view: "dashboard", icon: LayoutDashboard },
+    { label: "Inquiries", view: "inquiries", icon: Inbox },
+    { label: "Follow-ups", view: "follow-ups", icon: ListTodo },
+    { label: "Reports", view: "reports", icon: BarChart3 },
+  ];
 const statuses: InquiryStatus[] = ["New", "Contacted", "Closed"];
 
 export function AdminDashboardPlaceholder({
@@ -67,12 +79,13 @@ export function AdminDashboardPlaceholder({
                 aria-current={item.view === view ? "page" : undefined}
                 className={
                   item.view === view
-                    ? "bg-brand-soft text-brand-strong rounded-md px-3 py-2 text-sm font-bold"
-                    : "text-muted hover:text-brand rounded-md px-3 py-2 text-sm font-semibold"
+                    ? "bg-brand-soft text-brand-strong inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold"
+                    : "text-muted hover:text-brand inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
                 }
                 href={`/admin?view=${item.view}`}
                 key={item.view}
               >
+                <item.icon aria-hidden="true" className="size-4" />
                 {item.label}
               </a>
             ))}
@@ -179,6 +192,7 @@ function FollowUpWorkspace({
         ])
       : [],
   );
+  const today = new Date().toISOString().slice(0, 10);
   return (
     <>
       <form
@@ -228,9 +242,10 @@ function FollowUpWorkspace({
           />
         </label>
         <button
-          className="bg-brand rounded-md px-4 py-2 text-sm font-bold text-white sm:col-span-2 sm:w-fit"
+          className="bg-brand hover:bg-brand-fill inline-flex min-h-10 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-bold text-white transition sm:col-span-2 sm:w-fit"
           type="submit"
         >
+          <ListTodo aria-hidden="true" className="size-4" />
           Add follow-up
         </button>
       </form>
@@ -260,21 +275,30 @@ function FollowUpWorkspace({
                     {inquiryNames.get(followUp.inquiry_id) ?? "Unknown inquiry"}
                     {followUp.due_at ? ` · Due ${followUp.due_at}` : ""}
                   </p>
+                  {!followUp.completed_at &&
+                  followUp.due_at &&
+                  followUp.due_at < today ? (
+                    <p className="text-brand-strong mt-2 inline-flex items-center gap-1 text-xs font-bold">
+                      <Clock3 aria-hidden="true" className="size-3" /> Overdue
+                    </p>
+                  ) : null}
                   {followUp.notes ? (
                     <p className="mt-2 text-sm">{followUp.notes}</p>
                   ) : null}
                 </div>
                 {followUp.completed_at ? (
-                  <span className="text-muted text-sm font-semibold">
+                  <span className="text-muted inline-flex items-center gap-1 text-sm font-semibold">
+                    <CheckCircle2 aria-hidden="true" className="size-4" />
                     Completed
                   </span>
                 ) : (
                   <form action={completeFollowUp}>
                     <input name="id" type="hidden" value={followUp.id} />
                     <button
-                      className="text-brand-strong text-sm font-bold"
+                      className="border-brand text-brand-strong hover:bg-brand-soft inline-flex min-h-10 items-center gap-2 rounded-md border px-3 text-sm font-bold transition"
                       type="submit"
                     >
+                      <Check aria-hidden="true" className="size-4" />
                       Mark complete
                     </button>
                   </form>
@@ -314,23 +338,63 @@ function ReportsWorkspace({
         <Metric label="Open inquiries" value={summary.open} />
         <Metric label="Closed inquiries" value={summary.closed} />
       </div>
-      <h2 className="mt-8 text-lg font-bold">By property type</h2>
-      <div className="mt-3 grid gap-2">
-        {propertyCounts.length === 0 ? (
-          <p className="text-muted text-sm">No inquiry data yet.</p>
-        ) : (
-          propertyCounts.map(([type, count]) => (
-            <div
-              className="border-border flex justify-between rounded-md border px-3 py-2 text-sm"
-              key={type}
-            >
-              <span>{type}</span>
-              <strong>{count}</strong>
-            </div>
-          ))
-        )}
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        <ChartGroup
+          title="Inquiry status"
+          rows={statuses.map((status) => [
+            status,
+            inquiries.filter((inquiry) => inquiry.status === status).length,
+          ])}
+          total={summary.total}
+        />
+        <ChartGroup
+          title="By property type"
+          rows={propertyCounts}
+          total={summary.total}
+        />
       </div>
     </section>
+  );
+}
+
+function ChartGroup({
+  title,
+  rows,
+  total,
+}: {
+  title: string;
+  rows: [string, number][];
+  total: number;
+}) {
+  const max = Math.max(...rows.map(([, count]) => count), 1);
+  return (
+    <div>
+      <h2 className="text-lg font-bold">{title}</h2>
+      {rows.length === 0 || total === 0 ? (
+        <p className="text-muted mt-3 text-sm">No inquiry data yet.</p>
+      ) : (
+        <div className="mt-4 grid gap-3">
+          {rows.map(([label, count]) => (
+            <div key={label}>
+              <div className="mb-1 flex justify-between text-sm">
+                <span>{label}</span>
+                <strong>{count}</strong>
+              </div>
+              <div
+                aria-label={`${label}: ${count} inquiries`}
+                className="bg-surface-muted h-3 overflow-hidden rounded-full"
+                role="img"
+              >
+                <div
+                  className="bg-brand h-full rounded-full transition-all"
+                  style={{ width: `${(count / max) * 100}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -397,9 +461,10 @@ function InquiryList({ result }: { result: AdminInquiryResult }) {
                     ))}
                   </select>
                   <button
-                    className="text-brand-strong ml-2 text-sm font-bold"
+                    className="border-border text-brand-strong hover:border-brand hover:bg-brand-soft inline-flex min-h-10 items-center justify-center gap-2 rounded-md border px-3 text-sm font-bold transition"
                     type="submit"
                   >
+                    <Save aria-hidden="true" className="size-4" />
                     Save
                   </button>
                 </form>
