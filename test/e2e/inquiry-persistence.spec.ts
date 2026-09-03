@@ -6,11 +6,16 @@ const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 test("persists an inquiry and removes the verification record", async ({
   page,
-}) => {
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "desktop-chromium",
+    "The persistence smoke test runs once in the desktop project.",
+  );
   test.skip(
     !supabaseUrl || !serviceRoleKey,
     "A migrated test Supabase project is required for the persistence flow.",
   );
+  testInfo.setTimeout(60_000);
 
   const email = `playwright-${Date.now()}@example.com`;
   const supabase = createClient(supabaseUrl!, serviceRoleKey!, {

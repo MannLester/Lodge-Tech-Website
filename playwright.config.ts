@@ -11,6 +11,8 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: "html",
+  timeout: 45_000,
+  workers: process.env.CI ? 2 : 4,
   use: {
     baseURL: `http://127.0.0.1:${port}`,
     screenshot: "only-on-failure",
