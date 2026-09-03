@@ -1,18 +1,16 @@
 import "server-only";
 
-import { z } from "zod";
-
-const adminAuthEnvSchema = z.object({
-  NODE_ENV: z.enum(["development", "test", "production"]),
-  SESSION_SECRET: z.string().min(32),
-});
-
-type AdminAuthEnv = z.infer<typeof adminAuthEnvSchema>;
+import {
+  type AdminAuthEnv,
+  resolveAdminAuthEnv,
+} from "@/features/admin-auth/model/admin-auth-env";
 
 let cachedAdminAuthEnv: AdminAuthEnv | undefined;
 
 export function getAdminAuthEnv(): AdminAuthEnv {
-  cachedAdminAuthEnv ??= adminAuthEnvSchema.parse({
+  if (cachedAdminAuthEnv) return cachedAdminAuthEnv;
+
+  cachedAdminAuthEnv = resolveAdminAuthEnv({
     NODE_ENV: process.env.NODE_ENV,
     SESSION_SECRET: process.env.SESSION_SECRET,
   });
