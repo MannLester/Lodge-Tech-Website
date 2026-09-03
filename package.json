@@ -6,20 +6,26 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "packageManager": "npm@10.9.7",
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "turbo run //#build:app",
+    "build:app": "next build",
     "db:test": "supabase test db",
     "start": "next start",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
+    "lint": "turbo run //#lint:app",
+    "lint:app": "eslint .",
+    "typecheck": "turbo run //#typecheck:app",
+    "typecheck:app": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "vitest run",
+    "format:check": "turbo run //#format:check:app",
+    "format:check:app": "prettier --check .",
+    "test": "turbo run //#test:unit",
+    "test:unit": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm run format:check && npm run test"
+    "test:e2e": "turbo run //#test:e2e:app",
+    "test:e2e:app": "playwright test",
+    "check": "turbo run //#lint:app //#typecheck:app //#format:check:app //#test:unit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.114.0",
@@ -44,10 +50,12 @@
     "eslint-config-next": "16.3.4",
     "eslint-config-prettier": "10.1.8",
     "jsdom": "30.0.1",
+    "postcss": "^8.5.28",
     "prettier": "3.9.6",
     "prettier-plugin-tailwindcss": "0.8.1",
     "supabase": "^2.116.0",
     "tailwindcss": "4.3.3",
+    "turbo": "2.10.12",
     "typescript": "6.0.3",
     "vitest": "4.1.11"
   }
