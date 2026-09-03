@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Test output
+.cache/
+coverage/
+playwright-report/
+test-results/
+
+# Environment files
+.env*
+!.env.example
+
+# Deployment
+.vercel/
+
+# Supabase CLI
+supabase/.temp/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Local handoff/reference material
+AGENTS.md
+docs/project-context.md
+bugs/
+resources/
+reference_image.jpg
+*.pdf
