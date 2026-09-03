@@ -6,6 +6,9 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"],
+      "@/features/*": ["./src/features/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/app/*": ["./src/app/*"],
       "@lodging-technologies/types": ["../../packages/types/src/index.ts"],
       "@lodging-technologies/types/*": ["../../packages/types/src/*"],
       "@lodging-technologies/ui": ["../../packages/ui/src/index.ts"],
