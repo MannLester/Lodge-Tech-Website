@@ -6,31 +6,6 @@ settings:
 
 importers:
   .:
-    dependencies:
-      "@supabase/supabase-js":
-        specifier: ^2.114.0
-        version: 2.114.0
-      jose:
-        specifier: ^6.2.10
-        version: 6.2.10
-      lucide-react:
-        specifier: 1.39.0
-        version: 1.39.0(react@19.2.8)
-      next:
-        specifier: 16.3.4
-        version: 16.3.4(@babel/core@7.29.7)(@playwright/test@1.62.1)(@types/node@26.4.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      react:
-        specifier: 19.2.8
-        version: 19.2.8
-      react-dom:
-        specifier: 19.2.8
-        version: 19.2.8(react@19.2.8)
-      server-only:
-        specifier: 0.0.1
-        version: 0.0.1
-      zod:
-        specifier: 4.5.4
-        version: 4.5.4
     devDependencies:
       "@playwright/test":
         specifier: 1.62.1
@@ -89,6 +64,68 @@ importers:
       vitest:
         specifier: 4.1.11
         version: 4.1.11(@types/node@26.4.1)(jsdom@30.0.1(@noble/hashes@1.8.0))(vite@8.2.2(@types/node@26.4.1)(jiti@2.7.0))
+
+  apps/web:
+    dependencies:
+      "@lodging-technologies/types":
+        specifier: workspace:*
+        version: link:../../packages/types
+      "@lodging-technologies/ui":
+        specifier: workspace:*
+        version: link:../../packages/ui
+      "@lodging-technologies/zod-schemas":
+        specifier: workspace:*
+        version: link:../../packages/zod-schemas
+      "@supabase/supabase-js":
+        specifier: ^2.114.0
+        version: 2.114.0
+      jose:
+        specifier: ^6.2.10
+        version: 6.2.10
+      lucide-react:
+        specifier: 1.39.0
+        version: 1.39.0(react@19.2.8)
+      next:
+        specifier: 16.3.4
+        version: 16.3.4(@babel/core@7.29.7)(@playwright/test@1.62.1)(@types/node@26.4.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react:
+        specifier: 19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
+      zod:
+        specifier: 4.5.4
+        version: 4.5.4
+
+  packages/types: {}
+
+  packages/ui:
+    dependencies:
+      "@radix-ui/react-slot":
+        specifier: ^1.2.4
+        version: 1.3.3(@types/react@19.2.18)(react@19.2.8)
+      lucide-react:
+        specifier: 1.39.0
+        version: 1.39.0(react@19.2.8)
+      next:
+        specifier: 16.3.4
+        version: 16.3.4(@babel/core@7.29.7)(@playwright/test@1.62.1)(@types/node@26.4.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react:
+        specifier: 19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
+
+  packages/zod-schemas:
+    dependencies:
+      zod:
+        specifier: 4.5.4
+        version: 4.5.4
 
 packages:
   "@adobe/css-tools@4.5.0":
@@ -889,6 +926,30 @@ packages:
       }
     engines: { node: ">=20" }
     hasBin: true
+
+  "@radix-ui/react-compose-refs@1.1.5":
+    resolution:
+      {
+        integrity: sha512-+48PbAAbq3didjJxa+OaWY2ZwgAKsNiRGyeHKszblZMQ+kcpd9pAaT11cMkGEie0vsOi3QdeTE6d5Fe3Gn61kA==,
+      }
+    peerDependencies:
+      "@types/react": "*"
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      "@types/react":
+        optional: true
+
+  "@radix-ui/react-slot@1.3.3":
+    resolution:
+      {
+        integrity: sha512-qx7oqnYbxnK9kYI9m317qmFmEgo6ywqWvbTogdj7cL9p3/yx4M48p7Rnw5z3H890cL/ow/EeWJsuTykeZVXP5Q==,
+      }
+    peerDependencies:
+      "@types/react": "*"
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      "@types/react":
+        optional: true
 
   "@rolldown/binding-android-arm-eabi@1.2.7":
     resolution:
@@ -5110,6 +5171,19 @@ snapshots:
   "@playwright/test@1.62.1":
     dependencies:
       playwright: 1.62.1
+
+  "@radix-ui/react-compose-refs@1.1.5(@types/react@19.2.18)(react@19.2.8)":
+    dependencies:
+      react: 19.2.8
+    optionalDependencies:
+      "@types/react": 19.2.18
+
+  "@radix-ui/react-slot@1.3.3(@types/react@19.2.18)(react@19.2.8)":
+    dependencies:
+      "@radix-ui/react-compose-refs": 1.1.5(@types/react@19.2.18)(react@19.2.8)
+      react: 19.2.8
+    optionalDependencies:
+      "@types/react": 19.2.18
 
   "@rolldown/binding-android-arm-eabi@1.2.7":
     optional: true
