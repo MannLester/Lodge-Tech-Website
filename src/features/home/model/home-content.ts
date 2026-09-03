@@ -114,28 +114,28 @@ export const industries = [
 
 export const caseStudies = [
   {
-    location: "Miami, FL",
-    payback: "1.8 yrs",
-    property: "The Plaza Resort · 420 Keys",
-    reduction: "42%",
+    location: "Portfolio review",
+    payback: "Modeled",
+    property: "Hospitality energy assessment",
+    reduction: "HVAC",
     sector: "Hotel",
-    utilityIncentive: "$182,000",
+    utilityIncentive: "Reviewed",
   },
   {
-    location: "Toronto, ON",
-    payback: "1.9 yrs",
-    property: "Coleridge Towers · 280 Units",
-    reduction: "38%",
+    location: "Utility program review",
+    payback: "Scoped",
+    property: "Multifamily control opportunity",
+    reduction: "Lighting",
     sector: "Multifamily",
-    utilityIncentive: "$215,000",
+    utilityIncentive: "Identified",
   },
   {
-    location: "Chicago, IL",
-    payback: "2.1 yrs",
-    property: "Assisted Living Facility",
-    reduction: "35%",
+    location: "Operating review",
+    payback: "Planned",
+    property: "Senior living retrofit planning",
+    reduction: "Appliances",
     sector: "Senior Living",
-    utilityIncentive: "$156,000",
+    utilityIncentive: "Aligned",
   },
 ] as const;
 
