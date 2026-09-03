@@ -1,40 +1,43 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 
-type InquiryFields = {
-  company: string;
-  email: string;
-  message: string;
-  name: string;
-  propertyType: string;
-};
+import {
+  getInquiryFieldErrors,
+  inquirySubmissionSchema,
+  PROPERTY_TYPES,
+  type InquiryField,
+  type InquirySubmissionInput,
+} from "@/shared/inquiries/schema";
 
-type InquiryErrors = Partial<Record<keyof InquiryFields, string>>;
+type InquiryFields = Required<InquirySubmissionInput>;
+type InquiryErrors = Partial<Record<InquiryField | "_form", string>>;
+type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
 const initialFields: InquiryFields = {
   company: "",
   email: "",
   message: "",
   name: "",
-  propertyType: "",
+  phone: "",
+  propertyType: "" as InquiryFields["propertyType"],
+  website: "",
 };
 
-function validate(fields: InquiryFields): InquiryErrors {
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function readServerErrors(value: unknown): InquiryErrors {
+  if (!isObject(value) || value.code !== "VALIDATION_ERROR") return {};
+  if (!isObject(value.fieldErrors)) return {};
+
   const errors: InquiryErrors = {};
 
-  if (!fields.name.trim()) errors.name = "Enter your name.";
-  if (!fields.company.trim()) {
-    errors.company = "Enter your property or company.";
-  }
-  if (!fields.email.trim()) {
-    errors.email = "Enter your email.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
-    errors.email = "Enter a valid email address.";
-  }
-  if (!fields.propertyType) errors.propertyType = "Select a property type.";
-  if (fields.message.trim().length < 12) {
-    errors.message = "Tell us a little about the project.";
+  for (const [field, message] of Object.entries(value.fieldErrors)) {
+    if (typeof message === "string") {
+      errors[field as InquiryField | "_form"] = message;
+    }
   }
 
   return errors;
@@ -43,27 +46,72 @@ function validate(fields: InquiryFields): InquiryErrors {
 export function InquiryForm() {
   const [fields, setFields] = useState<InquiryFields>(initialFields);
   const [errors, setErrors] = useState<InquiryErrors>({});
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const submittingRef = useRef(false);
 
   function updateField(field: keyof InquiryFields, value: string) {
     setFields((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
-    setSubmitted(false);
+    setErrors((current) => ({
+      ...current,
+      [field]: undefined,
+      _form: undefined,
+    }));
+    setStatus("idle");
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const nextErrors = validate(fields);
-    setErrors(nextErrors);
 
-    if (Object.keys(nextErrors).length > 0) {
-      setSubmitted(false);
+    if (submittingRef.current) return;
+
+    const parsed = inquirySubmissionSchema.safeParse(fields);
+
+    if (!parsed.success) {
+      setErrors(getInquiryFieldErrors(parsed.error));
+      setStatus("idle");
       return;
     }
 
-    setFields(initialFields);
-    setSubmitted(true);
+    submittingRef.current = true;
+    setErrors({});
+    setStatus("submitting");
+
+    try {
+      const response = await fetch("/api/inquiries", {
+        body: JSON.stringify(parsed.data),
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+      });
+      const body: unknown = await response.json().catch(() => null);
+
+      if (response.ok && isObject(body) && body.ok === true) {
+        setFields(initialFields);
+        setStatus("success");
+        return;
+      }
+
+      const serverErrors = readServerErrors(body);
+
+      if (Object.keys(serverErrors).length > 0) {
+        setErrors(serverErrors);
+        setStatus("idle");
+        return;
+      }
+
+      setStatus("error");
+    } catch {
+      setStatus("error");
+    } finally {
+      submittingRef.current = false;
+    }
   }
+
+  const formMessage =
+    status === "success"
+      ? "Thanks. Your savings analysis request has been submitted."
+      : status === "error"
+        ? "We couldn't submit your request. Your entries are still here; please try again."
+        : errors._form;
 
   return (
     <form
@@ -72,6 +120,22 @@ export function InquiryForm() {
       noValidate
       onSubmit={handleSubmit}
     >
+      <div
+        aria-hidden="true"
+        className="absolute -left-[10000px] h-px w-px overflow-hidden"
+      >
+        <label>
+          Website
+          <input
+            autoComplete="off"
+            name="website"
+            onChange={(event) => updateField("website", event.target.value)}
+            tabIndex={-1}
+            value={fields.website}
+          />
+        </label>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-foreground grid gap-2 text-sm font-semibold">
           Name
@@ -112,27 +176,51 @@ export function InquiryForm() {
         </label>
       </div>
 
-      <label className="text-foreground grid gap-2 text-sm font-semibold">
-        Property or company
-        <input
-          aria-describedby={
-            errors.company ? "inquiry-company-error" : undefined
-          }
-          aria-invalid={Boolean(errors.company)}
-          className="border-border bg-background text-foreground min-h-11 rounded-md border px-3 text-sm"
-          name="company"
-          onChange={(event) => updateField("company", event.target.value)}
-          value={fields.company}
-        />
-        {errors.company ? (
-          <span
-            className="text-brand-strong text-xs"
-            id="inquiry-company-error"
-          >
-            {errors.company}
-          </span>
-        ) : null}
-      </label>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="text-foreground grid gap-2 text-sm font-semibold">
+          Property or company
+          <input
+            aria-describedby={
+              errors.company ? "inquiry-company-error" : undefined
+            }
+            aria-invalid={Boolean(errors.company)}
+            className="border-border bg-background text-foreground min-h-11 rounded-md border px-3 text-sm"
+            name="company"
+            onChange={(event) => updateField("company", event.target.value)}
+            value={fields.company}
+          />
+          {errors.company ? (
+            <span
+              className="text-brand-strong text-xs"
+              id="inquiry-company-error"
+            >
+              {errors.company}
+            </span>
+          ) : null}
+        </label>
+
+        <label className="text-foreground grid gap-2 text-sm font-semibold">
+          Phone (optional)
+          <input
+            aria-describedby={errors.phone ? "inquiry-phone-error" : undefined}
+            aria-invalid={Boolean(errors.phone)}
+            autoComplete="tel"
+            className="border-border bg-background text-foreground min-h-11 rounded-md border px-3 text-sm"
+            name="phone"
+            onChange={(event) => updateField("phone", event.target.value)}
+            type="tel"
+            value={fields.phone}
+          />
+          {errors.phone ? (
+            <span
+              className="text-brand-strong text-xs"
+              id="inquiry-phone-error"
+            >
+              {errors.phone}
+            </span>
+          ) : null}
+        </label>
+      </div>
 
       <label className="text-foreground grid gap-2 text-sm font-semibold">
         Property type
@@ -147,11 +235,11 @@ export function InquiryForm() {
           value={fields.propertyType}
         >
           <option value="">Select one</option>
-          <option>Hospitality</option>
-          <option>Multifamily</option>
-          <option>Senior living</option>
-          <option>Student housing</option>
-          <option>Commercial or office</option>
+          {PROPERTY_TYPES.map((propertyType) => (
+            <option key={propertyType.value} value={propertyType.value}>
+              {propertyType.label}
+            </option>
+          ))}
         </select>
         {errors.propertyType ? (
           <span
@@ -186,16 +274,18 @@ export function InquiryForm() {
       </label>
 
       <button
-        className="bg-brand-fill hover:bg-brand-strong min-h-11 cursor-pointer rounded-md px-5 py-2.5 text-sm font-semibold text-white transition-colors"
+        className="bg-brand-fill hover:bg-brand-strong min-h-11 cursor-pointer rounded-md px-5 py-2.5 text-sm font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+        disabled={status === "submitting"}
         type="submit"
       >
-        Submit Inquiry
+        {status === "submitting" ? "Submitting…" : "Submit Inquiry"}
       </button>
 
-      <p aria-live="polite" className="min-h-5 text-sm font-semibold">
-        {submitted
-          ? "Thanks. Your savings analysis request is ready for follow-up."
-          : ""}
+      <p
+        aria-live="polite"
+        className={`min-h-5 text-sm font-semibold ${status === "error" || errors._form ? "text-brand-strong" : ""}`}
+      >
+        {formMessage ?? ""}
       </p>
     </form>
   );
