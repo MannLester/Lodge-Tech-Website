@@ -15,7 +15,7 @@ export function BrandMark() {
       />
       <span className="text-foreground leading-none font-bold">
         <span className="block text-base sm:text-lg">LODGING</span>
-        <span className="block text-[0.58rem] text-[#1386b8] uppercase sm:text-[0.66rem]">
+        <span className="text-brand-strong block text-[0.58rem] uppercase sm:text-[0.66rem]">
           Technologies
         </span>
       </span>

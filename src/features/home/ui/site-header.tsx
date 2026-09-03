@@ -6,6 +6,7 @@ import { useState } from "react";
 import { navigationItems } from "@/features/home/model/home-content";
 import { BrandMark } from "@/shared/ui/brand-mark";
 import { ButtonLink } from "@/shared/ui/button-link";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +14,12 @@ export function SiteHeader() {
   return (
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
       <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
-        <BrandMark />
+        <div className="flex min-w-0 items-center gap-3">
+          <BrandMark />
+          <span className="border-border text-muted hidden border-l pl-3 text-xs leading-4 xl:block">
+            GEM Link Wireless / GEM Stat ET
+          </span>
+        </div>
 
         <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
           {navigationItems.map((item) => (
@@ -27,9 +33,10 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center lg:flex">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <ButtonLink
-            className="!min-h-10 !rounded-md !border-[#1386b8] !bg-[#1386b8] !px-5 !py-2 !text-[0.8125rem] !text-white hover:!border-[#0d709c] hover:!bg-[#0d709c]"
+            className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] !text-white"
             href="#contact"
           >
             Get a Savings Analysis
@@ -37,6 +44,7 @@ export function SiteHeader() {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           <button
             aria-controls="mobile-navigation"
             aria-expanded={menuOpen}
@@ -72,10 +80,7 @@ export function SiteHeader() {
                 {item.label}
               </a>
             ))}
-            <ButtonLink
-              className="mt-4 w-full !border-[#1386b8] !bg-[#1386b8] !text-white hover:!border-[#0d709c] hover:!bg-[#0d709c]"
-              href="#contact"
-            >
+            <ButtonLink className="mt-4 w-full !text-white" href="#contact">
               Get a Savings Analysis
             </ButtonLink>
           </div>

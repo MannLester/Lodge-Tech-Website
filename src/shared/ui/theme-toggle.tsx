@@ -32,9 +32,11 @@ export function ThemeToggle() {
 
   return (
     <button
+      aria-checked={isDark}
       aria-label={`Switch to ${isDark ? "day" : "night"} mode`}
       className="border-border bg-surface hover:bg-surface-muted grid size-10 shrink-0 cursor-pointer place-items-center border transition-colors"
       onClick={toggleTheme}
+      role="switch"
       title={`Switch to ${isDark ? "day" : "night"} mode`}
       type="button"
     >
