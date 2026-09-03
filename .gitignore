@@ -19,6 +19,9 @@ test-results/
 # Deployment
 .vercel/
 
+# Supabase CLI
+supabase/.temp/
+
 # Editors and operating systems
 .idea/
 .vscode/

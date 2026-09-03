@@ -9,6 +9,7 @@ export default defineConfig([
   prettier,
   globalIgnores([
     ".next/**",
+    ".vercel/**",
     "coverage/**",
     "out/**",
     "playwright-report/**",
