@@ -33,3 +33,7 @@ Keep provider-specific code behind the feature or shared module that owns the co
 The home form and `POST /api/inquiries` share the Zod contract in `src/shared/inquiries`. The Route Handler delegates persistence to the inquiry repository, which is the only feature module that uses the server-only Supabase client. Browser code never connects to Supabase directly.
 
 Supabase migrations are versioned in `supabase/migrations`. The inquiries table has forced Row Level Security and grants no table access to `anon` or `authenticated`; the server-held service role performs intake inserts.
+
+## Administrator access
+
+`src/features/admin-auth` owns the temporary `/admin` demo administrator access gate. The route reads the signed session in the page component, renders a sign-in screen when no valid cookie is present, and renders an authenticated placeholder when the session verifies. Session cookie writes are limited to Server Actions, and future CRM data operations should re-check the admin session close to the mutation or query they protect.
