@@ -5,6 +5,8 @@ nextEnv.loadEnvConfig(process.cwd());
 
 const port = 3000;
 
+process.env.SESSION_SECRET ??= "playwright-demo-admin-session-secret-000000";
+
 export default defineConfig({
   testDir: "./test/e2e",
   fullyParallel: true,
