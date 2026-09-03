@@ -38,16 +38,41 @@ async function readJsonBody(request: Request) {
     return { kind: "too-large" } as const;
   }
 
-  const bytes = await request.arrayBuffer();
+  const reader = request.body?.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
 
-  if (bytes.byteLength > MAX_PAYLOAD_BYTES) {
-    return { kind: "too-large" } as const;
+  if (reader) {
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      totalBytes += value.byteLength;
+
+      if (totalBytes > MAX_PAYLOAD_BYTES) {
+        await reader.cancel();
+        return { kind: "too-large" } as const;
+      }
+
+      chunks.push(value);
+    }
+  }
+
+  const bytes = new Uint8Array(totalBytes);
+  let offset = 0;
+
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
   }
 
   try {
     return {
       kind: "ok",
-      value: JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes)),
+      value: JSON.parse(
+        new TextDecoder("utf-8", { fatal: true }).decode(bytes),
+      ),
     } as const;
   } catch {
     return { kind: "malformed" } as const;
