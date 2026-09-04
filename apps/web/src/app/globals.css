@@ -120,6 +120,7 @@ button {
 }
 
 .continuous-scroller {
+  gap: 1rem;
   overflow: hidden;
   padding-block: 0.25rem 1rem;
 }
