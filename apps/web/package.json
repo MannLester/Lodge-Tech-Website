@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "pnpm -C ../.. exec eslint apps/web",
     "typecheck": "tsc --noEmit",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --check src package.json next.config.js postcss.config.mjs",
     "test": "vitest run --config ../../vitest.config.ts apps/web/src",
     "test:watch": "vitest --config ../../vitest.config.ts apps/web/src",
     "test:e2e": "playwright test --config ../../playwright.config.ts"
