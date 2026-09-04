@@ -9,7 +9,9 @@ const repoRoot = [cwd(), join(cwd(), "../..")].find((directory) =>
 );
 
 if (!repoRoot) {
-  throw new Error("Could not locate the repository root from the test directory");
+  throw new Error(
+    "Could not locate the repository root from the test directory",
+  );
 }
 
 const featuresDirectory = join(repoRoot, "apps/web/src/features");
