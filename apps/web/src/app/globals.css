@@ -119,22 +119,33 @@ button {
   text-transform: uppercase;
 }
 
-.snap-row {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(16.5rem, 82vw);
-  gap: 1rem;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
+.continuous-scroller {
+  overflow: hidden;
   padding-block: 0.25rem 1rem;
-  scroll-padding-inline: 1rem;
-  scroll-snap-type: inline mandatory;
-  scrollbar-color: var(--brand) var(--surface-muted);
-  scrollbar-width: thin;
 }
 
-.snap-row > * {
-  scroll-snap-align: start;
+.continuous-scroller-track {
+  display: flex;
+  width: max-content;
+  animation: continuous-scroller-slide 55s linear infinite;
+  will-change: transform;
+}
+
+.continuous-scroller-group {
+  display: flex;
+  flex: none;
+  gap: 1rem;
+}
+
+.continuous-scroller-group > * {
+  flex: 0 0 max(16.5rem, 82vw);
+  min-width: 0;
+}
+
+@keyframes continuous-scroller-slide {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .contact-primary {
@@ -377,12 +388,29 @@ button {
     padding-block: 5.5rem;
   }
 
-  .snap-row {
+  .continuous-scroller {
+    display: grid;
     grid-auto-flow: row;
-    grid-auto-columns: auto;
     overflow: visible;
     padding-bottom: 0;
-    scroll-snap-type: none;
+  }
+
+  .continuous-scroller-track,
+  .continuous-scroller-group {
+    display: contents;
+  }
+
+  .continuous-scroller-track {
+    animation: none;
+    width: auto;
+  }
+
+  .continuous-scroller-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .continuous-scroller-group > * {
+    flex: initial;
   }
 }
 

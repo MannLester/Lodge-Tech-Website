@@ -8,6 +8,7 @@ import studentHousingImage from "../../../../assets/student_housing.png";
 import { industries } from "@/features/home/model/home-content";
 import { MediaImage } from "@lodging-technologies/ui/media-image";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
+import { ContinuousScroller } from "./continuous-scroller";
 
 const industryImages = [
   hospitalityImage,
@@ -33,7 +34,7 @@ export function IndustriesSection() {
           title="Built for lodging and residential-scale portfolios."
         />
 
-        <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-5">
+        <ContinuousScroller className="mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 lg:grid-cols-5">
           {industries.map((industry, index) => {
             const image = industryImages[index];
 
@@ -66,7 +67,7 @@ export function IndustriesSection() {
               </article>
             );
           })}
-        </div>
+        </ContinuousScroller>
       </div>
     </section>
   );
