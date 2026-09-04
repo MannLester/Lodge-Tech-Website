@@ -1,6 +1,6 @@
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
-import { InquiryForm } from "./inquiry-form";
+import { InquiryForm } from "@/features/home/ui/inquiry-form";
 
 const footerLinkGroups = [
   {

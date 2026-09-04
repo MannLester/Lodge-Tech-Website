@@ -8,7 +8,7 @@ import {
 import {
   supabaseInquiryRepository,
   type InquiryRepository,
-} from "../data/inquiry-repository";
+} from "@/features/inquiry/data/inquiry-repository";
 
 const MAX_PAYLOAD_BYTES = 16 * 1024;
 

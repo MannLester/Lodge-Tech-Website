@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { changeInquiryStatus } from "./admin-inquiries";
+import { changeInquiryStatus } from "@/features/inquiry/server/admin-inquiries";
 
 export async function updateInquiryStatus(formData: FormData) {
   const id = formData.get("id");

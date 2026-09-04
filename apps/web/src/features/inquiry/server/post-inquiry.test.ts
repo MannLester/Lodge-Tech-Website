@@ -11,9 +11,9 @@ import {
 
 vi.mock("server-only", () => ({}));
 
-import type { InquiryRepository } from "../data/inquiry-repository";
+import type { InquiryRepository } from "@/features/inquiry/data/inquiry-repository";
 
-import { createPostInquiryHandler } from "./post-inquiry";
+import { createPostInquiryHandler } from "@/features/inquiry/server/post-inquiry";
 
 const validBody = {
   company: "  Harbor   Hotel ",

@@ -1,17 +1,17 @@
 import "server-only";
 
-import { readAdminSession } from "@/features/admin-auth/server/session";
+import { readAdminSession } from "@/features/admin-auth";
 import {
   followUpRepository,
   type FollowUp,
-} from "../data/follow-up-repository";
+} from "@/features/inquiry/data/follow-up-repository";
 
 import {
   supabaseInquiryRepository,
   type Inquiry,
   type InquiryRepository,
   type InquiryStatus,
-} from "../data/inquiry-repository";
+} from "@/features/inquiry/data/inquiry-repository";
 
 export type AdminInquiryResult =
   { ok: true; inquiries: Inquiry[] } | { ok: false; message: string };

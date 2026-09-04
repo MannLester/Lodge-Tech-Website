@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./apps/web/src", import.meta.url)),
+      "@assets": fileURLToPath(new URL("./apps/web/assets", import.meta.url)),
     },
   },
   root: repoRoot,
