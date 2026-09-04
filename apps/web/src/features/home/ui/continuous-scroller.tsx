@@ -13,7 +13,6 @@ export function ContinuousScroller({
   className = "",
 }: ContinuousScrollerProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const isInteractingRef = useRef(false);
 
   useEffect(() => {
     const scroller = scrollerRef.current;
@@ -30,11 +29,7 @@ export function ContinuousScroller({
       const elapsed = time - previousTime;
       previousTime = time;
 
-      if (
-        mobileQuery.matches &&
-        !reducedMotionQuery.matches &&
-        !isInteractingRef.current
-      ) {
+      if (mobileQuery.matches && !reducedMotionQuery.matches) {
         const firstGroup = scroller.querySelector<HTMLElement>(
           ".continuous-scroller-group",
         );
@@ -58,22 +53,8 @@ export function ContinuousScroller({
     };
   }, []);
 
-  function beginInteraction() {
-    isInteractingRef.current = true;
-  }
-
-  function endInteraction() {
-    isInteractingRef.current = false;
-  }
-
   return (
-    <div
-      className={`continuous-scroller ${className}`}
-      onPointerDown={beginInteraction}
-      onPointerUp={endInteraction}
-      onPointerCancel={endInteraction}
-      ref={scrollerRef}
-    >
+    <div className={`continuous-scroller ${className}`} ref={scrollerRef}>
       <div className="continuous-scroller-track">
         <div className="continuous-scroller-group">{children}</div>
         <div aria-hidden="true" className="continuous-scroller-group" inert>
