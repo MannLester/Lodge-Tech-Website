@@ -33,7 +33,9 @@ describe("admin session tokens", () => {
   it("rejects altered tokens", async () => {
     const session = createDemoAdminSession(now);
     const token = await signAdminSession(session, secret);
-    const alteredToken = `${token.slice(0, -1)}x`;
+    const [header, payload, signature] = token.split(".");
+    const alteredSignature = `${signature[0] === "A" ? "B" : "A"}${signature.slice(1)}`;
+    const alteredToken = [header, payload, alteredSignature].join(".");
 
     await expect(
       verifyAdminSessionToken(alteredToken, secret, now),
