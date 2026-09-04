@@ -1,10 +1,21 @@
+import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
 import { cwd } from "node:process";
 import { describe, expect, it } from "vitest";
 
-const featuresDirectory = join(cwd(), "apps/web/src/features");
-const appDirectory = join(cwd(), "apps/web/src/app");
+const repoRoot = [cwd(), join(cwd(), "../..")].find((directory) =>
+  existsSync(join(directory, "apps/web/src/features")),
+);
+
+if (!repoRoot) {
+  throw new Error(
+    "Could not locate the repository root from the test directory",
+  );
+}
+
+const featuresDirectory = join(repoRoot, "apps/web/src/features");
+const appDirectory = join(repoRoot, "apps/web/src/app");
 
 async function filesUnder(directory: string): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true });
