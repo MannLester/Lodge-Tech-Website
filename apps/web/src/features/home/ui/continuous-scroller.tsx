@@ -13,7 +13,6 @@ export function ContinuousScroller({
   className = "",
 }: ContinuousScrollerProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const interactionTimeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
   const isInteractingRef = useRef(false);
 
   useEffect(() => {
@@ -56,29 +55,23 @@ export function ContinuousScroller({
 
     return () => {
       cancelAnimationFrame(animationFrame);
-      if (interactionTimeoutRef.current) {
-        clearTimeout(interactionTimeoutRef.current);
-      }
     };
   }, []);
 
-  function pauseForInteraction() {
+  function beginInteraction() {
     isInteractingRef.current = true;
-    if (interactionTimeoutRef.current) {
-      clearTimeout(interactionTimeoutRef.current);
-    }
-    interactionTimeoutRef.current = setTimeout(() => {
-      isInteractingRef.current = false;
-    }, 800);
+  }
+
+  function endInteraction() {
+    isInteractingRef.current = false;
   }
 
   return (
     <div
       className={`continuous-scroller ${className}`}
-      onPointerDown={pauseForInteraction}
-      onPointerUp={pauseForInteraction}
-      onPointerCancel={pauseForInteraction}
-      onWheel={pauseForInteraction}
+      onPointerDown={beginInteraction}
+      onPointerUp={endInteraction}
+      onPointerCancel={endInteraction}
       ref={scrollerRef}
     >
       <div className="continuous-scroller-track">
