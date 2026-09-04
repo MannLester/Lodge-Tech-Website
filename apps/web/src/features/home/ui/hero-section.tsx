@@ -6,8 +6,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-import heroHouseImage from "../../../../assets/day_house.png";
-import heroHouseNightImage from "../../../../assets/day_night.png";
+import heroHouseImage from "@assets/day_house.png";
+import heroHouseNightImage from "@assets/day_night.png";
 import {
   proofStats,
   proofTickerItems,

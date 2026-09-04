@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { HeroSection } from "./hero-section";
+import { HeroSection } from "@/features/home/ui/hero-section";
 
 describe("HeroSection", () => {
   it("communicates the V2 primary outcome, proof points, and ticker", () => {

@@ -2,7 +2,10 @@
 
 import { redirect } from "next/navigation";
 
-import { createAdminSessionCookie, deleteAdminSessionCookie } from "./session";
+import {
+  createAdminSessionCookie,
+  deleteAdminSessionCookie,
+} from "@/features/admin-auth/server/session";
 
 export async function loginAsDemoAdmin(): Promise<void> {
   await createAdminSessionCookie();

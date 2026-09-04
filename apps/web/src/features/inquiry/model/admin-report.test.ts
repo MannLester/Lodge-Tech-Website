@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { summarizeInquiries } from "./admin-report";
+import { summarizeInquiries } from "@/features/inquiry/model/admin-report";
 
 const inquiry = (
   status: "New" | "Contacted" | "Closed",
