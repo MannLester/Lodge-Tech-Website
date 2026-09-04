@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { SiteHeader } from "./site-header";
+import { SiteHeader } from "@/features/home/ui/site-header";
 
 describe("SiteHeader", () => {
   afterEach(() => {
