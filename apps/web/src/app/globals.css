@@ -121,20 +121,21 @@ button {
 
 .continuous-scroller {
   gap: 1rem;
-  overflow-x: auto;
+  overflow: hidden;
   padding-block: 0.25rem 1rem;
-  scrollbar-width: none;
-  touch-action: pan-x;
-}
-
-.continuous-scroller::-webkit-scrollbar {
-  display: none;
 }
 
 .continuous-scroller-track {
   display: flex;
   width: max-content;
-  scroll-behavior: auto;
+  animation: continuous-scroller-slide 55s linear infinite;
+  will-change: transform;
+}
+
+@keyframes continuous-scroller-slide {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .continuous-scroller-group {
@@ -393,12 +394,6 @@ button {
     grid-auto-flow: row;
     overflow: visible;
     padding-bottom: 0;
-    scrollbar-width: auto;
-    touch-action: auto;
-  }
-
-  .continuous-scroller::-webkit-scrollbar {
-    display: initial;
   }
 
   .continuous-scroller-track,
@@ -407,6 +402,7 @@ button {
   }
 
   .continuous-scroller-track {
+    animation: none;
     width: auto;
   }
 
