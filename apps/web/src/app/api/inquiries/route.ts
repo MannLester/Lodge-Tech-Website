@@ -1,3 +1,3 @@
-import { createPostInquiryHandler } from "@/features/inquiry/server/post-inquiry";
+import { createPostInquiryHandler } from "@/features/inquiry";
 
 export const POST = createPostInquiryHandler();

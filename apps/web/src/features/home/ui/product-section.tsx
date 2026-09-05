@@ -1,10 +1,10 @@
 import { Check } from "lucide-react";
 
-import auxiliaryImage from "../../../../assets/auxiliary.png";
-import exhaustImage from "../../../../assets/exhaust.png";
-import hvacImage from "../../../../assets/hvac.png";
-import lightingImage from "../../../../assets/lighting.png";
-import platformImage from "../../../../assets/platform.png";
+import auxiliaryImage from "@assets/auxiliary.png";
+import exhaustImage from "@assets/exhaust.png";
+import hvacImage from "@assets/hvac.png";
+import lightingImage from "@assets/lighting.png";
+import platformImage from "@assets/platform.png";
 import { products } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { MediaImage } from "@lodging-technologies/ui/media-image";

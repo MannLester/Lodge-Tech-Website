@@ -11,22 +11,16 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-import type { AdminSession } from "@/features/admin-auth/model/admin-session-token";
-import { logoutAdmin } from "@/features/admin-auth/server/actions";
-import type {
-  Inquiry,
-  InquiryStatus,
-} from "@/features/inquiry/data/inquiry-repository";
-import { summarizeInquiries } from "@/features/inquiry/model/admin-report";
-import { updateInquiryStatus } from "@/features/inquiry/server/admin-actions";
+import { logoutAdmin, type AdminSession } from "@/features/admin-auth";
 import {
-  completeFollowUp,
-  createFollowUp,
-} from "@/features/inquiry/server/follow-up-actions";
-import type {
-  AdminFollowUpResult,
-  AdminInquiryResult,
-} from "@/features/inquiry/server/admin-inquiries";
+  summarizeInquiries,
+  updateInquiryStatus,
+  type AdminFollowUpResult,
+  type AdminInquiryResult,
+  type Inquiry,
+  type InquiryStatus,
+} from "@/features/inquiry";
+import { completeFollowUp, createFollowUp } from "@/features/inquiry";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 type View = "dashboard" | "inquiries" | "follow-ups" | "reports";

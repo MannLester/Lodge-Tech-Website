@@ -14,6 +14,11 @@
 - `data` for persistence and provider adapters.
 - `test` for tests that exercise the complete slice.
 
+Every feature exposes a public API from `index.ts`. Routes and other features
+must import through that barrel instead of reaching into another feature's
+`ui`, `model`, `server`, or `data` folders. Imports within a feature use the
+configured `@/features/<feature>/...` aliases.
+
 Planned slices include the public home experience, inquiry intake, administrator authentication, and inquiry management. A feature may import from app-local shared modules or workspace packages, but feature slices must not reach into one another's internal folders.
 
 ## Shared code
@@ -28,6 +33,10 @@ apps/web -> packages/*
 ```
 
 Keep provider-specific code behind the feature or shared module that owns the contract. Keep secrets and server-only imports out of client component dependency graphs.
+
+The `admin-dashboard` slice composes the administrator workspace from the
+`admin-auth` and `inquiry` public APIs; authentication and inquiry internals
+remain independently encapsulated.
 
 ## Inquiry intake
 

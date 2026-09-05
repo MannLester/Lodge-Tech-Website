@@ -9,7 +9,7 @@ import {
   verifyAdminSessionToken,
 } from "@/features/admin-auth/model/admin-session-token";
 
-import { getAdminAuthEnv } from "./env";
+import { getAdminAuthEnv } from "@/features/admin-auth/server/env";
 
 export const adminSessionCookieName = "lodge_admin_session";
 
