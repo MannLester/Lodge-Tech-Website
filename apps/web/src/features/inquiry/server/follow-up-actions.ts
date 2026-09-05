@@ -11,6 +11,15 @@ async function requireAdmin() {
   if (!session || session.role !== "admin") throw new Error("Unauthorized");
 }
 
+function validUuid(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+      value,
+    )
+  );
+}
+
 export async function createFollowUp(formData: FormData) {
   await requireAdmin();
   const inquiryId = formData.get("inquiry_id");
@@ -18,11 +27,19 @@ export async function createFollowUp(formData: FormData) {
   const notes = formData.get("notes");
   const dueAt = formData.get("due_at");
   if (
-    typeof inquiryId !== "string" ||
+    !validUuid(inquiryId) ||
     typeof title !== "string" ||
-    !title.trim()
+    !title.trim() ||
+    title.trim().length > 160
   )
     throw new Error("A follow-up title is required");
+  if (typeof notes === "string" && notes.trim().length > 2000)
+    throw new Error("Follow-up notes must be 2000 characters or fewer");
+  if (
+    typeof dueAt !== "string" ||
+    (dueAt !== "" && !/^\d{4}-\d{2}-\d{2}$/.test(dueAt))
+  )
+    throw new Error("Invalid follow-up due date");
   await followUpRepository.create({
     inquiry_id: inquiryId,
     title: title.trim(),
@@ -30,14 +47,25 @@ export async function createFollowUp(formData: FormData) {
     due_at: typeof dueAt === "string" && dueAt ? dueAt : null,
   });
   revalidatePath("/admin");
-  redirect("/admin?view=follow-ups");
+  revalidatePath(`/admin/leads/${inquiryId}`);
+  redirect(
+    formData.get("context") === "detail"
+      ? `/admin/leads/${inquiryId}`
+      : "/admin?view=tasks",
+  );
 }
 
 export async function completeFollowUp(formData: FormData) {
   await requireAdmin();
   const id = formData.get("id");
-  if (typeof id !== "string") throw new Error("Invalid follow-up");
+  const inquiryId = formData.get("inquiry_id");
+  if (!validUuid(id)) throw new Error("Invalid follow-up");
   await followUpRepository.complete(id);
   revalidatePath("/admin");
-  redirect("/admin?view=follow-ups");
+  if (validUuid(inquiryId)) revalidatePath(`/admin/leads/${inquiryId}`);
+  redirect(
+    formData.get("context") === "detail" && validUuid(inquiryId)
+      ? `/admin/leads/${inquiryId}`
+      : "/admin?view=tasks",
+  );
 }
