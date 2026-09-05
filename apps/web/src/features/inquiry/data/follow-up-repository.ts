@@ -26,6 +26,16 @@ export const followUpRepository = {
     if (error)
       throw new Error("Supabase failed to create follow-up", { cause: error });
   },
+  async listByInquiry(inquiryId: string): Promise<FollowUp[]> {
+    const { data, error } = await getServerSupabaseClient()
+      .from("follow_ups")
+      .select("*")
+      .eq("inquiry_id", inquiryId)
+      .order("created_at", { ascending: false });
+    if (error)
+      throw new Error("Supabase failed to load lead tasks", { cause: error });
+    return data;
+  },
   async complete(id: string) {
     const { error } = await getServerSupabaseClient()
       .from("follow_ups")
