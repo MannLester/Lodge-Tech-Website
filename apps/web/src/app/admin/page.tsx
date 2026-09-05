@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { AdminSignIn, readAdminSession } from "@/features/admin-auth";
 import { AdminDashboardPlaceholder } from "@/features/admin-dashboard";
 import { loadAdminFollowUps, loadAdminInquiries } from "@/features/inquiry";
+import { loadWebsiteConversionReport } from "@/features/website-analytics";
 
 import type { InquiryStatus } from "@/features/inquiry";
 
@@ -45,6 +46,10 @@ export default async function AdminPage({
     loadAdminInquiries(),
     loadAdminFollowUps(),
   ]);
+  const websiteConversionReport =
+    view === "reports" && inquiryResult.ok
+      ? await loadWebsiteConversionReport(inquiryResult.inquiries)
+      : null;
 
   return (
     <AdminDashboardPlaceholder
@@ -57,6 +62,7 @@ export default async function AdminPage({
       followUpResult={followUpResult}
       session={session}
       view={view}
+      websiteConversionReport={websiteConversionReport}
     />
   );
 }

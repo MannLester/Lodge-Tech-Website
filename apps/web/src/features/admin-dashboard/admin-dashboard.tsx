@@ -36,6 +36,10 @@ import {
   type Inquiry,
   type LeadFilters,
 } from "@/features/inquiry";
+import {
+  WebsiteConversionReportPanel,
+  type WebsiteConversionReport,
+} from "@/features/website-analytics";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 type View = "dashboard" | "leads" | "tasks" | "reports";
@@ -45,6 +49,7 @@ type Props = Readonly<{
   inquiryResult: AdminInquiryResult;
   session: AdminSession;
   view: View;
+  websiteConversionReport: WebsiteConversionReport | null;
 }>;
 
 const navItems: { label: string; view: View; icon: typeof LayoutDashboard }[] =
@@ -61,6 +66,7 @@ export function AdminDashboardPlaceholder({
   inquiryResult,
   session,
   view,
+  websiteConversionReport,
 }: Props) {
   const inquiries = inquiryResult.ok ? inquiryResult.inquiries : [];
   const followUps = followUpResult.ok ? followUpResult.followUps : [];
@@ -83,7 +89,11 @@ export function AdminDashboardPlaceholder({
         />
       )}
       {view === "reports" && (
-        <ReportsWorkspace inquiries={inquiries} result={inquiryResult} />
+        <ReportsWorkspace
+          inquiries={inquiries}
+          result={inquiryResult}
+          websiteConversionReport={websiteConversionReport}
+        />
       )}
     </AdminShell>
   );
@@ -630,9 +640,11 @@ function LeadDetail({
 function ReportsWorkspace({
   inquiries,
   result,
+  websiteConversionReport,
 }: {
   inquiries: Inquiry[];
   result: AdminInquiryResult;
+  websiteConversionReport: WebsiteConversionReport | null;
 }) {
   if (!result.ok)
     return (
@@ -656,7 +668,7 @@ function ReportsWorkspace({
         <Metric label="Won" value={summary.won} />
         <Metric label="Lost" value={summary.lost} />
         <Metric
-          label="Conversion"
+          label="Lead win rate"
           value={
             summary.conversionRate === null
               ? "—"
@@ -670,6 +682,9 @@ function ReportsWorkspace({
           {summary.legacyClosed === 1 ? "lead needs" : "leads need"} a Won or
           Lost outcome. These records are excluded from conversion.
         </Notice>
+      ) : null}
+      {websiteConversionReport ? (
+        <WebsiteConversionReportPanel report={websiteConversionReport} />
       ) : null}
       <div className="mt-8 grid gap-8 xl:grid-cols-2">
         <ChartGroup
