@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 import { siteConfig } from "@/shared/config/site";
 import { ThemeScript } from "@lodging-technologies/ui/theme-script";
@@ -21,7 +22,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head>
         <ThemeScript />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
