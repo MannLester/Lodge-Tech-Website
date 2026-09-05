@@ -11,7 +11,7 @@ export type Database = {
           name: string;
           phone: string | null;
           property_type: string;
-          status: "New" | "Contacted" | "Closed";
+          status: "New" | "Contacted" | "Qualified" | "Won" | "Lost" | "Closed";
           updated_at: string;
         };
         Insert: {
@@ -23,7 +23,8 @@ export type Database = {
           name: string;
           phone?: string | null;
           property_type: string;
-          status?: "New" | "Contacted" | "Closed";
+          status?:
+            "New" | "Contacted" | "Qualified" | "Won" | "Lost" | "Closed";
           updated_at?: string;
         };
         Update: {
@@ -35,7 +36,8 @@ export type Database = {
           name?: string;
           phone?: string | null;
           property_type?: string;
-          status?: "New" | "Contacted" | "Closed";
+          status?:
+            "New" | "Contacted" | "Qualified" | "Won" | "Lost" | "Closed";
           updated_at?: string;
         };
         Relationships: [];
@@ -64,6 +66,36 @@ export type Database = {
           notes?: string | null;
           due_at?: string | null;
           completed_at?: string | null;
+        };
+        Relationships: [];
+      };
+      inquiry_activities: {
+        Row: {
+          activity_type: "note" | "status_change";
+          body: string | null;
+          created_at: string;
+          from_status: string | null;
+          id: string;
+          inquiry_id: string;
+          to_status: string | null;
+        };
+        Insert: {
+          activity_type: "note" | "status_change";
+          body?: string | null;
+          created_at?: string;
+          from_status?: string | null;
+          id?: string;
+          inquiry_id: string;
+          to_status?: string | null;
+        };
+        Update: {
+          activity_type?: "note" | "status_change";
+          body?: string | null;
+          created_at?: string;
+          from_status?: string | null;
+          id?: string;
+          inquiry_id?: string;
+          to_status?: string | null;
         };
         Relationships: [];
       };
