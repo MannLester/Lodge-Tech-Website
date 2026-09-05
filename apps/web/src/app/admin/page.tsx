@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 
-import { readAdminSession } from "@/features/admin-auth/server/session";
-import { AdminDashboardPlaceholder } from "@/features/admin-auth/ui/admin-dashboard-placeholder";
-import { AdminSignIn } from "@/features/admin-auth/ui/admin-sign-in";
-import {
-  loadAdminFollowUps,
-  loadAdminInquiries,
-} from "@/features/inquiry/server/admin-inquiries";
+import { AdminSignIn, readAdminSession } from "@/features/admin-auth";
+import { AdminDashboardPlaceholder } from "@/features/admin-dashboard";
+import { loadAdminFollowUps, loadAdminInquiries } from "@/features/inquiry";
 
 type View = "dashboard" | "inquiries" | "follow-ups" | "reports";
 

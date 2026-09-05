@@ -1,10 +1,10 @@
 import { ArrowRight } from "lucide-react";
 
-import dayNightImage from "../../../../assets/day_night.png";
-import hospitalityImage from "../../../../assets/hospitality.png";
-import multifamilyImage from "../../../../assets/multifamily.png";
-import seniorLivingImage from "../../../../assets/senior_living.png";
-import studentHousingImage from "../../../../assets/student_housing.png";
+import dayNightImage from "@assets/day_night.png";
+import hospitalityImage from "@assets/hospitality.png";
+import multifamilyImage from "@assets/multifamily.png";
+import seniorLivingImage from "@assets/senior_living.png";
+import studentHousingImage from "@assets/student_housing.png";
 import { industries } from "@/features/home/model/home-content";
 import { MediaImage } from "@lodging-technologies/ui/media-image";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";

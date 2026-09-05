@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { readAdminSession } from "@/features/admin-auth/server/session";
-import { followUpRepository } from "../data/follow-up-repository";
+import { readAdminSession } from "@/features/admin-auth";
+import { followUpRepository } from "@/features/inquiry/data/follow-up-repository";
 
 async function requireAdmin() {
   const session = await readAdminSession();

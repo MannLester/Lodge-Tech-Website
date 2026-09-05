@@ -1,4 +1,4 @@
-import type { Inquiry } from "../data/inquiry-repository";
+import type { Inquiry } from "@/features/inquiry/data/inquiry-repository";
 
 export function summarizeInquiries(inquiries: Inquiry[]) {
   return {

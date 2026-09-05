@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { InquiryForm } from "./inquiry-form";
+import { InquiryForm } from "@/features/home/ui/inquiry-form";
 
 function jsonResponse(body: unknown, status = 200) {
   return Promise.resolve(

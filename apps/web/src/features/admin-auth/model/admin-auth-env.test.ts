@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   demoAdminFallbackSessionSecret,
   resolveAdminAuthEnv,
-} from "./admin-auth-env";
+} from "@/features/admin-auth/model/admin-auth-env";
 
 describe("admin auth env", () => {
   it("uses a fallback session secret in development", () => {

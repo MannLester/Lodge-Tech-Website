@@ -5,7 +5,7 @@ import {
   createDemoAdminSession,
   signAdminSession,
   verifyAdminSessionToken,
-} from "./admin-session-token";
+} from "@/features/admin-auth/model/admin-session-token";
 
 const secret = "0123456789abcdefghijklmnopqrstuvwxyz-demo-secret";
 const now = new Date("2026-09-03T08:00:00.000Z");
