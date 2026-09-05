@@ -9,6 +9,7 @@ import { products } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { MediaImage } from "@lodging-technologies/ui/media-image";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
+import { ContinuousScroller } from "./continuous-scroller";
 
 const productImages = [hvacImage, lightingImage, exhaustImage, auxiliaryImage];
 
@@ -34,7 +35,7 @@ export function ProductSection() {
         />
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:items-start lg:gap-16">
-          <div className="snap-row md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
+          <ContinuousScroller className="md:auto-cols-auto md:grid-flow-row md:grid-cols-2 lg:grid-cols-4">
             {products.map((product, index) => {
               const image = productImages[index];
 
@@ -57,7 +58,7 @@ export function ProductSection() {
                 </article>
               );
             })}
-          </div>
+          </ContinuousScroller>
 
           <aside
             aria-labelledby="platform-heading"

@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 import { caseStudies } from "@/features/home/model/home-content";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
+import { ContinuousScroller } from "./continuous-scroller";
 
 export function ResultsSection() {
   return (
@@ -27,7 +28,7 @@ export function ResultsSection() {
           </a>
         </div>
 
-        <div className="snap-row md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:overflow-visible">
+        <ContinuousScroller className="md:auto-cols-auto md:grid-flow-row md:grid-cols-3">
           {caseStudies.map((study) => (
             <article
               className="border-border bg-surface flex min-w-0 flex-col rounded-lg border p-5"
@@ -74,7 +75,7 @@ export function ResultsSection() {
               </div>
             </article>
           ))}
-        </div>
+        </ContinuousScroller>
       </div>
     </section>
   );
