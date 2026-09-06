@@ -18,8 +18,12 @@ The application code already provides:
   do not overwrite one another;
 - short retries for transport-level failures between Vercel and Supabase;
 - server-validated Supabase users and cookie-backed sessions;
-- a second authorization check against `public.admin_users`;
-- forced Row Level Security on the allowlist table; and
+- a second authorization check against `public.crm_users`;
+- role-based access control for `USER`, `MANAGER`, and `ADMIN`;
+- an admin-only access management screen;
+- an admin-only immutable audit log;
+- a read-only compatibility view at `public.admin_users`; and
+- forced Row Level Security on the access and audit tables; and
 - safe user-facing callback errors with detailed diagnostics retained in
   Vercel runtime logs.
 
@@ -29,12 +33,15 @@ Authentication and authorization are separate:
 2. Supabase creates or retrieves the Auth user and issues the application
    session.
 3. The application normalizes the email to lowercase.
-4. The server checks for that email in `public.admin_users`.
-5. Only a verified Google user with an allowlist match can see the dashboard.
+4. The server checks for that email in `public.crm_users`.
+5. If the email is invited and not disabled, the app binds that CRM access row
+   to the Supabase Auth user ID.
+6. The user's role controls which CRM pages and server actions are available.
 
 An entry in `auth.users` does **not** grant dashboard access by itself. An entry
-in `public.admin_users` also does not create a login session by itself. Both
-conditions must be satisfied.
+in `public.crm_users` also does not create a login session by itself. Both
+conditions must be satisfied. Job titles or team labels must never be used for
+authorization; only the `role` column in `public.crm_users` grants access.
 
 ## Account ownership and prerequisites
 
@@ -128,16 +135,31 @@ migrations and skips them on later runs. Do not use `db reset --linked` against
 Production; that command destroys and rebuilds the linked remote database.
 
 The migration
-`supabase/migrations/20260906000000_create_admin_users.sql` creates the admin
-allowlist. It intentionally:
+`supabase/migrations/20260906000000_create_admin_users.sql` creates the first
+email allowlist table. The migration
+`supabase/migrations/20260906010000_create_crm_rbac_audit.sql` upgrades that
+model into the CRM access and audit layer. It intentionally:
 
 - requires lowercase, syntactically valid email addresses;
+- stores access in `public.crm_users`;
+- supports three access roles:
+  - `USER`: dashboard, leads, tasks, and CRM writes;
+  - `MANAGER`: everything `USER` can do, plus reports;
+  - `ADMIN`: everything `MANAGER` can do, plus access management and audit logs;
+- stores user status as `INVITED`, `ACTIVE`, or `DISABLED`;
+- keeps `public.admin_users` as a read-only compatibility view;
+- migrates existing `public.admin_users` rows to `ADMIN` invitations;
+- records access, login, logout, lead, note, and follow-up events in
+  `public.audit_logs`;
+- prevents audit log updates and deletes;
+- prevents disabling or demoting the last active `ADMIN`;
 - enables and forces Row Level Security;
-- removes all table access from `anon` and `authenticated`; and
+- removes table access from `anon` and `authenticated`; and
 - grants access only to Supabase's privileged `service_role`.
 
 This design prevents a signed-in browser user from reading the administrator
-list. The Next.js server performs the lookup using its server-only key.
+list, access records, or audit logs. The Next.js server performs privileged
+lookups and mutations using its server-only key.
 
 See the official [Supabase database migration workflow](https://supabase.com/docs/guides/deployment/database-migrations).
 
@@ -235,37 +257,60 @@ https://*-<vercel-team-or-account-slug>.vercel.app/auth/callback**
 Use wildcards for Preview only when necessary. Prefer a stable branch alias and
 an exact host. See [Supabase Redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls).
 
-## 6. Add approved administrators
+## 6. Add approved CRM users
 
 Open **SQL Editor** in the correct Supabase project and run:
 
 ```sql
-insert into public.admin_users (email)
-values (lower('admin@example.com'))
+insert into public.crm_users (email, role, status)
+values (lower('admin@example.com'), 'ADMIN', 'INVITED')
 on conflict (email) do nothing;
 ```
 
-Add one row per approved administrator. Google aliases and different domains
-are different email strings; add exactly the address Google reports.
+Add one row per approved person. Google aliases and different domains are
+different email strings; add exactly the address Google reports.
+
+Use the correct role:
+
+| Role      | Access                                                                 |
+| --------- | ---------------------------------------------------------------------- |
+| `USER`    | Dashboard, leads, tasks, lead status changes, notes, and follow-ups    |
+| `MANAGER` | All `USER` access, plus reports                                        |
+| `ADMIN`   | All `MANAGER` access, plus Access and Audit screens                    |
+
+The first production owner should be inserted as `ADMIN`. After that, use the
+CRM's `/admin?view=access` screen to invite, disable, re-enable, change roles,
+or delete unactivated invitations.
 
 Verify the entry:
 
 ```sql
-select email, created_at
-from public.admin_users
+select email, role, status, auth_user_id, last_login_at
+from public.crm_users
 where email = lower('admin@example.com');
 ```
 
 To revoke dashboard access:
 
 ```sql
-delete from public.admin_users
+update public.crm_users
+set status = 'DISABLED',
+    disabled_at = now()
 where email = lower('admin@example.com');
 ```
 
-Revocation prevents the next protected read. To terminate an already issued
-Supabase session immediately, also revoke that user's sessions from the
-Supabase Authentication dashboard.
+Do not delete active people. Disable them so audit history and actor
+relationships remain understandable. The UI only deletes invitations that have
+not been activated. Revocation prevents the next protected read. To terminate
+an already issued Supabase session immediately, also revoke that user's
+sessions from the Supabase Authentication dashboard.
+
+The legacy query still works for read-only verification:
+
+```sql
+select email, created_at
+from public.admin_users;
+```
 
 ## 7. Configure Vercel
 

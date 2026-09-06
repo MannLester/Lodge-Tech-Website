@@ -12,7 +12,7 @@ Copy `.env.example` to `.env.local` for local development and replace every Supa
 - `NEXT_PUBLIC_SUPABASE_URL` identifies the Supabase project used for browser auth.
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` is the browser-safe Supabase key used to start Google OAuth and read the current auth session.
 - `SUPABASE_URL` identifies the approved Supabase project.
-- `SUPABASE_SECRET_KEY` is a privileged server credential used by server-only CRM and allowlist queries. Never expose it through a `NEXT_PUBLIC_` variable or import server environment configuration into a client component.
+- `SUPABASE_SECRET_KEY` is a privileged server credential used by server-only CRM access, audit, and lead queries. Never expose it through a `NEXT_PUBLIC_` variable or import server environment configuration into a client component.
 - `VERCEL_ANALYTICS_TOKEN` is a server-only Vercel access token used to read Web Analytics in the CRM Reports view.
 - `VERCEL_PROJECT_ID` identifies the Vercel project whose production homepage traffic is reported.
 - `VERCEL_TEAM_ID` identifies the owning Vercel team. It can be omitted for a personal project.
@@ -25,4 +25,4 @@ The public form does not use the browser Supabase client. It posts to the same-o
 
 Environment values are validated only when a feature requests them, allowing the frontend foundation to build before Supabase access is supplied. A feature that depends on missing or invalid configuration fails immediately instead of continuing with partial configuration.
 
-The `/admin` route uses Supabase Auth with Google OAuth. A signed-in Google user must also exist in `public.admin_users` before the CRM renders.
+The `/admin` route uses Supabase Auth with Google OAuth. A signed-in Google user must also exist in `public.crm_users` with a non-disabled role before the CRM renders. `public.admin_users` is now a read-only compatibility view.

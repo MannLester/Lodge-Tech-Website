@@ -39,7 +39,7 @@ Do not invent claims, case-study details, contact information, or client assets 
 
 This V2 alignment pass provides a frontend-only validated inquiry form with a clear success state. Backend persistence, Supabase storage, administrator routes, status tracking, and deployment plumbing remain deferred until those credentials and production decisions are supplied.
 
-This is not a full CRM. Sales pipelines, automation, assignments, bulk messaging, analytics, external CRM synchronization, and multi-role administration are outside the approved scope.
+This is not a full CRM. Sales pipelines, automation, assignments, bulk messaging, analytics, and external CRM synchronization are outside the approved scope. The approved admin scope includes Google authentication, CRM roles, access management, and audit logs.
 
 ## Technical baseline
 
