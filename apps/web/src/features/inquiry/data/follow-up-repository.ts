@@ -19,12 +19,15 @@ export const followUpRepository = {
       throw new Error("Supabase failed to load follow-ups", { cause: error });
     return data;
   },
-  async create(input: FollowUpInput) {
-    const { error } = await getServerSupabaseClient()
+  async create(input: FollowUpInput): Promise<FollowUp> {
+    const { data, error } = await getServerSupabaseClient()
       .from("follow_ups")
-      .insert(input);
+      .insert(input)
+      .select("*")
+      .single();
     if (error)
       throw new Error("Supabase failed to create follow-up", { cause: error });
+    return data;
   },
   async listByInquiry(inquiryId: string): Promise<FollowUp[]> {
     const { data, error } = await getServerSupabaseClient()
@@ -36,14 +39,17 @@ export const followUpRepository = {
       throw new Error("Supabase failed to load lead tasks", { cause: error });
     return data;
   },
-  async complete(id: string) {
-    const { error } = await getServerSupabaseClient()
+  async complete(id: string): Promise<FollowUp | null> {
+    const { data, error } = await getServerSupabaseClient()
       .from("follow_ups")
       .update({ completed_at: new Date().toISOString() })
-      .eq("id", id);
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
     if (error)
       throw new Error("Supabase failed to complete follow-up", {
         cause: error,
       });
+    return data;
   },
 };

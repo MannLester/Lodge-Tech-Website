@@ -1,6 +1,6 @@
 import "server-only";
 
-import { requireAdminSession } from "@/features/admin-auth";
+import { auditRepository, requirePermission } from "@/features/admin-auth";
 import {
   followUpRepository,
   type FollowUp,
@@ -34,7 +34,7 @@ export async function loadAdminInquiries(
   repository: InquiryRepository = supabaseInquiryRepository,
 ): Promise<AdminInquiryResult> {
   try {
-    await requireAdminSession();
+    await requirePermission("crm.read");
     if (!repository.list) throw new Error("Inquiry listing is unavailable");
     return { ok: true, inquiries: await repository.list() };
   } catch (error) {
@@ -51,15 +51,23 @@ export async function changeInquiryStatus(
   status: InquiryStatus,
   repository: InquiryRepository = supabaseInquiryRepository,
 ) {
-  await requireAdminSession();
+  const session = await requirePermission("crm.write");
   if (!repository.updateStatus)
     throw new Error("Inquiry updates are unavailable");
+  const before = repository.findById && (await repository.findById(id));
   await repository.updateStatus(id, status);
+  await auditRepository.record(session, {
+    action: "lead.status_updated",
+    after: { status },
+    before: before ? { status: before.status } : null,
+    resourceId: id,
+    resourceType: "inquiry",
+  });
 }
 
 export async function loadAdminFollowUps(): Promise<AdminFollowUpResult> {
   try {
-    await requireAdminSession();
+    await requirePermission("crm.read");
     return { ok: true, followUps: await followUpRepository.list() };
   } catch (error) {
     console.error("Failed to load admin tasks", error);
@@ -78,7 +86,7 @@ export async function loadAdminLead(id: string): Promise<AdminLeadResult> {
   )
     return { ok: false, message: "Lead not found.", notFound: true };
   try {
-    await requireAdminSession();
+    await requirePermission("crm.read");
     if (!supabaseInquiryRepository.findById)
       throw new Error("Lead lookup is unavailable");
     const inquiry = await supabaseInquiryRepository.findById(id);
@@ -100,6 +108,12 @@ export async function loadAdminLead(id: string): Promise<AdminLeadResult> {
 }
 
 export async function addInquiryNote(id: string, body: string) {
-  await requireAdminSession();
-  await activityRepository.addNote(id, body);
+  const session = await requirePermission("crm.write");
+  const note = await activityRepository.addNote(id, body);
+  await auditRepository.record(session, {
+    action: "lead.note_added",
+    after: { note_id: note.id },
+    resourceId: id,
+    resourceType: "inquiry",
+  });
 }

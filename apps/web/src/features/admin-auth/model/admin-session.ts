@@ -1,13 +1,19 @@
 import type { User } from "@supabase/supabase-js";
 
+import type { AccessRole } from "@/features/admin-auth/model/permissions";
+
 export type AdminSession = {
   authMode: "google";
+  crmUserId: string;
   email: string;
-  role: "admin";
+  role: AccessRole;
   sub: string;
 };
 
-export type AdminEmailLookup = (email: string) => Promise<boolean>;
+export type AdminAccountLookup = (
+  email: string,
+  authUserId: string,
+) => Promise<Pick<AdminSession, "crmUserId" | "role"> | null>;
 
 export function normalizeAdminEmail(email: string): string {
   return email.trim().toLowerCase();
@@ -28,21 +34,22 @@ export async function createAdminSessionFromUser(
     User,
     "app_metadata" | "email" | "email_confirmed_at" | "id" | "identities"
   >,
-  isAllowedAdminEmail: AdminEmailLookup,
+  findApprovedAdminAccount: AdminAccountLookup,
 ): Promise<AdminSession | null> {
   if (!user.email || !user.email_confirmed_at || !hasGoogleIdentity(user)) {
     return null;
   }
 
   const email = normalizeAdminEmail(user.email);
-  const allowed = await isAllowedAdminEmail(email);
+  const account = await findApprovedAdminAccount(email, user.id);
 
-  if (!allowed) return null;
+  if (!account) return null;
 
   return {
     authMode: "google",
+    crmUserId: account.crmUserId,
     email,
-    role: "admin",
+    role: account.role,
     sub: user.id,
   };
 }

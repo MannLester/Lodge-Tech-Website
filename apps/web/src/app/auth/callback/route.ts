@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import {
+  auditRepository,
   createAdminSessionForAuthenticatedUser,
   createRetryingAuthFetch,
   readPkceFlowId,
@@ -67,11 +68,22 @@ export async function GET(request: NextRequest) {
       : null;
 
   if (!session) {
+    await auditRepository.recordBestEffort(null, {
+      action: "auth.login_denied",
+      after: user?.email ? { email: user.email.toLowerCase() } : null,
+      resourceType: "auth_session",
+    });
     await signOutAdmin();
     redirectUrl.pathname = "/admin";
     redirectUrl.search = "?auth=denied";
     return NextResponse.redirect(redirectUrl);
   }
+
+  await auditRepository.record(session, {
+    action: "auth.login_succeeded",
+    resourceId: session.crmUserId,
+    resourceType: "crm_user",
+  });
 
   return NextResponse.redirect(redirectUrl);
 }

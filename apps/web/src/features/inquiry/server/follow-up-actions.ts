@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { requireAdminSession } from "@/features/admin-auth";
+import { auditRepository, requirePermission } from "@/features/admin-auth";
 import { followUpRepository } from "@/features/inquiry/data/follow-up-repository";
 
 function validUuid(value: unknown): value is string {
@@ -16,7 +16,7 @@ function validUuid(value: unknown): value is string {
 }
 
 export async function createFollowUp(formData: FormData) {
-  await requireAdminSession();
+  const session = await requirePermission("crm.write");
   const inquiryId = formData.get("inquiry_id");
   const title = formData.get("title");
   const notes = formData.get("notes");
@@ -35,11 +35,21 @@ export async function createFollowUp(formData: FormData) {
     (dueAt !== "" && !/^\d{4}-\d{2}-\d{2}$/.test(dueAt))
   )
     throw new Error("Invalid follow-up due date");
-  await followUpRepository.create({
+  const followUp = await followUpRepository.create({
     inquiry_id: inquiryId,
     title: title.trim(),
     notes: typeof notes === "string" && notes.trim() ? notes.trim() : null,
     due_at: typeof dueAt === "string" && dueAt ? dueAt : null,
+  });
+  await auditRepository.record(session, {
+    action: "follow_up.created",
+    after: {
+      due_at: followUp.due_at,
+      inquiry_id: followUp.inquiry_id,
+      title_length: followUp.title.length,
+    },
+    resourceId: followUp.id,
+    resourceType: "follow_up",
   });
   revalidatePath("/admin");
   revalidatePath(`/admin/leads/${inquiryId}`);
@@ -51,11 +61,19 @@ export async function createFollowUp(formData: FormData) {
 }
 
 export async function completeFollowUp(formData: FormData) {
-  await requireAdminSession();
+  const session = await requirePermission("crm.write");
   const id = formData.get("id");
   const inquiryId = formData.get("inquiry_id");
   if (!validUuid(id)) throw new Error("Invalid follow-up");
-  await followUpRepository.complete(id);
+  const followUp = await followUpRepository.complete(id);
+  await auditRepository.record(session, {
+    action: "follow_up.completed",
+    after: followUp
+      ? { completed_at: followUp.completed_at, inquiry_id: followUp.inquiry_id }
+      : null,
+    resourceId: id,
+    resourceType: "follow_up",
+  });
   revalidatePath("/admin");
   if (validUuid(inquiryId)) revalidatePath(`/admin/leads/${inquiryId}`);
   redirect(

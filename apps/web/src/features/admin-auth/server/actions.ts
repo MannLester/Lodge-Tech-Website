@@ -2,7 +2,11 @@
 
 import { redirect } from "next/navigation";
 
-import { signOutAdmin } from "@/features/admin-auth/server/session";
+import { auditRepository } from "@/features/admin-auth/data/audit-repository";
+import {
+  readAdminSession,
+  signOutAdmin,
+} from "@/features/admin-auth/server/session";
 import { getPublicEnv } from "@/shared/config/env/public";
 import { createSupabaseAuthServerClient } from "@/shared/supabase/auth";
 
@@ -32,6 +36,11 @@ export async function loginWithGoogle(formData: FormData): Promise<void> {
 }
 
 export async function logoutAdmin(): Promise<void> {
+  const session = await readAdminSession();
   await signOutAdmin();
+  await auditRepository.recordBestEffort(session, {
+    action: "auth.logout",
+    resourceType: "auth_session",
+  });
   redirect("/admin");
 }

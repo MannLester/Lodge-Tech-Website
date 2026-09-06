@@ -19,11 +19,14 @@ export const activityRepository = {
       });
     return data;
   },
-  async addNote(inquiryId: string, body: string): Promise<void> {
-    const { error } = await getServerSupabaseClient()
+  async addNote(inquiryId: string, body: string): Promise<InquiryActivity> {
+    const { data, error } = await getServerSupabaseClient()
       .from("inquiry_activities")
-      .insert({ activity_type: "note", body, inquiry_id: inquiryId });
+      .insert({ activity_type: "note", body, inquiry_id: inquiryId })
+      .select("*")
+      .single();
     if (error)
       throw new Error("Supabase failed to add inquiry note", { cause: error });
+    return data;
   },
 };
