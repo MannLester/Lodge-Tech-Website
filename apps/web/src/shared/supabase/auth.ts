@@ -18,6 +18,11 @@ async function createAuthClient(env: PublicEnv) {
     env.NEXT_PUBLIC_SUPABASE_URL,
     env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     {
+      auth: {
+        experimental: {
+          appendPkceFlowIdToRedirects: true,
+        },
+      },
       cookies: {
         getAll() {
           return cookieStore.getAll();

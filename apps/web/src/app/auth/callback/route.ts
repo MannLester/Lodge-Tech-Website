@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import {
   createAdminSessionForAuthenticatedUser,
+  readPkceFlowId,
   signOutAdmin,
 } from "@/features/admin-auth";
 import { createSupabaseAuthServerClient } from "@/shared/supabase/auth";
@@ -17,6 +18,7 @@ function safeAdminNextPath(value: string | null): string {
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const flowId = readPkceFlowId(requestUrl.searchParams.get("sb_flow_id"));
   const next = safeAdminNextPath(requestUrl.searchParams.get("next"));
   const redirectUrl = new URL(next, requestUrl.origin);
 
@@ -26,7 +28,10 @@ export async function GET(request: NextRequest) {
   }
 
   const supabase = await createSupabaseAuthServerClient();
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
+  const { error } = await supabase.auth.exchangeCodeForSession(
+    code,
+    flowId ? { flowId } : undefined,
+  );
 
   if (error) {
     redirectUrl.pathname = "/admin";
