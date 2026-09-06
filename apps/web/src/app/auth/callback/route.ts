@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import {
   createAdminSessionForAuthenticatedUser,
+  createRetryingAuthFetch,
   readPkceFlowId,
   signOutAdmin,
 } from "@/features/admin-auth";
@@ -35,7 +36,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  const supabase = await createSupabaseAuthServerClient();
+  const supabase = await createSupabaseAuthServerClient({
+    fetch: createRetryingAuthFetch(),
+  });
   const { error } = await supabase.auth.exchangeCodeForSession(
     code,
     flowId ? { flowId } : undefined,
@@ -44,6 +47,7 @@ export async function GET(request: NextRequest) {
   if (error) {
     console.error("Admin OAuth code exchange failed", {
       code: error.code,
+      message: error.message,
       name: error.name,
       status: error.status,
     });

@@ -11,7 +11,11 @@ import {
 
 import type { Database } from "@lodging-technologies/types/database";
 
-async function createAuthClient(env: PublicEnv) {
+type AuthClientOptions = {
+  fetch?: typeof fetch;
+};
+
+async function createAuthClient(env: PublicEnv, options?: AuthClientOptions) {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(
@@ -23,6 +27,7 @@ async function createAuthClient(env: PublicEnv) {
           appendPkceFlowIdToRedirects: true,
         },
       },
+      global: options?.fetch ? { fetch: options.fetch } : undefined,
       cookies: {
         getAll() {
           return cookieStore.getAll();
@@ -42,8 +47,10 @@ async function createAuthClient(env: PublicEnv) {
   );
 }
 
-export async function createSupabaseAuthServerClient() {
-  return createAuthClient(getPublicEnv());
+export async function createSupabaseAuthServerClient(
+  options?: AuthClientOptions,
+) {
+  return createAuthClient(getPublicEnv(), options);
 }
 
 export async function createOptionalSupabaseAuthServerClient() {
