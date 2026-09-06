@@ -3,6 +3,17 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "typecheck"],
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "SUPABASE_SECRET_KEY",
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "SUPABASE_URL",
+        "VERCEL_ANALYTICS_TOKEN",
+        "VERCEL_PROJECT_ID",
+        "VERCEL_TEAM_ID"
+      ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
     "lint": {
@@ -10,6 +21,17 @@
     },
     "typecheck": {
       "dependsOn": ["^typecheck"],
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "SUPABASE_SECRET_KEY",
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "SUPABASE_URL",
+        "VERCEL_ANALYTICS_TOKEN",
+        "VERCEL_PROJECT_ID",
+        "VERCEL_TEAM_ID"
+      ],
       "outputs": ["tsconfig.tsbuildinfo", "dist/tsconfig.tsbuildinfo"]
     },
     "format:check": {
