@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NotFoundPage() {
   return (
     <main className="bg-background text-foreground grid min-h-screen place-items-center px-6 py-16">
@@ -9,12 +11,12 @@ export default function NotFoundPage() {
         <p className="text-muted mt-3 text-sm leading-6">
           The page you’re looking for does not exist or has moved.
         </p>
-        <a
+        <Link
           className="border-brand-fill bg-brand-fill hover:border-brand-strong hover:bg-brand-strong mt-8 inline-flex min-h-11 items-center justify-center rounded-md border px-5 py-2.5 text-sm font-semibold text-white transition-colors"
           href="/"
         >
           Return home
-        </a>
+        </Link>
       </div>
     </main>
   );
