@@ -41,6 +41,12 @@ export async function readAdminSession(): Promise<AdminSession | null> {
   return createAdminSessionFromUser(user, isAllowedAdminEmail);
 }
 
+export async function createAdminSessionForAuthenticatedUser(
+  user: Parameters<typeof createAdminSessionFromUser>[0],
+): Promise<AdminSession | null> {
+  return createAdminSessionFromUser(user, isAllowedAdminEmail);
+}
+
 export async function requireAdminSession(): Promise<AdminSession> {
   const session = await readAdminSession();
   if (!session) throw new Error("Unauthorized");

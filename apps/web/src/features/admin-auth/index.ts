@@ -3,6 +3,7 @@ export {
   logoutAdmin,
 } from "@/features/admin-auth/server/actions";
 export {
+  createAdminSessionForAuthenticatedUser,
   readAdminSession,
   requireAdminSession,
   signOutAdmin,

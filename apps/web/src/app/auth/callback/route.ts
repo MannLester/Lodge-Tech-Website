@@ -1,6 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { readAdminSession, signOutAdmin } from "@/features/admin-auth";
+import {
+  createAdminSessionForAuthenticatedUser,
+  signOutAdmin,
+} from "@/features/admin-auth";
 import { createSupabaseAuthServerClient } from "@/shared/supabase/auth";
 
 function safeAdminNextPath(value: string | null): string {
@@ -31,7 +34,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  const session = await readAdminSession();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  const session = userError
+    ? null
+    : user
+      ? await createAdminSessionForAuthenticatedUser(user)
+      : null;
 
   if (!session) {
     await signOutAdmin();
