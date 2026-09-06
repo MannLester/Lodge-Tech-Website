@@ -26,15 +26,16 @@ export default async function AdminPage({
     q?: string;
     status?: string;
     view?: string;
+    auth?: string;
   }>;
 }) {
   const session = await readAdminSession();
+  const params = await searchParams;
 
   if (!session) {
-    return <AdminSignIn />;
+    return <AdminSignIn denied={params.auth === "denied"} />;
   }
 
-  const params = await searchParams;
   if (params.view === "inquiries") redirect("/admin?view=leads");
   if (params.view === "follow-ups") redirect("/admin?view=tasks");
   const view: View = ["dashboard", "leads", "tasks", "reports"].includes(

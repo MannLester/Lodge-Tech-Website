@@ -1,6 +1,6 @@
 import "server-only";
 
-import { readAdminSession } from "@/features/admin-auth";
+import { requireAdminSession } from "@/features/admin-auth";
 import {
   followUpRepository,
   type FollowUp,
@@ -30,16 +30,11 @@ export type AdminLeadResult =
     }
   | { ok: false; message: string; notFound?: boolean };
 
-async function requireAdmin() {
-  const session = await readAdminSession();
-  if (!session || session.role !== "admin") throw new Error("Unauthorized");
-}
-
 export async function loadAdminInquiries(
   repository: InquiryRepository = supabaseInquiryRepository,
 ): Promise<AdminInquiryResult> {
   try {
-    await requireAdmin();
+    await requireAdminSession();
     if (!repository.list) throw new Error("Inquiry listing is unavailable");
     return { ok: true, inquiries: await repository.list() };
   } catch (error) {
@@ -56,7 +51,7 @@ export async function changeInquiryStatus(
   status: InquiryStatus,
   repository: InquiryRepository = supabaseInquiryRepository,
 ) {
-  await requireAdmin();
+  await requireAdminSession();
   if (!repository.updateStatus)
     throw new Error("Inquiry updates are unavailable");
   await repository.updateStatus(id, status);
@@ -64,7 +59,7 @@ export async function changeInquiryStatus(
 
 export async function loadAdminFollowUps(): Promise<AdminFollowUpResult> {
   try {
-    await requireAdmin();
+    await requireAdminSession();
     return { ok: true, followUps: await followUpRepository.list() };
   } catch (error) {
     console.error("Failed to load admin tasks", error);
@@ -83,7 +78,7 @@ export async function loadAdminLead(id: string): Promise<AdminLeadResult> {
   )
     return { ok: false, message: "Lead not found.", notFound: true };
   try {
-    await requireAdmin();
+    await requireAdminSession();
     if (!supabaseInquiryRepository.findById)
       throw new Error("Lead lookup is unavailable");
     const inquiry = await supabaseInquiryRepository.findById(id);
@@ -105,6 +100,6 @@ export async function loadAdminLead(id: string): Promise<AdminLeadResult> {
 }
 
 export async function addInquiryNote(id: string, body: string) {
-  await requireAdmin();
+  await requireAdminSession();
   await activityRepository.addNote(id, body);
 }

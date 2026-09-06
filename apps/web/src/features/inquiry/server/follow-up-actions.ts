@@ -3,13 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { readAdminSession } from "@/features/admin-auth";
+import { requireAdminSession } from "@/features/admin-auth";
 import { followUpRepository } from "@/features/inquiry/data/follow-up-repository";
-
-async function requireAdmin() {
-  const session = await readAdminSession();
-  if (!session || session.role !== "admin") throw new Error("Unauthorized");
-}
 
 function validUuid(value: unknown): value is string {
   return (
@@ -21,7 +16,7 @@ function validUuid(value: unknown): value is string {
 }
 
 export async function createFollowUp(formData: FormData) {
-  await requireAdmin();
+  await requireAdminSession();
   const inquiryId = formData.get("inquiry_id");
   const title = formData.get("title");
   const notes = formData.get("notes");
@@ -56,7 +51,7 @@ export async function createFollowUp(formData: FormData) {
 }
 
 export async function completeFollowUp(formData: FormData) {
-  await requireAdmin();
+  await requireAdminSession();
   const id = formData.get("id");
   const inquiryId = formData.get("inquiry_id");
   if (!validUuid(id)) throw new Error("Invalid follow-up");

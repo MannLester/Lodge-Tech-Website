@@ -1,61 +1,47 @@
 import "server-only";
 
-import { cookies } from "next/headers";
-
 import {
   type AdminSession,
-  createDemoAdminSession,
-  signAdminSession,
-  verifyAdminSessionToken,
-} from "@/features/admin-auth/model/admin-session-token";
+  createAdminSessionFromUser,
+  normalizeAdminEmail,
+} from "@/features/admin-auth/model/admin-session";
+import { createSupabaseAuthServerClient } from "@/shared/supabase/auth";
+import { getServerSupabaseClient } from "@/shared/supabase/server";
 
-import { getAdminAuthEnv } from "@/features/admin-auth/server/env";
+export async function isAllowedAdminEmail(email: string): Promise<boolean> {
+  const { data, error } = await getServerSupabaseClient()
+    .from("admin_users")
+    .select("email")
+    .eq("email", normalizeAdminEmail(email))
+    .maybeSingle();
 
-export const adminSessionCookieName = "lodge_admin_session";
+  if (error) {
+    console.error("Failed to check admin allowlist", error);
+    return false;
+  }
 
-function getCookieOptions(expires: Date) {
-  const { NODE_ENV } = getAdminAuthEnv();
-
-  return {
-    httpOnly: true,
-    sameSite: "lax" as const,
-    secure: NODE_ENV === "production",
-    path: "/",
-    expires,
-  };
-}
-
-export async function createAdminSessionCookie(): Promise<void> {
-  const { SESSION_SECRET } = getAdminAuthEnv();
-  const session = createDemoAdminSession();
-  const token = await signAdminSession(session, SESSION_SECRET);
-  const cookieStore = await cookies();
-
-  cookieStore.set({
-    name: adminSessionCookieName,
-    value: token,
-    ...getCookieOptions(new Date(session.expiresAt)),
-  });
+  return Boolean(data);
 }
 
 export async function readAdminSession(): Promise<AdminSession | null> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(adminSessionCookieName)?.value;
+  const supabase = await createSupabaseAuthServerClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
-  if (!token) return null;
+  if (error || !user) return null;
 
-  const { SESSION_SECRET } = getAdminAuthEnv();
-
-  return verifyAdminSessionToken(token, SESSION_SECRET);
+  return createAdminSessionFromUser(user, isAllowedAdminEmail);
 }
 
-export async function deleteAdminSessionCookie(): Promise<void> {
-  const cookieStore = await cookies();
+export async function requireAdminSession(): Promise<AdminSession> {
+  const session = await readAdminSession();
+  if (!session) throw new Error("Unauthorized");
+  return session;
+}
 
-  cookieStore.set({
-    name: adminSessionCookieName,
-    value: "",
-    ...getCookieOptions(new Date(0)),
-    maxAge: 0,
-  });
+export async function signOutAdmin(): Promise<void> {
+  const supabase = await createSupabaseAuthServerClient();
+  await supabase.auth.signOut();
 }

@@ -5,7 +5,8 @@ nextEnv.loadEnvConfig(process.cwd());
 
 const port = 3000;
 
-process.env.SESSION_SECRET ??= "playwright-demo-admin-session-secret-000000";
+process.env.NEXT_PUBLIC_SUPABASE_URL ||= "https://example.supabase.co";
+process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||= "sb_publishable_test";
 
 export default defineConfig({
   testDir: "./apps/web/test/e2e",
@@ -64,6 +65,15 @@ export default defineConfig({
   ],
   webServer: {
     command: `pnpm --filter @lodging-technologies/web dev --hostname 127.0.0.1 --port ${port}`,
+    env: {
+      NEXT_PUBLIC_SITE_URL:
+        process.env.NEXT_PUBLIC_SITE_URL ?? `http://127.0.0.1:${port}`,
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+        "sb_publishable_test",
+      NEXT_PUBLIC_SUPABASE_URL:
+        process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://example.supabase.co",
+    },
     reuseExistingServer: !process.env.CI,
     url: `http://127.0.0.1:${port}`,
   },

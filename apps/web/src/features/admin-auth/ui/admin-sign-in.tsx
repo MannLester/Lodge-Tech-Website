@@ -1,9 +1,9 @@
 import { LogIn, Shield } from "lucide-react";
 
-import { loginAsDemoAdmin } from "@/features/admin-auth/server/actions";
+import { loginWithGoogle } from "@/features/admin-auth/server/actions";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
-export function AdminSignIn() {
+export function AdminSignIn({ denied = false }: { denied?: boolean }) {
   return (
     <main className="bg-surface-muted text-foreground flex min-h-screen items-center px-4 py-10 sm:px-6">
       <section
@@ -21,18 +21,26 @@ export function AdminSignIn() {
               Sign in to the light CRM
             </h1>
             <p className="text-muted mt-4 text-base leading-7">
-              Use the temporary demo administrator bypass while Google account
-              authentication is being prepared.
+              Use your approved Google account to access the admin workspace.
             </p>
+            {denied ? (
+              <p
+                className="mt-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-700"
+                role="alert"
+              >
+                This Google account is not approved for admin access.
+              </p>
+            ) : null}
           </div>
 
-          <form action={loginAsDemoAdmin} className="mt-8">
+          <form action={loginWithGoogle} className="mt-8">
+            <input name="next" type="hidden" value="/admin" />
             <button
               className="bg-brand-fill hover:bg-brand-strong focus-visible:outline-brand inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold text-white transition sm:w-auto"
               type="submit"
             >
               <LogIn aria-hidden="true" className="size-4" />
-              Login as demo admin
+              Sign in with Google
             </button>
           </form>
         </div>
@@ -41,16 +49,16 @@ export function AdminSignIn() {
           <div className="bg-brand-soft text-brand-strong flex size-12 items-center justify-center rounded-md">
             <Shield aria-hidden="true" className="size-6" />
           </div>
-          <h2 className="mt-6 text-lg font-bold">Demo-only bypass</h2>
+          <h2 className="mt-6 text-lg font-bold">Restricted access</h2>
           <p className="text-muted mt-3 text-sm leading-6">
-            This button creates a signed demo session for local CRM development.
-            It is not a production security boundary.
+            Admin access is limited to Google accounts that have been added to
+            the Supabase allowlist.
           </p>
           <div className="border-border mt-8 border-t pt-6">
-            <p className="text-muted text-sm font-semibold">Next auth phase</p>
+            <p className="text-muted text-sm font-semibold">Access control</p>
             <p className="text-muted mt-2 text-sm leading-6">
-              Google sign-in and administrator allowlisting will replace this
-              bypass in a later task.
+              If your account is not on the list, you will be signed out
+              immediately after Google authentication.
             </p>
           </div>
         </aside>

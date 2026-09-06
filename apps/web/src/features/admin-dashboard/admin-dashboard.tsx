@@ -138,7 +138,7 @@ function AdminShell({
           <div className="flex items-center justify-between gap-3 sm:justify-end">
             <span className="border-border bg-surface-muted text-brand-strong inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-bold">
               <ShieldCheck aria-hidden="true" className="size-4" />
-              {session.sub}
+              {session.email}
             </span>
             <form action={logoutAdmin}>
               <button className="border-border bg-surface hover:border-brand hover:text-brand inline-flex min-h-11 items-center gap-2 rounded-md border px-4 text-sm font-bold transition">
