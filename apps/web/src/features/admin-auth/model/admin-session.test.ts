@@ -35,22 +35,26 @@ describe("admin session", () => {
   });
 
   it("creates an admin session for verified, allowlisted Google users", async () => {
-    const lookup = vi.fn().mockResolvedValue(true);
+    const lookup = vi.fn().mockResolvedValue({
+      crmUserId: "crm-user-123",
+      role: "ADMIN",
+    });
 
     await expect(createAdminSessionFromUser(baseUser, lookup)).resolves.toEqual(
       {
         authMode: "google",
+        crmUserId: "crm-user-123",
         email: "admin@gmail.com",
-        role: "admin",
+        role: "ADMIN",
         sub: "user-123",
       },
     );
-    expect(lookup).toHaveBeenCalledWith("admin@gmail.com");
+    expect(lookup).toHaveBeenCalledWith("admin@gmail.com", "user-123");
   });
 
   it("denies users who are not on the allowlist", async () => {
     await expect(
-      createAdminSessionFromUser(baseUser, vi.fn().mockResolvedValue(false)),
+      createAdminSessionFromUser(baseUser, vi.fn().mockResolvedValue(null)),
     ).resolves.toBeNull();
   });
 
