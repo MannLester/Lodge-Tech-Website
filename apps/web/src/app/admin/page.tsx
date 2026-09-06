@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { AdminSignIn, readAdminSession } from "@/features/admin-auth";
+import {
+  AdminSignIn,
+  can,
+  loadAdminAccessUsers,
+  loadAdminAuditLogs,
+  readAdminAuthErrorReason,
+  readAdminSession,
+} from "@/features/admin-auth";
 import { AdminDashboardPlaceholder } from "@/features/admin-dashboard";
 import { loadAdminFollowUps, loadAdminInquiries } from "@/features/inquiry";
 import { loadWebsiteConversionReport } from "@/features/website-analytics";
 
 import type { InquiryStatus } from "@/features/inquiry";
 
-type View = "dashboard" | "leads" | "tasks" | "reports";
+type View = "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
 
 export const metadata: Metadata = {
   title: "Admin | Lodge Tech",
@@ -26,22 +33,46 @@ export default async function AdminPage({
     q?: string;
     status?: string;
     view?: string;
+    auth?: string;
+    reason?: string;
   }>;
 }) {
   const session = await readAdminSession();
+  const params = await searchParams;
 
   if (!session) {
-    return <AdminSignIn />;
+    return (
+      <AdminSignIn
+        denied={params.auth === "denied"}
+        errorReason={
+          params.auth === "error"
+            ? readAdminAuthErrorReason(params.reason)
+            : null
+        }
+      />
+    );
   }
 
-  const params = await searchParams;
   if (params.view === "inquiries") redirect("/admin?view=leads");
   if (params.view === "follow-ups") redirect("/admin?view=tasks");
-  const view: View = ["dashboard", "leads", "tasks", "reports"].includes(
-    params.view ?? "",
-  )
+  const requestedView: View = [
+    "dashboard",
+    "leads",
+    "tasks",
+    "reports",
+    "access",
+    "audit",
+  ].includes(params.view ?? "")
     ? (params.view as View)
     : "dashboard";
+  const view =
+    requestedView === "reports" && !can(session.role, "reports.read")
+      ? "dashboard"
+      : requestedView === "access" && !can(session.role, "access.manage")
+        ? "dashboard"
+        : requestedView === "audit" && !can(session.role, "audit.read")
+          ? "dashboard"
+          : requestedView;
   const [inquiryResult, followUpResult] = await Promise.all([
     loadAdminInquiries(),
     loadAdminFollowUps(),
@@ -58,6 +89,8 @@ export default async function AdminPage({
         query: params.q,
         status: params.status as InquiryStatus | undefined,
       }}
+      accessResult={view === "access" ? await loadAdminAccessUsers() : null}
+      auditResult={view === "audit" ? await loadAdminAuditLogs() : null}
       inquiryResult={inquiryResult}
       followUpResult={followUpResult}
       session={session}
