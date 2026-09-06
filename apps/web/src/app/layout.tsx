@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { siteConfig } from "@/shared/config/site";
 import { ThemeScript } from "@lodging-technologies/ui/theme-script";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 
@@ -21,7 +22,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head>
         <ThemeScript />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
