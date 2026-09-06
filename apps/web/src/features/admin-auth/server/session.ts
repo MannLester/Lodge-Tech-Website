@@ -5,7 +5,10 @@ import {
   createAdminSessionFromUser,
   normalizeAdminEmail,
 } from "@/features/admin-auth/model/admin-session";
-import { createSupabaseAuthServerClient } from "@/shared/supabase/auth";
+import {
+  createOptionalSupabaseAuthServerClient,
+  createSupabaseAuthServerClient,
+} from "@/shared/supabase/auth";
 import { getServerSupabaseClient } from "@/shared/supabase/server";
 
 export async function isAllowedAdminEmail(email: string): Promise<boolean> {
@@ -24,7 +27,10 @@ export async function isAllowedAdminEmail(email: string): Promise<boolean> {
 }
 
 export async function readAdminSession(): Promise<AdminSession | null> {
-  const supabase = await createSupabaseAuthServerClient();
+  const supabase = await createOptionalSupabaseAuthServerClient();
+
+  if (!supabase) return null;
+
   const {
     data: { user },
     error,

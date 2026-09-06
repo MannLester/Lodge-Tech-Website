@@ -3,12 +3,15 @@ import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-import { getPublicEnv } from "@/shared/config/env/public";
+import {
+  getOptionalPublicEnv,
+  getPublicEnv,
+  type PublicEnv,
+} from "@/shared/config/env/public";
 
 import type { Database } from "@lodging-technologies/types/database";
 
-export async function createSupabaseAuthServerClient() {
-  const env = getPublicEnv();
+async function createAuthClient(env: PublicEnv) {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(
@@ -32,4 +35,14 @@ export async function createSupabaseAuthServerClient() {
       },
     },
   );
+}
+
+export async function createSupabaseAuthServerClient() {
+  return createAuthClient(getPublicEnv());
+}
+
+export async function createOptionalSupabaseAuthServerClient() {
+  const env = getOptionalPublicEnv();
+
+  return env ? createAuthClient(env) : null;
 }

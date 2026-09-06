@@ -20,3 +20,14 @@ export function getPublicEnv(): PublicEnv {
 
   return cachedPublicEnv;
 }
+
+export function getOptionalPublicEnv(): PublicEnv | null {
+  const result = publicEnvSchema.safeParse({
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  });
+
+  return result.success ? result.data : null;
+}
