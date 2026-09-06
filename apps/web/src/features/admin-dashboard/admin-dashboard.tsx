@@ -4,6 +4,7 @@ import {
   CalendarClock,
   Check,
   CheckCircle2,
+  ClipboardList,
   Inbox,
   LayoutDashboard,
   ListTodo,
@@ -14,11 +15,22 @@ import {
   Save,
   Search,
   ShieldCheck,
+  UsersRound,
 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { logoutAdmin, type AdminSession } from "@/features/admin-auth";
+import {
+  can,
+  deleteInvitedCrmUser,
+  inviteCrmUser,
+  logoutAdmin,
+  updateCrmUserRole,
+  updateCrmUserStatus,
+  type AdminAccessResult,
+  type AdminAuditResult,
+  type AdminSession,
+} from "@/features/admin-auth";
 import {
   addInquiryNoteAction,
   completeFollowUp,
@@ -40,10 +52,13 @@ import {
   WebsiteConversionReportPanel,
   type WebsiteConversionReport,
 } from "@/features/website-analytics";
+import { RoleProvider } from "@/hooks/useRole";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
-type View = "dashboard" | "leads" | "tasks" | "reports";
+type View = "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
 type Props = Readonly<{
+  accessResult: AdminAccessResult | null;
+  auditResult: AdminAuditResult | null;
   filters: LeadFilters;
   followUpResult: AdminFollowUpResult;
   inquiryResult: AdminInquiryResult;
@@ -52,15 +67,38 @@ type Props = Readonly<{
   websiteConversionReport: WebsiteConversionReport | null;
 }>;
 
-const navItems: { label: string; view: View; icon: typeof LayoutDashboard }[] =
-  [
-    { label: "Dashboard", view: "dashboard", icon: LayoutDashboard },
-    { label: "Leads", view: "leads", icon: Inbox },
-    { label: "Tasks", view: "tasks", icon: ListTodo },
-    { label: "Reports", view: "reports", icon: BarChart3 },
-  ];
+const navItems: {
+  label: string;
+  permission?: Parameters<typeof can>[1];
+  view: View;
+  icon: typeof LayoutDashboard;
+}[] = [
+  { label: "Dashboard", view: "dashboard", icon: LayoutDashboard },
+  { label: "Leads", view: "leads", icon: Inbox },
+  { label: "Tasks", view: "tasks", icon: ListTodo },
+  {
+    label: "Reports",
+    view: "reports",
+    icon: BarChart3,
+    permission: "reports.read",
+  },
+  {
+    label: "Access",
+    view: "access",
+    icon: UsersRound,
+    permission: "access.manage",
+  },
+  {
+    label: "Audit",
+    view: "audit",
+    icon: ClipboardList,
+    permission: "audit.read",
+  },
+];
 
 export function AdminDashboardPlaceholder({
+  accessResult,
+  auditResult,
   filters,
   followUpResult,
   inquiryResult,
@@ -94,6 +132,12 @@ export function AdminDashboardPlaceholder({
           result={inquiryResult}
           websiteConversionReport={websiteConversionReport}
         />
+      )}
+      {view === "access" && (
+        <AccessWorkspace result={accessResult ?? { ok: false, message: "" }} />
+      )}
+      {view === "audit" && (
+        <AuditWorkspace result={auditResult ?? { ok: false, message: "" }} />
       )}
     </AdminShell>
   );
@@ -131,49 +175,56 @@ function AdminShell({
   session: AdminSession;
 }) {
   return (
-    <main className="bg-surface-muted text-foreground min-h-screen">
-      <header className="border-border bg-surface border-b">
-        <div className="mx-auto flex min-h-20 w-full max-w-7xl flex-col items-stretch justify-between gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 lg:px-8">
-          <BrandMark />
-          <div className="flex items-center justify-between gap-3 sm:justify-end">
-            <span className="border-border bg-surface-muted text-brand-strong inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-bold">
-              <ShieldCheck aria-hidden="true" className="size-4" />
-              {session.email}
-            </span>
-            <form action={logoutAdmin}>
-              <button className="border-border bg-surface hover:border-brand hover:text-brand inline-flex min-h-11 items-center gap-2 rounded-md border px-4 text-sm font-bold transition">
-                <LogOut aria-hidden="true" className="size-4" /> Logout
-              </button>
-            </form>
+    <RoleProvider role={session.role}>
+      <main className="bg-surface-muted text-foreground min-h-screen">
+        <header className="border-border bg-surface border-b">
+          <div className="mx-auto flex min-h-20 w-full max-w-7xl flex-col items-stretch justify-between gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 lg:px-8">
+            <BrandMark />
+            <div className="flex items-center justify-between gap-3 sm:justify-end">
+              <span className="border-border bg-surface-muted text-brand-strong inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-bold">
+                <ShieldCheck aria-hidden="true" className="size-4" />
+                {session.email}
+              </span>
+              <form action={logoutAdmin}>
+                <button className="border-border bg-surface hover:border-brand hover:text-brand inline-flex min-h-11 items-center gap-2 rounded-md border px-4 text-sm font-bold transition">
+                  <LogOut aria-hidden="true" className="size-4" /> Logout
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-      </header>
-      <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[15rem_1fr] lg:px-8 lg:py-8">
-        <aside className="border-border bg-surface h-fit rounded-lg border p-3 lg:sticky lg:top-6">
-          <nav
-            aria-label="Admin workspace"
-            className="grid grid-cols-2 gap-1 sm:grid-cols-4 lg:grid-cols-1"
-          >
-            {navItems.map((item) => (
-              <Link
-                aria-current={item.view === activeView ? "page" : undefined}
-                className={
-                  item.view === activeView
-                    ? "bg-brand-soft text-brand-strong inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold"
-                    : "text-muted hover:text-brand inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
-                }
-                href={`/admin?view=${item.view}`}
-                key={item.view}
-              >
-                <item.icon aria-hidden="true" className="size-4" />
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </aside>
-        <div className="grid min-w-0 gap-6">{children}</div>
-      </section>
-    </main>
+        </header>
+        <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[15rem_1fr] lg:px-8 lg:py-8">
+          <aside className="border-border bg-surface h-fit rounded-lg border p-3 lg:sticky lg:top-6">
+            <nav
+              aria-label="Admin workspace"
+              className="grid grid-cols-2 gap-1 sm:grid-cols-4 lg:grid-cols-1"
+            >
+              {navItems
+                .filter(
+                  (item) =>
+                    !item.permission || can(session.role, item.permission),
+                )
+                .map((item) => (
+                  <Link
+                    aria-current={item.view === activeView ? "page" : undefined}
+                    className={
+                      item.view === activeView
+                        ? "bg-brand-soft text-brand-strong inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold"
+                        : "text-muted hover:text-brand inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                    }
+                    href={`/admin?view=${item.view}`}
+                    key={item.view}
+                  >
+                    <item.icon aria-hidden="true" className="size-4" />
+                    {item.label}
+                  </Link>
+                ))}
+            </nav>
+          </aside>
+          <div className="grid min-w-0 gap-6">{children}</div>
+        </section>
+      </main>
+    </RoleProvider>
   );
 }
 
@@ -710,6 +761,198 @@ function ReportsWorkspace({
   );
 }
 
+function AccessWorkspace({ result }: { result: AdminAccessResult }) {
+  if (!result.ok)
+    return (
+      <Panel>
+        <p className="eyebrow">Admin only</p>
+        <h1 className="mt-2 text-2xl font-bold">Access</h1>
+        <p className="text-muted mt-3 text-sm">
+          {result.message || "Access users could not be loaded."}
+        </p>
+      </Panel>
+    );
+
+  return (
+    <>
+      <Panel>
+        <p className="eyebrow">Admin only</p>
+        <h1 className="mt-2 text-2xl font-bold">Access</h1>
+        <p className="text-muted mt-2 text-sm">
+          Invite Google accounts and control each account&apos;s CRM role.
+        </p>
+        <form
+          action={inviteCrmUser}
+          className="border-border bg-surface-muted mt-6 grid gap-3 rounded-md border p-4 md:grid-cols-[1fr_12rem_auto]"
+        >
+          <label>
+            <span className="sr-only">Email</span>
+            <input
+              className="border-border bg-surface w-full rounded-md border px-3 py-2"
+              name="email"
+              placeholder="teammate@example.com"
+              required
+              type="email"
+            />
+          </label>
+          <label>
+            <span className="sr-only">Role</span>
+            <select
+              className="border-border bg-surface w-full rounded-md border px-3 py-2"
+              defaultValue="USER"
+              name="role"
+            >
+              <option value="USER">User</option>
+              <option value="MANAGER">Manager</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </label>
+          <button className="bg-brand hover:bg-brand-fill min-h-10 rounded-md px-4 text-sm font-bold text-white transition">
+            Invite
+          </button>
+        </form>
+      </Panel>
+      <Panel>
+        <h2 className="text-lg font-bold">Allowed accounts</h2>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[52rem] text-left text-sm">
+            <thead className="text-muted border-border border-b">
+              <tr>
+                <th className="py-3 pr-4 font-semibold">Email</th>
+                <th className="px-4 py-3 font-semibold">Role</th>
+                <th className="px-4 py-3 font-semibold">Status</th>
+                <th className="px-4 py-3 font-semibold">Last login</th>
+                <th className="py-3 pl-4 font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.users.map((user) => (
+                <tr className="border-border border-b" key={user.id}>
+                  <td className="py-3 pr-4 font-semibold">{user.email}</td>
+                  <td className="px-4 py-3">
+                    <form action={updateCrmUserRole} className="flex gap-2">
+                      <input name="id" type="hidden" value={user.id} />
+                      <select
+                        className="border-border bg-surface rounded-md border px-2 py-1"
+                        defaultValue={user.role}
+                        name="role"
+                      >
+                        <option value="USER">User</option>
+                        <option value="MANAGER">Manager</option>
+                        <option value="ADMIN">Admin</option>
+                      </select>
+                      <button className="border-brand text-brand-strong hover:bg-brand-soft rounded-md border px-2 text-xs font-bold">
+                        Save
+                      </button>
+                    </form>
+                  </td>
+                  <td className="px-4 py-3">
+                    <StatusPill status={user.status} />
+                  </td>
+                  <td className="text-muted px-4 py-3">
+                    {user.last_login_at
+                      ? formatDateTime(user.last_login_at)
+                      : "-"}
+                  </td>
+                  <td className="py-3 pl-4">
+                    <div className="flex flex-wrap gap-2">
+                      {user.status === "DISABLED" ? (
+                        <form action={updateCrmUserStatus}>
+                          <input name="id" type="hidden" value={user.id} />
+                          <input name="status" type="hidden" value="INVITED" />
+                          <button className="border-brand text-brand-strong hover:bg-brand-soft rounded-md border px-2 py-1 text-xs font-bold">
+                            Re-enable
+                          </button>
+                        </form>
+                      ) : (
+                        <form action={updateCrmUserStatus}>
+                          <input name="id" type="hidden" value={user.id} />
+                          <input name="status" type="hidden" value="DISABLED" />
+                          <button className="rounded-md border border-red-200 px-2 py-1 text-xs font-bold text-red-700 hover:bg-red-50">
+                            Disable
+                          </button>
+                        </form>
+                      )}
+                      {user.status === "INVITED" ? (
+                        <form action={deleteInvitedCrmUser}>
+                          <input name="id" type="hidden" value={user.id} />
+                          <button className="rounded-md border border-red-200 px-2 py-1 text-xs font-bold text-red-700 hover:bg-red-50">
+                            Delete invite
+                          </button>
+                        </form>
+                      ) : null}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {result.users.length === 0 ? (
+            <Empty>No allowed accounts.</Empty>
+          ) : null}
+        </div>
+      </Panel>
+    </>
+  );
+}
+
+function AuditWorkspace({ result }: { result: AdminAuditResult }) {
+  if (!result.ok)
+    return (
+      <Panel>
+        <p className="eyebrow">Admin only</p>
+        <h1 className="mt-2 text-2xl font-bold">Audit</h1>
+        <p className="text-muted mt-3 text-sm">
+          {result.message || "Audit logs could not be loaded."}
+        </p>
+      </Panel>
+    );
+
+  return (
+    <Panel>
+      <p className="eyebrow">Admin only</p>
+      <h1 className="mt-2 text-2xl font-bold">Audit</h1>
+      <p className="text-muted mt-2 text-sm">
+        Security, access, and CRM mutation history.
+      </p>
+      <div className="mt-6 grid gap-3">
+        {result.auditLogs.map((log) => (
+          <article className="border-border rounded-md border p-4" key={log.id}>
+            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
+              <div>
+                <h2 className="font-bold">{log.action}</h2>
+                <p className="text-muted mt-1 text-sm">
+                  {log.actor_email ?? "System"}{" "}
+                  {log.actor_role ? `(${log.actor_role})` : ""}
+                </p>
+              </div>
+              <time className="text-muted text-xs">
+                {formatDateTime(log.created_at)}
+              </time>
+            </div>
+            <p className="text-muted mt-3 text-sm">
+              {log.resource_type}
+              {log.resource_id ? ` - ${log.resource_id}` : ""}
+            </p>
+            {log.before_data || log.after_data ? (
+              <pre className="bg-surface-muted mt-3 overflow-x-auto rounded-md p-3 text-xs">
+                {JSON.stringify(
+                  { before: log.before_data, after: log.after_data },
+                  null,
+                  2,
+                )}
+              </pre>
+            ) : null}
+          </article>
+        ))}
+        {result.auditLogs.length === 0 ? (
+          <Empty>No audit logs yet.</Empty>
+        ) : null}
+      </div>
+    </Panel>
+  );
+}
+
 function TaskForm({
   context,
   inquiries,
@@ -1009,6 +1252,21 @@ function StatusBadge({ status }: { status: Inquiry["status"] }) {
       }
     >
       {statusLabel(status)}
+    </span>
+  );
+}
+function StatusPill({ status }: { status: string }) {
+  return (
+    <span
+      className={
+        status === "DISABLED"
+          ? "rounded-full bg-slate-200 px-2 py-1 text-xs font-bold text-slate-700"
+          : status === "ACTIVE"
+            ? "rounded-full bg-green-100 px-2 py-1 text-xs font-bold text-green-800"
+            : "bg-brand-soft text-brand-strong rounded-full px-2 py-1 text-xs font-bold"
+      }
+    >
+      {status}
     </span>
   );
 }
