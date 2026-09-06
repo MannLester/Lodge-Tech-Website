@@ -779,7 +779,7 @@ function AccessWorkspace({ result }: { result: AdminAccessResult }) {
         <p className="eyebrow">Admin only</p>
         <h1 className="mt-2 text-2xl font-bold">Access</h1>
         <p className="text-muted mt-2 text-sm">
-          Invite Google accounts and control each account&apos;s CRM role.
+          Add Google accounts and control each account&apos;s CRM role.
         </p>
         <form
           action={inviteCrmUser}
@@ -808,7 +808,7 @@ function AccessWorkspace({ result }: { result: AdminAccessResult }) {
             </select>
           </label>
           <button className="bg-brand hover:bg-brand-fill min-h-10 rounded-md px-4 text-sm font-bold text-white transition">
-            Invite
+            Add
           </button>
         </form>
       </Panel>
@@ -877,7 +877,7 @@ function AccessWorkspace({ result }: { result: AdminAccessResult }) {
                         <form action={deleteInvitedCrmUser}>
                           <input name="id" type="hidden" value={user.id} />
                           <button className="rounded-md border border-red-200 px-2 py-1 text-xs font-bold text-red-700 hover:bg-red-50">
-                            Delete invite
+                            Delete pending
                           </button>
                         </form>
                       ) : null}

@@ -272,15 +272,15 @@ different email strings; add exactly the address Google reports.
 
 Use the correct role:
 
-| Role      | Access                                                                 |
-| --------- | ---------------------------------------------------------------------- |
-| `USER`    | Dashboard, leads, tasks, lead status changes, notes, and follow-ups    |
-| `MANAGER` | All `USER` access, plus reports                                        |
-| `ADMIN`   | All `MANAGER` access, plus Access and Audit screens                    |
+| Role      | Access                                                              |
+| --------- | ------------------------------------------------------------------- |
+| `USER`    | Dashboard, leads, tasks, lead status changes, notes, and follow-ups |
+| `MANAGER` | All `USER` access, plus reports                                     |
+| `ADMIN`   | All `MANAGER` access, plus Access and Audit screens                 |
 
 The first production owner should be inserted as `ADMIN`. After that, use the
-CRM's `/admin?view=access` screen to invite, disable, re-enable, change roles,
-or delete unactivated invitations.
+CRM's `/admin?view=access` screen to add accounts, disable accounts, re-enable
+accounts, change roles, or delete pending accounts that have not signed in yet.
 
 Verify the entry:
 
@@ -300,9 +300,9 @@ where email = lower('admin@example.com');
 ```
 
 Do not delete active people. Disable them so audit history and actor
-relationships remain understandable. The UI only deletes invitations that have
-not been activated. Revocation prevents the next protected read. To terminate
-an already issued Supabase session immediately, also revoke that user's
+relationships remain understandable. The UI only deletes pending accounts that
+have not been activated. Revocation prevents the next protected read. To
+terminate an already issued Supabase session immediately, also revoke that user's
 sessions from the Supabase Authentication dashboard.
 
 The legacy query still works for read-only verification:
