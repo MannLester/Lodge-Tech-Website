@@ -1,5 +1,9 @@
 # Environment Configuration
 
+For the complete Google OAuth, Supabase allowlist, Vercel deployment, and
+troubleshooting handoff procedure, see
+[`docs/admin-auth-setup.md`](./admin-auth-setup.md).
+
 Copy `.env.example` to `.env.local` for local development and replace every Supabase placeholder with credentials from the project owner. Because the Next app runs from `apps/web`, keep the same local values available to that package as well. Local environment files are ignored by Git.
 
 ## Variables
