@@ -3,9 +3,14 @@ begin;
 create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
 
-select plan(27);
+select plan(38);
 
 select has_table('public', 'inquiries', 'inquiries table exists');
+select has_table('public', 'crm_users', 'CRM access users table exists');
+select has_table('public', 'audit_logs', 'audit logs table exists');
+select has_view('public', 'admin_users', 'legacy admin_users view exists');
+select has_enum('public', 'crm_access_role', 'CRM access role enum exists');
+select has_enum('public', 'crm_user_status', 'CRM user status enum exists');
 select has_index(
   'public',
   'inquiries',
@@ -20,6 +25,14 @@ select ok(
 select ok(
   (select relforcerowsecurity from pg_class where oid = 'public.inquiries'::regclass),
   'row level security is forced'
+);
+select ok(
+  (select relforcerowsecurity from pg_class where oid = 'public.crm_users'::regclass),
+  'CRM access users row level security is forced'
+);
+select ok(
+  (select relforcerowsecurity from pg_class where oid = 'public.audit_logs'::regclass),
+  'audit logs row level security is forced'
 );
 
 select has_table('public', 'inquiry_activities', 'inquiry activity table exists');
@@ -56,8 +69,42 @@ select ok(not has_table_privilege('authenticated', 'public.inquiries', 'select')
 select ok(not has_table_privilege('authenticated', 'public.inquiries', 'insert'), 'authenticated cannot insert');
 select ok(not has_table_privilege('authenticated', 'public.inquiries', 'update'), 'authenticated cannot update');
 select ok(not has_table_privilege('authenticated', 'public.inquiries', 'delete'), 'authenticated cannot delete');
+select ok(not has_table_privilege('authenticated', 'public.crm_users', 'select'), 'authenticated cannot read CRM access users');
+select ok(not has_table_privilege('authenticated', 'public.audit_logs', 'select'), 'authenticated cannot read audit logs');
 
 set local role service_role;
+
+select lives_ok(
+  $$insert into public.crm_users (email, role, status, auth_user_id)
+    values ('admin@example.com', 'ADMIN', 'ACTIVE', gen_random_uuid())$$,
+  'service role can seed an active admin'
+);
+
+select lives_ok(
+  $$insert into public.crm_users (email, role)
+    values ('operator@example.com', 'USER')$$,
+  'service role can invite an operational user'
+);
+
+select throws_ok(
+  $$update public.crm_users set role = 'USER' where email = 'admin@example.com'$$,
+  'P0001',
+  null,
+  'last active admin cannot be demoted'
+);
+
+select lives_ok(
+  $$insert into public.audit_logs (action, resource_type, actor_email)
+    values ('access.invite', 'crm_user', 'admin@example.com')$$,
+  'service role can append audit logs'
+);
+
+select throws_ok(
+  $$update public.audit_logs set action = 'changed' where actor_email = 'admin@example.com'$$,
+  'P0001',
+  null,
+  'audit logs cannot be updated'
+);
 
 select lives_ok(
   $$insert into public.inquiries (name, email, company, property_type, message)
