@@ -5,7 +5,7 @@ import { z } from "zod";
 export const serverEnvSchema = z
   .object({
     NODE_ENV: z.enum(["development", "test", "production"]),
-    SUPABASE_URL: z.url(),
+    SUPABASE_URL: z.string().url(),
     SUPABASE_SECRET_KEY: z.string().min(1).optional(),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   })

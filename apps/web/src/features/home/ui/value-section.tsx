@@ -1,6 +1,6 @@
 import {
   Calculator,
-  ChartNoAxesCombined,
+  BarChart3,
   CircleDollarSign,
   Wrench,
   Zap,
@@ -8,10 +8,11 @@ import {
 
 import { valuePropositions } from "@/features/home/model/home-content";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
+import { ContinuousScroller } from "./continuous-scroller";
 
 const valueIcons = [
   Zap,
-  ChartNoAxesCombined,
+  BarChart3,
   CircleDollarSign,
   Calculator,
   Wrench,
@@ -33,7 +34,7 @@ export function ValueSection() {
           title="Reduce waste where buildings actually spend energy."
         />
 
-        <div className="snap-row mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-5">
+        <ContinuousScroller className="mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 lg:grid-cols-5">
           {valuePropositions.map((item, index) => {
             const Icon = valueIcons[index];
 
@@ -54,7 +55,7 @@ export function ValueSection() {
               </article>
             );
           })}
-        </div>
+        </ContinuousScroller>
       </div>
     </section>
   );

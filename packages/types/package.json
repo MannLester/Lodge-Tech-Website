@@ -11,6 +11,6 @@
     "build": "tsc -b",
     "lint": "pnpm -C ../.. exec eslint packages/types",
     "typecheck": "tsc -b --pretty false",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check src package.json"
   }
 }
