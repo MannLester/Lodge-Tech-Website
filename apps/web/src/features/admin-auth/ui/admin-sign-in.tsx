@@ -1,9 +1,16 @@
 import { LogIn, Shield } from "lucide-react";
 
+import type { AdminAuthErrorReason } from "@/features/admin-auth/model/auth-error";
 import { loginWithGoogle } from "@/features/admin-auth/server/actions";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
-export function AdminSignIn({ denied = false }: { denied?: boolean }) {
+export function AdminSignIn({
+  denied = false,
+  errorReason = null,
+}: {
+  denied?: boolean;
+  errorReason?: AdminAuthErrorReason | null;
+}) {
   return (
     <main className="bg-surface-muted text-foreground flex min-h-screen items-center px-4 py-10 sm:px-6">
       <section
@@ -29,6 +36,15 @@ export function AdminSignIn({ denied = false }: { denied?: boolean }) {
                 role="alert"
               >
                 This Google account is not approved for admin access.
+              </p>
+            ) : errorReason ? (
+              <p
+                className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm font-semibold text-amber-800"
+                role="alert"
+              >
+                {errorReason === "missing_code"
+                  ? "Google did not return a usable sign-in code. Start a new sign-in attempt."
+                  : "The secure Google sign-in exchange could not be completed. Start a fresh attempt and avoid opening multiple sign-in tabs."}
               </p>
             ) : null}
           </div>

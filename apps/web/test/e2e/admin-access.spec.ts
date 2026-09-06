@@ -27,6 +27,16 @@ test("explains denied Google accounts", async ({ page }) => {
   ).toBeVisible();
 });
 
+test("explains failed Google session exchanges", async ({ page }) => {
+  await page.goto("/admin?auth=error&reason=exchange_failed");
+
+  await expect(
+    page.getByText(
+      "The secure Google sign-in exchange could not be completed.",
+    ),
+  ).toBeVisible();
+});
+
 test("keeps legacy admin view redirects behind authentication", async ({
   page,
 }) => {

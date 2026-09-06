@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { AdminSignIn, readAdminSession } from "@/features/admin-auth";
+import {
+  AdminSignIn,
+  readAdminAuthErrorReason,
+  readAdminSession,
+} from "@/features/admin-auth";
 import { AdminDashboardPlaceholder } from "@/features/admin-dashboard";
 import { loadAdminFollowUps, loadAdminInquiries } from "@/features/inquiry";
 import { loadWebsiteConversionReport } from "@/features/website-analytics";
@@ -27,13 +31,23 @@ export default async function AdminPage({
     status?: string;
     view?: string;
     auth?: string;
+    reason?: string;
   }>;
 }) {
   const session = await readAdminSession();
   const params = await searchParams;
 
   if (!session) {
-    return <AdminSignIn denied={params.auth === "denied"} />;
+    return (
+      <AdminSignIn
+        denied={params.auth === "denied"}
+        errorReason={
+          params.auth === "error"
+            ? readAdminAuthErrorReason(params.reason)
+            : null
+        }
+      />
+    );
   }
 
   if (params.view === "inquiries") redirect("/admin?view=leads");

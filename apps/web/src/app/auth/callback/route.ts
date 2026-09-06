@@ -23,7 +23,15 @@ export async function GET(request: NextRequest) {
   const redirectUrl = new URL(next, requestUrl.origin);
 
   if (!code) {
+    console.error(
+      "Admin OAuth callback did not include an authorization code",
+      {
+        errorCode: requestUrl.searchParams.get("error_code"),
+        providerError: requestUrl.searchParams.get("error"),
+      },
+    );
     redirectUrl.searchParams.set("auth", "error");
+    redirectUrl.searchParams.set("reason", "missing_code");
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -34,8 +42,13 @@ export async function GET(request: NextRequest) {
   );
 
   if (error) {
+    console.error("Admin OAuth code exchange failed", {
+      code: error.code,
+      name: error.name,
+      status: error.status,
+    });
     redirectUrl.pathname = "/admin";
-    redirectUrl.search = "?auth=error";
+    redirectUrl.search = "?auth=error&reason=exchange_failed";
     return NextResponse.redirect(redirectUrl);
   }
 
