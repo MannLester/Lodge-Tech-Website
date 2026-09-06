@@ -16,6 +16,108 @@ export type Database = {
         };
         Relationships: [];
       };
+      admin_users_legacy: {
+        Row: {
+          created_at: string;
+          email: string;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+        };
+        Relationships: [];
+      };
+      audit_logs: {
+        Row: {
+          action: string;
+          actor_auth_user_id: string | null;
+          actor_crm_user_id: string | null;
+          actor_email: string | null;
+          actor_role: Database["public"]["Enums"]["crm_access_role"] | null;
+          after_data: Record<string, unknown> | null;
+          before_data: Record<string, unknown> | null;
+          created_at: string;
+          id: string;
+          request_id: string | null;
+          resource_id: string | null;
+          resource_type: string;
+        };
+        Insert: {
+          action: string;
+          actor_auth_user_id?: string | null;
+          actor_crm_user_id?: string | null;
+          actor_email?: string | null;
+          actor_role?: Database["public"]["Enums"]["crm_access_role"] | null;
+          after_data?: Record<string, unknown> | null;
+          before_data?: Record<string, unknown> | null;
+          created_at?: string;
+          id?: string;
+          request_id?: string | null;
+          resource_id?: string | null;
+          resource_type: string;
+        };
+        Update: {
+          action?: string;
+          actor_auth_user_id?: string | null;
+          actor_crm_user_id?: string | null;
+          actor_email?: string | null;
+          actor_role?: Database["public"]["Enums"]["crm_access_role"] | null;
+          after_data?: Record<string, unknown> | null;
+          before_data?: Record<string, unknown> | null;
+          created_at?: string;
+          id?: string;
+          request_id?: string | null;
+          resource_id?: string | null;
+          resource_type?: string;
+        };
+        Relationships: [];
+      };
+      crm_users: {
+        Row: {
+          auth_user_id: string | null;
+          created_at: string;
+          created_by: string | null;
+          disabled_at: string | null;
+          email: string;
+          id: string;
+          last_login_at: string | null;
+          role: Database["public"]["Enums"]["crm_access_role"];
+          status: Database["public"]["Enums"]["crm_user_status"];
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          auth_user_id?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          disabled_at?: string | null;
+          email: string;
+          id?: string;
+          last_login_at?: string | null;
+          role?: Database["public"]["Enums"]["crm_access_role"];
+          status?: Database["public"]["Enums"]["crm_user_status"];
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          auth_user_id?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          disabled_at?: string | null;
+          email?: string;
+          id?: string;
+          last_login_at?: string | null;
+          role?: Database["public"]["Enums"]["crm_access_role"];
+          status?: Database["public"]["Enums"]["crm_user_status"];
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [];
+      };
       inquiries: {
         Row: {
           company: string;
@@ -115,9 +217,22 @@ export type Database = {
         Relationships: [];
       };
     };
-    Views: Record<never, never>;
+    Views: {
+      admin_users: {
+        Row: {
+          created_at: string;
+          email: string;
+        };
+        Insert: never;
+        Update: never;
+        Relationships: [];
+      };
+    };
     Functions: Record<never, never>;
-    Enums: Record<never, never>;
+    Enums: {
+      crm_access_role: "USER" | "MANAGER" | "ADMIN";
+      crm_user_status: "INVITED" | "ACTIVE" | "DISABLED";
+    };
     CompositeTypes: Record<never, never>;
   };
 };
