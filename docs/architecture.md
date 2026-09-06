@@ -42,8 +42,8 @@ remain independently encapsulated.
 
 The home form and `POST /api/inquiries` share the Zod contract in `@lodging-technologies/zod-schemas/inquiries`. The Route Handler delegates persistence to the inquiry repository, which is the only feature module that uses the server-only Supabase client. Browser code never connects to Supabase directly.
 
-Supabase migrations are versioned in `supabase/migrations`. The inquiries table has forced Row Level Security and grants no table access to `anon` or `authenticated`; the server-held service role performs intake inserts.
+Supabase migrations are versioned in `supabase/migrations`. The inquiries and inquiry-activity tables have forced Row Level Security and grant no table access to `anon` or `authenticated`; the server-held service role performs intake and protected CRM operations. Follow-up tasks and append-only notes remain attached to their inquiry, while a database trigger records status changes for the lead timeline.
 
 ## Administrator access
 
-`apps/web/src/features/admin-auth` owns the temporary `/admin` demo administrator access gate. The route reads the signed session in the page component, renders a sign-in screen when no valid cookie is present, and renders an authenticated placeholder when the session verifies. Session cookie writes are limited to Server Actions, and future CRM data operations should re-check the admin session close to the mutation or query they protect.
+`apps/web/src/features/admin-auth` owns the temporary `/admin` demo administrator access gate. The route reads the signed session in the page component, renders a sign-in screen when no valid cookie is present, and renders the light CRM when the session verifies. The dashboard, lead, task, report, and dedicated lead-detail views all use server-side repositories and actions; each protected CRM read or mutation re-checks the administrator session close to the operation. Session cookie writes remain limited to Server Actions.

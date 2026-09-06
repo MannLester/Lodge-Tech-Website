@@ -1,4 +1,4 @@
-import { ChartNoAxesColumnIncreasing } from "lucide-react";
+import { BarChartBig } from "lucide-react";
 
 export function BrandMark() {
   return (
@@ -7,7 +7,7 @@ export function BrandMark() {
       className="inline-flex items-center gap-2.5"
       href="#top"
     >
-      <ChartNoAxesColumnIncreasing
+      <BarChartBig
         aria-hidden
         className="text-[#1386b8]"
         size={30}

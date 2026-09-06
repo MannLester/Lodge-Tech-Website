@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 import { siteConfig } from "@/shared/config/site";
 import { ThemeScript } from "@lodging-technologies/ui/theme-script";
-import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 

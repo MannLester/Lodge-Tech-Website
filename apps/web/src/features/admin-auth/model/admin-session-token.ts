@@ -1,6 +1,8 @@
 import { jwtVerify, SignJWT } from "jose";
 import { z } from "zod";
 
+import { type AdminSession as BaseAdminSession } from "@/features/admin-auth/model/admin-session";
+
 export const adminSessionDurationMs = 8 * 60 * 60 * 1000;
 
 export const adminSessionSchema = z.object({
@@ -12,12 +14,19 @@ export const adminSessionSchema = z.object({
 
 export type AdminSession = z.infer<typeof adminSessionSchema>;
 
-const encoder = new TextEncoder();
+function toAdminSessionPayload(session: AdminSession) {
+  return {
+    authMode: session.authMode,
+    expiresAt: session.expiresAt,
+    role: session.role,
+    sub: session.sub,
+  };
+}
 
-async function getSecretKey(secret: string): Promise<CryptoKey> {
+async function createSecretKey(secret: string): Promise<CryptoKey> {
   return crypto.subtle.importKey(
     "raw",
-    encoder.encode(secret),
+    new TextEncoder().encode(secret),
     { hash: "SHA-256", name: "HMAC" },
     false,
     ["sign", "verify"],
@@ -37,39 +46,28 @@ export async function signAdminSession(
   session: AdminSession,
   secret: string,
 ): Promise<string> {
-  return new SignJWT({
-    role: session.role,
-    authMode: session.authMode,
-    expiresAt: session.expiresAt,
-  })
-    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
-    .setSubject(session.sub)
+  const key = await createSecretKey(secret);
+
+  return new SignJWT(toAdminSessionPayload(session))
+    .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(Math.floor(session.expiresAt / 1000))
-    .sign(await getSecretKey(secret));
+    .sign(key);
 }
 
 export async function verifyAdminSessionToken(
-  token: string | undefined,
+  token: string,
   secret: string,
   now = new Date(),
 ): Promise<AdminSession | null> {
-  if (!token) return null;
-
   try {
-    const { payload } = await jwtVerify(token, await getSecretKey(secret), {
-      algorithms: ["HS256"],
-      currentDate: now,
-      subject: "demo-admin",
-    });
-    const session = adminSessionSchema.parse(payload);
-
-    if (session.expiresAt <= now.getTime()) {
-      return null;
-    }
-
-    return session;
+    const key = await createSecretKey(secret);
+    const { payload } = await jwtVerify(token, key, { currentDate: now });
+    const session = adminSessionSchema.safeParse(payload);
+    return session.success ? session.data : null;
   } catch {
     return null;
   }
 }
+
+export type { BaseAdminSession as AdminAuthSession };
