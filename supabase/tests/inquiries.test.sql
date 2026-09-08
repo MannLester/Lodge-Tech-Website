@@ -3,7 +3,7 @@ begin;
 create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
 
-select plan(38);
+select plan(40);
 
 select has_table('public', 'inquiries', 'inquiries table exists');
 select has_table('public', 'crm_users', 'CRM access users table exists');
@@ -73,6 +73,26 @@ select ok(not has_table_privilege('authenticated', 'public.crm_users', 'select')
 select ok(not has_table_privilege('authenticated', 'public.audit_logs', 'select'), 'authenticated cannot read audit logs');
 
 set local role service_role;
+
+select is(
+  (
+    select role::text
+    from public.crm_users
+    where email = '22-00486@g.batstate-u.edu.ph'
+  ),
+  'USER',
+  'seeds the requested user account'
+);
+
+select is(
+  (
+    select role::text
+    from public.crm_users
+    where email = 'minatohuhu@gmail.com'
+  ),
+  'MANAGER',
+  'seeds the requested manager account'
+);
 
 select lives_ok(
   $$insert into public.crm_users (email, role, status, auth_user_id)
