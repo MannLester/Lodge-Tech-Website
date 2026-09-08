@@ -1,4 +1,5 @@
 export { ClosingFooter } from "@/features/home/ui/closing-footer";
+export { getInquiryPrefillFromValues } from "@/features/home/model/inquiry-context";
 export { HeroSection } from "@/features/home/ui/hero-section";
 export { IndustriesSection } from "@/features/home/ui/industries-section";
 export { ProcessSection } from "@/features/home/ui/process-section";
