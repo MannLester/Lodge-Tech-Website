@@ -23,7 +23,7 @@ export function ValueSection() {
     <section
       aria-labelledby="value-heading"
       className="section-band bg-background"
-      id="solutions"
+      id="value"
     >
       <div className="section-shell">
         <SectionHeading

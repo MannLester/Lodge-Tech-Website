@@ -43,8 +43,15 @@ function readServerErrors(value: unknown): InquiryErrors {
   return errors;
 }
 
-export function InquiryForm() {
-  const [fields, setFields] = useState<InquiryFields>(initialFields);
+type InquiryFormProps = {
+  initialMessage?: string;
+};
+
+export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
+  const [fields, setFields] = useState<InquiryFields>(() => ({
+    ...initialFields,
+    message: initialMessage,
+  }));
   const [errors, setErrors] = useState<InquiryErrors>({});
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const submittingRef = useRef(false);

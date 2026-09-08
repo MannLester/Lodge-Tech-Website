@@ -1,11 +1,3 @@
-export const navigationItems = [
-  { href: "#technology", label: "Technology" },
-  { href: "#solutions", label: "Solutions" },
-  { href: "#industries", label: "Industries" },
-  { href: "#results", label: "Results" },
-  { href: "#company", label: "Company" },
-] as const;
-
 export const proofStats = [
   { label: "Years of Experience", value: "40+" },
   {
@@ -56,24 +48,28 @@ export const products = [
   {
     description:
       "Wireless occupancy-based HVAC control for guest rooms, units, and managed spaces.",
+    href: "/solutions/gem-stat-et",
     mediaLabel: "GEM Stat ET product image",
     title: "GEM Stat ET",
   },
   {
     description:
       "Networked control that links thermostats, lighting, appliances, and portfolio visibility.",
+    href: "/solutions/gem-link-wireless",
     mediaLabel: "GEM Link Wireless product image",
     title: "GEM Link Wireless",
   },
   {
     description:
       "Lighting strategies that reduce waste while preserving expected comfort and safety.",
+    href: "/solutions/lighting-controls",
     mediaLabel: "Lighting control product image",
     title: "Lighting Controls",
   },
   {
     description:
       "Appliance and auxiliary load coordination for equipment that should not run unmanaged.",
+    href: "/solutions/appliance-controls",
     mediaLabel: "Appliance control product image",
     title: "Appliance Controls",
   },
