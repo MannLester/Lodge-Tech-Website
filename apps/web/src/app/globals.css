@@ -67,17 +67,23 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-button,
-a,
-input,
-textarea,
-select {
-  font: inherit;
-}
+@layer base {
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    color: inherit;
+  }
 }
 
 .text-brand {
@@ -86,10 +92,6 @@ a {
 
 .text-brand-strong {
   color: var(--brand-strong);
-}
-
-button {
-  color: inherit;
 }
 
 ::selection {
