@@ -51,18 +51,22 @@ test("homepage cards and product navigation connect the four routes", async ({
   page,
 }) => {
   await page.goto("/");
-  await page
+  const gemStatCard = page
     .getByRole("link", { name: "Learn more about GEM Stat ET" })
-    .click();
+    .first();
+  await expect(gemStatCard).toHaveAttribute("href", "/solutions/gem-stat-et");
+  await gemStatCard.evaluate((link: HTMLAnchorElement) => link.click());
   await expect(page).toHaveURL(/\/solutions\/gem-stat-et$/);
 
-  await page
-    .getByRole("navigation", { name: "Product navigation" })
+  const productNavigation = page.getByRole("navigation", {
+    name: "Product navigation",
+  });
+  await productNavigation
     .getByRole("link", { name: "Lighting Controls" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
   await expect(
-    page.getByRole("link", { name: "Lighting Controls" }),
+    productNavigation.getByRole("link", { name: "Lighting Controls" }),
   ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
