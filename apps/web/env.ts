@@ -1,9 +1,7 @@
 import { envSchema, type EnvConfig } from "@lodging-technologies/zod-schemas";
 
-let cachedEnv: EnvConfig | undefined;
-
 const parseEnv = (): EnvConfig => {
-  // Explicit property access forces Next.js AST to inline NEXT_PUBLIC_ variables
+  // Direct literal property access forces Next.js AST to inline values at build time
   const envValues = {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -26,24 +24,4 @@ const parseEnv = (): EnvConfig => {
   return result.data;
 };
 
-export function getEnv(): EnvConfig {
-  cachedEnv ??= parseEnv();
-  return cachedEnv;
-}
-
-export const env = new Proxy({} as EnvConfig, {
-  get(_target, property) {
-    const snapshot = getEnv();
-    return Reflect.get(snapshot, property);
-  },
-  has(_target, property) {
-    return property in getEnv();
-  },
-  ownKeys() {
-    return Reflect.ownKeys(getEnv());
-  },
-  getOwnPropertyDescriptor(_target, property) {
-    const descriptor = Object.getOwnPropertyDescriptor(getEnv(), property);
-    return descriptor ?? undefined;
-  },
-});
+export const env: EnvConfig = parseEnv();
