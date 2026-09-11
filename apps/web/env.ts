@@ -3,7 +3,7 @@ import { envSchema, type EnvConfig } from "@lodging-technologies/zod-schemas";
 let cachedEnv: EnvConfig | undefined;
 
 const parseEnv = (): EnvConfig => {
-  // Explicit property access forces Next.js AST to inline NEXT_PUBLIC_ variables
+  // Explicit property access forces Next.js AST to inline NEXT_PUBLIC_ variables.
   const envValues = {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
