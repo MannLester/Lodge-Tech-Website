@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { env } from "../../../../env";
 import { getOptionalPublicEnv, publicEnvSchema } from "./public";
 
 describe("publicEnvSchema", () => {
@@ -47,6 +48,24 @@ describe("publicEnvSchema", () => {
     delete process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
     expect(getOptionalPublicEnv()).toBeNull();
+
+    restoreEnv("NEXT_PUBLIC_SITE_URL", originalSiteUrl);
+    restoreEnv("NEXT_PUBLIC_SUPABASE_URL", originalSupabaseUrl);
+    restoreEnv("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY", originalPublishableKey);
+  });
+
+  it("defers validation until accessing a value", () => {
+    const originalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const originalSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const originalPublishableKey =
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    delete process.env.NEXT_PUBLIC_SITE_URL;
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    delete process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    expect(() => env).not.toThrow();
+    expect(() => env.NEXT_PUBLIC_SITE_URL).toThrow();
 
     restoreEnv("NEXT_PUBLIC_SITE_URL", originalSiteUrl);
     restoreEnv("NEXT_PUBLIC_SUPABASE_URL", originalSupabaseUrl);
