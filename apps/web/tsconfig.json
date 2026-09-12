@@ -3,17 +3,39 @@
   "compilerOptions": {
     "incremental": true,
     "noEmit": true,
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/features/*": ["./src/features/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/app/*": ["./src/app/*"],
-      "@assets/*": ["./assets/*"],
-      "@lodging-technologies/types": ["../../packages/types/src/index.ts"],
-      "@lodging-technologies/types/*": ["../../packages/types/src/*"],
-      "@lodging-technologies/ui": ["../../packages/ui/src/index.ts"],
-      "@lodging-technologies/ui/*": ["../../packages/ui/src/*"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/features/*": [
+        "./src/features/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/app/*": [
+        "./src/app/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@lodging-technologies/types": [
+        "../../packages/types/src/index.ts"
+      ],
+      "@lodging-technologies/types/*": [
+        "../../packages/types/src/*"
+      ],
+      "@lodging-technologies/ui": [
+        "../../packages/ui/src/index.ts"
+      ],
+      "@lodging-technologies/ui/*": [
+        "../../packages/ui/src/*"
+      ],
       "@lodging-technologies/zod-schemas": [
         "../../packages/zod-schemas/src/index.ts"
       ],
@@ -21,7 +43,8 @@
         "../../packages/zod-schemas/src/*"
       ]
     },
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "jsx": "preserve"
   },
   "include": [
     "next-env.d.ts",
@@ -30,5 +53,7 @@
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
