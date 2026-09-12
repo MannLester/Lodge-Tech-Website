@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import Link from "next/link";
 
 import auxiliaryImage from "@assets/auxiliary.png";
 import exhaustImage from "@assets/exhaust.png";
@@ -25,6 +26,7 @@ export function ProductSection() {
     <section
       aria-labelledby="products-heading"
       className="section-band bg-background"
+      id="solutions"
     >
       <div className="section-shell">
         <SectionHeading
@@ -41,20 +43,29 @@ export function ProductSection() {
 
               return (
                 <article className="min-w-0 text-center" key={product.title}>
-                  <MediaImage
-                    alt={product.mediaLabel}
-                    className="aspect-square rounded-md"
-                    sizes="(max-width: 767px) 54vw, (max-width: 1023px) 36vw, 11vw"
-                    src={image}
-                  />
-                  <div className="mx-auto mt-4 max-w-36">
-                    <h3 className="text-foreground text-sm leading-tight font-semibold">
-                      {product.title}
-                    </h3>
-                    <p className="text-muted mt-2 text-xs leading-5">
-                      {product.description}
-                    </p>
-                  </div>
+                  <Link
+                    aria-label={`Learn more about ${product.title}`}
+                    className="group focus-visible:ring-brand block rounded-lg focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:outline-none"
+                    href={product.href}
+                  >
+                    <MediaImage
+                      alt={product.mediaLabel}
+                      className="aspect-square rounded-md transition-transform group-hover:-translate-y-1"
+                      sizes="(max-width: 767px) 54vw, (max-width: 1023px) 36vw, 11vw"
+                      src={image}
+                    />
+                    <div className="mx-auto mt-4 max-w-40">
+                      <h3 className="text-foreground text-sm leading-tight font-semibold">
+                        {product.title}
+                      </h3>
+                      <p className="text-muted mt-2 text-xs leading-5">
+                        {product.description}
+                      </p>
+                      <span className="text-brand-strong mt-3 inline-block text-xs font-bold group-hover:underline">
+                        Learn More &rarr;
+                      </span>
+                    </div>
+                  </Link>
                 </article>
               );
             })}

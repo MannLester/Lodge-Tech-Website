@@ -8,13 +8,15 @@ import type { Database } from "@lodging-technologies/types/database";
 
 let client: ReturnType<typeof createClient<Database>> | undefined;
 
-export function getServerSupabaseClient() {
+export function getServerSupabaseClient(): ReturnType<
+  typeof createClient<Database>
+> {
   if (!client) {
     const env = getServerEnv();
 
     client = createClient<Database>(
       env.SUPABASE_URL,
-      env.SUPABASE_SERVICE_ROLE_KEY,
+      env.SUPABASE_SECRET_KEY ?? env.SUPABASE_SERVICE_ROLE_KEY!,
       {
         auth: {
           autoRefreshToken: false,

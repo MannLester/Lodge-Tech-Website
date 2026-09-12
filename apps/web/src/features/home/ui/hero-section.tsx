@@ -29,7 +29,7 @@ export function HeroSection() {
           className="hero-day-image object-cover object-[58%_center]"
           fill
           placeholder="blur"
-          preload
+          priority
           quality={95}
           sizes="100vw"
           src={heroHouseImage}

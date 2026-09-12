@@ -1,6 +1,6 @@
 import {
   Calculator,
-  ChartNoAxesCombined,
+  BarChart3,
   CircleDollarSign,
   Wrench,
   Zap,
@@ -12,7 +12,7 @@ import { ContinuousScroller } from "./continuous-scroller";
 
 const valueIcons = [
   Zap,
-  ChartNoAxesCombined,
+  BarChart3,
   CircleDollarSign,
   Calculator,
   Wrench,
@@ -23,7 +23,7 @@ export function ValueSection() {
     <section
       aria-labelledby="value-heading"
       className="section-band bg-background"
-      id="solutions"
+      id="value"
     >
       <div className="section-shell">
         <SectionHeading

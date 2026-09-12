@@ -12,6 +12,7 @@ export type InquiryStatus = Inquiry["status"];
 export interface InquiryRepository {
   create(inquiry: InquiryRecord): Promise<void>;
   list?(): Promise<Inquiry[]>;
+  findById?(id: string): Promise<Inquiry | null>;
   updateStatus?(id: string, status: InquiryStatus): Promise<void>;
 }
 
@@ -50,5 +51,15 @@ export const supabaseInquiryRepository: InquiryRepository = {
       throw new Error("Supabase failed to update inquiry status", {
         cause: error,
       });
+  },
+  async findById(id) {
+    const { data, error } = await getServerSupabaseClient()
+      .from("inquiries")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle();
+    if (error)
+      throw new Error("Supabase failed to load inquiry", { cause: error });
+    return data;
   },
 };
