@@ -1,11 +1,15 @@
 import { BarChartBig } from "lucide-react";
 
-export function BrandMark() {
+type BrandMarkProps = {
+  href?: string;
+};
+
+export function BrandMark({ href = "#top" }: BrandMarkProps) {
   return (
     <a
       aria-label="Lodging Technologies home"
       className="inline-flex items-center gap-2.5"
-      href="#top"
+      href={href}
     >
       <BarChartBig
         aria-hidden
