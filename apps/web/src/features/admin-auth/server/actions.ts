@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { auditRepository } from "@/features/admin-auth/data/audit-repository";
@@ -19,14 +20,53 @@ function sanitizeAdminNextPath(value: FormDataEntryValue | null): string {
     : "/admin";
 }
 
+function parseHostHeader(value: string | null): string | null {
+  if (!value) return null;
+  const host = value.split(",", 1)[0]?.trim();
+  return host || null;
+}
+
+function isLocalhostHost(hostname: string): boolean {
+  return hostname === "localhost" || hostname === "127.0.0.1";
+}
+
+async function resolveOAuthRedirectOrigin(configuredSiteUrl: string) {
+  if (process.env.NODE_ENV === "production") return configuredSiteUrl;
+
+  const requestHeaders = await headers();
+  const host =
+    parseHostHeader(requestHeaders.get("x-forwarded-host")) ??
+    parseHostHeader(requestHeaders.get("host"));
+
+  if (!host) return configuredSiteUrl;
+
+  const forwardedProto = parseHostHeader(
+    requestHeaders.get("x-forwarded-proto"),
+  );
+  const protocol =
+    forwardedProto === "http" || forwardedProto === "https"
+      ? forwardedProto
+      : "http";
+
+  try {
+    const candidate = new URL(`${protocol}://${host}`);
+    return isLocalhostHost(candidate.hostname)
+      ? candidate.origin
+      : configuredSiteUrl;
+  } catch {
+    return configuredSiteUrl;
+  }
+}
+
 export async function loginWithGoogle(formData: FormData): Promise<void> {
   const next = sanitizeAdminNextPath(formData.get("next"));
   const supabase = await createSupabaseAuthServerClient();
   const { NEXT_PUBLIC_SITE_URL } = getPublicEnv();
+  const redirectOrigin = await resolveOAuthRedirectOrigin(NEXT_PUBLIC_SITE_URL);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${NEXT_PUBLIC_SITE_URL}/auth/callback?next=${encodeURIComponent(next)}`,
+      redirectTo: `${redirectOrigin}/auth/callback?next=${encodeURIComponent(next)}`,
     },
   });
 
