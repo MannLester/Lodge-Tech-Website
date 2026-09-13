@@ -69,6 +69,27 @@ test("homepage cards and product navigation connect the four routes", async ({
   await expect(page).toHaveURL(/\/#solutions$/);
 });
 
+test("mobile product layouts place visuals before their descriptions", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/solutions/gem-stat-et");
+
+  const introBox = await page.locator("[data-product-intro]").boundingBox();
+  const productVisualBox = await page
+    .locator("[data-product-visual]")
+    .boundingBox();
+  expect(productVisualBox?.y).toBeLessThan(introBox?.y ?? 0);
+
+  const showcaseCopies = page.locator("[data-showcase-copy]");
+  const showcaseVisuals = page.locator("[data-showcase-visual]");
+  for (let index = 0; index < (await showcaseCopies.count()); index += 1) {
+    const copyBox = await showcaseCopies.nth(index).boundingBox();
+    const visualBox = await showcaseVisuals.nth(index).boundingBox();
+    expect(visualBox?.y).toBeLessThan(copyBox?.y ?? 0);
+  }
+});
+
 test("primary Solutions navigation exposes every product route", async ({
   page,
 }) => {

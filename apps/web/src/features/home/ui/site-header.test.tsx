@@ -20,6 +20,10 @@ describe("SiteHeader", () => {
     expect(
       screen.getByRole("link", { name: "Get a Savings Analysis" }),
     ).toHaveAttribute("href", "#contact");
+    expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
+      "href",
+      "#company",
+    );
 
     fireEvent.click(screen.getByText("Solutions"));
     expect(screen.getByRole("link", { name: "GEM Stat ET" })).toHaveAttribute(
