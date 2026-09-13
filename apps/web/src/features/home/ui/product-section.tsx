@@ -7,10 +7,10 @@ import hvacImage from "@assets/hvac.png";
 import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform.png";
 import { products } from "@/features/home/model/home-content";
+import { MobileCarousel } from "@/shared/ui/mobile-carousel";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { MediaImage } from "@lodging-technologies/ui/media-image";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
-import { ContinuousScroller } from "./continuous-scroller";
 
 const productImages = [hvacImage, lightingImage, exhaustImage, auxiliaryImage];
 
@@ -37,7 +37,10 @@ export function ProductSection() {
         />
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:items-start lg:gap-16">
-          <ContinuousScroller className="md:auto-cols-auto md:grid-flow-row md:grid-cols-2 lg:grid-cols-4">
+          <MobileCarousel
+            ariaLabel="Products"
+            className="md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:overflow-visible lg:grid-cols-4"
+          >
             {products.map((product, index) => {
               const image = productImages[index];
 
@@ -69,7 +72,7 @@ export function ProductSection() {
                 </article>
               );
             })}
-          </ContinuousScroller>
+          </MobileCarousel>
 
           <aside
             aria-labelledby="platform-heading"
@@ -111,7 +114,7 @@ export function ProductSection() {
                 ))}
               </ul>
               <ButtonLink
-                className="!text-brand-strong hover:!text-brand mt-6 !min-h-0 !justify-start !px-0 !py-0"
+                className="!text-brand-strong hover:!text-brand mt-6 !min-h-0 !justify-start !border-0 !px-0 !py-0"
                 href="#contact"
                 showArrow
                 variant="text"

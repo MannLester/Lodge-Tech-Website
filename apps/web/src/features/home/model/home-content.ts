@@ -5,44 +5,49 @@ export const proofStats = [
     value: "100,000+",
   },
   {
-    label: "HVAC, Lighting, and Appliance Energy Expense Reduction",
-    value: "40%",
+    label: "Reduction in HVAC Operating Time",
+    value: "Up to 45%",
   },
-  { label: "in Utility Incentives Secured for Clients", value: "Millions" },
 ] as const;
 
 export const proofTickerItems = [
-  "Energy expense reduction strategies built for HVAC, lighting, and appliance loads.",
-  "GEM Link Wireless and GEM Stat ET connect occupancy intelligence with practical building control.",
+  "Connection · Data · Movement · Technology · Efficiency",
+  "Intelligence · Efficiency · Comfort · Control · Experience",
 ] as const;
 
-export const valuePropositions = [
+export const brandPillars = [
   {
     description:
-      "Reduce HVAC, lighting, and appliance waste with controls that respond to occupancy and operating patterns.",
-    title: "Reduce Energy Expense",
+      "Smart technology applied to space management through connected sensors, automation, and controls.",
+    title: "Technology",
   },
   {
     description:
-      "Coordinate equipment behavior to lower total consumption and costly peak demand.",
-    title: "Lower Demand",
+      "Reduced consumption and resource optimization based on occupancy and real operating patterns.",
+    title: "Efficiency",
   },
   {
     description:
-      "Identify, manage, and secure available utility incentives where programs support the project.",
-    title: "Utility Incentives",
-  },
-  {
-    description:
-      "Structure projects around practical payback, incentives, and operating savings.",
-    title: "Positive Cash Flow",
-  },
-  {
-    description:
-      "Move from analysis to installation, optimization, and ongoing support with one accountable team.",
-    title: "Turnkey Solutions",
+      "Energy savings without compromising the guest, resident, or occupant experience.",
+    title: "Comfort",
   },
 ] as const;
+
+export const companyProfile = {
+  introduction:
+    "Lodging Technologies develops smart solutions for property energy management, combining technology, automation, and occupancy analysis to optimize HVAC systems and other electrical equipment.",
+  mission:
+    "Lodging Technologies develops and delivers innovative energy management and building technologies that reduce energy consumption, lower operating costs, and improve building performance, combining decades of proven experience with the technologies of tomorrow.",
+  values: [
+    "Innovation",
+    "Efficiency",
+    "Reliability",
+    "Comfort",
+    "Sustainability",
+  ],
+  vision:
+    "To transform how buildings use energy by making intelligent, high-efficiency technologies the standard for facilities worldwide.",
+} as const;
 
 export const products = [
   {

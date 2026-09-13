@@ -1,4 +1,5 @@
 export const siteConfig = {
   name: "Lodging Technologies",
-  description: "Intelligent energy management for smarter buildings.",
+  description:
+    "Occupancy-aware energy management that helps properties save energy without sacrificing comfort.",
 } as const;

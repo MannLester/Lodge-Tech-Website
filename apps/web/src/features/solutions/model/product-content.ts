@@ -102,7 +102,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     metaDescription:
       "Explore the GEM Stat ET occupancy-based HVAC control solution.",
     heroImage: hvacImage,
-    heroImageAlt: "GEM Stat ET thermostat product placeholder",
+    heroImageAlt: "Concept image representing occupancy-based HVAC control",
     hotspots: [
       {
         label: "Occupant controls",

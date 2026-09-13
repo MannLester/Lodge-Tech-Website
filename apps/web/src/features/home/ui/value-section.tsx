@@ -1,22 +1,10 @@
-import {
-  Calculator,
-  ChartNoAxesCombined,
-  CircleDollarSign,
-  Wrench,
-  Zap,
-} from "lucide-react";
+import { Cpu, Gauge, HeartHandshake } from "lucide-react";
 
-import { valuePropositions } from "@/features/home/model/home-content";
+import { brandPillars } from "@/features/home/model/home-content";
+import { MobileCarousel } from "@/shared/ui/mobile-carousel";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
-import { ContinuousScroller } from "./continuous-scroller";
 
-const valueIcons = [
-  Zap,
-  ChartNoAxesCombined,
-  CircleDollarSign,
-  Calculator,
-  Wrench,
-] as const;
+const pillarIcons = [Cpu, Gauge, HeartHandshake] as const;
 
 export function ValueSection() {
   return (
@@ -28,25 +16,28 @@ export function ValueSection() {
       <div className="section-shell">
         <SectionHeading
           align="center"
-          description="Lodging Technologies aligns controls, incentives, and turnkey execution around measurable building operating expense."
+          description="Sensors, automation, and control systems detect whether a space is occupied or vacant, enabling intelligent adjustment of energy consumption."
           eyebrow="Energy follows occupancy"
           id="value-heading"
-          title="Reduce waste where buildings actually spend energy."
+          title="Technology that understands spaces."
         />
 
-        <ContinuousScroller className="mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 lg:grid-cols-5">
-          {valuePropositions.map((item, index) => {
-            const Icon = valueIcons[index];
+        <MobileCarousel
+          ariaLabel="Brand pillars"
+          className="mt-10 md:auto-cols-auto md:grid-flow-row md:grid-cols-3 md:overflow-visible"
+        >
+          {brandPillars.map((item, index) => {
+            const Icon = pillarIcons[index];
 
             return (
               <article
-                className="border-border bg-surface rounded-lg border p-5"
+                className="border-border bg-surface rounded-lg border p-6"
                 key={item.title}
               >
-                <div className="border-brand text-brand grid size-11 place-items-center rounded-full border">
+                <div className="bg-brand-soft text-brand-strong grid size-11 place-items-center rounded-md">
                   <Icon aria-hidden size={22} />
                 </div>
-                <h3 className="text-foreground mt-5 text-base font-semibold">
+                <h3 className="text-foreground mt-5 text-lg font-semibold">
                   {item.title}
                 </h3>
                 <p className="text-muted mt-2 text-sm leading-6">
@@ -55,7 +46,7 @@ export function ValueSection() {
               </article>
             );
           })}
-        </ContinuousScroller>
+        </MobileCarousel>
       </div>
     </section>
   );

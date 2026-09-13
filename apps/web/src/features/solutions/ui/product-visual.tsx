@@ -29,6 +29,9 @@ export function ProductVisual({ alt, hotspots, image }: ProductVisualProps) {
           sizes="(max-width: 1023px) 92vw, 38vw"
           src={image}
         />
+        <span className="bg-surface/90 text-muted absolute top-3 left-3 rounded px-3 py-1.5 text-xs font-semibold">
+          Concept visual
+        </span>
         {hotspots.map((hotspot, index) => (
           <button
             aria-label={`Show ${hotspot.label}`}

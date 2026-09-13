@@ -45,10 +45,7 @@ const footerLinkGroups = [
 
 export function SiteFooter() {
   return (
-    <footer
-      className="border-border bg-surface-muted border-t py-10"
-      id="company"
-    >
+    <footer className="border-border bg-surface-muted border-t py-10">
       <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">
         <div className="max-w-64">
           <BrandMark href="/#top" />

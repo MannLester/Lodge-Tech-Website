@@ -24,7 +24,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
       <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <div className="flex min-w-0 items-center gap-3">
-          <BrandMark href={fromHome ? "#top" : "/#top"} />
+          <BrandMark href={fromHome ? "#top" : "/#top"} preload />
           <span className="border-border text-muted hidden border-l pl-3 text-xs leading-4 xl:block">
             GEM Link Wireless / GEM Stat ET
           </span>

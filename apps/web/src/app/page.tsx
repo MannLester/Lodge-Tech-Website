@@ -1,5 +1,6 @@
 import {
   ClosingFooter,
+  CompanySection,
   getInquiryPrefillFromValues,
   HeroSection,
   IndustriesSection,
@@ -30,6 +31,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <ValueSection />
         <ProductSection />
         <IndustriesSection />
+        <CompanySection />
         <ResultsSection />
         <ProcessSection />
       </main>

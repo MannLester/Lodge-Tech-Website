@@ -77,7 +77,7 @@ export function ProductPage({ product }: ProductPageProps) {
           className="section-band pt-10! sm:pt-14!"
         >
           <div className="section-shell border-border bg-surface shadow-soft grid gap-9 rounded-2xl border p-6 sm:p-9 lg:grid-cols-[1fr_0.88fr] lg:items-center lg:p-12">
-            <div>
+            <div data-product-intro>
               <p className="eyebrow">{product.eyebrow}</p>
               <h1
                 className="text-foreground mt-4 text-4xl leading-tight font-bold sm:text-5xl"
@@ -103,11 +103,13 @@ export function ProductPage({ product }: ProductPageProps) {
                 </ButtonLink>
               </div>
             </div>
-            <ProductVisual
-              alt={product.heroImageAlt}
-              hotspots={product.hotspots}
-              image={product.heroImage}
-            />
+            <div className="order-first lg:order-last" data-product-visual>
+              <ProductVisual
+                alt={product.heroImageAlt}
+                hotspots={product.hotspots}
+                image={product.heroImage}
+              />
+            </div>
           </div>
         </section>
 
@@ -170,7 +172,10 @@ export function ProductPage({ product }: ProductPageProps) {
                   className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14"
                   key={showcase.title}
                 >
-                  <div className={index % 2 ? "lg:order-2" : undefined}>
+                  <div
+                    className={`order-last ${index % 2 ? "lg:order-2" : "lg:order-1"}`}
+                    data-showcase-copy
+                  >
                     <p className="eyebrow">Feature showcase {index + 1}</p>
                     <h3 className="text-foreground mt-3 text-2xl font-bold sm:text-3xl">
                       {showcase.title}
@@ -180,7 +185,8 @@ export function ProductPage({ product }: ProductPageProps) {
                     </p>
                   </div>
                   <div
-                    className={`border-border bg-surface relative aspect-[16/10] overflow-hidden rounded-xl border ${index % 2 ? "lg:order-1" : ""}`}
+                    className={`border-border bg-surface relative order-first aspect-[16/10] overflow-hidden rounded-xl border ${index % 2 ? "lg:order-1" : "lg:order-2"}`}
+                    data-showcase-visual
                   >
                     <Image
                       alt={`${product.label} feature visual placeholder`}
@@ -268,11 +274,11 @@ export function ProductPage({ product }: ProductPageProps) {
         </section>
 
         <section aria-labelledby="proof-heading" className="section-band">
-          <div className="section-shell shadow-soft overflow-hidden rounded-2xl bg-[#0b3148] text-white">
+          <div className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white">
             <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-              <div className="bg-[#08283c] p-8 sm:p-10">
-                <BarChart3 aria-hidden className="text-[#42c8f4]" size={38} />
-                <p className="mt-6 text-xs font-bold tracking-widest text-[#8bdff8] uppercase">
+              <div className="bg-brand-deep p-8 sm:p-10">
+                <BarChart3 aria-hidden className="text-brand-white" size={38} />
+                <p className="text-brand-white mt-6 text-xs font-bold tracking-widest uppercase">
                   ROI proof
                 </p>
                 <p className="mt-3 text-2xl font-bold">
@@ -296,7 +302,7 @@ export function ProductPage({ product }: ProductPageProps) {
                   outcome. No unverified savings claim is presented.
                 </p>
                 <ButtonLink
-                  className="mt-7 border-white! bg-white! text-[#075a7b]! hover:bg-[#e1f4fa]!"
+                  className="text-brand-strong! hover:bg-brand-soft! mt-7 border-white! bg-white!"
                   href={productCtaHref(product.slug, "savings")}
                 >
                   Discuss Your Property
@@ -324,7 +330,7 @@ export function ProductPage({ product }: ProductPageProps) {
               </p>
             </div>
             <ButtonLink
-              className="shrink-0 border-white! bg-white! text-[#075a7b]! hover:bg-[#e1f4fa]!"
+              className="text-brand-strong! hover:bg-brand-soft! shrink-0 border-white! bg-white!"
               href={productCtaHref(product.slug, "savings")}
             >
               Get a Savings Analysis
