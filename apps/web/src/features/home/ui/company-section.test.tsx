@@ -17,7 +17,9 @@ describe("CompanySection", () => {
     expect(screen.getByText("Innovation")).toBeInTheDocument();
     expect(screen.getByText("Sustainability")).toBeInTheDocument();
     expect(
-      screen.getByAltText("Guest room in a modern lodging property"),
+      screen.getByAltText(
+        "Lodging Technologies branded modern building exterior",
+      ),
     ).toBeInTheDocument();
   });
 });
