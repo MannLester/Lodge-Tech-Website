@@ -165,6 +165,24 @@ body {
   min-width: 0;
 }
 
+.snap-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(16.5rem, 82vw);
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding-block: 0.25rem 1rem;
+  scroll-padding-inline: 1rem;
+  scroll-snap-type: inline mandatory;
+  scrollbar-color: var(--brand) var(--surface-muted);
+  scrollbar-width: thin;
+}
+
+.snap-row > * {
+  scroll-snap-align: start;
+}
+
 .contact-primary {
   color: var(--brand-deep-blue);
 }
@@ -459,6 +477,14 @@ body {
 
   .continuous-scroller-group > * {
     flex: initial;
+  }
+
+  .snap-row {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
   }
 }
 
