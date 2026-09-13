@@ -1,9 +1,4 @@
-import {
-  Activity,
-  BadgeDollarSign,
-  Building2,
-  CalendarDays,
-} from "lucide-react";
+import { Building2, CalendarDays, Gauge } from "lucide-react";
 import Image from "next/image";
 
 import heroHouseImage from "@assets/day_house.png";
@@ -14,7 +9,7 @@ import {
 } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
-const statIcons = [CalendarDays, Building2, Activity, BadgeDollarSign] as const;
+const statIcons = [CalendarDays, Building2, Gauge] as const;
 
 export function HeroSection() {
   return (
@@ -53,23 +48,23 @@ export function HeroSection() {
         <div className="max-w-2xl lg:col-span-6 lg:-translate-x-10 lg:pr-4 xl:-translate-x-14">
           <p className="hero-eyebrow flex items-center gap-3 text-[0.6875rem] leading-tight font-bold tracking-[0.18em] uppercase">
             <span className="hero-eyebrow-line h-0.5 w-6" aria-hidden />
-            Since 1980. Proven experience. Intelligent solutions.
+            Since 1980 · Proven experience · Intelligent solutions
           </p>
           <h1
-            aria-label="Reduce HVAC, Lighting, and Appliance Energy Expense 40% with GEM Link Wireless and GEM Stat ET."
+            aria-label="Save energy without sacrificing comfort."
             className="hero-heading mt-6 text-4xl leading-[1.04] font-semibold sm:text-5xl"
             id="hero-heading"
           >
-            Reduce HVAC, Lighting, and Appliance Energy Expense{" "}
-            <span className="hero-heading-accent">40%</span>
+            Save energy without sacrificing{" "}
+            <span className="hero-heading-accent">comfort.</span>
             <span className="mt-3 block text-2xl leading-tight sm:text-3xl">
-              with GEM Link Wireless and GEM Stat ET.
+              Intelligent control for the way spaces are actually used.
             </span>
           </h1>
           <p className="hero-copy mt-7 max-w-[22rem] text-sm leading-6 sm:max-w-[31rem] sm:text-base sm:leading-7">
-            Intelligent energy management for lodging, multifamily, senior
-            living, student housing, and commercial properties, built to lower
-            expense without compromising comfort.
+            Occupancy-aware climate control, automation, and connected building
+            technology help properties reduce consumption, improve operations,
+            and maintain occupant comfort.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ButtonLink className="px-6 !text-white" href="#contact">
