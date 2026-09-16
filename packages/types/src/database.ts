@@ -3,16 +3,31 @@ export type Database = {
     Tables: {
       admin_users: {
         Row: {
+          avatar_path: string | null;
           created_at: string;
+          display_name: string | null;
           email: string;
+          job_title: string | null;
+          phone: string | null;
+          updated_at: string;
         };
         Insert: {
+          avatar_path?: string | null;
           created_at?: string;
+          display_name?: string | null;
           email: string;
+          job_title?: string | null;
+          phone?: string | null;
+          updated_at?: string;
         };
         Update: {
+          avatar_path?: string | null;
           created_at?: string;
+          display_name?: string | null;
           email?: string;
+          job_title?: string | null;
+          phone?: string | null;
+          updated_at?: string;
         };
         Relationships: [];
       };
