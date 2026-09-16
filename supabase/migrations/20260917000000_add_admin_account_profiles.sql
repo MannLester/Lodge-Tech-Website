@@ -1,43 +1,22 @@
-alter table public.admin_users
+alter table public.crm_users
   add column if not exists display_name text,
   add column if not exists job_title text,
   add column if not exists phone text,
-  add column if not exists avatar_path text,
-  add column if not exists updated_at timestamptz not null default now();
+  add column if not exists avatar_path text;
 
-alter table public.admin_users
-  add constraint admin_users_display_name_length check (
+alter table public.crm_users
+  add constraint crm_users_display_name_length check (
     display_name is null or char_length(display_name) between 1 and 80
   ),
-  add constraint admin_users_job_title_length check (
+  add constraint crm_users_job_title_length check (
     job_title is null or char_length(job_title) <= 100
   ),
-  add constraint admin_users_phone_length check (
+  add constraint crm_users_phone_length check (
     phone is null or char_length(phone) <= 40
   ),
-  add constraint admin_users_avatar_path_length check (
+  add constraint crm_users_avatar_path_length check (
     avatar_path is null or char_length(avatar_path) <= 300
   );
-
-create function public.set_admin_users_updated_at()
-returns trigger
-language plpgsql
-security definer
-set search_path = ''
-as $$
-begin
-  new.updated_at = now();
-  return new;
-end;
-$$;
-
-create trigger set_admin_users_updated_at
-before update on public.admin_users
-for each row
-execute function public.set_admin_users_updated_at();
-
-revoke all on function public.set_admin_users_updated_at()
-  from public, anon, authenticated;
 
 insert into storage.buckets (
   id,
@@ -56,4 +35,3 @@ on conflict (id) do update set
   public = excluded.public,
   file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
-

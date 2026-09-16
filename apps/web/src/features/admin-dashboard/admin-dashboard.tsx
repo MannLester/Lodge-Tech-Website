@@ -16,10 +16,16 @@ import {
   Search,
   ShieldCheck,
   UsersRound,
+  UserRound,
 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import {
+  AdminAccountWorkspace,
+  AdminAvatar,
+  type AdminAccountResult,
+} from "@/features/admin-account";
 import {
   can,
   deleteInvitedCrmUser,
@@ -54,11 +60,15 @@ import {
 } from "@/features/website-analytics";
 import { RoleProvider } from "@/hooks/useRole";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
+import { ThemeToggle } from "@lodging-technologies/ui/theme-toggle";
 
-type View = "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
+type View =
+  "account" | "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
 type Props = Readonly<{
   accessResult: AdminAccessResult | null;
   auditResult: AdminAuditResult | null;
+  accountResult: AdminAccountResult;
+  accountStatus?: string;
   filters: LeadFilters;
   followUpResult: AdminFollowUpResult;
   inquiryResult: AdminInquiryResult;
@@ -94,11 +104,14 @@ const navItems: {
     icon: ClipboardList,
     permission: "audit.read",
   },
+  { label: "Account", view: "account", icon: UserRound },
 ];
 
 export function AdminDashboardPlaceholder({
   accessResult,
   auditResult,
+  accountResult,
+  accountStatus,
   filters,
   followUpResult,
   inquiryResult,
@@ -109,7 +122,11 @@ export function AdminDashboardPlaceholder({
   const inquiries = inquiryResult.ok ? inquiryResult.inquiries : [];
   const followUps = followUpResult.ok ? followUpResult.followUps : [];
   return (
-    <AdminShell activeView={view} session={session}>
+    <AdminShell
+      accountResult={accountResult}
+      activeView={view}
+      session={session}
+    >
       {view === "dashboard" && (
         <DashboardWorkspace
           followUpResult={followUpResult}
@@ -139,19 +156,28 @@ export function AdminDashboardPlaceholder({
       {view === "audit" && (
         <AuditWorkspace result={auditResult ?? { ok: false, message: "" }} />
       )}
+      {view === "account" && (
+        <AdminAccountWorkspace result={accountResult} status={accountStatus} />
+      )}
     </AdminShell>
   );
 }
 
 export function AdminLeadWorkspace({
+  accountResult,
   result,
   session,
 }: {
+  accountResult: AdminAccountResult;
   result: AdminLeadResult;
   session: AdminSession;
 }) {
   return (
-    <AdminShell activeView="leads" session={session}>
+    <AdminShell
+      accountResult={accountResult}
+      activeView="leads"
+      session={session}
+    >
       {!result.ok ? (
         <Panel>
           <p className="eyebrow">Lead workspace</p>
@@ -166,28 +192,52 @@ export function AdminLeadWorkspace({
 }
 
 function AdminShell({
+  accountResult,
   activeView,
   children,
   session,
 }: {
+  accountResult: AdminAccountResult;
   activeView: View;
   children: ReactNode;
   session: AdminSession;
 }) {
+  const { account } = accountResult;
+
   return (
     <RoleProvider role={session.role}>
       <main className="bg-surface-muted text-foreground min-h-screen">
         <header className="border-border bg-surface border-b">
           <div className="mx-auto flex min-h-20 w-full max-w-7xl flex-col items-stretch justify-between gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 lg:px-8">
             <BrandMark />
-            <div className="flex items-center justify-between gap-3 sm:justify-end">
-              <span className="border-border bg-surface-muted text-brand-strong inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-bold">
-                <ShieldCheck aria-hidden="true" className="size-4" />
-                {session.email}
-              </span>
+            <div className="flex min-w-0 items-center justify-between gap-2 sm:justify-end sm:gap-3">
+              <ThemeToggle />
+              <Link
+                aria-current={activeView === "account" ? "page" : undefined}
+                className="border-border bg-surface-muted hover:border-brand hover:bg-brand-soft inline-flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-md border px-2 py-1.5 transition sm:flex-none sm:gap-3 sm:px-2.5"
+                href="/admin?view=account"
+              >
+                <AdminAvatar account={account} />
+                <span className="min-w-0 text-left">
+                  <span className="block truncate text-sm font-bold">
+                    {account.displayName}
+                  </span>
+                  <span className="text-muted block max-w-44 truncate text-xs">
+                    {session.email}
+                  </span>
+                </span>
+                <ShieldCheck
+                  aria-label="Verified administrator"
+                  className="text-brand-strong size-4 shrink-0"
+                />
+              </Link>
               <form action={logoutAdmin}>
-                <button className="border-border bg-surface hover:border-brand hover:text-brand inline-flex min-h-11 items-center gap-2 rounded-md border px-4 text-sm font-bold transition">
-                  <LogOut aria-hidden="true" className="size-4" /> Logout
+                <button
+                  aria-label="Logout"
+                  className="border-border bg-surface hover:border-brand hover:text-brand inline-flex min-h-11 items-center gap-2 rounded-md border px-3 text-sm font-bold transition sm:px-4"
+                >
+                  <LogOut aria-hidden="true" className="size-4" />
+                  <span className="hidden sm:inline">Logout</span>
                 </button>
               </form>
             </div>
@@ -197,7 +247,7 @@ function AdminShell({
           <aside className="border-border bg-surface h-fit rounded-lg border p-3 lg:sticky lg:top-6">
             <nav
               aria-label="Admin workspace"
-              className="grid grid-cols-2 gap-1 sm:grid-cols-4 lg:grid-cols-1"
+              className="grid grid-cols-2 gap-1 sm:grid-cols-5 lg:grid-cols-1"
             >
               {navItems
                 .filter(

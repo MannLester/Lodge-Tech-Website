@@ -3,31 +3,16 @@ export type Database = {
     Tables: {
       admin_users: {
         Row: {
-          avatar_path: string | null;
           created_at: string;
-          display_name: string | null;
           email: string;
-          job_title: string | null;
-          phone: string | null;
-          updated_at: string;
         };
         Insert: {
-          avatar_path?: string | null;
           created_at?: string;
-          display_name?: string | null;
           email: string;
-          job_title?: string | null;
-          phone?: string | null;
-          updated_at?: string;
         };
         Update: {
-          avatar_path?: string | null;
           created_at?: string;
-          display_name?: string | null;
           email?: string;
-          job_title?: string | null;
-          phone?: string | null;
-          updated_at?: string;
         };
         Relationships: [];
       };
@@ -93,39 +78,51 @@ export type Database = {
       };
       crm_users: {
         Row: {
+          avatar_path: string | null;
           auth_user_id: string | null;
           created_at: string;
           created_by: string | null;
           disabled_at: string | null;
+          display_name: string | null;
           email: string;
           id: string;
+          job_title: string | null;
           last_login_at: string | null;
+          phone: string | null;
           role: Database["public"]["Enums"]["crm_access_role"];
           status: Database["public"]["Enums"]["crm_user_status"];
           updated_at: string;
           updated_by: string | null;
         };
         Insert: {
+          avatar_path?: string | null;
           auth_user_id?: string | null;
           created_at?: string;
           created_by?: string | null;
           disabled_at?: string | null;
+          display_name?: string | null;
           email: string;
           id?: string;
+          job_title?: string | null;
           last_login_at?: string | null;
+          phone?: string | null;
           role?: Database["public"]["Enums"]["crm_access_role"];
           status?: Database["public"]["Enums"]["crm_user_status"];
           updated_at?: string;
           updated_by?: string | null;
         };
         Update: {
+          avatar_path?: string | null;
           auth_user_id?: string | null;
           created_at?: string;
           created_by?: string | null;
           disabled_at?: string | null;
+          display_name?: string | null;
           email?: string;
           id?: string;
+          job_title?: string | null;
           last_login_at?: string | null;
+          phone?: string | null;
           role?: Database["public"]["Enums"]["crm_access_role"];
           status?: Database["public"]["Enums"]["crm_user_status"];
           updated_at?: string;

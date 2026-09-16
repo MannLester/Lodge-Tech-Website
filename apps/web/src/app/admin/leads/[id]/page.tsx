@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { loadAdminAccount } from "@/features/admin-account";
 import { AdminSignIn, readAdminSession } from "@/features/admin-auth";
 import { AdminLeadWorkspace } from "@/features/admin-dashboard";
 import { loadAdminLead } from "@/features/inquiry";
@@ -13,8 +14,17 @@ export default async function AdminLeadPage({
   if (!session) return <AdminSignIn />;
 
   const { id } = await params;
-  const result = await loadAdminLead(id);
+  const [accountResult, result] = await Promise.all([
+    loadAdminAccount(session.email),
+    loadAdminLead(id),
+  ]);
   if (!result.ok && result.notFound) notFound();
 
-  return <AdminLeadWorkspace result={result} session={session} />;
+  return (
+    <AdminLeadWorkspace
+      accountResult={accountResult}
+      result={result}
+      session={session}
+    />
+  );
 }
