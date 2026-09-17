@@ -6,6 +6,11 @@ const repoRoot = resolve(appDir, "../..");
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "3mb",
+    },
+  },
   images: {
     qualities: [75, 95],
   },
