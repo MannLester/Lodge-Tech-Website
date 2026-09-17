@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
+import { loadAdminAccount } from "@/features/admin-account";
 import {
   AdminSignIn,
   can,
@@ -15,7 +16,8 @@ import { loadWebsiteConversionReport } from "@/features/website-analytics";
 
 import type { InquiryStatus } from "@/features/inquiry";
 
-type View = "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
+type View =
+  "account" | "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
 
 export const metadata: Metadata = {
   title: "Admin | Lodge Tech",
@@ -35,6 +37,7 @@ export default async function AdminPage({
     view?: string;
     auth?: string;
     reason?: string;
+    account_status?: string;
   }>;
 }) {
   const session = await readAdminSession();
@@ -56,6 +59,7 @@ export default async function AdminPage({
   if (params.view === "inquiries") redirect("/admin?view=leads");
   if (params.view === "follow-ups") redirect("/admin?view=tasks");
   const requestedView: View = [
+    "account",
     "dashboard",
     "leads",
     "tasks",
@@ -73,7 +77,8 @@ export default async function AdminPage({
         : requestedView === "audit" && !can(session.role, "audit.read")
           ? "dashboard"
           : requestedView;
-  const [inquiryResult, followUpResult] = await Promise.all([
+  const [accountResult, inquiryResult, followUpResult] = await Promise.all([
+    loadAdminAccount(session.email),
     loadAdminInquiries(),
     loadAdminFollowUps(),
   ]);
@@ -84,6 +89,8 @@ export default async function AdminPage({
 
   return (
     <AdminDashboardPlaceholder
+      accountResult={accountResult}
+      accountStatus={params.account_status}
       filters={{
         propertyType: params.property,
         query: params.q,
