@@ -1,7 +1,9 @@
 import type { StaticImageData } from "next/image";
 
 import auxiliaryImage from "@assets/auxiliary.png";
-import hvacImage from "@assets/hvac.png";
+import gemStatLivingRoomImage from "@assets/gem-stat-et/living-room.jpeg";
+import gemStatOfficeSettingImage from "@assets/gem-stat-et/office-setting.jpeg";
+import gemStatTreeSettingImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform.png";
 
@@ -14,16 +16,15 @@ export const productSlugs = [
 
 export type ProductSlug = (typeof productSlugs)[number];
 
-type Hotspot = {
-  body: string;
-  label: string;
-  x: number;
-  y: number;
-};
-
 type Feature = {
   body: string;
   title: string;
+};
+
+type Showcase = Feature & {
+  image?: StaticImageData;
+  imageAlt?: string;
+  imagePosition?: string;
 };
 
 type SpecificationGroup = {
@@ -37,11 +38,11 @@ export type ProductPageContent = {
   features: ReadonlyArray<Feature>;
   heroImage: StaticImageData;
   heroImageAlt: string;
-  hotspots: ReadonlyArray<Hotspot>;
+  heroPhoto?: boolean;
   label: string;
   metaDescription: string;
   shortDescription: string;
-  showcases: ReadonlyArray<Feature>;
+  showcases: ReadonlyArray<Showcase>;
   slug: ProductSlug;
   specifications: ReadonlyArray<SpecificationGroup>;
   subtitle: string;
@@ -101,28 +102,9 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       "Room-level HVAC control designed to work within the connected GEM ecosystem.",
     metaDescription:
       "Explore the GEM Stat ET occupancy-based HVAC control solution.",
-    heroImage: hvacImage,
-    heroImageAlt: "Concept image representing occupancy-based HVAC control",
-    hotspots: [
-      {
-        label: "Occupant controls",
-        body: "Interface details are pending approved product documentation.",
-        x: 39,
-        y: 42,
-      },
-      {
-        label: "Sensing area",
-        body: "Sensor capabilities are pending manufacturer verification.",
-        x: 62,
-        y: 30,
-      },
-      {
-        label: "Installation profile",
-        body: "Mounting details are pending manufacturer verification.",
-        x: 66,
-        y: 70,
-      },
-    ],
+    heroImage: gemStatLivingRoomImage,
+    heroImageAlt: "GEM Stat ET thermostat mounted beside a living room",
+    heroPhoto: true,
     features: [
       {
         title: "Occupancy-aware operation",
@@ -145,10 +127,18 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       {
         title: "Control at the point of use",
         body: "Give occupants a familiar room interface while enabling an operating strategy built around real occupancy patterns.",
+        image: gemStatTreeSettingImage,
+        imageAlt:
+          "GEM Stat ET thermostat pictured against a sunlit tree and park setting",
+        imagePosition: "object-[center_35%]",
       },
       {
         title: "A clearer view for facility teams",
         body: "Connect individual spaces to portfolio-level monitoring and a consistent energy-management workflow.",
+        image: gemStatOfficeSettingImage,
+        imageAlt:
+          "GEM Stat ET thermostat on a wall beside an office meeting room",
+        imagePosition: "object-center",
       },
     ],
     specifications: pendingSpecifications,
@@ -166,26 +156,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       "Explore the GEM Link Wireless connected building platform.",
     heroImage: platformImage,
     heroImageAlt: "GEM Link Wireless platform product placeholder",
-    hotspots: [
-      {
-        label: "Portfolio view",
-        body: "Dashboard capabilities are pending approved product documentation.",
-        x: 36,
-        y: 38,
-      },
-      {
-        label: "Connected devices",
-        body: "Supported device details are pending manufacturer verification.",
-        x: 70,
-        y: 32,
-      },
-      {
-        label: "Operational insights",
-        body: "Reporting details are pending manufacturer verification.",
-        x: 62,
-        y: 72,
-      },
-    ],
     features: [
       {
         title: "Central visibility",
@@ -229,26 +199,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       "Explore occupancy-aware lighting control solutions from Lodging Technologies.",
     heroImage: lightingImage,
     heroImageAlt: "Lighting controls product placeholder",
-    hotspots: [
-      {
-        label: "Occupancy input",
-        body: "Sensor compatibility is pending approved product documentation.",
-        x: 32,
-        y: 35,
-      },
-      {
-        label: "Control zone",
-        body: "Zone capacity is pending manufacturer verification.",
-        x: 65,
-        y: 45,
-      },
-      {
-        label: "Schedule coordination",
-        body: "Scheduling capabilities are pending manufacturer verification.",
-        x: 52,
-        y: 74,
-      },
-    ],
     features: [
       {
         title: "Occupancy response",
@@ -292,26 +242,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       "Explore appliance and auxiliary load control solutions from Lodging Technologies.",
     heroImage: auxiliaryImage,
     heroImageAlt: "Appliance controls product placeholder",
-    hotspots: [
-      {
-        label: "Managed load",
-        body: "Supported equipment is pending approved product documentation.",
-        x: 34,
-        y: 42,
-      },
-      {
-        label: "Control interface",
-        body: "Interface details are pending manufacturer verification.",
-        x: 67,
-        y: 34,
-      },
-      {
-        label: "Operating logic",
-        body: "Automation details are pending manufacturer verification.",
-        x: 59,
-        y: 73,
-      },
-    ],
     features: [
       {
         title: "Broader load coverage",

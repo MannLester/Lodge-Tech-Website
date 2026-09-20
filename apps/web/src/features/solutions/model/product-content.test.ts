@@ -16,7 +16,7 @@ describe("product content", () => {
     for (const slug of productSlugs) {
       const product = getProduct(slug);
       expect(product.features).toHaveLength(4);
-      expect(product.hotspots.length).toBeGreaterThanOrEqual(3);
+      expect(product.showcases).toHaveLength(2);
       expect(product.specifications.length).toBeGreaterThanOrEqual(3);
     }
   });

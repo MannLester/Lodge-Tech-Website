@@ -106,8 +106,8 @@ export function ProductPage({ product }: ProductPageProps) {
             <div className="order-first lg:order-last" data-product-visual>
               <ProductVisual
                 alt={product.heroImageAlt}
-                hotspots={product.hotspots}
                 image={product.heroImage}
+                photo={product.heroPhoto}
               />
             </div>
           </div>
@@ -189,15 +189,24 @@ export function ProductPage({ product }: ProductPageProps) {
                     data-showcase-visual
                   >
                     <Image
-                      alt={`${product.label} feature visual placeholder`}
-                      className="object-contain p-10 opacity-75"
+                      alt={
+                        showcase.imageAlt ??
+                        `${product.label} feature visual placeholder`
+                      }
+                      className={
+                        showcase.image
+                          ? `object-cover ${showcase.imagePosition ?? "object-center"}`
+                          : "object-contain p-10 opacity-75"
+                      }
                       fill
                       sizes="(max-width: 1023px) 92vw, 42vw"
-                      src={product.heroImage}
+                      src={showcase.image ?? product.heroImage}
                     />
-                    <span className="bg-surface/90 text-muted absolute right-3 bottom-3 rounded px-3 py-1.5 text-xs font-semibold">
-                      Approved visual pending
-                    </span>
+                    {!showcase.image && (
+                      <span className="bg-surface/90 text-muted absolute right-3 bottom-3 rounded px-3 py-1.5 text-xs font-semibold">
+                        Approved visual pending
+                      </span>
+                    )}
                   </div>
                 </article>
               ))}
