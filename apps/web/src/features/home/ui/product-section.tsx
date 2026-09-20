@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import auxiliaryImage from "@assets/auxiliary.png";
 import exhaustImage from "@assets/exhaust.png";
-import hvacImage from "@assets/hvac.png";
+import gemStatGuestRoomImage from "@assets/gem-stat-et/guest-room.jpeg";
 import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform.png";
 import { products } from "@/features/home/model/home-content";
@@ -12,7 +12,12 @@ import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { MediaImage } from "@lodging-technologies/ui/media-image";
 import { SectionHeading } from "@lodging-technologies/ui/section-heading";
 
-const productImages = [hvacImage, lightingImage, exhaustImage, auxiliaryImage];
+const productImages = [
+  gemStatGuestRoomImage,
+  lightingImage,
+  exhaustImage,
+  auxiliaryImage,
+];
 
 const platformCapabilities = [
   "Real-time portfolio visibility",
