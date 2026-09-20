@@ -1,8 +1,7 @@
 import { Check } from "lucide-react";
 
-import lodgeTechBuildingImage from "@assets/lodge-tech-building.png";
 import { companyProfile } from "@/features/home/model/home-content";
-import { MediaImage } from "@lodging-technologies/ui/media-image";
+import { CompanyImageSlider } from "@/features/home/ui/company-image-slider";
 
 export function CompanySection() {
   return (
@@ -13,12 +12,7 @@ export function CompanySection() {
     >
       <div className="section-shell">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <MediaImage
-            alt="Lodging Technologies branded modern building exterior"
-            className="mx-auto aspect-[4/5] w-full max-w-md"
-            sizes="(max-width: 1023px) 92vw, 38vw"
-            src={lodgeTechBuildingImage}
-          />
+          <CompanyImageSlider />
 
           <div>
             <p className="eyebrow">Who we are</p>

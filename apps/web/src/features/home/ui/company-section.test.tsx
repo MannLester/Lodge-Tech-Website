@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { CompanySection } from "@/features/home/ui/company-section";
@@ -20,6 +20,38 @@ describe("CompanySection", () => {
       screen.getByAltText(
         "Lodging Technologies branded modern building exterior",
       ),
+    ).toBeInTheDocument();
+  });
+
+  it("moves through the four supplied Company images", () => {
+    const { container } = render(<CompanySection />);
+    const gallery = within(container);
+
+    fireEvent.click(
+      gallery.getByRole("button", { name: "Next company image" }),
+    );
+    expect(
+      gallery.getByRole("img", {
+        name: "Lodging Technologies branded tree scene with two control devices",
+      }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      gallery.getByRole("button", { name: "Show Guest room image" }),
+    );
+    expect(
+      gallery.getByRole("img", {
+        name: "Lodging Technologies branded guest room with wall-mounted controls",
+      }),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      gallery.getByRole("button", { name: "Next company image" }),
+    );
+    expect(
+      gallery.getByRole("img", {
+        name: "Lodging Technologies branded group of thermostat and control devices on green plinths",
+      }),
     ).toBeInTheDocument();
   });
 });
