@@ -6,10 +6,7 @@ import {
 } from "@/features/admin-auth/model/admin-session";
 import { accessRepository } from "@/features/admin-auth/data/access-repository";
 import { can, type Permission } from "@/features/admin-auth/model/permissions";
-import {
-  createOptionalSupabaseAuthServerClient,
-  createSupabaseAuthServerClient,
-} from "@/shared/supabase/auth";
+import { createOptionalSupabaseAuthServerClient } from "@/shared/supabase/auth";
 import { getServerSupabaseClient } from "@/shared/supabase/server";
 
 export async function isAllowedAdminEmail(email: string): Promise<boolean> {
@@ -70,6 +67,7 @@ export async function requirePermission(
 }
 
 export async function signOutAdmin(): Promise<void> {
-  const supabase = await createSupabaseAuthServerClient();
+  const supabase = await createOptionalSupabaseAuthServerClient();
+  if (!supabase) return;
   await supabase.auth.signOut();
 }

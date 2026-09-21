@@ -2,15 +2,15 @@ import { describe, expect, it, vi } from "vitest";
 
 import {
   createAdminSessionFromUser,
-  hasGoogleIdentity,
+  hasMicrosoftIdentity,
   normalizeAdminEmail,
 } from "@/features/admin-auth/model/admin-session";
 
 import type { User, UserIdentity } from "@supabase/supabase-js";
 
 const baseUser = {
-  app_metadata: { provider: "google" },
-  email: "Admin@Gmail.com",
+  app_metadata: { provider: "azure" },
+  email: "Admin@Outlook.com",
   email_confirmed_at: "2026-09-06T00:00:00Z",
   id: "user-123",
   identities: [],
@@ -24,17 +24,17 @@ describe("admin session", () => {
     expect(normalizeAdminEmail(" Admin@Gmail.COM ")).toBe("admin@gmail.com");
   });
 
-  it("accepts users with a Google provider identity", () => {
-    expect(hasGoogleIdentity(baseUser)).toBe(true);
+  it("accepts users with a Microsoft provider identity", () => {
+    expect(hasMicrosoftIdentity(baseUser)).toBe(true);
     expect(
-      hasGoogleIdentity({
+      hasMicrosoftIdentity({
         app_metadata: {},
-        identities: [{ provider: "google" } as UserIdentity],
+        identities: [{ provider: "azure" } as UserIdentity],
       }),
     ).toBe(true);
   });
 
-  it("creates an admin session for verified, allowlisted Google users", async () => {
+  it("creates an admin session for verified, allowlisted Microsoft users", async () => {
     const lookup = vi.fn().mockResolvedValue({
       crmUserId: "crm-user-123",
       role: "ADMIN",
@@ -42,14 +42,14 @@ describe("admin session", () => {
 
     await expect(createAdminSessionFromUser(baseUser, lookup)).resolves.toEqual(
       {
-        authMode: "google",
+        authMode: "microsoft",
         crmUserId: "crm-user-123",
-        email: "admin@gmail.com",
+        email: "admin@outlook.com",
         role: "ADMIN",
         sub: "user-123",
       },
     );
-    expect(lookup).toHaveBeenCalledWith("admin@gmail.com", "user-123");
+    expect(lookup).toHaveBeenCalledWith("admin@outlook.com", "user-123");
   });
 
   it("denies users who are not on the allowlist", async () => {
@@ -58,7 +58,7 @@ describe("admin session", () => {
     ).resolves.toBeNull();
   });
 
-  it("denies unverified or non-Google users before checking the allowlist", async () => {
+  it("denies unverified or non-Microsoft users before checking the allowlist", async () => {
     const lookup = vi.fn().mockResolvedValue(true);
 
     await expect(
