@@ -21,13 +21,19 @@ export function normalizeAdminEmail(email: string): string {
   return email.trim().toLowerCase();
 }
 
+export function hasMicrosoftIdentity(
+  user: Pick<User, "app_metadata" | "identities">,
+): boolean {
+  return (
+    user.app_metadata?.provider === "azure" ||
+    Boolean(user.identities?.some((identity) => identity.provider === "azure"))
+  );
+}
+
 export function resolveAuthMode(
   user: Pick<User, "app_metadata" | "identities">,
 ): AuthMode | null {
-  if (
-    user.app_metadata?.provider === "azure" ||
-    user.identities?.some((identity) => identity.provider === "azure")
-  ) {
+  if (hasMicrosoftIdentity(user)) {
     return "microsoft";
   }
 
