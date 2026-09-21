@@ -26,11 +26,11 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
         <div className="flex min-w-0 items-center gap-3">
           <BrandMark href={fromHome ? "#top" : "/#top"} preload />
           <span className="border-border text-muted hidden border-l pl-3 text-xs leading-4 xl:block">
-            GEM Link Wireless / GEM Stat ET
+            GEM Link® Wireless / GEM Stat™ ET
           </span>
         </div>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">
           {primaryNavigationItems.map((item) =>
             item.hash === "solutions" ? (
               <details className="group relative" key={item.hash}>
@@ -79,7 +79,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
             className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] !text-white"
             href={contactHref}
           >
-            Get a Savings Analysis
+            Request a Proposal
           </ButtonLink>
         </div>
 
@@ -145,7 +145,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
               ),
             )}
             <ButtonLink className="mt-4 w-full !text-white" href={contactHref}>
-              Get a Savings Analysis
+              Request a Proposal / Site Survey
             </ButtonLink>
           </div>
         </nav>

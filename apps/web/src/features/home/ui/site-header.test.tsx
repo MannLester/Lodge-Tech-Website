@@ -15,10 +15,10 @@ describe("SiteHeader", () => {
     render(<SiteHeader />);
 
     expect(
-      screen.getByText("GEM Link Wireless / GEM Stat ET"),
+      screen.getByText("GEM Link® Wireless / GEM Stat™ ET"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Get a Savings Analysis" }),
+      screen.getByRole("link", { name: "Request a Proposal" }),
     ).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
@@ -49,6 +51,20 @@ export function SiteFooter() {
       <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">
         <div className="max-w-64">
           <BrandMark href="/#top" />
+          <div
+            aria-label="Featured products"
+            className="text-brand-strong mt-5 grid gap-3 text-sm font-semibold"
+          >
+            <Link
+              className="hover:underline"
+              href="/solutions/gem-link-wireless"
+            >
+              GEM Link® Wireless
+            </Link>
+            <Link className="hover:underline" href="/solutions/gem-stat-et">
+              GEM Stat™ ET
+            </Link>
+          </div>
           <p className="text-muted mt-4 text-sm leading-6">
             GEM Link Wireless and GEM Stat ET energy management for lodging,
             multifamily, senior living, student housing, and commercial
@@ -57,6 +73,12 @@ export function SiteFooter() {
           <p className="text-muted mt-4 text-sm leading-6">
             Proudly serving North America including the Caribbean.
           </p>
+          <Link
+            className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
+            href="/#contact"
+          >
+            Request a Proposal / Site Survey
+          </Link>
         </div>
 
         <nav
