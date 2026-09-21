@@ -35,7 +35,7 @@
   --muted: #526273;
   --border: #dbe4ec;
   --brand: var(--brand-primary-blue);
-  --brand-fill: var(--brand-primary-blue);
+  --brand-fill: #087cb3;
   --brand-strong: var(--brand-deep-blue);
   --brand-soft: #e6f6fc;
   --shadow-color: rgb(11 19 36 / 0.12);
@@ -54,7 +54,7 @@
   --muted: #a9b8c7;
   --border: #2b4054;
   --brand: #62cff5;
-  --brand-fill: var(--brand-primary-blue);
+  --brand-fill: #087cb3;
   --brand-strong: #9de4fb;
   --brand-soft: #113a50;
   --shadow-color: rgb(0 0 0 / 0.36);
