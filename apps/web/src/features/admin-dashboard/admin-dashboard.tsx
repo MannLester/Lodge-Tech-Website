@@ -829,7 +829,7 @@ function AccessWorkspace({ result }: { result: AdminAccessResult }) {
         <p className="eyebrow">Admin only</p>
         <h1 className="mt-2 text-2xl font-bold">Access</h1>
         <p className="text-muted mt-2 text-sm">
-          Add Google accounts and control each account&apos;s CRM role.
+          Add Microsoft accounts and control each account&apos;s CRM role.
         </p>
         <form
           action={inviteCrmUser}

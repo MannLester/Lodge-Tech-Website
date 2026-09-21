@@ -1,4 +1,4 @@
-# Admin Google Authentication Setup and Handoff Guide
+# Admin Microsoft Authentication Setup and Handoff Guide
 
 This guide explains how to configure the Lodge Tech admin dashboard in a new
 Supabase account and a new Vercel account. It is written for the current
@@ -12,7 +12,7 @@ should not share a Supabase project, database, or privileged server key.
 
 The application code already provides:
 
-- a **Sign in with Google** action at `/admin`;
+- a **Sign in with Microsoft** action at `/admin`;
 - a server-side PKCE callback at `/auth/callback`;
 - flow-specific PKCE verifier IDs so concurrent or abandoned sign-in attempts
   do not overwrite one another;
@@ -29,7 +29,7 @@ The application code already provides:
 
 Authentication and authorization are separate:
 
-1. Google verifies the person's identity.
+1. Microsoft verifies the person's identity.
 2. Supabase creates or retrieves the Auth user and issues the application
    session.
 3. The application normalizes the email to lowercase.
@@ -50,7 +50,7 @@ The colleague taking ownership should have:
 - access to Repo 1: `MannLester/Lodge-Tech-Website`;
 - a Supabase organization and permission to create projects, manage Auth, run
   SQL, and view API keys;
-- a Google Cloud project and permission to configure Google Auth Platform;
+- a Microsoft Entra ID (Azure AD) tenant and permission to register an application;
 - a Vercel account or team and permission to manage the project, environment
   variables, deployments, domains, and runtime logs;
 - Node.js and the package-manager version declared in `package.json`;
@@ -101,7 +101,7 @@ without printing the complete value.
 
 Official references:
 
-- [Supabase Google sign-in](https://supabase.com/docs/guides/auth/social-login/auth-google)
+- [Supabase Azure (Microsoft) sign-in](https://supabase.com/docs/guides/auth/social-login/auth-azure)
 - [Supabase server-side Auth](https://supabase.com/docs/guides/auth/server-side)
 
 ## 2. Apply the database migrations
@@ -163,64 +163,64 @@ lookups and mutations using its server-only key.
 
 See the official [Supabase database migration workflow](https://supabase.com/docs/guides/deployment/database-migrations).
 
-## 3. Configure Google Auth Platform
+## 3. Configure Microsoft Entra ID (Azure AD) App Registration
 
-In Google Cloud, open **Google Auth Platform** for the client-owned project.
+In the [Azure Portal](https://portal.azure.com), open **Microsoft Entra ID >
+App registrations** for the client-owned tenant.
 
 ### Branding and audience
 
-1. Configure the application name, support email, and authorized domains.
-2. Choose the correct audience. If the app remains in Testing, add every admin
-   Google account as a test user.
-3. Configure the standard scopes required by Supabase:
-   `openid`, `userinfo.email`, and `userinfo.profile`.
-4. Publish or verify the application when the client's release policy requires
-   it.
+1. Create a **New registration** with an application name and the intended
+   supported account type (typically "Accounts in this organizational
+   directory only" for a single-tenant CRM, or "Accounts in any organizational
+   directory" for multi-tenant).
+2. Under **API permissions**, add the Microsoft Graph delegated permissions
+   required by Supabase: `openid`, `email`, `profile`, and `User.Read`. Grant
+   admin consent for the tenant.
+3. If the tenant restricts sign-in to specific users or groups, assign every
+   intended administrator to the application under **Enterprise
+   applications > Users and groups**.
 
-An admin who is not included in the Google testing audience may be rejected by
-Google before Supabase or this application receives a code.
+An admin who is not assigned to the application (when assignment is required)
+may be rejected by Microsoft before Supabase or this application receives a
+code.
 
-### OAuth client
+### App registration credentials and redirect URI
 
-Create an OAuth client with application type **Web application**.
-
-Under **Authorized JavaScript origins**, add each application origin that may
-start a Google login, without paths:
-
-```text
-http://localhost:3000
-https://<production-domain>
-https://<stable-preview-domain>
-```
-
-Under **Authorized redirect URIs**, add the Supabase Auth callback for each
-Supabase project:
+Under **Authentication**, add a **Web** platform redirect URI pointing to the
+Supabase Auth callback for each Supabase project:
 
 ```text
 https://<production-project-ref>.supabase.co/auth/v1/callback
 https://<preview-project-ref>.supabase.co/auth/v1/callback
 ```
 
-This is Google-to-Supabase routing. Do **not** put the application's
-`/auth/callback` URL in Google's Authorized redirect URIs. Google returns to
+This is Microsoft-to-Supabase routing. Do **not** put the application's
+`/auth/callback` URL in Microsoft's redirect URIs. Microsoft returns to
 Supabase first; Supabase then returns to the application.
 
-Copy the Google Client ID and Client Secret. Treat the Client Secret as a
-server credential and never commit it.
+Under **Certificates & secrets**, create a new client secret and record its
+value immediately; it is not retrievable later. Copy the **Application
+(client) ID** and **Directory (tenant) ID** from the app registration's
+Overview page. Treat the client secret as a server credential and never commit
+it.
 
-## 4. Enable Google in Supabase Auth
+## 4. Enable Azure (Microsoft) in Supabase Auth
 
 For each Supabase project:
 
-1. Open **Authentication > Providers > Google**.
-2. Enable Google.
-3. Paste the Google Client ID and Client Secret.
-4. Save the provider configuration.
-5. Confirm that the callback displayed by Supabase exactly matches the URI
-   registered in Google Cloud.
+1. Open **Authentication > Providers > Azure**.
+2. Enable Azure.
+3. Paste the Application (client) ID and Client Secret.
+4. Set the Azure Tenant URL to
+   `https://login.microsoftonline.com/<tenant-id>/v2.0` (or `common` for
+   multi-tenant apps).
+5. Save the provider configuration.
+6. Confirm that the callback displayed by Supabase exactly matches the URI
+   registered in the Azure app registration.
 
-If Production and Preview use separate Google OAuth clients, configure each
-Supabase project with its corresponding client. Separate clients provide
+If Production and Preview use separate Azure app registrations, configure each
+Supabase project with its corresponding client. Separate registrations provide
 cleaner isolation and rotation.
 
 ## 5. Configure Supabase application redirect URLs
@@ -267,8 +267,8 @@ values (lower('admin@example.com'), 'ADMIN', 'INVITED')
 on conflict (email) do nothing;
 ```
 
-Add one row per approved person. Google aliases and different domains are
-different email strings; add exactly the address Google reports.
+Add one row per approved person. Microsoft aliases and different domains are
+different email strings; add exactly the address Microsoft reports.
 
 Use the correct role:
 
@@ -450,14 +450,14 @@ allowlist.
    Actions checks pass.
 2. Deploy to Vercel Production.
 3. Confirm the deployment is **Ready** and the production alias points to it.
-4. Close abandoned Google OAuth tabs. Each acceptance test should begin at the
-   deployed `/admin` URL.
-5. Click **Sign in with Google** once and choose an approved account.
+4. Close abandoned Microsoft sign-in tabs. Each acceptance test should begin at
+   the deployed `/admin` URL.
+5. Click **Sign in with Microsoft** once and choose an approved account.
 6. Confirm the browser returns to `/admin` and renders the dashboard.
 7. Refresh `/admin`; the dashboard should remain visible, proving the session
    cookie persisted.
 8. Sign out; `/admin` should show the sign-in screen again.
-9. Test one unapproved Google account; it should return to
+9. Test one unapproved Microsoft account; it should return to
    `/admin?auth=denied` and never render CRM data.
 
 Verify the production records in Supabase SQL Editor:
@@ -480,19 +480,19 @@ A successful login should have a non-null `last_sign_in_at`. An Auth user with
 Start with the URL and the Vercel runtime log for `/auth/callback`. Do not keep
 asking a user to retry without inspecting the new log entry.
 
-| Symptom                                                                                                   | Meaning                                                                | Checks and resolution                                                                                                                                                                     |
-| --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Google never opens                                                                                        | OAuth could not start                                                  | Validate all `NEXT_PUBLIC_*` values and confirm Google is enabled in the same Supabase project. Redeploy after changes.                                                                   |
-| `/admin?auth=error&reason=missing_code`                                                                   | Google or Supabase returned without an authorization code              | Inspect `error` and `error_code` in Vercel logs. Check Google audience, provider credentials, and both redirect configurations.                                                           |
-| `/admin?auth=error&reason=exchange_failed` with `AuthPKCECodeVerifierMissingError` or `bad_code_verifier` | The code and PKCE verifier do not match                                | Begin one new flow on the same browser/device. Confirm the deployed code includes `sb_flow_id` and a corresponding verifier cookie. Do not disable the flow-specific PKCE implementation. |
-| `AuthRetryableFetchError`, status `0`, and a normal network message                                       | Vercel could not reach Supabase                                        | Check Supabase status and Vercel runtime logs. The callback retries thrown transport failures twice; persistent failures require provider/network investigation.                          |
-| `AuthRetryableFetchError` with ByteString and character `65279` at index `7`                              | BOM at the start of the publishable key                                | Replace `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` directly from the correct Supabase project, validate ASCII, and redeploy.                                                                  |
-| `This Google account is not approved` plus ByteString character `65279` at index `0` in the allowlist log | BOM at the start of the server key                                     | Replace `SUPABASE_SECRET_KEY`, validate ASCII, and redeploy.                                                                                                                              |
-| `This Google account is not approved` with no allowlist query error                                       | Authentication succeeded but authorization failed                      | Add the normalized email to `public.admin_users` in the same Supabase project used by Vercel.                                                                                             |
-| Auth user exists but the dashboard still asks for sign-in                                                 | A database identity record exists without a usable application session | Inspect `last_sign_in_at`, callback logs, callback cookies, and the code exchange. Do not interpret `auth.users` existence as an active login.                                            |
-| Preview signs in but Production fails, or vice versa                                                      | Environment/project mismatch                                           | Compare the project reference in all four Supabase variables, Google callbacks, Supabase URL Configuration, and the active Vercel environment.                                            |
-| A changed Vercel value appears ignored                                                                    | Existing deployment still contains the prior environment               | Redeploy. `NEXT_PUBLIC_*` values must be present during the new build.                                                                                                                    |
-| User is redirected to an unexpected domain                                                                | Incorrect `NEXT_PUBLIC_SITE_URL` or Supabase Site URL                  | Set both to the intended canonical environment origin and allow its callback URL.                                                                                                         |
+| Symptom                                                                                                      | Meaning                                                                | Checks and resolution                                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Microsoft never opens                                                                                        | OAuth could not start                                                  | Validate all `NEXT_PUBLIC_*` values and confirm Microsoft is enabled in the same Supabase project. Redeploy after changes.                                                                |
+| `/admin?auth=error&reason=missing_code`                                                                      | Microsoft or Supabase returned without an authorization code           | Inspect `error` and `error_code` in Vercel logs. Check Microsoft app-registration assignment, provider credentials, and both redirect configurations.                                     |
+| `/admin?auth=error&reason=exchange_failed` with `AuthPKCECodeVerifierMissingError` or `bad_code_verifier`    | The code and PKCE verifier do not match                                | Begin one new flow on the same browser/device. Confirm the deployed code includes `sb_flow_id` and a corresponding verifier cookie. Do not disable the flow-specific PKCE implementation. |
+| `AuthRetryableFetchError`, status `0`, and a normal network message                                          | Vercel could not reach Supabase                                        | Check Supabase status and Vercel runtime logs. The callback retries thrown transport failures twice; persistent failures require provider/network investigation.                          |
+| `AuthRetryableFetchError` with ByteString and character `65279` at index `7`                                 | BOM at the start of the publishable key                                | Replace `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` directly from the correct Supabase project, validate ASCII, and redeploy.                                                                  |
+| `This Microsoft account is not approved` plus ByteString character `65279` at index `0` in the allowlist log | BOM at the start of the server key                                     | Replace `SUPABASE_SECRET_KEY`, validate ASCII, and redeploy.                                                                                                                              |
+| `This Microsoft account is not approved` with no allowlist query error                                       | Authentication succeeded but authorization failed                      | Add the normalized email to `public.admin_users` in the same Supabase project used by Vercel.                                                                                             |
+| Auth user exists but the dashboard still asks for sign-in                                                    | A database identity record exists without a usable application session | Inspect `last_sign_in_at`, callback logs, callback cookies, and the code exchange. Do not interpret `auth.users` existence as an active login.                                            |
+| Preview signs in but Production fails, or vice versa                                                         | Environment/project mismatch                                           | Compare the project reference in all four Supabase variables, Microsoft app registrations, Supabase URL Configuration, and the active Vercel environment.                                 |
+| A changed Vercel value appears ignored                                                                       | Existing deployment still contains the prior environment               | Redeploy. `NEXT_PUBLIC_*` values must be present during the new build.                                                                                                                    |
+| User is redirected to an unexpected domain                                                                   | Incorrect `NEXT_PUBLIC_SITE_URL` or Supabase Site URL                  | Set both to the intended canonical environment origin and allow its callback URL.                                                                                                         |
 
 Retrieve recent callback logs with an authenticated Vercel CLI:
 
@@ -509,8 +509,8 @@ them into an issue.
 ## 11. Security and maintenance
 
 - Keep Production and Preview credentials separate.
-- Never commit `.env.local`, downloaded Vercel environments, Google Client
-  Secrets, Supabase secret keys, access tokens, or database passwords.
+- Never commit `.env.local`, downloaded Vercel environments, Microsoft Entra
+  client secrets, Supabase secret keys, access tokens, or database passwords.
 - Never expose `SUPABASE_SECRET_KEY` or `SUPABASE_SERVICE_ROLE_KEY` to browser
   code.
 - Keep `public.admin_users` inaccessible to `anon` and `authenticated`.
@@ -518,8 +518,8 @@ them into an issue.
   metadata.
 - Use lowercase emails in the allowlist.
 - Remove former administrators promptly and revoke their existing sessions.
-- Rotate Google and Supabase secrets after ownership changes or suspected
-  exposure, update Vercel, and redeploy.
+- Rotate Microsoft Entra and Supabase secrets after ownership changes or
+  suspected exposure, update Vercel, and redeploy.
 - Review Vercel runtime logs after Auth dependency upgrades.
 - Retain the PKCE flow-ID tests and callback diagnostics.
 - Re-run the full approved/unapproved-account acceptance test after changing
@@ -529,9 +529,10 @@ them into an issue.
 
 - [ ] Production and Preview Supabase projects are client-owned and distinct.
 - [ ] All migrations have been applied to both intended projects.
-- [ ] Google OAuth clients use the correct Supabase callback URIs.
-- [ ] Google audience/test users include every intended administrator.
-- [ ] Google is enabled in both Supabase projects with the correct credentials.
+- [ ] Microsoft Entra app registrations use the correct Supabase callback URIs.
+- [ ] Microsoft app-registration user/group assignment includes every intended
+      administrator.
+- [ ] Azure is enabled in both Supabase projects with the correct credentials.
 - [ ] Supabase Site URL and application Redirect URLs are correct.
 - [ ] Every approved email exists in that environment's `public.admin_users`.
 - [ ] Each Vercel environment uses one consistent Supabase project reference.
