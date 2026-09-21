@@ -115,15 +115,15 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
 
   const formMessage =
     status === "success"
-      ? "Thanks. Your savings analysis request has been submitted."
+      ? "Thanks. Your request has been submitted. Our team will follow up about your property."
       : status === "error"
         ? "We couldn't submit your request. Your entries are still here; please try again."
         : errors._form;
 
   return (
     <form
-      aria-label="Savings analysis inquiry"
-      className="border-border bg-surface shadow-card grid gap-4 rounded-lg border p-5 text-left sm:p-6"
+      aria-label="Proposal or site survey request"
+      className="border-border bg-surface shadow-card grid gap-5 rounded-2xl border p-5 text-left sm:p-8"
       noValidate
       onSubmit={handleSubmit}
     >
@@ -260,9 +260,18 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
 
       <label className="text-foreground grid gap-2 text-sm font-semibold">
         Project notes
+        <span
+          className="text-muted text-xs leading-5 font-normal"
+          id="project-notes-help"
+        >
+          Tell us whether you need a proposal, a site survey, or advice. Include
+          any property details you already know.
+        </span>
         <textarea
           aria-describedby={
-            errors.message ? "inquiry-message-error" : undefined
+            errors.message
+              ? "project-notes-help inquiry-message-error"
+              : "project-notes-help"
           }
           aria-invalid={Boolean(errors.message)}
           className="border-border bg-background text-foreground min-h-28 resize-y rounded-md border px-3 py-3 text-sm"
@@ -281,11 +290,11 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
       </label>
 
       <button
-        className="bg-brand-fill hover:bg-brand-strong min-h-11 cursor-pointer rounded-md px-5 py-2.5 text-sm font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+        className="bg-brand-fill min-h-12 cursor-pointer rounded-full px-5 py-3 text-sm font-semibold text-white shadow-[0_0_0_5px_var(--surface-muted)] transition-colors hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-60"
         disabled={status === "submitting"}
         type="submit"
       >
-        {status === "submitting" ? "Submitting…" : "Submit Inquiry"}
+        {status === "submitting" ? "Submitting…" : "Send My Request"}
       </button>
 
       <p

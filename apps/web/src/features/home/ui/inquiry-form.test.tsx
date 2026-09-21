@@ -51,7 +51,7 @@ describe("InquiryForm", () => {
   it("validates required fields without sending a request", () => {
     render(<InquiryForm />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Submit Inquiry" }));
+    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
 
     expect(screen.getByText("Enter your name.")).toBeInTheDocument();
     expect(screen.getByText("Enter your email.")).toBeInTheDocument();
@@ -75,10 +75,10 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    const button = screen.getByRole("button", { name: "Submit Inquiry" });
+    const button = screen.getByRole("button", { name: "Send My Request" });
     fireEvent.click(button);
     fireEvent.submit(
-      screen.getByRole("form", { name: "Savings analysis inquiry" }),
+      screen.getByRole("form", { name: "Proposal or site survey request" }),
     );
 
     expect(screen.getByRole("button", { name: "Submitting…" })).toBeDisabled();
@@ -91,7 +91,7 @@ describe("InquiryForm", () => {
       }),
     );
     await screen.findByText(
-      "Thanks. Your savings analysis request has been submitted.",
+      "Thanks. Your request has been submitted. Our team will follow up about your property.",
     );
   });
 
@@ -100,10 +100,10 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    fireEvent.click(screen.getByRole("button", { name: "Submit Inquiry" }));
+    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
 
     await screen.findByText(
-      "Thanks. Your savings analysis request has been submitted.",
+      "Thanks. Your request has been submitted. Our team will follow up about your property.",
     );
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue("");
     expect(fetch).toHaveBeenCalledWith(
@@ -126,7 +126,7 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    fireEvent.click(screen.getByRole("button", { name: "Submit Inquiry" }));
+    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
 
     await screen.findByText("That email cannot be accepted.");
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
@@ -141,7 +141,7 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    fireEvent.click(screen.getByRole("button", { name: "Submit Inquiry" }));
+    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
 
     await screen.findByText(
       "We couldn't submit your request. Your entries are still here; please try again.",
@@ -150,10 +150,10 @@ describe("InquiryForm", () => {
       "Morgan Lee",
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Submit Inquiry" }));
+    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
     await screen.findByText(
-      "Thanks. Your savings analysis request has been submitted.",
+      "Thanks. Your request has been submitted. Our team will follow up about your property.",
     );
   });
 });
