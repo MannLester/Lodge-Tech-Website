@@ -1,16 +1,24 @@
-import { LogIn, Shield } from "lucide-react";
+"use client";
 
-import type { AdminAuthErrorReason } from "@/features/admin-auth/model/auth-error";
-import { loginWithGoogle } from "@/features/admin-auth/server/actions";
+import { useState } from "react";
+import { Shield } from "lucide-react";
+
+import { EmailSignInForm } from "@/features/admin-auth/ui/email-sign-in-form";
+import { ForgotPasswordForm } from "@/features/admin-auth/ui/forgot-password-form";
+import { MicrosoftSignInButton } from "@/features/admin-auth/ui/microsoft-sign-in-button";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
-export function AdminSignIn({
-  denied = false,
-  errorReason = null,
-}: {
-  denied?: boolean;
-  errorReason?: AdminAuthErrorReason | null;
-}) {
+const authErrorMessages: Record<string, string> = {
+  denied:
+    "That account isn't authorized for CRM access. Contact an administrator to request an invite.",
+  exchange_failed: "Microsoft sign-in failed. Please try again.",
+  missing_code: "Microsoft sign-in was cancelled. Please try again.",
+};
+
+export function AdminSignIn({ authStatus }: { authStatus?: string }) {
+  const authError = authStatus ? authErrorMessages[authStatus] : undefined;
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+
   return (
     <main className="bg-surface-muted text-foreground flex min-h-screen items-center px-4 py-10 sm:px-6">
       <section
@@ -19,64 +27,73 @@ export function AdminSignIn({
       >
         <div className="p-6 sm:p-8 lg:p-10">
           <BrandMark />
-          <div className="mt-12 max-w-xl">
-            <p className="eyebrow">Admin access</p>
+          <div className="mt-8 max-w-xl">
+            <p className="eyebrow">CRM Access</p>
             <h1
-              className="mt-3 text-3xl leading-tight font-bold md:text-4xl"
+              className="mt-2 text-3xl leading-tight font-bold md:text-4xl"
               id="admin-sign-in-title"
             >
-              Sign in to the light CRM
+              {showForgotPassword
+                ? "Reset Your Password"
+                : "Sign in to the CRM"}
             </h1>
-            <p className="text-muted mt-4 text-base leading-7">
-              Use your approved Google account to access the admin workspace.
+            <p className="text-muted mt-3 text-base leading-7">
+              {showForgotPassword
+                ? "Enter your registered email and we'll send you a link to reset your password."
+                : "Authenticate using your Microsoft work account or registered email."}
             </p>
-            {denied ? (
-              <p
-                className="mt-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-700"
-                role="alert"
-              >
-                This Google account is not approved for admin access.
+            {authError && (
+              <p className="mt-4 text-sm text-red-700" role="alert">
+                {authError}
               </p>
-            ) : errorReason ? (
-              <p
-                className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm font-semibold text-amber-800"
-                role="alert"
-              >
-                {errorReason === "missing_code"
-                  ? "Google did not return a usable sign-in code. Start a new sign-in attempt."
-                  : "The secure Google sign-in exchange could not be completed. Start a fresh attempt and avoid opening multiple sign-in tabs."}
-              </p>
-            ) : null}
+            )}
           </div>
 
-          <form action={loginWithGoogle} className="mt-8">
-            <input name="next" type="hidden" value="/admin" />
-            <button
-              className="bg-brand-fill hover:bg-brand-strong focus-visible:outline-brand inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold text-white transition sm:w-auto"
-              type="submit"
-            >
-              <LogIn aria-hidden="true" className="size-4" />
-              Sign in with Google
-            </button>
-          </form>
+          <div className="mt-8 max-w-md space-y-6">
+            {showForgotPassword ? (
+              <ForgotPasswordForm
+                onBackToSignIn={() => setShowForgotPassword(false)}
+              />
+            ) : (
+              <>
+                <div>
+                  <p className="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">
+                    Corporate / Enterprise
+                  </p>
+                  <MicrosoftSignInButton />
+                </div>
+
+                <div className="relative flex items-center py-1">
+                  <div className="border-border grow border-t" />
+                  <span className="text-muted mx-4 shrink text-xs font-medium uppercase">
+                    or email login
+                  </span>
+                  <div className="border-border grow border-t" />
+                </div>
+
+                <div>
+                  <p className="text-muted mb-3 text-xs font-semibold tracking-wider uppercase">
+                    External / Partner
+                  </p>
+                  <EmailSignInForm
+                    onForgotPassword={() => setShowForgotPassword(true)}
+                  />
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         <aside className="border-border bg-surface-muted border-t p-6 sm:p-8 lg:border-t-0 lg:border-l">
           <div className="bg-brand-soft text-brand-strong flex size-12 items-center justify-center rounded-md">
             <Shield aria-hidden="true" className="size-6" />
           </div>
-          <h2 className="mt-6 text-lg font-bold">Restricted access</h2>
+          <h2 className="mt-6 text-lg font-bold">Access allowlisting</h2>
           <p className="text-muted mt-3 text-sm leading-6">
-            Admin access is limited to Google accounts that have been added to
-            the Supabase allowlist.
+            Identity verification is handled via Microsoft SSO or verified
+            email. Access to the CRM requires an active invite in the access
+            management system.
           </p>
-          <div className="border-border mt-8 border-t pt-6">
-            <p className="text-muted text-sm font-semibold">Access control</p>
-            <p className="text-muted mt-2 text-sm leading-6">
-              If your account is not on the list, you will be signed out
-              immediately after Google authentication.
-            </p>
-          </div>
         </aside>
       </section>
     </main>

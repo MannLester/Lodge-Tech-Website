@@ -44,16 +44,11 @@ export default async function AdminPage({
   const params = await searchParams;
 
   if (!session) {
-    return (
-      <AdminSignIn
-        denied={params.auth === "denied"}
-        errorReason={
-          params.auth === "error"
-            ? readAdminAuthErrorReason(params.reason)
-            : null
-        }
-      />
-    );
+    const authStatus =
+      params.auth === "denied"
+        ? "denied"
+        : (readAdminAuthErrorReason(params.reason) ?? undefined);
+    return <AdminSignIn authStatus={authStatus} />;
   }
 
   if (params.view === "inquiries") redirect("/admin?view=leads");

@@ -2,8 +2,10 @@ import type { User } from "@supabase/supabase-js";
 
 import type { AccessRole } from "@/features/admin-auth/model/permissions";
 
+export type AuthMode = "microsoft" | "email";
+
 export type AdminSession = {
-  authMode: "google";
+  authMode: AuthMode;
   crmUserId: string;
   email: string;
   role: AccessRole;
@@ -19,14 +21,24 @@ export function normalizeAdminEmail(email: string): string {
   return email.trim().toLowerCase();
 }
 
-export function hasGoogleIdentity(
+export function resolveAuthMode(
   user: Pick<User, "app_metadata" | "identities">,
-) {
-  if (user.app_metadata?.provider === "google") return true;
+): AuthMode | null {
+  if (
+    user.app_metadata?.provider === "azure" ||
+    user.identities?.some((identity) => identity.provider === "azure")
+  ) {
+    return "microsoft";
+  }
 
-  return (
-    user.identities?.some((identity) => identity.provider === "google") ?? false
-  );
+  if (
+    user.app_metadata?.provider === "email" ||
+    user.identities?.some((identity) => identity.provider === "email")
+  ) {
+    return "email";
+  }
+
+  return null;
 }
 
 export async function createAdminSessionFromUser(
@@ -36,7 +48,9 @@ export async function createAdminSessionFromUser(
   >,
   findApprovedAdminAccount: AdminAccountLookup,
 ): Promise<AdminSession | null> {
-  if (!user.email || !user.email_confirmed_at || !hasGoogleIdentity(user)) {
+  const authMode = resolveAuthMode(user);
+
+  if (!user.email || !user.email_confirmed_at || !authMode) {
     return null;
   }
 
@@ -46,7 +60,7 @@ export async function createAdminSessionFromUser(
   if (!account) return null;
 
   return {
-    authMode: "google",
+    authMode,
     crmUserId: account.crmUserId,
     email,
     role: account.role,

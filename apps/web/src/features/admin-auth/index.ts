@@ -1,6 +1,8 @@
+// Server Actions & Session Handlers
 export {
-  loginWithGoogle,
   logoutAdmin,
+  requestPasswordResetAction,
+  signInWithEmailAction,
 } from "@/features/admin-auth/server/actions";
 export {
   deleteInvitedCrmUser,
@@ -14,6 +16,9 @@ export {
   type AdminAccessResult,
   type AdminAuditResult,
 } from "@/features/admin-auth/server/access-management";
+
+// Repositories
+export { accessRepository } from "@/features/admin-auth/data/access-repository";
 export { auditRepository } from "@/features/admin-auth/data/audit-repository";
 export {
   createAdminSessionForAuthenticatedUser,
@@ -23,7 +28,8 @@ export {
   signOutAdmin,
 } from "@/features/admin-auth/server/session";
 export { createRetryingAuthFetch } from "@/features/admin-auth/server/retrying-auth-fetch";
-export { AdminSignIn } from "@/features/admin-auth/ui/admin-sign-in";
+
+// Session & PKCE Utilities
 export { type AdminSession } from "@/features/admin-auth/model/admin-session";
 export {
   can,
@@ -35,3 +41,10 @@ export {
   type AdminAuthErrorReason,
 } from "@/features/admin-auth/model/auth-error";
 export { readPkceFlowId } from "@/features/admin-auth/model/pkce-flow";
+
+// UI Components
+export { AdminSignIn } from "@/features/admin-auth/ui/admin-sign-in";
+export { EmailSignInForm } from "@/features/admin-auth/ui/email-sign-in-form";
+export { ForgotPasswordForm } from "@/features/admin-auth/ui/forgot-password-form";
+export { MicrosoftSignInButton } from "@/features/admin-auth/ui/microsoft-sign-in-button";
+export { ResetPasswordForm } from "@/features/admin-auth/ui/reset-password-form";

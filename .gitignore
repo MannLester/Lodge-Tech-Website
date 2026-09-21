@@ -23,6 +23,9 @@ test-results/
 # Supabase CLI
 supabase/.temp/
 
+# Graphify local state
+.graphify/
+
 # Editors and operating systems
 .idea/
 .vscode/
