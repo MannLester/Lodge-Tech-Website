@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { HeroSection } from "@/features/home/ui/hero-section";
 
 describe("HeroSection", () => {
-  it("communicates the approved primary outcome, proof points, and ticker", () => {
+  it("communicates the approved primary outcome, proof points, and proposal action", () => {
     render(<HeroSection />);
 
     expect(
@@ -19,8 +19,10 @@ describe("HeroSection", () => {
       screen.getByText("Reduction in HVAC Operating Time"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Get a Savings Analysis" }),
+      screen.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "#contact");
-    expect(screen.getByLabelText("Proof ticker")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Experience and performance"),
+    ).toBeInTheDocument();
   });
 });
