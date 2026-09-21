@@ -136,7 +136,7 @@ export function AdminAccountWorkspace({
         <section className="border-border bg-surface rounded-lg border p-6 shadow-sm">
           <h2 className="text-lg font-bold">Account details</h2>
           <p className="text-muted mt-2 text-sm">
-            Your email comes from Google and controls CRM access.
+            Your email comes from Microsoft and controls CRM access.
           </p>
           <form action={updateAdminProfile} className="mt-6 grid gap-5">
             <label className="grid gap-2 text-sm font-semibold">
