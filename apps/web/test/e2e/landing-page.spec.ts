@@ -58,54 +58,25 @@ test("defaults to light even on a dark device and preserves a chosen theme", asy
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
+  const nightHouse = page.locator('[data-hero-layer="night"]');
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(nightHouse).toHaveCSS("opacity", "0");
   await page
     .getByRole("switch", { name: "Switch to night mode" })
     .filter({ visible: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(nightHouse).toHaveCSS("opacity", "1");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(nightHouse).toHaveCSS("opacity", "1");
   await page
     .getByRole("switch", { name: "Switch to day mode" })
     .filter({ visible: true })
     .click();
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-});
-
-test("allows keyboard users to pause and resume the guestroom motion", async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/");
-  const image = page.locator("#hero-room-image");
-  const pause = page.getByRole("button", { name: "Pause guestroom animation" });
-  await pause.focus();
-  await pause.press("Enter");
-  await expect(image).toHaveCSS("animation-play-state", "paused");
-  const frozen = await image.evaluate((el) => getComputedStyle(el).transform);
-  await expect
-    .poll(() => image.evaluate((el) => getComputedStyle(el).transform))
-    .toBe(frozen);
-  await page
-    .getByRole("button", { name: "Play guestroom animation" })
-    .press("Enter");
-  await expect(image).toHaveCSS("animation-play-state", "running");
-});
-
-test("disables the guestroom animation for reduced-motion preferences", async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
-  await expect(page.locator("#hero-room-image")).toHaveCSS(
-    "animation-name",
-    "none",
-  );
-  await expect(
-    page.getByRole("button", { name: "Pause guestroom animation" }),
-  ).toBeHidden();
+  await expect(nightHouse).toHaveCSS("opacity", "0");
 });
 
 test("provides navigation appropriate to the viewport", async ({ page }) => {

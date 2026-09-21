@@ -5,7 +5,7 @@ import { HeroSection } from "@/features/home/ui/hero-section";
 
 describe("HeroSection", () => {
   it("communicates the approved primary outcome, proof points, and proposal action", () => {
-    render(<HeroSection />);
+    const { container } = render(<HeroSection />);
 
     expect(
       screen.getByRole("heading", {
@@ -23,6 +23,12 @@ describe("HeroSection", () => {
     ).toHaveAttribute("href", "#contact");
     expect(
       screen.getByLabelText("Experience and performance"),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector('[data-hero-layer="day"]'),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector('[data-hero-layer="night"]'),
     ).toBeInTheDocument();
   });
 });
