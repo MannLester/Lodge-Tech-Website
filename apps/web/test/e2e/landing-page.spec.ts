@@ -1,125 +1,111 @@
 import { expect, test } from "@playwright/test";
 
-test("renders the complete landing page without document overflow", async ({
+test("shows the benefit, products, and proposal path without overflow", async ({
   page,
 }) => {
   await page.goto("/");
-
+  const hero = page.locator("#technology");
   await expect(
-    page.getByRole("heading", {
-      name: "Reduce HVAC, Lighting, and Appliance Energy Expense 40% with GEM Link Wireless and GEM Stat ET.",
+    hero.getByRole("heading", {
+      level: 1,
+      name: "Save energy without sacrificing comfort.",
     }),
   ).toBeVisible();
-  await expect(page.getByLabel("Proof ticker")).toContainText(
-    "GEM Link Wireless and GEM Stat ET",
-  );
-  await expect(page.locator("#industries")).toBeVisible();
-  await expect(page.locator("#results")).toBeVisible();
-  await expect(page.locator("#contact")).toBeVisible();
-
-  const hasDocumentOverflow = await page.evaluate(
-    () =>
-      document.documentElement.scrollWidth >
-      document.documentElement.clientWidth,
-  );
-  expect(hasDocumentOverflow).toBe(false);
+  await expect(
+    hero.getByRole("link", { name: "GEM Link® Wireless" }),
+  ).toBeVisible();
+  await expect(hero.getByRole("link", { name: "GEM Stat™ ET" })).toBeVisible();
+  await expect(
+    hero.getByText("Reduction in HVAC Operating Time"),
+  ).toBeVisible();
+  await hero
+    .getByRole("link", { name: "Request a Proposal / Site Survey" })
+    .click();
+  await expect(page).toHaveURL(/#contact$/);
+  await expect(
+    page.getByRole("form", { name: "Proposal or site survey request" }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth,
+    ),
+  ).toBe(false);
 });
 
-test("presents the closing conversion section from the design reference", async ({
+test("keeps product branding and a contact route in public-page footers", async ({
   page,
 }) => {
-  await page.goto("/");
-
-  const contactSection = page.locator("#contact");
-  await expect(
-    contactSection.getByRole("heading", {
-      name: "Ready to reduce HVAC, lighting, and appliance energy expense?",
-    }),
-  ).toBeVisible();
-  await expect(
-    contactSection.getByText(
-      "Request a savings analysis for GEM Link Wireless, GEM Stat ET, and turnkey controls across your property portfolio.",
-    ),
-  ).toBeVisible();
-
-  await expect(
-    contactSection.getByRole("link", { name: "Get a Savings Analysis" }),
-  ).toBeVisible();
-  await expect(
-    contactSection.getByRole("link", { name: "Request a Demo" }),
-  ).toBeVisible();
-  await expect(
-    contactSection.getByRole("link", { name: "Talk to an Expert" }),
-  ).toBeVisible();
-  const experienceBadge = contactSection.getByLabel(
-    "Since 1980 energy intelligence",
-  );
-  await expect(experienceBadge).toContainText("1980");
-  await expect(experienceBadge).toContainText("LEGACY");
-  await expect(experienceBadge).toContainText("40+ years");
-
-  const sectionStyles = await contactSection.evaluate((section) => {
-    const styles = window.getComputedStyle(section);
-    return {
-      backgroundImage: styles.backgroundImage,
-      height: section.getBoundingClientRect().height,
-    };
-  });
-  const primaryCta = contactSection.getByRole("link", {
-    name: "Get a Savings Analysis",
-  });
-  const primaryCtaLineHeight = await primaryCta.evaluate((link) => {
-    const styles = window.getComputedStyle(link);
-    return {
-      height: link.getBoundingClientRect().height,
-      lineHeight: Number.parseFloat(styles.lineHeight),
-    };
-  });
-
-  expect(sectionStyles.backgroundImage).toContain("radial-gradient");
-  expect(sectionStyles.backgroundImage).toContain("rgb(22, 76, 104)");
-  expect(sectionStyles.height).toBeGreaterThanOrEqual(400);
-  expect(primaryCtaLineHeight.height).toBeLessThan(
-    primaryCtaLineHeight.lineHeight * 3,
-  );
-});
-
-test("presents the reference footer navigation columns", async ({ page }) => {
-  await page.goto("/");
-
-  const footer = page.locator("footer#company");
-  await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
-  await expect(
-    footer.getByText(
-      "GEM Link Wireless and GEM Stat ET energy management for lodging, multifamily, senior living, student housing, and commercial properties.",
-    ),
-  ).toBeVisible();
-  await expect(
-    footer.getByText("Proudly serving North America including the Caribbean."),
-  ).toBeVisible();
-
-  const footerNavigation = footer.getByRole("navigation", {
-    name: "Footer navigation",
-  });
-
-  for (const heading of ["Technology", "Solutions", "Company", "Resources"]) {
+  for (const path of ["/", "/solutions/gem-stat-et"]) {
+    await page.goto(path);
+    const footer = page.locator("footer");
+    await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
     await expect(
-      footerNavigation.getByRole("heading", { name: heading }),
+      footer.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
     ).toBeVisible();
+    await expect(
+      footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
+    ).toBeVisible();
+    await expect(
+      footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
+    ).toHaveAttribute("href", "/#contact");
   }
+});
 
+test("defaults to light even on a dark device and preserves a chosen theme", async ({
+  page,
+}) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page
+    .getByRole("switch", { name: "Switch to night mode" })
+    .filter({ visible: true })
+    .click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page
+    .getByRole("switch", { name: "Switch to day mode" })
+    .filter({ visible: true })
+    .click();
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+});
+
+test("allows keyboard users to pause and resume the guestroom motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  const image = page.locator("#hero-room-image");
+  const pause = page.getByRole("button", { name: "Pause guestroom animation" });
+  await pause.focus();
+  await pause.press("Enter");
+  await expect(image).toHaveCSS("animation-play-state", "paused");
+  const frozen = await image.evaluate((el) => getComputedStyle(el).transform);
+  await expect
+    .poll(() => image.evaluate((el) => getComputedStyle(el).transform))
+    .toBe(frozen);
+  await page
+    .getByRole("button", { name: "Play guestroom animation" })
+    .press("Enter");
+  await expect(image).toHaveCSS("animation-play-state", "running");
+});
+
+test("disables the guestroom animation for reduced-motion preferences", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator("#hero-room-image")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
   await expect(
-    footerNavigation.getByRole("link", { name: "Energy Optimization" }),
-  ).toBeVisible();
-  await expect(
-    footerNavigation.getByRole("link", { name: "Multifamily Housing" }),
-  ).toBeVisible();
-  await expect(
-    footerNavigation.getByRole("link", { name: "Contact & Support" }),
-  ).toBeVisible();
-  await expect(
-    footerNavigation.getByRole("link", { name: "Savings Analysis" }),
-  ).toBeVisible();
+    page.getByRole("button", { name: "Pause guestroom animation" }),
+  ).toBeHidden();
 });
 
 test("provides navigation appropriate to the viewport", async ({ page }) => {
@@ -142,45 +128,7 @@ test("provides navigation appropriate to the viewport", async ({ page }) => {
   }
 });
 
-test("persists the selected color theme", async ({ page }) => {
-  await page.addInitScript(() => {
-    if (!window.localStorage.getItem("theme")) {
-      window.localStorage.setItem("theme", "light");
-    }
-  });
-  await page.goto("/");
-
-  const nightLayer = page.locator('[data-hero-layer="night"]');
-  await expect(nightLayer).toHaveCSS("opacity", "0");
-
-  const themeSwitch = page.getByRole("switch", {
-    name: "Switch to night mode",
-  });
-  await expect(themeSwitch).toHaveAttribute("aria-checked", "false");
-  await themeSwitch.click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(
-    page.getByRole("switch", { name: "Switch to day mode" }),
-  ).toHaveAttribute("aria-checked", "true");
-  await expect(nightLayer).toHaveCSS("opacity", "1");
-  await expect(page.getByRole("banner")).not.toHaveCSS(
-    "background-color",
-    "rgb(255, 255, 255)",
-  );
-  await expect(page.locator("footer#company")).not.toHaveCSS(
-    "background-color",
-    "rgb(255, 255, 255)",
-  );
-
-  await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator('[data-hero-layer="night"]')).toHaveCSS(
-    "opacity",
-    "1",
-  );
-});
-
-test("validates and completes the frontend inquiry form", async ({ page }) => {
+test("validates and completes the proposal inquiry form", async ({ page }) => {
   await page.route("**/api/inquiries", async (route) => {
     await route.fulfill({
       body: JSON.stringify({ ok: true }),
@@ -190,8 +138,10 @@ test("validates and completes the frontend inquiry form", async ({ page }) => {
   });
   await page.goto("/");
 
-  const form = page.getByRole("form", { name: "Savings analysis inquiry" });
-  await form.getByRole("button", { name: "Submit Inquiry" }).click();
+  const form = page.getByRole("form", {
+    name: "Proposal or site survey request",
+  });
+  await form.getByRole("button", { name: "Send My Request" }).click();
 
   await expect(form.getByText("Enter your name.")).toBeVisible();
   await expect(form.getByText("Enter your email.")).toBeVisible();
@@ -208,9 +158,11 @@ test("validates and completes the frontend inquiry form", async ({ page }) => {
   await form
     .getByLabel("Project notes")
     .fill("We want to review HVAC and lighting savings.");
-  await form.getByRole("button", { name: "Submit Inquiry" }).click();
+  await form.getByRole("button", { name: "Send My Request" }).click();
 
   await expect(
-    form.getByText("Thanks. Your savings analysis request has been submitted."),
+    form.getByText(
+      "Thanks. Your request has been submitted. Our team will follow up about your property.",
+    ),
   ).toBeVisible();
 });
