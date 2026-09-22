@@ -16,6 +16,11 @@ describe("CompanySection", () => {
     expect(screen.getByText("Vision")).toBeInTheDocument();
     expect(screen.getByText("Innovation")).toBeInTheDocument();
     expect(screen.getByText("Sustainability")).toBeInTheDocument();
+    expect(screen.getByText("Our Values")).toHaveClass(
+      "text-2xl",
+      "lg:text-3xl",
+      "font-semibold",
+    );
     const values = container.querySelector("[data-company-values]");
     expect(values).toHaveClass("mt-10");
     expect(values?.querySelector("li")).toHaveClass("text-base", "lg:text-lg");
