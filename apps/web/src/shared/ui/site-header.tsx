@@ -22,7 +22,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
 
   return (
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
-      <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
+      <div
+        className="mx-auto flex min-h-[4.25rem] w-[calc(100%-2rem)] max-w-[90rem] items-center justify-between gap-4 md:w-[calc(100%-3rem)] xl:gap-8"
+        data-header-shell
+      >
         <div className="flex min-w-0 items-center gap-3">
           <BrandMark href={fromHome ? "#top" : "/#top"} preload />
           <span className="border-border text-brand-strong hidden border-l pl-3 text-xs leading-4 font-semibold xl:block">
@@ -30,7 +33,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           </span>
         </div>
 
-        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">
+        <nav
+          aria-label="Primary"
+          className="hidden items-center gap-5 lg:flex xl:gap-7 2xl:gap-8"
+        >
           {primaryNavigationItems.map((item) =>
             item.hash === "solutions" ? (
               <details className="group relative" key={item.hash}>
@@ -73,7 +79,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           )}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 lg:flex xl:gap-4">
           <ThemeToggle />
           <ButtonLink
             className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] whitespace-nowrap !text-white"
