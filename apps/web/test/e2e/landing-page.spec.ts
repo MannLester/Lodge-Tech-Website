@@ -109,6 +109,7 @@ test("emphasizes Company values with responsive type and motion-aware pulses", a
   page,
 }) => {
   await page.goto("/#company");
+  const heading = page.getByText("Our Values", { exact: true });
   const values = page.locator("[data-company-values]");
   const firstValue = values.locator("li").first();
   const firstCheck = values.locator(".company-value-check").first();
@@ -116,6 +117,10 @@ test("emphasizes Company values with responsive type and motion-aware pulses", a
 
   if (!viewport) throw new Error("Viewport is required for this test.");
 
+  await expect(heading).toHaveCSS(
+    "font-size",
+    viewport.width >= 1024 ? "30px" : "24px",
+  );
   await expect(values).toHaveCSS("margin-top", "40px");
   await expect(firstValue).toHaveCSS(
     "font-size",

@@ -47,7 +47,9 @@ export function CompanySection() {
         </div>
 
         <div className="mt-10">
-          <p className="eyebrow text-center">Our values</p>
+          <p className="text-brand-strong text-center text-2xl leading-tight font-semibold tracking-tight lg:text-3xl">
+            Our Values
+          </p>
           <ul
             className="mx-auto mt-10 grid max-w-xs gap-4 sm:max-w-2xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-5"
             data-company-values
