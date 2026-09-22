@@ -57,19 +57,31 @@ export function CompanyImageSlider() {
     <div
       aria-label="Company image gallery"
       className="mx-auto w-full max-w-md"
+      data-active-slide={activeSlide.label}
+      data-testid="company-gallery"
       role="group"
     >
       <div className="border-border bg-brand-night relative aspect-[4/5] overflow-hidden rounded-lg border">
-        <Image
-          alt={activeSlide.alt}
-          className="object-cover"
-          fill
-          key={activeSlide.label}
-          placeholder="blur"
-          sizes="(max-width: 1023px) min(92vw, 28rem), 38vw"
-          src={activeSlide.source}
-          style={{ objectPosition: activeSlide.position }}
-        />
+        {slides.map((slide, index) => {
+          const isActive = index === activeIndex;
+
+          return (
+            <Image
+              alt={isActive ? slide.alt : ""}
+              aria-hidden={isActive ? undefined : true}
+              className={`object-cover transition-[opacity,transform] duration-700 ease-out motion-reduce:transition-none ${isActive ? "scale-100 opacity-100" : "scale-[1.03] opacity-0"}`}
+              data-company-slide={slide.label}
+              data-active={isActive}
+              fill
+              key={slide.label}
+              loading={index === 0 ? "eager" : "lazy"}
+              placeholder="blur"
+              sizes="(max-width: 1023px) min(92vw, 28rem), 38vw"
+              src={slide.source}
+              style={{ objectPosition: slide.position }}
+            />
+          );
+        })}
         <span aria-live="polite" className="sr-only">
           {activeSlide.label}
         </span>
