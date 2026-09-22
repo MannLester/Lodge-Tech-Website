@@ -10,7 +10,6 @@ import Link from "next/link";
 
 import {
   productCtaHref,
-  products,
   type ProductPageContent,
 } from "@/features/solutions/model/product-content";
 import { EcosystemMap } from "@/features/solutions/ui/ecosystem-map";
@@ -55,29 +54,6 @@ export function ProductPage({ product }: ProductPageProps) {
             Back to Solutions
           </Link>
         </div>
-
-        <nav
-          aria-label="Product navigation"
-          className="border-border bg-background/95 sticky top-[4.25rem] z-40 mt-5 border-y py-3 backdrop-blur"
-        >
-          <div className="section-shell overflow-x-auto">
-            <div className="grid min-w-[43rem] grid-cols-4 gap-3">
-              {products.map((item) => {
-                const active = item.slug === product.slug;
-                return (
-                  <Link
-                    aria-current={active ? "page" : undefined}
-                    className={`rounded-full border px-4 py-3 text-center text-sm font-semibold transition-colors ${active ? "border-brand bg-brand-soft text-brand-strong" : "border-border bg-surface text-foreground hover:border-brand hover:text-brand-strong"}`}
-                    href={`/solutions/${item.slug}`}
-                    key={item.slug}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </nav>
 
         <section
           aria-labelledby="product-heading"
@@ -233,7 +209,10 @@ export function ProductPage({ product }: ProductPageProps) {
         </section>
 
         <section aria-labelledby="proof-heading" className="section-band">
-          <div className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white">
+          <div
+            className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white"
+            data-planning-card
+          >
             <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
               <div className="bg-brand-deep p-8 sm:p-10">
                 <ClipboardCheck
@@ -263,7 +242,7 @@ export function ProductPage({ product }: ProductPageProps) {
                   relying on unsupported performance claims.
                 </p>
                 <ButtonLink
-                  className="text-brand-strong! hover:bg-brand-soft! mt-7 border-white! bg-white!"
+                  className="border-brand-fill! bg-brand-fill! mt-7 text-white! shadow-none! hover:brightness-110"
                   href={productCtaHref(product.slug, "savings")}
                 >
                   Request for Proposal / Site Survey
@@ -277,7 +256,10 @@ export function ProductPage({ product }: ProductPageProps) {
           aria-labelledby="bottom-cta-heading"
           className="pb-16 sm:pb-20 lg:pb-24"
         >
-          <div className="section-shell bg-brand-fill shadow-card flex flex-col gap-6 rounded-2xl px-7 py-9 text-white sm:px-10 lg:flex-row lg:items-center lg:justify-between">
+          <div
+            className="section-shell bg-brand-fill shadow-card flex flex-col gap-6 rounded-2xl px-7 py-9 text-white sm:px-10 lg:flex-row lg:items-center lg:justify-between"
+            data-evaluation-card
+          >
             <div>
               <h2
                 className="text-2xl font-bold sm:text-3xl"
@@ -291,7 +273,7 @@ export function ProductPage({ product }: ProductPageProps) {
               </p>
             </div>
             <ButtonLink
-              className="text-brand-strong! hover:bg-brand-soft! shrink-0 border-white! bg-white!"
+              className="border-brand-night! bg-brand-night! hover:bg-brand-deep! shrink-0 text-white! shadow-none!"
               href={productCtaHref(product.slug, "savings")}
             >
               Request for Proposal / Site Survey
