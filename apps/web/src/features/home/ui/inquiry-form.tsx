@@ -294,7 +294,9 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
         disabled={status === "submitting"}
         type="submit"
       >
-        {status === "submitting" ? "Submitting…" : "Send My Request"}
+        {status === "submitting"
+          ? "Submitting…"
+          : "Request Proposal / Site Survey"}
       </button>
 
       <p

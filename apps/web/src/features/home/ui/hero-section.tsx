@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import heroHouseImage from "@assets/day_house.png";
-import heroHouseNightImage from "@assets/day_night.png";
 import { proofStats } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
@@ -27,16 +26,6 @@ export function HeroSection() {
           quality={95}
           sizes="100vw"
           src={heroHouseImage}
-        />
-        <Image
-          alt=""
-          className="hero-night-image object-cover object-[58%_center]"
-          data-hero-layer="night"
-          fill
-          placeholder="blur"
-          quality={95}
-          sizes="100vw"
-          src={heroHouseNightImage}
         />
         <div className="hero-side-gradient absolute inset-0" />
         <div className="hero-bottom-gradient absolute inset-0" />
@@ -78,7 +67,7 @@ export function HeroSection() {
           </p>
           <div className="mt-8 flex flex-col items-stretch gap-5 sm:items-start">
             <ButtonLink className="px-6 !text-white" href="#contact" showArrow>
-              Request a Proposal / Site Survey
+              Request for Proposal / Site Survey
             </ButtonLink>
             <a
               className="hero-secondary-link py-2 text-center text-sm font-semibold underline underline-offset-4 sm:text-left"
@@ -90,7 +79,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="border-border/70 bg-surface/90 relative z-10 border-t backdrop-blur-md">
+      <div className="hero-proof-panel relative z-10 border-t">
         <div
           aria-label="Experience and performance"
           className="section-shell grid gap-6 py-7 sm:grid-cols-3"
@@ -99,14 +88,14 @@ export function HeroSection() {
             const Icon = statIcons[index];
             return (
               <article className="flex items-center gap-4" key={stat.label}>
-                <span className="bg-brand-soft text-brand-strong grid size-11 shrink-0 place-items-center rounded-full">
+                <span className="hero-stat-icon grid size-11 shrink-0 place-items-center rounded-full text-white">
                   <Icon aria-hidden size={21} />
                 </span>
                 <div>
-                  <p className="text-foreground text-2xl font-semibold">
+                  <p className="hero-stat-value text-2xl font-semibold text-white">
                     {stat.value}
                   </p>
-                  <p className="text-muted mt-1 max-w-60 text-xs leading-5">
+                  <p className="hero-stat-label mt-1 max-w-60 text-xs leading-5">
                     {stat.label}
                   </p>
                 </div>

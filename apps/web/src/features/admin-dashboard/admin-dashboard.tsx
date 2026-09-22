@@ -60,7 +60,6 @@ import {
 } from "@/features/website-analytics";
 import { RoleProvider } from "@/hooks/useRole";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
-import { ThemeToggle } from "@lodging-technologies/ui/theme-toggle";
 
 type View =
   "account" | "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
@@ -209,9 +208,8 @@ function AdminShell({
       <main className="bg-surface-muted text-foreground min-h-screen">
         <header className="border-border bg-surface border-b">
           <div className="mx-auto flex min-h-20 w-full max-w-7xl flex-col items-stretch justify-between gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-6 lg:px-8">
-            <BrandMark />
+            <BrandMark tone="deep" />
             <div className="flex min-w-0 items-center justify-between gap-2 sm:justify-end sm:gap-3">
-              <ThemeToggle />
               <Link
                 aria-current={activeView === "account" ? "page" : undefined}
                 className="border-border bg-surface-muted hover:border-brand hover:bg-brand-soft inline-flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-md border px-2 py-1.5 transition sm:flex-none sm:gap-3 sm:px-2.5"
