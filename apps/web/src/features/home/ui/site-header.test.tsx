@@ -29,7 +29,9 @@ describe("SiteHeader", () => {
       screen.getByRole("link", { name: "Lighting Controls" }),
     ).toHaveAttribute("href", "/solutions/lighting-controls");
 
-    expect(screen.queryByRole("switch")).not.toBeInTheDocument();
+    expect(
+      screen.getAllByRole("switch", { name: "Switch to night mode" }),
+    ).toHaveLength(2);
   });
 
   it("uses root-qualified homepage anchors from product pages", () => {

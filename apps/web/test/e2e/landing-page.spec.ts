@@ -53,19 +53,36 @@ test("keeps product branding and a contact route in public-page footers", async 
   }
 });
 
-test("uses the approved light presentation even on a dark device", async ({
+test("defaults to light, preserves theme choice, and keeps proof values legible", async ({
   page,
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
-  await expect(page.getByRole("switch")).toHaveCount(0);
-  await expect(page.locator('[data-hero-layer="night"]')).toHaveCount(0);
-  expect(
-    await page.evaluate(
-      () => getComputedStyle(document.documentElement).colorScheme,
-    ),
-  ).toBe("light");
+  const nightHouse = page.locator('[data-hero-layer="night"]');
+  const proofValue = page.locator(".hero-stat-value").first();
+
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(nightHouse).toHaveCSS("opacity", "0");
+  await expect(proofValue).toHaveCSS("color", "rgb(255, 255, 255)");
+
+  await page
+    .getByRole("switch", { name: "Switch to night mode" })
+    .filter({ visible: true })
+    .click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(nightHouse).toHaveCSS("opacity", "1");
+
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(nightHouse).toHaveCSS("opacity", "1");
+
+  await page
+    .getByRole("switch", { name: "Switch to day mode" })
+    .filter({ visible: true })
+    .click();
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(nightHouse).toHaveCSS("opacity", "0");
 });
 
 test("provides navigation appropriate to the viewport", async ({ page }) => {

@@ -10,6 +10,7 @@ import {
 } from "@/shared/config/navigation";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
+import { ThemeToggle } from "@lodging-technologies/ui/theme-toggle";
 
 type SiteHeaderProps = {
   fromHome?: boolean;
@@ -23,7 +24,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
       <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <div className="flex min-w-0 items-center gap-3">
-          <BrandMark href={fromHome ? "#top" : "/#top"} preload tone="deep" />
+          <BrandMark href={fromHome ? "#top" : "/#top"} preload />
           <span className="border-border text-brand-strong hidden border-l pl-3 text-xs leading-4 font-semibold xl:block">
             GEM Link® Wireless / GEM Stat™ ET
           </span>
@@ -72,7 +73,8 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           )}
         </nav>
 
-        <div className="hidden items-center lg:flex">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <ButtonLink
             className="!min-h-10 !px-5 !py-2 !text-[0.75rem] !text-white xl:!text-[0.8125rem]"
             href={contactHref}
@@ -81,7 +83,8 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           </ButtonLink>
         </div>
 
-        <div className="flex items-center lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           <button
             aria-controls="mobile-navigation"
             aria-expanded={menuOpen}

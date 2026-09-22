@@ -27,6 +27,8 @@ describe("HeroSection", () => {
     expect(
       container.querySelector('[data-hero-layer="day"]'),
     ).toBeInTheDocument();
-    expect(container.querySelector('[data-hero-layer="night"]')).toBeNull();
+    expect(
+      container.querySelector('[data-hero-layer="night"]'),
+    ).toBeInTheDocument();
   });
 });

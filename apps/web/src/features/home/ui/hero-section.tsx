@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import heroHouseImage from "@assets/day_house.png";
+import heroHouseNightImage from "@assets/day_night.png";
 import { proofStats } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
@@ -26,6 +27,16 @@ export function HeroSection() {
           quality={95}
           sizes="100vw"
           src={heroHouseImage}
+        />
+        <Image
+          alt=""
+          className="hero-night-image object-cover object-[58%_center]"
+          data-hero-layer="night"
+          fill
+          placeholder="blur"
+          quality={95}
+          sizes="100vw"
+          src={heroHouseNightImage}
         />
         <div className="hero-side-gradient absolute inset-0" />
         <div className="hero-bottom-gradient absolute inset-0" />
