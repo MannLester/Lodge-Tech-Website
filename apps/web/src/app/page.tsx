@@ -6,6 +6,7 @@ import {
   IndustriesSection,
   ProcessSection,
   ProductSection,
+  PlatformSection,
   ResultsSection,
   SiteHeader,
   ValueSection,
@@ -30,9 +31,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <HeroSection />
         <ValueSection />
         <ProductSection />
+        <PlatformSection />
         <IndustriesSection />
-        <CompanySection />
         <ResultsSection />
+        <CompanySection />
         <ProcessSection />
       </main>
       <ClosingFooter initialInquiryMessage={initialInquiryMessage} />
