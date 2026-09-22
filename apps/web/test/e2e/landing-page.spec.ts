@@ -53,15 +53,17 @@ test("keeps product branding and a contact route in public-page footers", async 
   }
 });
 
-test("defaults to light and preserves the visitor's theme choice", async ({
+test("defaults to light, preserves theme choice, and keeps proof values legible", async ({
   page,
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
   const nightHouse = page.locator('[data-hero-layer="night"]');
+  const proofValue = page.locator(".hero-stat-value").first();
 
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await expect(nightHouse).toHaveCSS("opacity", "0");
+  await expect(proofValue).toHaveCSS("color", "rgb(255, 255, 255)");
 
   await page
     .getByRole("switch", { name: "Switch to night mode" })

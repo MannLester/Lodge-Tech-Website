@@ -264,16 +264,14 @@ body {
   );
 }
 
-.hero-heading,
-.hero-stat-value {
+.hero-heading {
   color: var(--brand-deep-blue);
 }
 
 .hero-heading-accent,
 .hero-eyebrow,
 .hero-product-links,
-.hero-secondary-link,
-.hero-stat-icon {
+.hero-secondary-link {
   color: var(--brand-primary-blue);
 }
 
@@ -303,7 +301,12 @@ body {
 
 .hero-stat-icon {
   background: rgb(255 255 255 / 0.12);
+  color: #ffffff;
   box-shadow: 0 1px 0 rgb(255 255 255 / 0.18);
+}
+
+.hero-stat-value {
+  color: #ffffff;
 }
 
 .hero-stat-label {
