@@ -1,5 +1,34 @@
 import { expect, test } from "@playwright/test";
 
+test("keeps the header proposal action clear and uses available desktop width", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const viewportWidth = page.viewportSize()?.width ?? 0;
+  if (viewportWidth >= 1024) {
+    const action = page
+      .locator("header")
+      .getByRole("link", { name: "Request for Proposal" });
+    await expect(action).toBeVisible();
+    await expect(action).toHaveCSS("white-space", "nowrap");
+
+    if (viewportWidth >= 1440) {
+      const headerWidth = await page
+        .locator("[data-header-shell]")
+        .evaluate((element) => element.getBoundingClientRect().width);
+      expect(headerWidth).toBeGreaterThan(1300);
+    }
+  } else {
+    await page.getByRole("button", { name: "Open navigation" }).click();
+    await expect(
+      page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("link", { name: "Request for Proposal" }),
+    ).toBeVisible();
+  }
+});
+
 test("shows the benefit, products, and proposal path without overflow", async ({
   page,
 }) => {
