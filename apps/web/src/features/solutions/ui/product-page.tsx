@@ -1,10 +1,9 @@
 import {
   ArrowLeft,
-  BadgeCheck,
-  BarChart3,
+  Building2,
   Check,
-  FileCheck2,
-  RadioTower,
+  ClipboardCheck,
+  MessageSquareText,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,12 +24,20 @@ type ProductPageProps = {
 };
 
 const trustItems = [
-  { icon: RadioTower, label: "Connectivity", value: "Pending verification" },
-  { icon: FileCheck2, label: "Technical data", value: "Pending verification" },
   {
-    icon: BadgeCheck,
-    label: "CE / UL / ENERGY STAR",
-    value: "Statuses pending",
+    icon: Building2,
+    label: "Property review",
+    value: "Start with your building and operating needs",
+  },
+  {
+    icon: ClipboardCheck,
+    label: "Solution fit",
+    value: "Match controls to suitable spaces and loads",
+  },
+  {
+    icon: MessageSquareText,
+    label: "Project path",
+    value: "Continue with a proposal or site survey",
   },
 ] as const;
 
@@ -92,14 +99,14 @@ export function ProductPage({ product }: ProductPageProps) {
                 {product.description}
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href={productCtaHref(product.slug, "demo")}>
-                  Request a Demo
+                <ButtonLink href={productCtaHref(product.slug, "savings")}>
+                  Request for Proposal / Site Survey
                 </ButtonLink>
                 <ButtonLink
-                  href={productCtaHref(product.slug, "savings")}
+                  href={productCtaHref(product.slug, "demo")}
                   variant="outline"
                 >
-                  Get a Savings Analysis
+                  Request a Product Demo
                 </ButtonLink>
               </div>
             </div>
@@ -114,7 +121,7 @@ export function ProductPage({ product }: ProductPageProps) {
         </section>
 
         <section
-          aria-label="Quick specifications and certifications"
+          aria-label="Project evaluation process"
           className="pb-16 sm:pb-20"
         >
           <div className="section-shell border-border bg-surface-muted grid overflow-hidden rounded-xl border md:grid-cols-3">
@@ -190,8 +197,7 @@ export function ProductPage({ product }: ProductPageProps) {
                   >
                     <Image
                       alt={
-                        showcase.imageAlt ??
-                        `${product.label} feature visual placeholder`
+                        showcase.imageAlt ?? `${product.label} solution visual`
                       }
                       className={
                         showcase.image
@@ -202,11 +208,6 @@ export function ProductPage({ product }: ProductPageProps) {
                       sizes="(max-width: 1023px) 92vw, 42vw"
                       src={showcase.image ?? product.heroImage}
                     />
-                    {!showcase.image && (
-                      <span className="bg-surface/90 text-muted absolute right-3 bottom-3 rounded px-3 py-1.5 text-xs font-semibold">
-                        Approved visual pending
-                      </span>
-                    )}
                   </div>
                 </article>
               ))}
@@ -231,71 +232,22 @@ export function ProductPage({ product }: ProductPageProps) {
           </div>
         </section>
 
-        <section
-          aria-labelledby="specifications-heading"
-          className="section-band bg-surface-muted"
-        >
-          <div className="section-shell">
-            <p className="eyebrow">Technical specifications</p>
-            <h2
-              className="text-foreground mt-3 text-3xl font-bold sm:text-4xl"
-              id="specifications-heading"
-            >
-              Details for technical evaluation.
-            </h2>
-            <p className="text-muted mt-4 max-w-3xl leading-7">
-              Development placeholders remain visible until manufacturer
-              documentation and certification evidence are approved.
-            </p>
-            <div className="mt-8 space-y-3">
-              {product.specifications.map((group, index) => (
-                <details
-                  className="border-border bg-surface group rounded-xl border"
-                  key={group.title}
-                  open={index === 0}
-                >
-                  <summary className="text-foreground cursor-pointer list-none px-5 py-5 font-bold marker:hidden sm:px-6">
-                    {group.title}
-                    <span
-                      aria-hidden
-                      className="text-brand float-right text-xl group-open:rotate-45"
-                    >
-                      +
-                    </span>
-                  </summary>
-                  <dl className="border-border divide-border border-t px-5 py-2 sm:px-6">
-                    {group.items.map((item) => (
-                      <div
-                        className="grid gap-1 border-b py-4 last:border-b-0 sm:grid-cols-[0.7fr_1fr]"
-                        key={item.label}
-                      >
-                        <dt className="text-foreground text-sm font-semibold">
-                          {item.label}
-                        </dt>
-                        <dd className="text-muted text-sm">{item.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section aria-labelledby="proof-heading" className="section-band">
           <div className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white">
             <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
               <div className="bg-brand-deep p-8 sm:p-10">
-                <BarChart3 aria-hidden className="text-brand-white" size={38} />
+                <ClipboardCheck
+                  aria-hidden
+                  className="text-brand-white"
+                  size={38}
+                />
                 <p className="text-brand-white mt-6 text-xs font-bold tracking-widest uppercase">
-                  ROI proof
+                  Property-specific planning
                 </p>
-                <p className="mt-3 text-2xl font-bold">
-                  Verified result pending
-                </p>
+                <p className="mt-3 text-2xl font-bold">Start with real needs</p>
                 <p className="mt-3 text-sm leading-6 text-white/70">
-                  Property, baseline, measurement period, and savings
-                  methodology will be published after approval.
+                  Review the building, operating patterns, and controllable
+                  loads before selecting a project path.
                 </p>
               </div>
               <div className="p-8 sm:p-10 lg:p-12">
@@ -303,18 +255,18 @@ export function ProductPage({ product }: ProductPageProps) {
                   className="text-3xl font-bold sm:text-4xl"
                   id="proof-heading"
                 >
-                  A case study built on evidence—not estimates.
+                  Plan around your property—not generic estimates.
                 </h2>
                 <p className="mt-5 max-w-2xl leading-7 text-white/75">
-                  This section is reserved for a documented deployment with an
-                  attributable customer, clear operating context, and verified
-                  outcome. No unverified savings claim is presented.
+                  Tell us where energy is being used and what your team needs to
+                  protect. We’ll help identify a practical next step without
+                  relying on unsupported performance claims.
                 </p>
                 <ButtonLink
                   className="text-brand-strong! hover:bg-brand-soft! mt-7 border-white! bg-white!"
                   href={productCtaHref(product.slug, "savings")}
                 >
-                  Discuss Your Property
+                  Request for Proposal / Site Survey
                 </ButtonLink>
               </div>
             </div>
@@ -342,7 +294,7 @@ export function ProductPage({ product }: ProductPageProps) {
               className="text-brand-strong! hover:bg-brand-soft! shrink-0 border-white! bg-white!"
               href={productCtaHref(product.slug, "savings")}
             >
-              Get a Savings Analysis
+              Request for Proposal / Site Survey
             </ButtonLink>
           </div>
         </section>

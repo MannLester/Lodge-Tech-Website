@@ -14,8 +14,8 @@ export function ResultsSection() {
       <div className="section-shell grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,2fr)] lg:items-start lg:gap-14">
         <div>
           <SectionHeading
-            description="Exact savings, payback, and incentive values should be approved per project. This section now uses evidence-safe language until final case-study substantiation is supplied."
-            eyebrow="Proof without overclaiming"
+            description="Review the building, identify suitable measures, and verify outcomes against an approved operating baseline."
+            eyebrow="Property-specific performance"
             id="results-heading"
             title="A practical path from opportunity to verified performance."
           />

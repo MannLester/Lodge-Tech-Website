@@ -27,11 +27,6 @@ type Showcase = Feature & {
   imagePosition?: string;
 };
 
-type SpecificationGroup = {
-  items: ReadonlyArray<{ label: string; value: string }>;
-  title: string;
-};
-
 export type ProductPageContent = {
   description: string;
   eyebrow: string;
@@ -44,51 +39,8 @@ export type ProductPageContent = {
   shortDescription: string;
   showcases: ReadonlyArray<Showcase>;
   slug: ProductSlug;
-  specifications: ReadonlyArray<SpecificationGroup>;
   subtitle: string;
 };
-
-const pendingSpecifications: ReadonlyArray<SpecificationGroup> = [
-  {
-    title: "Performance and electrical",
-    items: [
-      { label: "Operating range", value: "Pending manufacturer verification" },
-      {
-        label: "Power requirements",
-        value: "Pending manufacturer verification",
-      },
-      { label: "Control capacity", value: "Pending manufacturer verification" },
-    ],
-  },
-  {
-    title: "Connectivity and installation",
-    items: [
-      {
-        label: "Supported protocols",
-        value: "Pending manufacturer verification",
-      },
-      {
-        label: "Mounting requirements",
-        value: "Pending manufacturer verification",
-      },
-      {
-        label: "Environmental rating",
-        value: "Pending manufacturer verification",
-      },
-    ],
-  },
-  {
-    title: "Compliance",
-    items: [
-      { label: "CE", value: "Certification status pending verification" },
-      { label: "UL", value: "Certification status pending verification" },
-      {
-        label: "ENERGY STAR",
-        value: "Certification status pending verification",
-      },
-    ],
-  },
-];
 
 const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   "gem-stat-et": {
@@ -141,7 +93,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         imagePosition: "object-center",
       },
     ],
-    specifications: pendingSpecifications,
   },
   "gem-link-wireless": {
     slug: "gem-link-wireless",
@@ -155,7 +106,8 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     metaDescription:
       "Explore the GEM Link Wireless connected building platform.",
     heroImage: platformImage,
-    heroImageAlt: "GEM Link Wireless platform product placeholder",
+    heroImageAlt:
+      "GEM Link Wireless dashboard across desktop and mobile screens",
     features: [
       {
         title: "Central visibility",
@@ -184,7 +136,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Help teams identify operating patterns and focus attention where adjustments may matter most.",
       },
     ],
-    specifications: pendingSpecifications,
   },
   "lighting-controls": {
     slug: "lighting-controls",
@@ -198,7 +149,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     metaDescription:
       "Explore occupancy-aware lighting control solutions from Lodging Technologies.",
     heroImage: lightingImage,
-    heroImageAlt: "Lighting controls product placeholder",
+    heroImageAlt: "Lighting control solution overview",
     features: [
       {
         title: "Occupancy response",
@@ -227,7 +178,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Balance energy priorities with appropriate visibility, safety, and occupant expectations.",
       },
     ],
-    specifications: pendingSpecifications,
   },
   "appliance-controls": {
     slug: "appliance-controls",
@@ -241,7 +191,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     metaDescription:
       "Explore appliance and auxiliary load control solutions from Lodging Technologies.",
     heroImage: auxiliaryImage,
-    heroImageAlt: "Appliance controls product placeholder",
+    heroImageAlt: "Appliance and auxiliary load control solution overview",
     features: [
       {
         title: "Broader load coverage",
@@ -270,7 +220,6 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Bring selected appliance and auxiliary loads into the same planning conversation as HVAC and lighting.",
       },
     ],
-    specifications: pendingSpecifications,
   },
 };
 

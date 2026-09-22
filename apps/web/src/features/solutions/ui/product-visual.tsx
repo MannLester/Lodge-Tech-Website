@@ -25,11 +25,6 @@ export function ProductVisual({
         sizes="(max-width: 1023px) 92vw, 38vw"
         src={image}
       />
-      {!photo && (
-        <span className="bg-surface/90 text-muted absolute top-3 left-3 rounded px-3 py-1.5 text-xs font-semibold">
-          Concept visual
-        </span>
-      )}
     </div>
   );
 }
