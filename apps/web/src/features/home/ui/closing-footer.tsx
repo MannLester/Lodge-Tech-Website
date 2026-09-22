@@ -1,66 +1,41 @@
 import { InquiryForm } from "@/features/home/ui/inquiry-form";
 import { SiteFooter } from "@/shared/ui/site-footer";
 
-type ClosingFooterProps = {
-  initialInquiryMessage?: string;
-};
+type ClosingFooterProps = { initialInquiryMessage?: string };
 
 export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
   return (
     <>
       <section
         aria-labelledby="contact-heading"
-        className="border-border bg-surface-muted border-t py-16 sm:py-20 lg:py-24"
+        className="editorial-section contact-section"
         id="contact"
       >
-        <div className="section-shell grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1fr)] lg:gap-16">
+        <div className="section-shell contact-layout">
           <div>
-            <p className="eyebrow">Let&apos;s talk about your property</p>
-            <h2
-              className="text-foreground mt-4 max-w-lg text-3xl leading-tight font-semibold sm:text-4xl lg:text-5xl"
-              id="contact-heading"
-            >
-              Request a Proposal / Site Survey
+            <p className="chapter-label">Let’s put your building first</p>
+            <h2 className="display-heading" id="contact-heading">
+              Better energy use
+              <br />
+              starts with a<br />
+              <em>conversation.</em>
             </h2>
-            <p className="text-muted mt-6 max-w-md text-base leading-7">
-              Tell us about your property. We&apos;ll help you explore energy
-              savings and plan the next step.
+            <p className="editorial-copy">
+              Request a proposal or site survey. Tell us a little about your
+              property, and we’ll help you explore the next step.
             </p>
-            <ol className="text-foreground mt-8 grid gap-5 text-sm leading-6">
-              <li className="flex items-center gap-4">
-                <span
-                  aria-hidden
-                  className="bg-brand-soft text-brand-strong grid size-9 shrink-0 place-items-center rounded-full font-semibold"
-                >
-                  1
-                </span>
-                Share your property details.
-              </li>
-              <li className="flex items-center gap-4">
-                <span
-                  aria-hidden
-                  className="bg-brand-soft text-brand-strong grid size-9 shrink-0 place-items-center rounded-full font-semibold"
-                >
-                  2
-                </span>
-                Discuss your needs with our team.
-              </li>
-              <li className="flex items-center gap-4">
-                <span
-                  aria-hidden
-                  className="bg-brand-soft text-brand-strong grid size-9 shrink-0 place-items-center rounded-full font-semibold"
-                >
-                  3
-                </span>
-                Explore a proposal or site survey.
-              </li>
-            </ol>
-            <p className="text-muted mt-8 max-w-md text-sm leading-6">
-              Interested in GEM Link® Wireless or GEM Stat™ ET? Mention it in
-              your project notes.
-            </p>
+            <div className="contact-next">
+              <p className="chapter-label">What happens next</p>
+              <p>
+                We review your property details, discuss your operating needs,
+                and help identify a suitable proposal or site survey.
+              </p>
+            </div>
           </div>
-          <InquiryForm initialMessage={initialInquiryMessage} />
+          <InquiryForm
+            key={initialInquiryMessage}
+            initialMessage={initialInquiryMessage}
+          />
         </div>
       </section>
       <SiteFooter />
