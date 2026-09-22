@@ -4,18 +4,17 @@ import { describe, expect, it } from "vitest";
 import { CompanySection } from "@/features/home/ui/company-section";
 
 describe("CompanySection", () => {
-  it("presents the approved company story, mission, vision, and values", () => {
+  it("presents the concise company story and a property inquiry path", () => {
     render(<CompanySection />);
 
     expect(
       screen.getByRole("heading", {
-        name: "Experience, technology, efficiency, and a forward-looking vision.",
+        name: "Technology is only part of the story.",
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Mission")).toBeInTheDocument();
-    expect(screen.getByText("Vision")).toBeInTheDocument();
-    expect(screen.getByText("Innovation")).toBeInTheDocument();
-    expect(screen.getByText("Sustainability")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Let’s talk about your property/ }),
+    ).toHaveAttribute("href", "#contact");
     expect(
       screen.getByAltText(
         "Lodging Technologies branded modern building exterior",
