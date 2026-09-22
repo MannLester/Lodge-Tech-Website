@@ -1,0 +1,83 @@
+import { expect, test } from "@playwright/test";
+
+test("occupancy illustration responds to keyboard input without changing theme", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const vacant = page.getByRole("button", { name: "Vacant", exact: true });
+  await vacant.focus();
+  await page.keyboard.press("Enter");
+  await expect(vacant).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".occupancy-response")).toContainText(
+    "Room empty.",
+  );
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.getByRole("button", { name: "Occupied", exact: true }).click();
+  await expect(page.locator(".occupancy-response")).toContainText(
+    "Welcome in.",
+  );
+});
+
+test("industry selection exposes one relevant description and contact route", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const industries = page.locator("#industries");
+  const selected = industries.getByRole("button", { name: /Student Housing/ });
+  await selected.focus();
+  await page.keyboard.press("Enter");
+  await expect(selected).toHaveAttribute("aria-expanded", "true");
+  await expect(industries.getByRole("img")).toHaveAttribute(
+    "alt",
+    "Student housing photography",
+  );
+  await expect(industries.getByRole("region")).toHaveCount(1);
+  await industries.getByRole("link", { name: /Discuss your property/ }).click();
+  await expect(page).toHaveURL(/#contact$/);
+});
+
+test("platform inquiry carries product context into the existing form", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: /Request Platform Demo/ }).click();
+  await expect(page.getByLabel("Project notes")).toHaveValue(
+    "We would like to request a product demo for GEM Link Wireless.",
+  );
+});
+
+test("editorial layouts fit both themes and reduced motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  for (const mode of ["light", "dark"]) {
+    if (mode === "dark")
+      await page
+        .getByRole("switch", { name: "Switch to night mode" })
+        .filter({ visible: true })
+        .click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", mode);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > innerWidth,
+      ),
+    ).toBe(false);
+    for (const selector of [
+      "#value",
+      "#solutions",
+      "#platform",
+      "#industries",
+      "#contact",
+    ]) {
+      expect(
+        await page
+          .locator(selector)
+          .evaluate((element) => element.scrollWidth > element.clientWidth),
+      ).toBe(false);
+    }
+  }
+  await expect(page.locator("main")).not.toContainText(
+    /pending verification|Verified result pending|evidence-safe language/,
+  );
+});
