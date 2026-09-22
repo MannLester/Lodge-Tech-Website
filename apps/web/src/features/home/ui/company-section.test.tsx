@@ -35,6 +35,10 @@ describe("CompanySection", () => {
         name: "Lodging Technologies branded tree scene with two control devices",
       }),
     ).toBeInTheDocument();
+    expect(gallery.getByTestId("company-gallery")).toHaveAttribute(
+      "data-active-slide",
+      "Tree scene",
+    );
 
     fireEvent.click(
       gallery.getByRole("button", { name: "Show Guest room image" }),
