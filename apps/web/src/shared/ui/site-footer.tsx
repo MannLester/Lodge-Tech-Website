@@ -50,7 +50,7 @@ export function SiteFooter() {
     <footer className="border-border bg-surface-muted border-t py-10">
       <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">
         <div className="max-w-64">
-          <BrandMark href="/#top" />
+          <BrandMark href="/#top" tone="deep" />
           <div
             aria-label="Featured products"
             className="text-brand-strong mt-5 grid gap-3 text-sm font-semibold"
@@ -77,7 +77,7 @@ export function SiteFooter() {
             className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
             href="/#contact"
           >
-            Request a Proposal / Site Survey
+            Request for Proposal / Site Survey
           </Link>
         </div>
 

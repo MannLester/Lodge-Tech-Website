@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
 
 import { siteConfig } from "@/shared/config/site";
-import { ThemeScript } from "@lodging-technologies/ui/theme-script";
 
 import "./globals.css";
 
@@ -29,11 +28,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={montserrat.variable}
       data-scroll-behavior="smooth"
       lang="en"
-      suppressHydrationWarning
     >
-      <head>
-        <ThemeScript />
-      </head>
       <body>
         {children}
         <Analytics />

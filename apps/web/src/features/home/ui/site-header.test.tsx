@@ -4,21 +4,16 @@ import { afterEach, describe, expect, it } from "vitest";
 import { SiteHeader } from "@/features/home/ui/site-header";
 
 describe("SiteHeader", () => {
-  afterEach(() => {
-    cleanup();
-    delete document.documentElement.dataset.theme;
-    window.localStorage.clear();
-  });
+  afterEach(cleanup);
 
-  it("renders the V2 navigation, co-branding, and accessible theme switch", () => {
-    document.documentElement.dataset.theme = "light";
+  it("renders the primary navigation, co-branding, and proposal action", () => {
     render(<SiteHeader />);
 
     expect(
       screen.getByText("GEM Link® Wireless / GEM Stat™ ET"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Request a Proposal" }),
+      screen.getByRole("link", { name: "Request for Proposal / Site Survey" }),
     ).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
@@ -34,18 +29,7 @@ describe("SiteHeader", () => {
       screen.getByRole("link", { name: "Lighting Controls" }),
     ).toHaveAttribute("href", "/solutions/lighting-controls");
 
-    const themeSwitch = screen.getAllByRole("switch", {
-      name: "Switch to night mode",
-    })[0];
-    expect(themeSwitch).toHaveAttribute("aria-checked", "false");
-
-    fireEvent.click(themeSwitch);
-
-    expect(document.documentElement.dataset.theme).toBe("dark");
-    expect(window.localStorage.getItem("theme")).toBe("dark");
-    expect(
-      screen.getAllByRole("switch", { name: "Switch to day mode" })[0],
-    ).toHaveAttribute("aria-checked", "true");
+    expect(screen.queryByRole("switch")).not.toBeInTheDocument();
   });
 
   it("uses root-qualified homepage anchors from product pages", () => {

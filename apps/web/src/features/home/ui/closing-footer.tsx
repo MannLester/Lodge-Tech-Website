@@ -20,7 +20,7 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
               className="text-foreground mt-4 max-w-lg text-3xl leading-tight font-semibold sm:text-4xl lg:text-5xl"
               id="contact-heading"
             >
-              Request a Proposal / Site Survey
+              Request for Proposal / Site Survey
             </h2>
             <p className="text-muted mt-6 max-w-md text-base leading-7">
               Tell us about your property. We&apos;ll help you explore energy

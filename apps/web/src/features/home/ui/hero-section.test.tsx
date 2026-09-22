@@ -19,7 +19,7 @@ describe("HeroSection", () => {
       screen.getByText("Reduction in HVAC Operating Time"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Request a Proposal / Site Survey" }),
+      screen.getByRole("link", { name: "Request for Proposal / Site Survey" }),
     ).toHaveAttribute("href", "#contact");
     expect(
       screen.getByLabelText("Experience and performance"),
@@ -27,8 +27,6 @@ describe("HeroSection", () => {
     expect(
       container.querySelector('[data-hero-layer="day"]'),
     ).toBeInTheDocument();
-    expect(
-      container.querySelector('[data-hero-layer="night"]'),
-    ).toBeInTheDocument();
+    expect(container.querySelector('[data-hero-layer="night"]')).toBeNull();
   });
 });
