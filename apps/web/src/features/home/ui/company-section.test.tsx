@@ -5,7 +5,7 @@ import { CompanySection } from "@/features/home/ui/company-section";
 
 describe("CompanySection", () => {
   it("presents the approved company story, mission, vision, and values", () => {
-    render(<CompanySection />);
+    const { container } = render(<CompanySection />);
 
     expect(
       screen.getByRole("heading", {
@@ -16,6 +16,10 @@ describe("CompanySection", () => {
     expect(screen.getByText("Vision")).toBeInTheDocument();
     expect(screen.getByText("Innovation")).toBeInTheDocument();
     expect(screen.getByText("Sustainability")).toBeInTheDocument();
+    const values = container.querySelector("[data-company-values]");
+    expect(values).toHaveClass("mt-10");
+    expect(values?.querySelector("li")).toHaveClass("text-base", "lg:text-lg");
+    expect(values?.querySelectorAll(".company-value-check")).toHaveLength(5);
     expect(
       screen.getByAltText(
         "Lodging Technologies branded modern building exterior",

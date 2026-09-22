@@ -49,15 +49,15 @@ export function CompanySection() {
         <div className="mt-10">
           <p className="eyebrow text-center">Our values</p>
           <ul
-            className="mx-auto mt-6 grid max-w-xs gap-4 sm:max-w-2xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-5"
+            className="mx-auto mt-10 grid max-w-xs gap-4 sm:max-w-2xl sm:grid-cols-2 lg:max-w-none lg:grid-cols-5"
             data-company-values
           >
             {companyProfile.values.map((value) => (
               <li
-                className="text-foreground grid grid-cols-[1.75rem_minmax(0,1fr)] items-center gap-3 text-sm font-semibold lg:justify-self-center"
+                className="text-foreground grid grid-cols-[1.75rem_minmax(0,1fr)] items-center gap-3 text-base leading-6 font-semibold lg:justify-self-center lg:text-lg"
                 key={value}
               >
-                <span className="bg-brand-soft text-brand-strong grid size-7 shrink-0 place-items-center rounded-full">
+                <span className="company-value-check bg-brand-soft text-brand-strong grid size-7 shrink-0 place-items-center rounded-full">
                   <Check aria-hidden size={15} strokeWidth={2.5} />
                 </span>
                 {value}

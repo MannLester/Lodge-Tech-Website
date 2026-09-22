@@ -105,6 +105,36 @@ test("provides navigation appropriate to the viewport", async ({ page }) => {
   }
 });
 
+test("emphasizes Company values with responsive type and motion-aware pulses", async ({
+  page,
+}) => {
+  await page.goto("/#company");
+  const values = page.locator("[data-company-values]");
+  const firstValue = values.locator("li").first();
+  const firstCheck = values.locator(".company-value-check").first();
+  const viewport = page.viewportSize();
+
+  if (!viewport) throw new Error("Viewport is required for this test.");
+
+  await expect(values).toHaveCSS("margin-top", "40px");
+  await expect(firstValue).toHaveCSS(
+    "font-size",
+    viewport.width >= 1024 ? "18px" : "16px",
+  );
+  expect(
+    await firstCheck.evaluate(
+      (element) => getComputedStyle(element, "::after").animationName,
+    ),
+  ).toBe("company-value-pulse");
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(
+    await firstCheck.evaluate(
+      (element) => getComputedStyle(element, "::after").animationName,
+    ),
+  ).toBe("none");
+});
+
 test("validates and completes the proposal inquiry form", async ({ page }) => {
   await page.route("**/api/inquiries", async (route) => {
     await route.fulfill({
