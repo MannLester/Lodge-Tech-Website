@@ -1,49 +1,37 @@
-import { ButtonLink } from "@lodging-technologies/ui/button-link";
-
 import { turnkeySteps } from "@/features/home/model/home-content";
-import { SectionHeading } from "@lodging-technologies/ui/section-heading";
 
 export function ProcessSection() {
   return (
     <section
       aria-labelledby="process-heading"
-      className="section-band bg-surface-muted"
+      className="editorial-section process-section"
     >
       <div className="section-shell">
-        <SectionHeading
-          align="center"
-          description="One accountable team carries the work from data review through installation, optimization, and support."
-          eyebrow="The turnkey process"
-          id="process-heading"
-          title="A complete path from savings analysis to supported control."
-        />
-
-        <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="section-masthead">
+          <div>
+            <p className="chapter-label">
+              07 / From possibility to performance
+            </p>
+            <h2 className="display-heading" id="process-heading">
+              A clear path forward.
+              <br />
+              <span className="muted-heading">One accountable team.</span>
+            </h2>
+          </div>
+          <p className="editorial-copy">
+            A considered process, from understanding your property to supporting
+            the controls that keep it running.
+          </p>
+        </div>
+        <ol className="process-timeline">
           {turnkeySteps.map((step, index) => (
-            <li
-              className="border-border bg-surface flex min-h-32 items-start gap-4 rounded-lg border p-4 lg:block lg:min-h-44"
-              key={step.title}
-            >
-              <span className="bg-brand-fill grid h-9 w-12 shrink-0 place-items-center rounded-md text-sm font-semibold text-white">
-                {index + 1}
-              </span>
-              <div className="min-w-0 lg:mt-5">
-                <span className="text-foreground block text-base font-semibold">
-                  {step.title}
-                </span>
-                <p className="text-muted mt-2 text-xs leading-5">
-                  {step.description}
-                </p>
-              </div>
+            <li key={step.title}>
+              <span className="process-number">0{index + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
             </li>
           ))}
         </ol>
-
-        <div className="mt-8 flex justify-center">
-          <ButtonLink className="!text-white" href="#contact" showArrow>
-            Plan My Project
-          </ButtonLink>
-        </div>
       </div>
     </section>
   );
