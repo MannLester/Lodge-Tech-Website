@@ -25,9 +25,6 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
       <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <div className="flex min-w-0 items-center gap-3">
           <BrandMark href={fromHome ? "#top" : "/#top"} preload />
-          <span className="border-border text-muted hidden border-l pl-3 text-xs leading-4 xl:block">
-            GEM Link® Wireless / GEM Stat™ ET
-          </span>
         </div>
 
         <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">

@@ -10,12 +10,12 @@ describe("SiteHeader", () => {
     window.localStorage.clear();
   });
 
-  it("renders the V2 navigation, co-branding, and accessible theme switch", () => {
+  it("renders product navigation and an accessible theme switch", () => {
     document.documentElement.dataset.theme = "light";
     render(<SiteHeader />);
 
     expect(
-      screen.getByText("GEM Link® Wireless / GEM Stat™ ET"),
+      screen.getByRole("link", { name: "Lodging Technologies home" }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Request a Proposal" }),

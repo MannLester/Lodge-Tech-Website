@@ -1,4 +1,3 @@
-import { Building2, CalendarDays, Gauge } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,8 +5,6 @@ import heroHouseImage from "@assets/day_house.png";
 import heroHouseNightImage from "@assets/day_night.png";
 import { proofStats } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
-
-const statIcons = [CalendarDays, Building2, Gauge] as const;
 
 export function HeroSection() {
   return (
@@ -44,7 +41,7 @@ export function HeroSection() {
       </div>
 
       <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[calc(100dvh-4.25rem)] lg:grid-cols-12 lg:items-center lg:py-16">
-        <div className="max-w-xl lg:col-span-6 lg:-translate-x-10 lg:pr-4 xl:-translate-x-14">
+        <div className="max-w-xl lg:col-span-6 lg:pr-4">
           <p className="hero-eyebrow text-[0.6875rem] leading-tight font-bold tracking-[0.16em] uppercase">
             Whole-property energy intelligence
           </p>
@@ -90,26 +87,16 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="border-border/70 bg-surface/90 relative z-10 border-t backdrop-blur-md">
+      <div className="hero-proof-strip border-border relative z-10 border-t">
         <div
           aria-label="Experience and performance"
-          className="section-shell grid gap-6 py-7 sm:grid-cols-3"
+          className="section-shell grid py-7 md:grid-cols-3"
         >
-          {proofStats.map((stat, index) => {
-            const Icon = statIcons[index];
+          {proofStats.map((stat) => {
             return (
-              <article className="flex items-center gap-4" key={stat.label}>
-                <span className="bg-brand-soft text-brand-strong grid size-11 shrink-0 place-items-center rounded-full">
-                  <Icon aria-hidden size={21} />
-                </span>
-                <div>
-                  <p className="text-foreground text-2xl font-semibold">
-                    {stat.value}
-                  </p>
-                  <p className="text-muted mt-1 max-w-60 text-xs leading-5">
-                    {stat.label}
-                  </p>
-                </div>
+              <article className="proof-stat" key={stat.label}>
+                <p className="proof-value">{stat.value}</p>
+                <p className="proof-label">{stat.label}</p>
               </article>
             );
           })}
