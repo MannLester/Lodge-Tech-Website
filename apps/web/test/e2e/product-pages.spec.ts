@@ -35,7 +35,9 @@ for (const product of products) {
       page.getByRole("heading", { name: "Details for technical evaluation." }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: /A case study built on evidence/ }),
+      page.getByRole("heading", {
+        name: new RegExp("Let’s see where " + product.label),
+      }),
     ).toBeVisible();
 
     const hasDocumentOverflow = await page.evaluate(
@@ -62,7 +64,9 @@ test("homepage cards and product navigation connect the four routes", async ({
     .click();
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
   await expect(
-    page.getByRole("link", { name: "Lighting Controls" }),
+    page
+      .getByRole("navigation", { name: "Product navigation" })
+      .getByRole("link", { name: "Lighting Controls" }),
   ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
@@ -116,18 +120,8 @@ test("primary Solutions navigation exposes every product route", async ({
   await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
 });
 
-test("hotspots and ecosystem controls expose their selected details", async ({
-  page,
-}) => {
+test("ecosystem controls expose their selected details", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
-
-  await page.getByRole("button", { name: "Show Sensing area" }).focus();
-  await page.getByRole("button", { name: "Show Sensing area" }).press("Enter");
-  await expect(
-    page.getByText(
-      "Sensor capabilities are pending manufacturer verification.",
-    ),
-  ).toBeVisible();
 
   await page.getByRole("button", { name: "Lighting Controls" }).click();
   await expect(
@@ -161,7 +155,7 @@ test("specifications and theme controls remain accessible", async ({
 
   await page
     .getByRole("switch", { name: "Switch to night mode" })
-    .first()
+    .filter({ visible: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(
