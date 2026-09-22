@@ -13,7 +13,7 @@ describe("SiteHeader", () => {
       screen.getByText("GEM Link® Wireless / GEM Stat™ ET"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Request for Proposal / Site Survey" }),
+      screen.getByRole("link", { name: "Request for Proposal" }),
     ).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
@@ -31,6 +31,11 @@ describe("SiteHeader", () => {
 
     expect(
       screen.getAllByRole("switch", { name: "Switch to night mode" }),
+    ).toHaveLength(2);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation" }));
+    expect(
+      screen.getAllByRole("link", { name: "Request for Proposal" }),
     ).toHaveLength(2);
   });
 

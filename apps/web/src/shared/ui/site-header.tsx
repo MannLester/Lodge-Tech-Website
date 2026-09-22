@@ -76,10 +76,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <ButtonLink
-            className="!min-h-10 !px-5 !py-2 !text-[0.75rem] !text-white xl:!text-[0.8125rem]"
+            className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] whitespace-nowrap !text-white"
             href={contactHref}
           >
-            Request for Proposal / Site Survey
+            Request for Proposal
           </ButtonLink>
         </div>
 
@@ -145,7 +145,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
               ),
             )}
             <ButtonLink className="mt-4 w-full !text-white" href={contactHref}>
-              Request for Proposal / Site Survey
+              Request for Proposal
             </ButtonLink>
           </div>
         </nav>
