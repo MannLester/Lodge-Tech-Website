@@ -41,6 +41,21 @@
   --shadow-color: rgb(11 19 36 / 0.12);
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #06111d;
+  --foreground: #f5f8fb;
+  --surface: #0d1a28;
+  --surface-muted: #111f30;
+  --muted: #b8c6d3;
+  --border: #2b4054;
+  --brand: #62cff5;
+  --brand-fill: #087cb3;
+  --brand-strong: #9de4fb;
+  --brand-soft: #113a50;
+  --shadow-color: rgb(0 0 0 / 0.36);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -182,6 +197,18 @@ body {
   height: auto;
 }
 
+.brand-logo--dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand-logo--light {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand-logo--dark {
+  display: block;
+}
+
 .brand-contact-band {
   background: radial-gradient(
     circle at 50% 35%,
@@ -194,6 +221,19 @@ body {
 .hero {
   border-color: #dbe8ef;
   background: #f7fbfd;
+  transition:
+    background-color 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-day-image {
+  filter: brightness(1) saturate(1);
+  transition: filter 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-night-image {
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-side-gradient {
@@ -270,6 +310,58 @@ body {
   color: rgb(255 255 255 / 0.78);
 }
 
+:root[data-theme="dark"] .hero {
+  border-color: #142a3b;
+  background: #07121f;
+}
+
+:root[data-theme="dark"] .hero-day-image {
+  filter: brightness(0.7) saturate(0.72);
+}
+
+:root[data-theme="dark"] .hero-night-image {
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .hero-side-gradient {
+  background: linear-gradient(
+    90deg,
+    rgb(4 13 24 / 0.97) 0%,
+    rgb(4 13 24 / 0.9) 28%,
+    rgb(4 13 24 / 0.62) 43%,
+    rgb(4 13 24 / 0.15) 62%,
+    transparent 78%
+  );
+}
+
+:root[data-theme="dark"] .hero-bottom-gradient {
+  background: linear-gradient(0deg, rgb(4 13 24 / 0.45) 0%, transparent 34%);
+}
+
+:root[data-theme="dark"] .hero-mobile-gradient {
+  background: linear-gradient(
+    180deg,
+    rgb(4 13 24 / 0.9) 0%,
+    rgb(4 13 24 / 0.68) 72%,
+    transparent 100%
+  );
+}
+
+:root[data-theme="dark"] .hero-heading {
+  color: #f5f8fb;
+}
+
+:root[data-theme="dark"] .hero-heading-accent,
+:root[data-theme="dark"] .hero-eyebrow,
+:root[data-theme="dark"] .hero-product-links,
+:root[data-theme="dark"] .hero-secondary-link {
+  color: #6ed0f4;
+}
+
+:root[data-theme="dark"] .hero-copy {
+  color: #d7e2eb;
+}
+
 @media (min-width: 48rem) {
   .section-shell {
     width: min(100% - 3rem, 75rem);
@@ -325,6 +417,17 @@ body {
       rgb(255 255 255 / 0.9) 25%,
       rgb(255 255 255 / 0.5) 40%,
       rgb(255 255 255 / 0.08) 57%,
+      transparent 72%
+    );
+  }
+
+  :root[data-theme="dark"] .hero-side-gradient {
+    background: linear-gradient(
+      90deg,
+      rgb(4 13 24 / 0.97) 0%,
+      rgb(4 13 24 / 0.9) 25%,
+      rgb(4 13 24 / 0.58) 40%,
+      rgb(4 13 24 / 0.1) 57%,
       transparent 72%
     );
   }

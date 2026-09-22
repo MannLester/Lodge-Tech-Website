@@ -10,7 +10,9 @@
     "./button-link": "./src/button-link.tsx",
     "./media-image": "./src/media-image.tsx",
     "./media-placeholder": "./src/media-placeholder.tsx",
-    "./section-heading": "./src/section-heading.tsx"
+    "./section-heading": "./src/section-heading.tsx",
+    "./theme-script": "./src/theme-script.tsx",
+    "./theme-toggle": "./src/theme-toggle.tsx"
   },
   "scripts": {
     "build": "tsc -b",

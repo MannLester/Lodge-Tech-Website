@@ -50,7 +50,7 @@ export function SiteFooter() {
     <footer className="border-border bg-surface-muted border-t py-10">
       <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">
         <div className="max-w-64">
-          <BrandMark href="/#top" tone="deep" />
+          <BrandMark href="/#top" />
           <div
             aria-label="Featured products"
             className="text-brand-strong mt-5 grid gap-3 text-sm font-semibold"
