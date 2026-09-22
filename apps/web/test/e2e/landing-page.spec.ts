@@ -19,7 +19,7 @@ test("shows the benefit, products, and proposal path without overflow", async ({
     hero.getByText("Reduction in HVAC Operating Time"),
   ).toBeVisible();
   await hero
-    .getByRole("link", { name: "Request a Proposal / Site Survey" })
+    .getByRole("link", { name: "Request for Proposal / Site Survey" })
     .click();
   await expect(page).toHaveURL(/#contact$/);
   await expect(
@@ -48,35 +48,24 @@ test("keeps product branding and a contact route in public-page footers", async 
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
     ).toBeVisible();
     await expect(
-      footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
+      footer.getByRole("link", { name: "Request for Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/#contact");
   }
 });
 
-test("defaults to light even on a dark device and preserves a chosen theme", async ({
+test("uses the approved light presentation even on a dark device", async ({
   page,
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  const nightHouse = page.locator('[data-hero-layer="night"]');
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(nightHouse).toHaveCSS("opacity", "0");
-  await page
-    .getByRole("switch", { name: "Switch to night mode" })
-    .filter({ visible: true })
-    .click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(nightHouse).toHaveCSS("opacity", "1");
-  await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(nightHouse).toHaveCSS("opacity", "1");
-  await page
-    .getByRole("switch", { name: "Switch to day mode" })
-    .filter({ visible: true })
-    .click();
-  await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(nightHouse).toHaveCSS("opacity", "0");
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
+  await expect(page.getByRole("switch")).toHaveCount(0);
+  await expect(page.locator('[data-hero-layer="night"]')).toHaveCount(0);
+  expect(
+    await page.evaluate(
+      () => getComputedStyle(document.documentElement).colorScheme,
+    ),
+  ).toBe("light");
 });
 
 test("provides navigation appropriate to the viewport", async ({ page }) => {
@@ -112,7 +101,9 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   const form = page.getByRole("form", {
     name: "Proposal or site survey request",
   });
-  await form.getByRole("button", { name: "Send My Request" }).click();
+  await form
+    .getByRole("button", { name: "Request Proposal / Site Survey" })
+    .click();
 
   await expect(form.getByText("Enter your name.")).toBeVisible();
   await expect(form.getByText("Enter your email.")).toBeVisible();
@@ -129,7 +120,9 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   await form
     .getByLabel("Project notes")
     .fill("We want to review HVAC and lighting savings.");
-  await form.getByRole("button", { name: "Send My Request" }).click();
+  await form
+    .getByRole("button", { name: "Request Proposal / Site Survey" })
+    .click();
 
   await expect(
     form.getByText(

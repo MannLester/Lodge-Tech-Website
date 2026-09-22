@@ -17,7 +17,7 @@ describe("product content", () => {
       const product = getProduct(slug);
       expect(product.features).toHaveLength(4);
       expect(product.showcases).toHaveLength(2);
-      expect(product.specifications.length).toBeGreaterThanOrEqual(3);
+      expect(product.heroImageAlt).not.toContain("placeholder");
     }
   });
 

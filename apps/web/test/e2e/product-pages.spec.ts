@@ -32,11 +32,12 @@ for (const product of products) {
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Details for technical evaluation." }),
+      page.getByRole("heading", {
+        name: "Plan around your property—not generic estimates.",
+      }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: /A case study built on evidence/ }),
-    ).toBeVisible();
+    await expect(page.getByText(/pending verification/i)).toHaveCount(0);
+    await expect(page.getByText(/development placeholder/i)).toHaveCount(0);
 
     const hasDocumentOverflow = await page.evaluate(
       () =>
@@ -62,7 +63,9 @@ test("homepage cards and product navigation connect the four routes", async ({
     .click();
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
   await expect(
-    page.getByRole("link", { name: "Lighting Controls" }),
+    page
+      .getByRole("navigation", { name: "Product navigation" })
+      .getByRole("link", { name: "Lighting Controls" }),
   ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
@@ -116,18 +119,8 @@ test("primary Solutions navigation exposes every product route", async ({
   await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
 });
 
-test("hotspots and ecosystem controls expose their selected details", async ({
-  page,
-}) => {
+test("ecosystem controls expose their selected details", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
-
-  await page.getByRole("button", { name: "Show Sensing area" }).focus();
-  await page.getByRole("button", { name: "Show Sensing area" }).press("Enter");
-  await expect(
-    page.getByText(
-      "Sensor capabilities are pending manufacturer verification.",
-    ),
-  ).toBeVisible();
 
   await page.getByRole("button", { name: "Lighting Controls" }).click();
   await expect(
@@ -139,7 +132,10 @@ test("product CTA carries safe context into the existing inquiry form", async ({
   page,
 }) => {
   await page.goto("/solutions/gem-stat-et");
-  await page.getByRole("link", { name: "Request a Demo" }).first().click();
+  await page
+    .getByRole("link", { name: "Request a Product Demo" })
+    .first()
+    .click();
 
   await expect(page).toHaveURL(/product=gem-stat-et&intent=demo#contact$/);
   await expect(page.getByLabel("Project notes")).toHaveValue(
@@ -147,26 +143,17 @@ test("product CTA carries safe context into the existing inquiry form", async ({
   );
 });
 
-test("specifications and theme controls remain accessible", async ({
+test("product pages use the light presentation and proposal CTA", async ({
   page,
 }) => {
   await page.goto("/solutions/gem-stat-et");
-
-  const connectivity = page.locator("details").filter({
-    hasText: "Connectivity and installation",
-  });
-  await expect(connectivity).not.toHaveAttribute("open", "");
-  await connectivity.locator("summary").click();
-  await expect(connectivity).toHaveAttribute("open", "");
-
-  await page
-    .getByRole("switch", { name: "Switch to night mode" })
-    .first()
-    .click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(
-    page.getByRole("navigation", { name: "Product navigation" }),
-  ).not.toHaveCSS("background-color", "rgb(255, 255, 255)");
+    page
+      .locator("[data-product-intro]")
+      .getByRole("link", { name: "Request for Proposal / Site Survey" })
+      .first(),
+  ).toHaveAttribute("href", "/?product=gem-stat-et&intent=savings#contact");
+  await expect(page.getByRole("switch")).toHaveCount(0);
 });
 
 test("unknown product slugs return not found", async ({ page }) => {

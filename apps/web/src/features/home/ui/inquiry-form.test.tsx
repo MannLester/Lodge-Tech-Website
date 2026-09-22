@@ -51,7 +51,9 @@ describe("InquiryForm", () => {
   it("validates required fields without sending a request", () => {
     render(<InquiryForm />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+    );
 
     expect(screen.getByText("Enter your name.")).toBeInTheDocument();
     expect(screen.getByText("Enter your email.")).toBeInTheDocument();
@@ -75,7 +77,9 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    const button = screen.getByRole("button", { name: "Send My Request" });
+    const button = screen.getByRole("button", {
+      name: "Request Proposal / Site Survey",
+    });
     fireEvent.click(button);
     fireEvent.submit(
       screen.getByRole("form", { name: "Proposal or site survey request" }),
@@ -100,7 +104,9 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+    );
 
     await screen.findByText(
       "Thanks. Your request has been submitted. Our team will follow up about your property.",
@@ -126,7 +132,9 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+    );
 
     await screen.findByText("That email cannot be accepted.");
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
@@ -141,7 +149,9 @@ describe("InquiryForm", () => {
     render(<InquiryForm />);
     fillValidForm();
 
-    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+    );
 
     await screen.findByText(
       "We couldn't submit your request. Your entries are still here; please try again.",
@@ -150,7 +160,9 @@ describe("InquiryForm", () => {
       "Morgan Lee",
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Send My Request" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+    );
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
     await screen.findByText(
       "Thanks. Your request has been submitted. Our team will follow up about your property.",
