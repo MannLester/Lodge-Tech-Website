@@ -209,7 +209,10 @@ export function ProductPage({ product }: ProductPageProps) {
         </section>
 
         <section aria-labelledby="proof-heading" className="section-band">
-          <div className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white">
+          <div
+            className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white"
+            data-planning-card
+          >
             <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
               <div className="bg-brand-deep p-8 sm:p-10">
                 <ClipboardCheck
@@ -239,7 +242,7 @@ export function ProductPage({ product }: ProductPageProps) {
                   relying on unsupported performance claims.
                 </p>
                 <ButtonLink
-                  className="text-brand-strong! hover:bg-brand-soft! mt-7 border-white! bg-white!"
+                  className="border-brand-fill! bg-brand-fill! mt-7 text-white! shadow-none! hover:brightness-110"
                   href={productCtaHref(product.slug, "savings")}
                 >
                   Request for Proposal / Site Survey
@@ -253,7 +256,10 @@ export function ProductPage({ product }: ProductPageProps) {
           aria-labelledby="bottom-cta-heading"
           className="pb-16 sm:pb-20 lg:pb-24"
         >
-          <div className="section-shell bg-brand-fill shadow-card flex flex-col gap-6 rounded-2xl px-7 py-9 text-white sm:px-10 lg:flex-row lg:items-center lg:justify-between">
+          <div
+            className="section-shell bg-brand-fill shadow-card flex flex-col gap-6 rounded-2xl px-7 py-9 text-white sm:px-10 lg:flex-row lg:items-center lg:justify-between"
+            data-evaluation-card
+          >
             <div>
               <h2
                 className="text-2xl font-bold sm:text-3xl"
@@ -267,7 +273,7 @@ export function ProductPage({ product }: ProductPageProps) {
               </p>
             </div>
             <ButtonLink
-              className="text-brand-strong! hover:bg-brand-soft! shrink-0 border-white! bg-white!"
+              className="border-brand-night! bg-brand-night! hover:bg-brand-deep! shrink-0 text-white! shadow-none!"
               href={productCtaHref(product.slug, "savings")}
             >
               Request for Proposal / Site Survey
