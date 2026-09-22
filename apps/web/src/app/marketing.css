@@ -1,0 +1,780 @@
+/* Public marketing pages only. Administrative surfaces keep their own layout. */
+.marketing-site {
+  --editorial-ink: #16354a;
+  --editorial-muted: #59707c;
+  --editorial-paper: #f4f3ee;
+  --editorial-line: #d6deda;
+  color: var(--editorial-ink);
+}
+
+:root[data-theme="dark"] .marketing-site {
+  --editorial-ink: #edf2f3;
+  --editorial-muted: #acbec8;
+  --editorial-paper: #10232e;
+  --editorial-line: #304551;
+}
+
+.marketing-site .section-shell {
+  width: min(100% - 3rem, 80rem);
+}
+.marketing-site .editorial-section {
+  padding-block: clamp(4.5rem, 8vw, 8.5rem);
+}
+.marketing-site .chapter-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.marketing-site .display-heading {
+  margin-top: 1.5rem;
+  font-size: clamp(2.15rem, 3.8vw, 3.8rem);
+  line-height: 1.13;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+.marketing-site .muted-heading {
+  color: var(--editorial-muted);
+}
+.marketing-site .editorial-copy {
+  max-width: 31rem;
+  margin-top: 1.75rem;
+  color: var(--editorial-muted);
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+.marketing-site .editorial-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 2.75rem;
+  margin-top: 1.75rem;
+  padding-block: 0.65rem;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.marketing-site .editorial-link span {
+  font-size: 1.3rem;
+  transition: transform 180ms ease;
+}
+.marketing-site .editorial-link:hover span {
+  transform: translate(2px, -2px);
+}
+.marketing-site .section-masthead {
+  display: grid;
+  grid-template-columns: 1.4fr 0.75fr;
+  align-items: end;
+  gap: 4rem;
+  margin-bottom: 3.5rem;
+}
+.marketing-site .section-masthead > .editorial-copy {
+  margin: 0 0 0.3rem;
+}
+.marketing-site .editorial-intro {
+  max-width: 60rem;
+  margin-bottom: 3.5rem;
+}
+.marketing-site .small-note {
+  margin-top: 2rem;
+  font-size: 0.68rem;
+  line-height: 1.7;
+  color: var(--editorial-muted);
+}
+.marketing-site .photo-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 4rem 2rem 1.5rem;
+  background: linear-gradient(transparent, rgb(4 15 23 / 0.65));
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+/* The original day/night house remains the opening scene. */
+.marketing-site .hero-heading {
+  font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+.marketing-site .hero-heading-accent {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+}
+.marketing-site .hero-proof-strip {
+  background: var(--background);
+}
+.marketing-site .proof-stat {
+  padding: 0.5rem 2.5rem;
+  border-left: 1px solid var(--editorial-line);
+}
+.marketing-site .proof-stat:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.marketing-site .proof-value {
+  font-size: clamp(1.75rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+.marketing-site .proof-label {
+  max-width: 17rem;
+  margin-top: 0.4rem;
+  color: var(--editorial-muted);
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+.marketing-site .occupancy-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  background: var(--editorial-paper);
+}
+.marketing-site .occupancy-photo {
+  position: relative;
+  min-height: 34rem;
+  overflow: hidden;
+}
+.marketing-site .occupancy-photo img {
+  transition: filter 600ms ease;
+}
+.marketing-site .occupancy-photo[data-occupied="false"] img {
+  filter: brightness(0.72) saturate(0.65);
+}
+.marketing-site .occupancy-explainer {
+  padding: clamp(2rem, 4vw, 4rem);
+  align-self: center;
+}
+.marketing-site .occupancy-switch {
+  display: inline-flex;
+  margin-top: 1.5rem;
+  padding: 4px;
+  border: 1px solid var(--editorial-line);
+  border-radius: 2rem;
+}
+.marketing-site .occupancy-switch button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.marketing-site .occupancy-switch button[aria-pressed="true"] {
+  background: var(--editorial-ink);
+  color: var(--background);
+}
+.marketing-site .occupancy-response {
+  margin-top: 2.5rem;
+  min-height: 15rem;
+}
+.marketing-site .status-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+}
+.marketing-site .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4c917d;
+}
+.marketing-site .occupancy-response h3 {
+  margin-block: 1rem;
+  font-size: clamp(1.9rem, 2.7vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+.marketing-site .occupancy-response p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--editorial-muted);
+}
+
+.marketing-site .product-section {
+  background: var(--editorial-paper);
+}
+.marketing-site .flagship-product {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.marketing-site .flagship-photo {
+  position: relative;
+  min-height: 42rem;
+  overflow: hidden;
+}
+.marketing-site .flagship-copy h3 {
+  margin-top: 1.5rem;
+  font-size: clamp(2.5rem, 4.7vw, 4.8rem);
+  letter-spacing: -0.07em;
+  font-weight: 500;
+  line-height: 1.05;
+}
+.marketing-site .product-suffix {
+  font-weight: 300;
+}
+.marketing-site .product-statement {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+.marketing-site .editorial-list {
+  margin-top: 1.8rem;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .editorial-list li {
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--editorial-line);
+  font-size: 0.75rem;
+}
+.marketing-site .wireless-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 5rem;
+  padding-block: 6rem 4rem;
+}
+.marketing-site .wireless-feature h3 {
+  margin-top: 1.5rem;
+  font-size: clamp(2.1rem, 3.5vw, 3.5rem);
+  line-height: 1.13;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+}
+.marketing-site .connection-diagram {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.marketing-site .connection-core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 13rem;
+  height: 13rem;
+  margin: 0 auto 3rem;
+  border: 1px solid var(--editorial-line);
+  border-radius: 50%;
+  font-size: 1.8rem;
+  letter-spacing: -0.04em;
+  background: var(--background);
+}
+.marketing-site .connection-core::before {
+  content: "";
+  position: absolute;
+  inset: -1.25rem;
+  border: 1px solid var(--editorial-line);
+  border-radius: 50%;
+}
+.marketing-site .connection-core::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  height: 3rem;
+  width: 1px;
+  background: var(--editorial-line);
+}
+.marketing-site .connection-core small {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.marketing-site .connection-orbit {
+  position: absolute;
+  inset: -2.5rem;
+  border: 1px dashed var(--editorial-line);
+  border-radius: 50%;
+}
+.marketing-site .connection-loads {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 1rem;
+  border-top: 1px solid var(--editorial-line);
+  font-size: 0.75rem;
+}
+.marketing-site .supporting-products {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 2.5rem;
+}
+.marketing-site .supporting-product {
+  display: grid;
+  grid-template-columns: 0.9fr 1.2fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+.marketing-site .supporting-product-image {
+  position: relative;
+  aspect-ratio: 1;
+  background: #fff;
+}
+.marketing-site .supporting-product h3 {
+  margin-top: 0.65rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.marketing-site .supporting-product p:not(.chapter-label) {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--editorial-muted);
+}
+.marketing-site .supporting-product .editorial-link {
+  margin-top: 1rem;
+}
+
+.marketing-site .platform-section {
+  background: #123447;
+  color: #f5f7f6;
+}
+.marketing-site .platform-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.marketing-site .platform-section .display-heading span {
+  color: #a9c8cc;
+}
+.marketing-site .platform-section .editorial-copy,
+.marketing-site .platform-section .small-note {
+  color: #b7cbd2;
+}
+.marketing-site .platform-story {
+  border-left: 1px solid #4a6573;
+  padding-left: 3rem;
+}
+.marketing-site .platform-story ol {
+  margin-top: 2rem;
+}
+.marketing-site .platform-story li {
+  display: flex;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid #4a6573;
+}
+.marketing-site .platform-story li > span {
+  color: #a9c8cc;
+  font-size: 0.75rem;
+  padding-top: 0.2rem;
+}
+.marketing-site .platform-story h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.marketing-site .platform-story li p {
+  margin-top: 0.6rem;
+  color: #b7cbd2;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+.marketing-site .industries-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.marketing-site .industry-photo {
+  position: relative;
+  min-height: 36rem;
+  overflow: hidden;
+}
+.marketing-site .industry-option {
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .industry-option:last-child {
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .industry-option button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: 1.4rem;
+  gap: 1rem;
+  text-align: left;
+  font-size: 1.05rem;
+  letter-spacing: -0.025em;
+  cursor: pointer;
+}
+.marketing-site .industry-number {
+  font-size: 0.65rem;
+  color: var(--editorial-muted);
+}
+.marketing-site .industry-arrow {
+  margin-left: auto;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.marketing-site .industry-option [role="region"] {
+  padding: 0 0 1.5rem 2rem;
+}
+.marketing-site .industry-option [role="region"] > p {
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.marketing-site .industry-option .editorial-link {
+  margin-top: 0.8rem;
+}
+.marketing-site .industry-option[data-active="true"] button {
+  font-weight: 600;
+}
+
+.marketing-site .assessment-section {
+  background: var(--editorial-paper);
+}
+.marketing-site .assessment-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.marketing-site .assessment-rows > div {
+  padding-block: 1.8rem;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .assessment-rows > div:last-child {
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .assessment-rows dt {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.marketing-site .assessment-rows dt span {
+  display: inline-block;
+  width: 2.5rem;
+  font-size: 0.65rem;
+  color: var(--editorial-muted);
+}
+.marketing-site .assessment-rows dd {
+  margin: 0.7rem 0 0 2.5rem;
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.marketing-site .company-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.marketing-site .company-layout [data-testid="company-gallery"] {
+  max-width: none;
+}
+.marketing-site .company-layout [data-testid="company-gallery"] > div {
+  border-radius: 0;
+  border: 0;
+}
+.marketing-site .company-lead {
+  margin-top: 1.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.65rem;
+  line-height: 1.4;
+}
+.marketing-site .process-section {
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .process-timeline {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 4rem;
+}
+.marketing-site .process-timeline li {
+  position: relative;
+  padding: 2rem 1.5rem 0 0;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .process-timeline li::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--editorial-ink);
+}
+.marketing-site .process-number {
+  color: var(--editorial-muted);
+  font-size: 0.7rem;
+}
+.marketing-site .process-timeline h3 {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.marketing-site .process-timeline p {
+  margin-top: 0.75rem;
+  color: var(--editorial-muted);
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+.marketing-site .contact-section {
+  background: var(--editorial-paper);
+}
+.marketing-site .contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.marketing-site .contact-section .display-heading {
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+.marketing-site .contact-section em {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+.marketing-site .contact-next {
+  max-width: 27rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .contact-next > p:last-child {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  color: var(--editorial-muted);
+  line-height: 1.8;
+}
+.marketing-site .contact-layout form {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 2.5rem;
+}
+
+.marketing-site .contact-layout :is(input, select, textarea) {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Product detail pages share the editorial scale, with practical specifications. */
+.marketing-site .product-detail-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.marketing-site .product-detail-hero h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+.marketing-site .product-detail-visual {
+  position: relative;
+  min-height: 35rem;
+  overflow: hidden;
+  background: var(--editorial-paper);
+}
+.marketing-site .product-feature-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 4rem;
+  margin-top: 3rem;
+}
+.marketing-site .product-feature-list article {
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 1.5rem;
+}
+.marketing-site .product-feature-list h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.marketing-site .product-feature-list p {
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-top: 0.75rem;
+}
+.marketing-site .technical-details details {
+  border-bottom: 1px solid var(--editorial-line);
+  padding-block: 1.25rem;
+}
+.marketing-site .technical-details summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+.marketing-site .technical-details p,
+.marketing-site .technical-details dd {
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+@media (min-width: 100rem) {
+  .marketing-site .hero > .section-shell > div {
+    transform: none;
+  }
+}
+@media (max-width: 63.99rem) {
+  .marketing-site .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .section-masthead,
+  .marketing-site .platform-layout,
+  .marketing-site .company-layout,
+  .marketing-site .assessment-layout,
+  .marketing-site .contact-layout,
+  .marketing-site .industries-layout,
+  .marketing-site .wireless-feature,
+  .marketing-site .product-detail-hero {
+    gap: 2.5rem;
+  }
+  .marketing-site .flagship-photo {
+    min-height: 35rem;
+  }
+  .marketing-site .supporting-products {
+    gap: 2rem;
+  }
+  .marketing-site .supporting-product {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .supporting-product-image {
+    aspect-ratio: 16 / 9;
+  }
+  .marketing-site .platform-story {
+    padding-left: 2rem;
+  }
+  .marketing-site .process-timeline {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 0;
+  }
+  .marketing-site .contact-layout form {
+    padding: 1.5rem;
+  }
+}
+@media (max-width: 47.99rem) {
+  .marketing-site .section-shell {
+    width: calc(100% - 2.5rem);
+  }
+  .marketing-site .section-masthead,
+  .marketing-site .occupancy-layout,
+  .marketing-site .flagship-product,
+  .marketing-site .wireless-feature,
+  .marketing-site .platform-layout,
+  .marketing-site .industries-layout,
+  .marketing-site .assessment-layout,
+  .marketing-site .company-layout,
+  .marketing-site .contact-layout,
+  .marketing-site .product-detail-hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .marketing-site .section-masthead {
+    margin-bottom: 2.5rem;
+  }
+  .marketing-site .hero-heading {
+    max-width: 22rem;
+  }
+  .marketing-site .proof-stat,
+  .marketing-site .proof-stat:first-child {
+    border-left: 0;
+    border-top: 1px solid var(--editorial-line);
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .marketing-site .proof-stat:first-child {
+    border-top: 0;
+  }
+  .marketing-site .proof-value {
+    min-width: 8rem;
+    font-size: 1.8rem;
+  }
+  .marketing-site .proof-label {
+    margin-top: 0;
+  }
+  .marketing-site .occupancy-photo {
+    min-height: 26rem;
+  }
+  .marketing-site .occupancy-explainer {
+    padding: 0 1.5rem 2rem;
+  }
+  .marketing-site .occupancy-response {
+    min-height: 13rem;
+  }
+  .marketing-site .flagship-photo {
+    min-height: 29rem;
+  }
+  .marketing-site .flagship-copy {
+    padding-block: 0.75rem;
+  }
+  .marketing-site .wireless-feature {
+    padding-block: 4rem 2rem;
+  }
+  .marketing-site .supporting-products {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .marketing-site .supporting-product {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 1.25rem;
+  }
+  .marketing-site .supporting-product-image {
+    aspect-ratio: 3 / 4;
+  }
+  .marketing-site .supporting-product h3 {
+    font-size: 1.15rem;
+  }
+  .marketing-site .platform-story {
+    padding: 1.5rem 0 0;
+    border-left: 0;
+    border-top: 1px solid #4a6573;
+  }
+  .marketing-site .industry-photo {
+    min-height: 24rem;
+  }
+  .marketing-site .industry-option button {
+    font-size: 1rem;
+  }
+  .marketing-site .company-layout {
+    gap: 3rem;
+  }
+  .marketing-site .process-timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 2rem;
+  }
+  .marketing-site .process-timeline li {
+    border-top: 0;
+    border-left: 1px solid var(--editorial-line);
+    padding: 0 0 2rem 2rem;
+  }
+  .marketing-site .process-timeline li::before {
+    top: 4px;
+    left: -4px;
+  }
+  .marketing-site .process-timeline h3 {
+    margin-top: 0.5rem;
+  }
+  .marketing-site .process-timeline p {
+    max-width: 25rem;
+  }
+  .marketing-site .contact-layout form {
+    padding: 1.5rem 1rem;
+  }
+  .marketing-site .product-detail-visual {
+    min-height: 28rem;
+  }
+  .marketing-site .product-feature-list {
+    grid-template-columns: 1fr;
+  }
+}

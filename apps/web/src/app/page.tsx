@@ -24,7 +24,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const initialInquiryMessage = getInquiryPrefillFromValues(product, intent);
 
   return (
-    <div id="top">
+    <div className="marketing-site" id="top">
       <SiteHeader />
       <main>
         <HeroSection />
