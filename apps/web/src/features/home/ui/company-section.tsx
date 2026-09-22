@@ -57,7 +57,7 @@ export function CompanySection() {
                 className="text-foreground grid grid-cols-[1.75rem_minmax(0,1fr)] items-center gap-3 text-base leading-6 font-semibold lg:justify-self-center lg:text-lg"
                 key={value}
               >
-                <span className="bg-brand-soft text-brand-strong grid size-7 shrink-0 place-items-center rounded-full">
+                <span className="company-value-check bg-brand-soft text-brand-strong grid size-7 shrink-0 place-items-center rounded-full">
                   <Check aria-hidden size={15} strokeWidth={2.5} />
                 </span>
                 {value}

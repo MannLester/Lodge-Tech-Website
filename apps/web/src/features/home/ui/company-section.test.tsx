@@ -19,6 +19,7 @@ describe("CompanySection", () => {
     const values = container.querySelector("[data-company-values]");
     expect(values).toHaveClass("mt-10");
     expect(values?.querySelector("li")).toHaveClass("text-base", "lg:text-lg");
+    expect(values?.querySelectorAll(".company-value-check")).toHaveLength(5);
     expect(
       screen.getByAltText(
         "Lodging Technologies branded modern building exterior",

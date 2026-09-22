@@ -187,6 +187,56 @@ body {
   color: var(--brand-deep-blue);
 }
 
+.company-value-check {
+  position: relative;
+  isolation: isolate;
+}
+
+.company-value-check::after {
+  position: absolute;
+  z-index: -1;
+  inset: -0.25rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  content: "";
+  opacity: 0;
+  animation: company-value-pulse 2.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+[data-company-values] li:nth-child(2) .company-value-check::after {
+  animation-delay: 180ms;
+}
+
+[data-company-values] li:nth-child(3) .company-value-check::after {
+  animation-delay: 360ms;
+}
+
+[data-company-values] li:nth-child(4) .company-value-check::after {
+  animation-delay: 540ms;
+}
+
+[data-company-values] li:nth-child(5) .company-value-check::after {
+  animation-delay: 720ms;
+}
+
+@keyframes company-value-pulse {
+  0%,
+  34% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  48% {
+    opacity: 0.42;
+  }
+
+  72%,
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+}
+
 .brand-mark {
   min-width: 8.5rem;
 }
@@ -439,6 +489,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .company-value-check::after {
+    animation: none;
   }
 
   *,
