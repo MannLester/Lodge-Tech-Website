@@ -10,7 +10,6 @@ import Link from "next/link";
 
 import {
   productCtaHref,
-  products,
   type ProductPageContent,
 } from "@/features/solutions/model/product-content";
 import { EcosystemMap } from "@/features/solutions/ui/ecosystem-map";
@@ -55,29 +54,6 @@ export function ProductPage({ product }: ProductPageProps) {
             Back to Solutions
           </Link>
         </div>
-
-        <nav
-          aria-label="Product navigation"
-          className="border-border bg-background/95 sticky top-[4.25rem] z-40 mt-5 border-y py-3 backdrop-blur"
-        >
-          <div className="section-shell overflow-x-auto">
-            <div className="grid min-w-[43rem] grid-cols-4 gap-3">
-              {products.map((item) => {
-                const active = item.slug === product.slug;
-                return (
-                  <Link
-                    aria-current={active ? "page" : undefined}
-                    className={`rounded-full border px-4 py-3 text-center text-sm font-semibold transition-colors ${active ? "border-brand bg-brand-soft text-brand-strong" : "border-border bg-surface text-foreground hover:border-brand hover:text-brand-strong"}`}
-                    href={`/solutions/${item.slug}`}
-                    key={item.slug}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </nav>
 
         <section
           aria-labelledby="product-heading"

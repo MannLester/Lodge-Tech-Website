@@ -17,10 +17,8 @@ for (const product of products) {
       page.getByRole("heading", { level: 1, name: product.label }),
     ).toBeVisible();
     await expect(
-      page
-        .getByRole("navigation", { name: "Product navigation" })
-        .getByRole("link", { name: product.label }),
-    ).toHaveAttribute("aria-current", "page");
+      page.getByRole("navigation", { name: "Product navigation" }),
+    ).toHaveCount(0);
     await expect(
       page.getByRole("heading", {
         name: "Designed for practical building operations.",
@@ -48,7 +46,7 @@ for (const product of products) {
   });
 }
 
-test("homepage cards and product navigation connect the four routes", async ({
+test("homepage cards and the back link connect solution routes", async ({
   page,
 }) => {
   await page.goto("/");
@@ -56,17 +54,6 @@ test("homepage cards and product navigation connect the four routes", async ({
     .getByRole("link", { name: "Learn more about GEM Stat ET" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/gem-stat-et$/);
-
-  await page
-    .getByRole("navigation", { name: "Product navigation" })
-    .getByRole("link", { name: "Lighting Controls" })
-    .click();
-  await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
-  await expect(
-    page
-      .getByRole("navigation", { name: "Product navigation" })
-      .getByRole("link", { name: "Lighting Controls" }),
-  ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
   await expect(page).toHaveURL(/\/#solutions$/);
