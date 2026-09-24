@@ -1,7 +1,6 @@
 import type { StaticImageData } from "next/image";
 
 import auxiliaryImage from "@assets/auxiliary.png";
-import gemStatLivingRoomImage from "@assets/gem-stat-et/living-room.jpeg";
 import gemStatOfficeSettingImage from "@assets/gem-stat-et/office-setting.jpeg";
 import gemStatTreeSettingImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
@@ -102,8 +101,8 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       "Room-level HVAC control designed to work within the connected GEM ecosystem.",
     metaDescription:
       "Explore the GEM Stat ET occupancy-based HVAC control solution.",
-    heroImage: gemStatLivingRoomImage,
-    heroImageAlt: "GEM Stat ET thermostat mounted beside a living room",
+    heroImage: gemStatTreeSettingImage,
+    heroImageAlt: "GEM Stat ET thermostat pictured in a sunlit tree setting",
     heroPhoto: true,
     features: [
       {
