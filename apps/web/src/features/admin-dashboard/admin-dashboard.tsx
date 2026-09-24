@@ -269,6 +269,13 @@ function AdminShell({
                     {item.label}
                   </Link>
                 ))}
+              <Link
+                className="text-muted hover:text-brand inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold"
+                href="/admin/proposals"
+              >
+                <ClipboardList aria-hidden="true" className="size-4" />
+                Proposals
+              </Link>
             </nav>
           </aside>
           <div className="grid min-w-0 gap-6">{children}</div>
