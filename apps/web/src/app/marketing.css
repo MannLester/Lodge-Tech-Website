@@ -249,6 +249,32 @@
   letter-spacing: -0.05em;
   font-weight: 500;
 }
+.marketing-site .wireless-platform-preview {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 17rem);
+  align-items: end;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: 1rem;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .wireless-platform-preview-image {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  background: #fff;
+}
+.marketing-site .wireless-platform-preview figcaption {
+  padding-bottom: 1.5rem;
+}
+.marketing-site .wireless-platform-preview figcaption > p {
+  margin-block: 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
 .marketing-site .connection-diagram {
   text-align: center;
   padding: 2rem 1rem;
@@ -869,6 +895,14 @@
   }
   .marketing-site .wireless-feature {
     padding-block: 4rem 2rem;
+  }
+  .marketing-site .wireless-platform-preview {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-top: 2.5rem;
+  }
+  .marketing-site .wireless-platform-preview figcaption {
+    padding-bottom: 0;
   }
   .marketing-site .supporting-products {
     grid-template-columns: 1fr;

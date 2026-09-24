@@ -3,6 +3,7 @@ import Link from "next/link";
 import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
 import auxiliaryImage from "@assets/auxiliary.png";
+import platformImage from "@assets/platform.png";
 
 export function ProductSection() {
   return (
@@ -105,6 +106,22 @@ export function ProductSection() {
             </div>
             <p className="small-note">Connected ecosystem illustration</p>
           </div>
+          <figure className="wireless-platform-preview">
+            <div className="wireless-platform-preview-image">
+              <Image
+                alt="GEM Link Wireless platform illustrated on laptop and phone screens"
+                className="object-contain"
+                fill
+                sizes="(max-width: 767px) 92vw, (max-width: 1279px) 65vw, 55vw"
+                src={platformImage}
+              />
+            </div>
+            <figcaption>
+              <span className="chapter-label">From room to portfolio</span>
+              <p>A clearer view, on every screen.</p>
+              <span className="small-note">Illustrative platform view.</span>
+            </figcaption>
+          </figure>
         </article>
         <div className="supporting-products">
           {[
