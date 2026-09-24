@@ -19,7 +19,7 @@ describe("SiteHeader", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Request a Proposal" }),
-    ).toHaveAttribute("href", "#contact");
+    ).toHaveAttribute("href", "/request-for-proposal");
     expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
       "#company",

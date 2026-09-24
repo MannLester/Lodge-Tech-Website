@@ -18,7 +18,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const contactHref = homeAnchor("contact", fromHome);
+  const proposalHref = "/request-for-proposal";
 
   return (
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
@@ -74,7 +74,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           <ThemeToggle />
           <ButtonLink
             className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] !text-white"
-            href={contactHref}
+            href={proposalHref}
           >
             Request a Proposal
           </ButtonLink>
@@ -141,7 +141,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                 </a>
               ),
             )}
-            <ButtonLink className="mt-4 w-full !text-white" href={contactHref}>
+            <ButtonLink className="mt-4 w-full !text-white" href={proposalHref}>
               Request a Proposal / Site Survey
             </ButtonLink>
           </div>

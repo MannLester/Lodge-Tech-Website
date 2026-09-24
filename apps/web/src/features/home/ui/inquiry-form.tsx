@@ -122,7 +122,7 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
 
   return (
     <form
-      aria-label="Proposal or site survey request"
+      aria-label="General inquiry"
       className="border-border bg-surface shadow-card grid gap-5 rounded-2xl border p-5 text-left sm:p-8"
       noValidate
       onSubmit={handleSubmit}
@@ -264,8 +264,8 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
           className="text-muted text-xs leading-5 font-normal"
           id="project-notes-help"
         >
-          Tell us whether you need a proposal, a site survey, or advice. Include
-          any property details you already know.
+          Tell us what you are curious about. For a detailed property proposal,
+          use the dedicated request page.
         </span>
         <textarea
           aria-describedby={

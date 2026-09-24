@@ -77,9 +77,7 @@ describe("InquiryForm", () => {
 
     const button = screen.getByRole("button", { name: "Send My Request" });
     fireEvent.click(button);
-    fireEvent.submit(
-      screen.getByRole("form", { name: "Proposal or site survey request" }),
-    );
+    fireEvent.submit(screen.getByRole("form", { name: "General inquiry" }));
 
     expect(screen.getByRole("button", { name: "Submitting…" })).toBeDisabled();
     expect(fetch).toHaveBeenCalledTimes(1);

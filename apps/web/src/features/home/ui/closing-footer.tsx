@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { InquiryForm } from "@/features/home/ui/inquiry-form";
 import { SiteFooter } from "@/shared/ui/site-footer";
 
@@ -13,7 +15,7 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
       >
         <div className="section-shell contact-layout">
           <div>
-            <p className="chapter-label">Let’s put your building first</p>
+            <p className="chapter-label">General inquiry</p>
             <h2 className="display-heading" id="contact-heading">
               Better energy use
               <br />
@@ -21,14 +23,17 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
               <em>conversation.</em>
             </h2>
             <p className="editorial-copy">
-              Request a proposal or site survey. Tell us a little about your
-              property, and we’ll help you explore the next step.
+              Have a question about your property or our solutions? Send a
+              general inquiry and we’ll help you find the right next step.
             </p>
             <div className="contact-next">
               <p className="chapter-label">What happens next</p>
               <p>
-                We review your property details, discuss your operating needs,
-                and help identify a suitable proposal or site survey.
+                Our team reviews your message and follows up to learn what you
+                need. Ready with property details?{" "}
+                <Link href="/request-for-proposal">
+                  Request a proposal instead.
+                </Link>
               </p>
             </div>
           </div>
