@@ -94,6 +94,18 @@ test("mobile product layouts place visuals before their descriptions", async ({
   }
 });
 
+test("GEM Stat ET leads with the thermostat hero photo", async ({ page }) => {
+  await page.goto("/solutions/gem-stat-et");
+
+  await expect(
+    page
+      .getByRole("img", {
+        name: "GEM Stat ET thermostat with room temperature display",
+      })
+      .first(),
+  ).toBeVisible();
+});
+
 test("primary Solutions navigation exposes every product route", async ({
   page,
 }) => {
