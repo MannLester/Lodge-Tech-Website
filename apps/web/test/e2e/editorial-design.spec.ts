@@ -36,6 +36,36 @@ test("industry selection exposes one relevant description and contact route", as
   await expect(page).toHaveURL(/#contact$/);
 });
 
+test("property photos crossfade on selection and settle without motion when requested", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const industries = page.locator("#industries");
+  const photos = industries.locator(".industry-photo-layer");
+  await industries.scrollIntoViewIfNeeded();
+  await photos.evaluateAll((images) =>
+    Promise.all(images.map((image) => (image as HTMLImageElement).decode())),
+  );
+  await industries.getByRole("button", { name: /Student Housing/ }).click();
+  await expect(photos.nth(3)).toHaveAttribute("data-active", "true");
+  await expect(photos.nth(0)).toHaveAttribute("data-active", "false");
+  await expect(photos.nth(3)).toHaveCSS("opacity", "1");
+  await expect(industries.getByRole("img")).toHaveCount(1);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await industries.getByRole("button", { name: /Multifamily/ }).click();
+  await expect(photos.nth(1)).toHaveAttribute("data-active", "true");
+  const reducedTransition = await photos
+    .nth(1)
+    .evaluate((photo) =>
+      Number.parseFloat(window.getComputedStyle(photo).transitionDuration),
+    );
+  expect(reducedTransition).toBeLessThan(0.001);
+  await expect(industries.locator(".industry-caption-text")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
+});
+
 test("platform inquiry carries product context into the existing form", async ({
   page,
 }) => {

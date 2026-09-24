@@ -41,15 +41,27 @@ export function IndustriesSection() {
         </div>
         <div className="industries-layout">
           <div className="industry-photo">
-            <Image
-              alt={industries[active].mediaLabel}
-              className="object-cover"
-              fill
-              placeholder="blur"
-              sizes="(max-width: 767px) 92vw, 55vw"
-              src={industryImages[active]}
-            />
-            <span className="photo-caption">{industries[active].title}</span>
+            {industries.map((industry, index) => (
+              <Image
+                alt={index === active ? industry.mediaLabel : ""}
+                aria-hidden={index !== active}
+                className="industry-photo-layer object-cover"
+                data-active={index === active}
+                fill
+                key={industry.title}
+                placeholder="blur"
+                sizes="(max-width: 767px) 92vw, 55vw"
+                src={industryImages[index]}
+              />
+            ))}
+            <span className="photo-caption">
+              <span
+                key={industries[active].title}
+                className="industry-caption-text"
+              >
+                {industries[active].title}
+              </span>
+            </span>
           </div>
           <div className="industry-options">
             {industries.map((industry, index) => (
