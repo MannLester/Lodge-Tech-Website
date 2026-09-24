@@ -602,6 +602,12 @@
 }
 .marketing-site .process-section {
   border-top: 1px solid var(--editorial-line);
+  --process-active: #4c917d;
+  --process-halo: rgba(76, 145, 125, 0.3);
+}
+:root[data-theme="dark"] .marketing-site .process-section {
+  --process-active: #83d0ad;
+  --process-halo: rgba(131, 208, 173, 0.3);
 }
 .marketing-site .process-timeline {
   display: grid;
@@ -612,16 +618,40 @@
   position: relative;
   padding: 2rem 1.5rem 0 0;
   border-top: 1px solid var(--editorial-line);
+  transition: border-color 320ms ease;
 }
 .marketing-site .process-timeline li::before {
   content: "";
   position: absolute;
-  top: -4px;
+  top: -5px;
   left: 0;
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--editorial-ink);
+  transition:
+    background-color 320ms ease,
+    box-shadow 320ms ease,
+    transform 320ms ease;
+}
+.marketing-site .process-timeline li:has(~ li:is(:hover, :focus-visible)) {
+  border-color: var(--process-active);
+}
+.marketing-site
+  .process-timeline
+  li:is(:hover, :focus-visible, :has(~ li:is(:hover, :focus-visible)))::before {
+  background: var(--process-active);
+  box-shadow: 0 0 0 4px var(--process-halo);
+}
+.marketing-site .process-timeline li:is(:hover, :focus-visible)::before {
+  transform: scale(1.25);
+  box-shadow:
+    0 0 0 5px var(--process-halo),
+    0 0 20px var(--process-active);
+}
+.marketing-site .process-timeline li:focus-visible {
+  outline: 2px solid var(--process-active);
+  outline-offset: 8px;
 }
 .marketing-site .process-number {
   color: var(--editorial-muted);
@@ -637,6 +667,12 @@
   color: var(--editorial-muted);
   font-size: 0.75rem;
   line-height: 1.8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site .process-timeline li,
+  .marketing-site .process-timeline li::before {
+    transition: none;
+  }
 }
 .marketing-site .contact-section {
   background: var(--editorial-paper);
@@ -873,8 +909,8 @@
     padding: 0 0 2rem 2rem;
   }
   .marketing-site .process-timeline li::before {
-    top: 4px;
-    left: -4px;
+    top: 3px;
+    left: -5px;
   }
   .marketing-site .process-timeline h3 {
     margin-top: 0.5rem;

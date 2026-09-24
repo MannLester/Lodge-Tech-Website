@@ -66,6 +66,53 @@ test("property photos crossfade on selection and settle without motion when requ
   );
 });
 
+test("process timeline lights each step leading to the hovered or focused step", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const steps = page.locator(".process-timeline li");
+  const dotColor = (index: number) =>
+    steps
+      .nth(index)
+      .evaluate((step) => getComputedStyle(step, "::before").backgroundColor);
+  const initialDot = await dotColor(2);
+  const lineProperty = (await page.evaluate(
+    () => matchMedia("(max-width: 47.99rem)").matches,
+  ))
+    ? "border-left-color"
+    : "border-top-color";
+  const initialLine = await steps
+    .nth(0)
+    .evaluate(
+      (step, property) => getComputedStyle(step).getPropertyValue(property),
+      lineProperty,
+    );
+
+  await steps.nth(2).hover();
+  const activeDot = "rgb(76, 145, 125)";
+  await expect.poll(() => dotColor(2)).toBe(activeDot);
+  await expect.poll(() => dotColor(0)).toBe(activeDot);
+  await expect.poll(() => dotColor(1)).toBe(activeDot);
+  expect(await dotColor(3)).toBe(initialDot);
+  await expect(steps.nth(0)).not.toHaveCSS(lineProperty, initialLine);
+  await expect(steps.nth(2)).toHaveCSS(lineProperty, initialLine);
+
+  await page.mouse.move(0, 0);
+  await steps.nth(0).focus();
+  await page.keyboard.press("Tab");
+  await expect(steps.nth(1)).toBeFocused();
+  await expect.poll(() => dotColor(0)).toBe(activeDot);
+  await expect.poll(() => dotColor(2)).toBe(initialDot);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const reducedTransition = await steps
+    .nth(1)
+    .evaluate((step) =>
+      Number.parseFloat(getComputedStyle(step, "::before").transitionDuration),
+    );
+  expect(reducedTransition).toBeLessThan(0.001);
+});
+
 test("platform inquiry carries product context into the existing form", async ({
   page,
 }) => {

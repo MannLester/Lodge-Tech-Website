@@ -25,7 +25,7 @@ export function ProcessSection() {
         </div>
         <ol className="process-timeline">
           {turnkeySteps.map((step, index) => (
-            <li key={step.title}>
+            <li key={step.title} tabIndex={0}>
               <span className="process-number">0{index + 1}</span>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
