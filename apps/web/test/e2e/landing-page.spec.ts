@@ -58,25 +58,25 @@ test("defaults to light even on a dark device and preserves a chosen theme", asy
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  const heroImage = page.locator('[data-hero-layer="day"]');
+  const nightHouse = page.locator('[data-hero-layer="night"]');
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(heroImage).toHaveCSS("filter", "brightness(1) saturate(1)");
+  await expect(nightHouse).toHaveCSS("opacity", "0");
   await page
     .getByRole("switch", { name: "Switch to night mode" })
     .filter({ visible: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(heroImage).toHaveCSS("filter", "brightness(0.7) saturate(0.72)");
+  await expect(nightHouse).toHaveCSS("opacity", "1");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(heroImage).toHaveCSS("filter", "brightness(0.7) saturate(0.72)");
+  await expect(nightHouse).toHaveCSS("opacity", "1");
   await page
     .getByRole("switch", { name: "Switch to day mode" })
     .filter({ visible: true })
     .click();
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(heroImage).toHaveCSS("filter", "brightness(1) saturate(1)");
+  await expect(nightHouse).toHaveCSS("opacity", "0");
 });
 
 test("provides navigation appropriate to the viewport", async ({ page }) => {
