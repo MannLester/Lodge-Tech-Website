@@ -1,0 +1,263 @@
+.proposal-page {
+  --editorial-ink: #16354a;
+  --editorial-muted: #59707c;
+  --editorial-paper: #f4f3ee;
+  --editorial-line: #d6deda;
+  color: var(--editorial-ink);
+}
+:root[data-theme="dark"] .proposal-page {
+  --editorial-ink: #edf2f3;
+  --editorial-muted: #acbec8;
+  --editorial-paper: #10232e;
+  --editorial-line: #304551;
+}
+.proposal-page .chapter-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+/* Proposal intake is its own editorial journey, distinct from the short inquiry. */
+.marketing-site .proposal-hero {
+  background: var(--editorial-paper);
+  padding-block: clamp(5rem, 9vw, 9rem);
+}
+.marketing-site .proposal-hero h1 {
+  margin-top: 1rem;
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 1;
+}
+.marketing-site .proposal-hero h1 em,
+.marketing-site .proposal-aside h2 em {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+.marketing-site .proposal-hero p:last-child {
+  max-width: 39rem;
+  margin-top: 2rem;
+  color: var(--editorial-muted);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.7;
+}
+.marketing-site .proposal-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.5fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  padding-block: clamp(4rem, 8vw, 8rem);
+}
+.marketing-site .proposal-aside {
+  align-self: start;
+  position: sticky;
+  top: 7rem;
+}
+.marketing-site .proposal-aside h2 {
+  margin-top: 1.3rem;
+  font-size: clamp(2.3rem, 3.8vw, 4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+.marketing-site .proposal-aside > p:not(.chapter-label) {
+  margin-top: 1.5rem;
+  max-width: 23rem;
+  color: var(--editorial-muted);
+  line-height: 1.8;
+}
+.marketing-site .proposal-aside a {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--editorial-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+}
+.marketing-site .proposal-form {
+  min-width: 0;
+}
+.marketing-site .proposal-form-intro {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .proposal-form-intro > p {
+  max-width: 35rem;
+  margin-top: 0.7rem;
+  color: var(--editorial-muted);
+  line-height: 1.7;
+}
+.marketing-site .proposal-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 2.5rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .proposal-form legend {
+  padding: 0 0 1.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.marketing-site .proposal-fields {
+  display: grid;
+  gap: 1.2rem;
+}
+.marketing-site .proposal-fields.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.marketing-site .proposal-fields.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.marketing-site .proposal-form label {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+.marketing-site .proposal-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.15rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--editorial-line);
+  border-radius: 0;
+  background: var(--editorial-paper);
+  color: var(--editorial-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+.marketing-site .proposal-input:focus {
+  outline: 2px solid #0b95d4;
+  outline-offset: 2px;
+}
+.marketing-site .proposal-input::placeholder {
+  color: var(--editorial-muted);
+  opacity: 0.8;
+}
+.marketing-site .proposal-counts,
+.marketing-site .proposal-choices {
+  margin-top: 1.2rem;
+}
+.marketing-site .proposal-hint {
+  display: block;
+  margin-bottom: 1.1rem;
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+.marketing-site .proposal-repeat {
+  margin-bottom: 1rem;
+  padding: 1.1rem;
+  background: var(--editorial-paper);
+}
+.marketing-site .proposal-text-button {
+  margin: 0.4rem 0 1rem;
+  padding: 0.4rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--editorial-ink);
+  font: inherit;
+  font-size: 0.83rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+  cursor: pointer;
+}
+.marketing-site .proposal-model-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+.marketing-site .proposal-model-row .proposal-text-button {
+  flex: none;
+  margin: 0;
+}
+.marketing-site .proposal-checks {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.marketing-site .proposal-checks label {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.marketing-site .proposal-checks input {
+  accent-color: #0b95d4;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.marketing-site .proposal-full-label {
+  margin-top: 1.5rem;
+}
+.marketing-site .proposal-full-label .proposal-hint {
+  margin: 0;
+}
+.marketing-site .proposal-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 2.5rem;
+}
+.marketing-site .proposal-submit p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+}
+.marketing-site .proposal-submit button {
+  min-height: 3.4rem;
+  padding: 0.8rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: #087cb3;
+  color: white;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.marketing-site .proposal-submit button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.marketing-site .proposal-feedback {
+  min-height: 2rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.marketing-site .proposal-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 900px) {
+  .marketing-site .proposal-content {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .proposal-aside {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .marketing-site .proposal-fields.two,
+  .marketing-site .proposal-fields.three {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .proposal-submit {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .marketing-site .proposal-submit button {
+    width: 100%;
+  }
+}
