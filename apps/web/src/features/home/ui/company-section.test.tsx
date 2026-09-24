@@ -84,15 +84,15 @@ describe("CompanySection", () => {
     const { container } = render(<CompanySection />);
     const gallery = within(container).getByTestId("company-gallery");
 
-    await act(async () => vi.advanceTimersByTime(5500));
+    await act(async () => vi.advanceTimersByTime(3000));
     expect(gallery).toHaveAttribute("data-active-slide", "Tree scene");
 
     fireEvent.mouseEnter(gallery);
-    await act(async () => vi.advanceTimersByTime(11000));
+    await act(async () => vi.advanceTimersByTime(6000));
     expect(gallery).toHaveAttribute("data-active-slide", "Tree scene");
 
     fireEvent.mouseLeave(gallery);
-    await act(async () => vi.advanceTimersByTime(5500));
+    await act(async () => vi.advanceTimersByTime(3000));
     expect(gallery).toHaveAttribute("data-active-slide", "Guest room");
   });
 
@@ -109,7 +109,7 @@ describe("CompanySection", () => {
     const { container } = render(<CompanySection />);
     const gallery = within(container).getByTestId("company-gallery");
 
-    await act(async () => vi.advanceTimersByTime(11000));
+    await act(async () => vi.advanceTimersByTime(6000));
     expect(gallery).toHaveAttribute("data-active-slide", "Building");
   });
 });

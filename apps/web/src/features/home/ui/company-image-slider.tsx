@@ -43,7 +43,7 @@ const slides: readonly Slide[] = [
   },
 ];
 
-const AUTOPLAY_INTERVAL_MS = 5500;
+const AUTOPLAY_INTERVAL_MS = 3000;
 
 export function CompanyImageSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -108,7 +108,7 @@ export function CompanyImageSlider() {
             <Image
               alt={isActive ? slide.alt : ""}
               aria-hidden={isActive ? undefined : true}
-              className={`object-cover transition-[opacity,transform] duration-700 ease-out motion-reduce:transition-none ${isActive ? "scale-100 opacity-100" : "scale-[1.03] opacity-0"}`}
+              className={`object-cover transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none ${isActive ? "scale-100 opacity-100" : "scale-[1.03] opacity-0"}`}
               data-company-slide={slide.label}
               data-active={isActive}
               fill
