@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import heroHouseImage from "@assets/day_house.png";
-import heroHouseNightImage from "@assets/day_night.png";
+import heroTreeImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import { proofStats } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
@@ -13,28 +12,20 @@ export function HeroSection() {
       className="hero relative isolate overflow-hidden border-b"
       id="technology"
     >
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 lg:left-[36%]">
         <Image
           alt=""
-          className="hero-day-image object-cover object-[58%_center]"
+          className="hero-day-image object-cover object-[center_40%]"
           data-hero-layer="day"
           fill
           placeholder="blur"
           preload
           quality={95}
-          sizes="100vw"
-          src={heroHouseImage}
+          sizes="(min-width: 1024px) 64vw, 100vw"
+          src={heroTreeImage}
         />
-        <Image
-          alt=""
-          className="hero-night-image object-cover object-[58%_center]"
-          data-hero-layer="night"
-          fill
-          placeholder="blur"
-          quality={95}
-          sizes="100vw"
-          src={heroHouseNightImage}
-        />
+      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="hero-side-gradient absolute inset-0" />
         <div className="hero-bottom-gradient absolute inset-0" />
         <div className="hero-mobile-gradient absolute inset-0 lg:hidden" />
