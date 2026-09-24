@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import buildingImage from "@assets/lodge-tech-building.png";
 import productGroupImage from "@assets/company/product-group-portrait.png";
@@ -43,9 +43,40 @@ const slides: readonly Slide[] = [
   },
 ];
 
+const AUTOPLAY_INTERVAL_MS = 5500;
+
 export function CompanyImageSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [canAutoplay, setCanAutoplay] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const activeSlide = slides[activeIndex];
+
+  useEffect(() => {
+    const motionQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const updateAutoplay = () => {
+      setCanAutoplay(!motionQuery?.matches && !document.hidden);
+    };
+
+    updateAutoplay();
+    motionQuery?.addEventListener("change", updateAutoplay);
+    document.addEventListener("visibilitychange", updateAutoplay);
+
+    return () => {
+      motionQuery?.removeEventListener("change", updateAutoplay);
+      document.removeEventListener("visibilitychange", updateAutoplay);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canAutoplay || isHovered || isFocused) return;
+
+    const timer = window.setTimeout(() => {
+      setActiveIndex((current) => (current + 1) % slides.length);
+    }, AUTOPLAY_INTERVAL_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, canAutoplay, isHovered, isFocused]);
 
   function goTo(offset: number) {
     setActiveIndex(
@@ -59,6 +90,14 @@ export function CompanyImageSlider() {
       className="mx-auto w-full max-w-md"
       data-active-slide={activeSlide.label}
       data-testid="company-gallery"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsFocused(false);
+        }
+      }}
+      onFocusCapture={() => setIsFocused(true)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       role="group"
     >
       <div className="border-border bg-brand-night relative aspect-[4/5] overflow-hidden rounded-lg border">
@@ -82,7 +121,10 @@ export function CompanyImageSlider() {
             />
           );
         })}
-        <span aria-live="polite" className="sr-only">
+        <span
+          aria-live={isHovered || isFocused ? "polite" : "off"}
+          className="sr-only"
+        >
           {activeSlide.label}
         </span>
         <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between gap-2 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-3 pt-10 pb-3 sm:px-4 sm:pb-4">

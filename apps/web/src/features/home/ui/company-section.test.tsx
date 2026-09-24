@@ -1,9 +1,22 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { CompanySection } from "@/features/home/ui/company-section";
 
 describe("CompanySection", () => {
+  afterEach(() => {
+    cleanup();
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
   it("presents the concise company story and a property inquiry path", () => {
     render(<CompanySection />);
 
@@ -56,5 +69,47 @@ describe("CompanySection", () => {
         name: "Lodging Technologies branded group of thermostat and control devices on green plinths",
       }),
     ).toBeInTheDocument();
+  });
+
+  it("advances automatically and pauses while the gallery is hovered", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({
+        matches: false,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const { container } = render(<CompanySection />);
+    const gallery = within(container).getByTestId("company-gallery");
+
+    await act(async () => vi.advanceTimersByTime(5500));
+    expect(gallery).toHaveAttribute("data-active-slide", "Tree scene");
+
+    fireEvent.mouseEnter(gallery);
+    await act(async () => vi.advanceTimersByTime(11000));
+    expect(gallery).toHaveAttribute("data-active-slide", "Tree scene");
+
+    fireEvent.mouseLeave(gallery);
+    await act(async () => vi.advanceTimersByTime(5500));
+    expect(gallery).toHaveAttribute("data-active-slide", "Guest room");
+  });
+
+  it("keeps the gallery still when reduced motion is requested", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({
+        matches: true,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const { container } = render(<CompanySection />);
+    const gallery = within(container).getByTestId("company-gallery");
+
+    await act(async () => vi.advanceTimersByTime(11000));
+    expect(gallery).toHaveAttribute("data-active-slide", "Building");
   });
 });
