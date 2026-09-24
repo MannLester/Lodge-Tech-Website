@@ -50,9 +50,9 @@ test("shows the benefit, products, and proposal path without overflow", async ({
   await hero
     .getByRole("link", { name: "Request for Proposal / Site Survey" })
     .click();
-  await expect(page).toHaveURL(/#contact$/);
+  await expect(page).toHaveURL(/\/request-for-proposal$/);
   await expect(
-    page.getByRole("form", { name: "Proposal or site survey request" }),
+    page.getByRole("form", { name: "Request for proposal" }),
   ).toBeVisible();
   expect(
     await page.evaluate(
@@ -78,7 +78,7 @@ test("keeps product branding and a contact route in public-page footers", async 
     ).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "Request for Proposal / Site Survey" }),
-    ).toHaveAttribute("href", "/#contact");
+    ).toHaveAttribute("href", "/request-for-proposal");
   }
 });
 
@@ -180,7 +180,7 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   await page.goto("/");
 
   const form = page.getByRole("form", {
-    name: "Proposal or site survey request",
+    name: "General inquiry",
   });
   await form
     .getByRole("button", { name: "Request Proposal / Site Survey" })

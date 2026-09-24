@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { InquiryForm } from "@/features/home/ui/inquiry-form";
 import { SiteFooter } from "@/shared/ui/site-footer";
 
@@ -15,16 +17,16 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
       >
         <div className="section-shell grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1fr)] lg:gap-16">
           <div>
-            <p className="eyebrow">Let&apos;s talk about your property</p>
+            <p className="eyebrow">General inquiry</p>
             <h2
               className="text-foreground mt-4 max-w-lg text-3xl leading-tight font-semibold sm:text-4xl lg:text-5xl"
               id="contact-heading"
             >
-              Request for Proposal / Site Survey
+              Let&apos;s talk about your property
             </h2>
             <p className="text-muted mt-6 max-w-md text-base leading-7">
-              Tell us about your property. We&apos;ll help you explore energy
-              savings and plan the next step.
+              Have a question about your property or our solutions? Send a
+              general inquiry and we&apos;ll help you find the next step.
             </p>
             <ol className="text-foreground mt-8 grid gap-5 text-sm leading-6">
               <li className="flex items-center gap-4">
@@ -34,7 +36,7 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
                 >
                   1
                 </span>
-                Share your property details.
+                Share your question or property details.
               </li>
               <li className="flex items-center gap-4">
                 <span
@@ -52,12 +54,17 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
                 >
                   3
                 </span>
-                Explore a proposal or site survey.
+                Find the right next step together.
               </li>
             </ol>
             <p className="text-muted mt-8 max-w-md text-sm leading-6">
-              Interested in GEM Link® Wireless or GEM Stat™ ET? Mention it in
-              your project notes.
+              Ready with detailed property information?{" "}
+              <Link
+                className="text-brand-strong underline"
+                href="/request-for-proposal"
+              >
+                Request a proposal instead.
+              </Link>
             </p>
           </div>
           <InquiryForm initialMessage={initialInquiryMessage} />

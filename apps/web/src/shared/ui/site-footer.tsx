@@ -75,7 +75,7 @@ export function SiteFooter() {
           </p>
           <Link
             className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
-            href="/#contact"
+            href="/request-for-proposal"
           >
             Request for Proposal / Site Survey
           </Link>

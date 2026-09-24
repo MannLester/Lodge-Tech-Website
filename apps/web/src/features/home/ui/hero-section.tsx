@@ -77,7 +77,11 @@ export function HeroSection() {
             while helping properties maintain occupant comfort.
           </p>
           <div className="mt-8 flex flex-col items-stretch gap-5 sm:items-start">
-            <ButtonLink className="px-6 !text-white" href="#contact" showArrow>
+            <ButtonLink
+              className="px-6 !text-white"
+              href="/request-for-proposal"
+              showArrow
+            >
               Request for Proposal / Site Survey
             </ButtonLink>
             <a

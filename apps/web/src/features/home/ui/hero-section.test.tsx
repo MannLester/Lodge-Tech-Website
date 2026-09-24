@@ -20,7 +20,7 @@ describe("HeroSection", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Request for Proposal / Site Survey" }),
-    ).toHaveAttribute("href", "#contact");
+    ).toHaveAttribute("href", "/request-for-proposal");
     expect(
       screen.getByLabelText("Experience and performance"),
     ).toBeInTheDocument();
