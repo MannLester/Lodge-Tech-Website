@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import gemStatImage from "@assets/gem-stat-et/living-room.jpeg";
+import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
 import auxiliaryImage from "@assets/auxiliary.png";
 
@@ -29,7 +29,7 @@ export function ProductSection() {
         <article className="flagship-product">
           <div className="flagship-photo">
             <Image
-              alt="GEM Stat ET thermostat installed beside a sunlit living room"
+              alt="GEM Stat ET thermostat pictured in a sunlit tree setting"
               className="object-cover object-left"
               fill
               placeholder="blur"
