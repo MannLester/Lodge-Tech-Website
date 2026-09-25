@@ -132,8 +132,17 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
   const stage = visual.locator(".wireless-platform-stage");
 
   await expect(visual.getByRole("img")).toHaveCount(1);
+  await expect(visual.locator(".wireless-platform-identity span")).toHaveText(
+    "GEM Link",
+  );
+  await expect(visual.locator(".wireless-platform-identity small")).toHaveText(
+    "Wireless",
+  );
   await expect(visual).toContainText(
     "One connected view, from room to property.",
+  );
+  expect((await stage.boundingBox())!.width).toBeLessThan(
+    (await visual.boundingBox())!.width,
   );
   await expect(visual.locator(".connection-loads span")).toHaveText([
     "HVAC",
