@@ -123,6 +123,26 @@ test("platform inquiry carries product context into the existing form", async ({
   );
 });
 
+test("GEM Link connects the room-control diagram to the platform view", async ({
+  page,
+}) => {
+  await page.goto("/#solutions");
+  const gemLink = page.locator(".wireless-feature");
+  const visualStory = gemLink.locator(".wireless-visual-story");
+
+  await expect(visualStory.getByRole("img")).toHaveCount(2);
+  await expect(visualStory).toContainText("One connected view.");
+  await expect(visualStory).toContainText(
+    "From room controls to property-wide visibility.",
+  );
+  await expect(gemLink).not.toContainText("From room to portfolio");
+  expect(
+    await gemLink.evaluate(
+      (section) => section.scrollWidth > section.clientWidth,
+    ),
+  ).toBe(false);
+});
+
 test("editorial layouts fit both themes and reduced motion", async ({
   page,
 }) => {
