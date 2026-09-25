@@ -251,9 +251,30 @@
 }
 .marketing-site .wireless-platform-connection {
   min-width: 0;
+  width: min(100%, 34rem);
+  margin-inline: auto;
+}
+.marketing-site .wireless-platform-identity {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.marketing-site .wireless-platform-identity span {
+  display: block;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.marketing-site .wireless-platform-identity small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 .marketing-site .wireless-platform-stage {
   position: relative;
+  width: min(88%, 30rem);
+  margin-inline: auto;
   padding: clamp(1rem, 2.5vw, 2rem);
 }
 .marketing-site .wireless-platform-stage::before,
@@ -301,9 +322,6 @@
   margin-top: 1.5rem;
   font-size: 0.85rem;
   line-height: 1.5;
-}
-.marketing-site .wireless-platform-connection figcaption strong {
-  font-weight: 700;
 }
 .marketing-site .wireless-platform-connection figcaption .small-note {
   width: 100%;

@@ -89,6 +89,10 @@ export function ProductSection() {
             </Link>
           </div>
           <figure className="wireless-platform-connection">
+            <div className="wireless-platform-identity">
+              <span>GEM Link</span>
+              <small>Wireless</small>
+            </div>
             <div className="wireless-platform-stage">
               <div className="wireless-platform-image">
                 <Image
@@ -106,7 +110,6 @@ export function ProductSection() {
               <span>Appliances</span>
             </div>
             <figcaption>
-              <strong>GEM Link Wireless</strong>
               <span>One connected view, from room to property.</span>
               <span className="small-note">Illustrative platform view.</span>
             </figcaption>
