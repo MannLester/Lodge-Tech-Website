@@ -75,7 +75,7 @@ export function HeroSection() {
           </p>
           <div className="mt-8 flex flex-col items-stretch gap-5 sm:items-start">
             <ButtonLink
-              className="px-6 !text-white"
+              className="!border-0 px-6 !text-white !shadow-none"
               href="/request-for-proposal"
               showArrow
             >

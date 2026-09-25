@@ -82,7 +82,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <ButtonLink
-            className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] !text-white"
+            className="!min-h-10 !border-0 !px-5 !py-2 !text-[0.8125rem] !text-white !shadow-none"
             href={proposalHref}
           >
             Request a Proposal
@@ -159,7 +159,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                 </a>
               ),
             )}
-            <ButtonLink className="mt-4 w-full !text-white" href={proposalHref}>
+            <ButtonLink
+              className="mt-4 w-full !border-0 !text-white !shadow-none"
+              href={proposalHref}
+            >
               Request a Proposal / Site Survey
             </ButtonLink>
           </div>
