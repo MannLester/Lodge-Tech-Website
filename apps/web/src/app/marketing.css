@@ -1509,8 +1509,14 @@
     top: 1rem;
     right: 1rem;
     margin-top: 0;
+    padding: 3px;
     background: var(--editorial-paper);
     box-shadow: 0 6px 24px rgb(4 15 23 / 0.2);
+  }
+  .marketing-site .occupancy-switch button {
+    min-height: 2.5rem;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.7rem;
   }
   .marketing-site .occupancy-explainer {
     padding: 0 1.5rem 2rem;
