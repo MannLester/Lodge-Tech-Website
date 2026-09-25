@@ -138,6 +138,14 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
   await expect(visual.locator(".wireless-platform-identity small")).toHaveText(
     "Wireless",
   );
+  const gemLinkTitle = (await visual
+    .locator(".wireless-platform-identity span")
+    .boundingBox())!;
+  const wirelessTitle = (await visual
+    .locator(".wireless-platform-identity small")
+    .boundingBox())!;
+  expect(wirelessTitle.x).toBeGreaterThan(gemLinkTitle.x + gemLinkTitle.width);
+  expect(wirelessTitle.y).toBeLessThan(gemLinkTitle.y + gemLinkTitle.height);
   await expect(visual).toContainText(
     "One connected view, from room to property.",
   );
