@@ -142,9 +142,17 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
     "One connected view, from room to property.",
   );
   const stageWidth = (await stage.boundingBox())!.width;
+  const imageWidth = (await visual
+    .locator(".wireless-platform-image")
+    .boundingBox())!.width;
   expect(stageWidth).toBeLessThanOrEqual((await visual.boundingBox())!.width);
-  expect(stageWidth).toBeGreaterThan(240);
-  expect(stageWidth).toBeLessThanOrEqual(480);
+  if (page.viewportSize()!.width >= 1024) {
+    expect(imageWidth).toBeGreaterThanOrEqual(320);
+    expect(imageWidth).toBeLessThanOrEqual(340);
+  } else {
+    expect(imageWidth).toBeGreaterThanOrEqual(150);
+    expect(imageWidth).toBeLessThanOrEqual(170);
+  }
   await expect(visual.locator(".connection-loads span")).toHaveText([
     "HVAC",
     "Lighting",
