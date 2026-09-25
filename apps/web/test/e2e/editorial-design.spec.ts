@@ -142,8 +142,9 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
     "One connected view, from room to property.",
   );
   const stageWidth = (await stage.boundingBox())!.width;
-  expect(stageWidth).toBeLessThan((await visual.boundingBox())!.width);
-  expect(stageWidth).toBeLessThanOrEqual(240);
+  expect(stageWidth).toBeLessThanOrEqual((await visual.boundingBox())!.width);
+  expect(stageWidth).toBeGreaterThan(240);
+  expect(stageWidth).toBeLessThanOrEqual(480);
   await expect(visual.locator(".connection-loads span")).toHaveText([
     "HVAC",
     "Lighting",
