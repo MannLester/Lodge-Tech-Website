@@ -255,8 +255,13 @@
   margin-inline: auto;
 }
 .marketing-site .wireless-platform-identity {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.45rem;
   margin-bottom: 1.5rem;
   text-align: center;
+  white-space: nowrap;
 }
 .marketing-site .wireless-platform-identity span {
   display: block;
@@ -266,7 +271,6 @@
 }
 .marketing-site .wireless-platform-identity small {
   display: block;
-  margin-top: 0.25rem;
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
