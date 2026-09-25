@@ -1,5 +1,26 @@
 import { expect, test } from "@playwright/test";
 
+test("shows the supplied product photo behind readable proposal copy", async ({
+  page,
+}) => {
+  await page.goto("/request-for-proposal");
+  const hero = page.locator(".proposal-hero");
+  const photo = hero.locator("img");
+  await expect(photo).toBeVisible();
+  await expect
+    .poll(() => photo.evaluate((image: HTMLImageElement) => image.naturalWidth))
+    .toBeGreaterThan(0);
+  await expect(hero.getByRole("heading", { level: 1 })).toHaveCSS(
+    "color",
+    "rgb(247, 251, 252)",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+  ).toBe(false);
+});
+
 test("proposal CTAs lead to the new page while general inquiry remains below", async ({
   page,
 }) => {

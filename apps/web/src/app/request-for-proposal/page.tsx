@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
+import proposalHeroImage from "@assets/proposal-hero.jpeg";
 import { ProposalForm } from "@/features/proposals";
 import { SiteHeader } from "@/shared/ui/site-header";
 import { SiteFooter } from "@/shared/ui/site-footer";
@@ -19,6 +21,16 @@ export default function RequestForProposalPage() {
       <SiteHeader fromHome={false} />
       <main>
         <section className="proposal-hero">
+          <div className="proposal-hero-photo" aria-hidden="true">
+            <Image
+              alt=""
+              fill
+              placeholder="blur"
+              preload
+              sizes="(max-width: 700px) 100vw, 45vw"
+              src={proposalHeroImage}
+            />
+          </div>
           <div className="section-shell">
             <p className="chapter-label">Start with your property</p>
             <h1>
