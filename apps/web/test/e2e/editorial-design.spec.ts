@@ -123,19 +123,34 @@ test("platform inquiry carries product context into the existing form", async ({
   );
 });
 
-test("GEM Link connects the room-control diagram to the platform view", async ({
+test("GEM Link puts the platform at the center of its pulsing connections", async ({
   page,
 }) => {
   await page.goto("/#solutions");
   const gemLink = page.locator(".wireless-feature");
-  const visualStory = gemLink.locator(".wireless-visual-story");
+  const visual = gemLink.locator(".wireless-platform-connection");
+  const stage = visual.locator(".wireless-platform-stage");
 
-  await expect(visualStory.getByRole("img")).toHaveCount(2);
-  await expect(visualStory).toContainText("One connected view.");
-  await expect(visualStory).toContainText(
-    "From room controls to property-wide visibility.",
+  await expect(visual.getByRole("img")).toHaveCount(1);
+  await expect(visual).toContainText(
+    "One connected view, from room to property.",
   );
-  await expect(gemLink).not.toContainText("From room to portfolio");
+  await expect(visual.locator(".connection-loads span")).toHaveText([
+    "HVAC",
+    "Lighting",
+    "Appliances",
+  ]);
+  expect(
+    await stage.evaluate(
+      (element) => getComputedStyle(element, "::before").animationName,
+    ),
+  ).toBe("connection-ring-pulse");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(
+    await stage.evaluate(
+      (element) => getComputedStyle(element, "::before").animationName,
+    ),
+  ).toBe("none");
   expect(
     await gemLink.evaluate(
       (section) => section.scrollWidth > section.clientWidth,
