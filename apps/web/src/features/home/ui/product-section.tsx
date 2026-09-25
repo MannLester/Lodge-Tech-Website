@@ -88,27 +88,9 @@ export function ProductSection() {
               Explore GEM Link Wireless <span aria-hidden>↗</span>
             </Link>
           </div>
-          <div className="wireless-visual-story">
-            <div
-              aria-label="Illustration of GEM Link Wireless connecting HVAC, lighting and appliances"
-              className="connection-diagram"
-              role="img"
-            >
-              <div className="connection-core">
-                <span className="connection-orbit" aria-hidden />
-                <span>
-                  GEM Link<small>Wireless</small>
-                </span>
-              </div>
-              <div className="connection-loads">
-                <span>HVAC</span>
-                <span>Lighting</span>
-                <span>Appliances</span>
-              </div>
-              <p className="small-note">Connected ecosystem illustration</p>
-            </div>
-            <figure className="wireless-platform-preview">
-              <div className="wireless-platform-preview-image">
+          <figure className="wireless-platform-connection">
+            <div className="wireless-platform-stage">
+              <div className="wireless-platform-image">
                 <Image
                   alt="GEM Link Wireless platform illustrated on laptop and phone screens"
                   className="object-contain"
@@ -117,13 +99,18 @@ export function ProductSection() {
                   src={platformImage}
                 />
               </div>
-              <figcaption>
-                <strong>One connected view.</strong>
-                <span>From room controls to property-wide visibility.</span>
-                <span className="small-note">Illustrative platform view.</span>
-              </figcaption>
-            </figure>
-          </div>
+            </div>
+            <div className="connection-loads">
+              <span>HVAC</span>
+              <span>Lighting</span>
+              <span>Appliances</span>
+            </div>
+            <figcaption>
+              <strong>GEM Link Wireless</strong>
+              <span>One connected view, from room to property.</span>
+              <span className="small-note">Illustrative platform view.</span>
+            </figcaption>
+          </figure>
         </article>
         <div className="supporting-products">
           {[
