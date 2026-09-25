@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { CompanyImageSlider } from "@/features/home/ui/company-image-slider";
 
 export function CompanySection() {
@@ -28,9 +30,9 @@ export function CompanySection() {
             From the first operating review to installation and ongoing support,
             we help connect the technology to the needs of your building.
           </p>
-          <a className="editorial-link" href="#contact">
-            Let’s talk about your property <span aria-hidden>↗</span>
-          </a>
+          <Link className="editorial-link" href="/company">
+            Know more about the company <span aria-hidden>↗</span>
+          </Link>
         </div>
       </div>
     </section>

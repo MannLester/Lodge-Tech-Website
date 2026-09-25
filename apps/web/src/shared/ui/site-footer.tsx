@@ -28,7 +28,7 @@ const footerLinkGroups = [
   {
     label: "Company",
     links: [
-      { href: "/#company", label: "About Us" },
+      { href: "/company", label: "About Us" },
       { href: "/#results", label: "Savings Review" },
       { href: "/#contact", label: "Partner Network" },
       { href: "/#contact", label: "Contact & Support" },
@@ -93,12 +93,12 @@ export function SiteFooter() {
               <ul className="mt-4 space-y-3">
                 {group.links.map((link) => (
                   <li key={`${group.label}-${link.label}`}>
-                    <a
+                    <Link
                       className="text-muted hover:text-brand-strong text-sm transition-colors"
                       href={link.href}
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import {
@@ -58,6 +59,14 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                   ))}
                 </div>
               </details>
+            ) : item.hash === "company" ? (
+              <Link
+                className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
+                href="/company"
+                key={item.hash}
+              >
+                {item.label}
+              </Link>
             ) : (
               <a
                 className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
@@ -130,6 +139,15 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                     ))}
                   </div>
                 </div>
+              ) : item.hash === "company" ? (
+                <Link
+                  className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
+                  href="/company"
+                  key={item.hash}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <a
                   className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"

@@ -17,7 +17,7 @@ describe("CompanySection", () => {
     vi.unstubAllGlobals();
   });
 
-  it("presents the concise company story and a property inquiry path", () => {
+  it("presents the concise company story and a route to the full profile", () => {
     render(<CompanySection />);
 
     expect(
@@ -26,8 +26,8 @@ describe("CompanySection", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /Let’s talk about your property/ }),
-    ).toHaveAttribute("href", "#contact");
+      screen.getByRole("link", { name: /Know more about the company/ }),
+    ).toHaveAttribute("href", "/company");
     expect(
       screen.getByAltText(
         "Lodging Technologies branded modern building exterior",

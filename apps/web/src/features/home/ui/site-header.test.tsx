@@ -22,7 +22,7 @@ describe("SiteHeader", () => {
     ).toHaveAttribute("href", "/request-for-proposal");
     expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
-      "#company",
+      "/company",
     );
 
     fireEvent.click(screen.getByText("Solutions"));
