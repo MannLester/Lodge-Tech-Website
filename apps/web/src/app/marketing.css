@@ -1348,6 +1348,26 @@
   .marketing-site .section-shell {
     width: calc(100% - 2.5rem);
   }
+  .marketing-site .editorial-section {
+    padding-block: 3rem;
+  }
+  .marketing-site .display-heading {
+    margin-top: 0.75rem;
+    font-size: clamp(2rem, 7vw, 2.5rem);
+  }
+  .marketing-site .editorial-copy {
+    margin-top: 1rem;
+    line-height: 1.65;
+  }
+  .marketing-site .editorial-link {
+    margin-top: 1rem;
+  }
+  .marketing-site .editorial-intro {
+    margin-bottom: 2rem;
+  }
+  .marketing-site .small-note {
+    margin-top: 1rem;
+  }
   .marketing-site .section-masthead,
   .marketing-site .occupancy-layout,
   .marketing-site .flagship-product,
@@ -1362,7 +1382,7 @@
     gap: 2rem;
   }
   .marketing-site .section-masthead {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
   .marketing-site .hero-heading {
     max-width: 22rem;
@@ -1387,16 +1407,17 @@
     margin-top: 0;
   }
   .marketing-site .occupancy-photo {
-    min-height: 26rem;
+    min-height: 20rem;
   }
   .marketing-site .occupancy-explainer {
     padding: 0 1.5rem 2rem;
   }
   .marketing-site .occupancy-response {
-    min-height: 13rem;
+    min-height: 0;
+    margin-top: 1.5rem;
   }
   .marketing-site .flagship-photo {
-    min-height: 29rem;
+    min-height: 21rem;
   }
   .marketing-site .flagship-copy {
     padding-block: 0.75rem;
@@ -1430,7 +1451,7 @@
     border-top: 1px solid #4a6573;
   }
   .marketing-site .industry-photo {
-    min-height: 24rem;
+    min-height: 19rem;
   }
   .marketing-site .industry-option button {
     font-size: 1rem;
@@ -1462,7 +1483,7 @@
     padding: 1.5rem 1rem;
   }
   .marketing-site .product-detail-visual {
-    min-height: 28rem;
+    min-height: 20rem;
   }
   .marketing-site .product-feature-list {
     grid-template-columns: 1fr;
