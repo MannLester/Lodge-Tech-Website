@@ -1500,6 +1500,18 @@
   .marketing-site .occupancy-photo {
     min-height: 20rem;
   }
+  .marketing-site .occupancy-layout {
+    position: relative;
+  }
+  .marketing-site .occupancy-switch {
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    right: 1rem;
+    margin-top: 0;
+    background: var(--editorial-paper);
+    box-shadow: 0 6px 24px rgb(4 15 23 / 0.2);
+  }
   .marketing-site .occupancy-explainer {
     padding: 0 1.5rem 2rem;
   }
