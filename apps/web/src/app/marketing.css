@@ -237,10 +237,10 @@
 }
 .marketing-site .wireless-feature {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
   align-items: center;
-  gap: clamp(3rem, 6vw, 6rem);
-  padding-block: 6rem 4rem;
+  gap: clamp(3rem, 5vw, 5rem);
+  padding-block: 4.5rem 3rem;
 }
 .marketing-site .wireless-feature h3 {
   margin-top: 1.5rem;
@@ -251,7 +251,7 @@
 }
 .marketing-site .wireless-platform-connection {
   min-width: 0;
-  width: min(100%, 34rem);
+  width: min(100%, 20rem);
   margin-inline: auto;
 }
 .marketing-site .wireless-platform-identity {
@@ -273,7 +273,7 @@
 }
 .marketing-site .wireless-platform-stage {
   position: relative;
-  width: min(88%, 30rem);
+  width: min(100%, 15rem);
   margin-inline: auto;
   padding: clamp(1rem, 2.5vw, 2rem);
 }
