@@ -1,3 +1,11 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
+
 export type Database = {
   public: {
     Tables: {
@@ -127,6 +135,42 @@ export type Database = {
           status?: Database["public"]["Enums"]["crm_user_status"];
           updated_at?: string;
           updated_by?: string | null;
+        };
+        Relationships: [];
+      };
+      proposal_requests: {
+        Row: {
+          id: string;
+          created_at: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          phone: string;
+          property_name: string;
+          details: Json;
+          attachments: Json;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          phone: string;
+          property_name: string;
+          details: Json;
+          attachments?: Json;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          first_name?: string;
+          last_name?: string;
+          email?: string;
+          phone?: string;
+          property_name?: string;
+          details?: Json;
+          attachments?: Json;
         };
         Relationships: [];
       };
