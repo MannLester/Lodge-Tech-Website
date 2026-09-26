@@ -35,7 +35,9 @@ for (const product of products) {
       page.getByRole("heading", { name: "Details for technical evaluation." }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: /A case study built on evidence/ }),
+      page.getByRole("heading", {
+        name: new RegExp("Let’s see where " + product.label),
+      }),
     ).toBeVisible();
 
     const hasDocumentOverflow = await page.evaluate(
@@ -51,22 +53,20 @@ test("homepage cards and product navigation connect the four routes", async ({
   page,
 }) => {
   await page.goto("/");
-  const gemStatCard = page
+  await page
     .getByRole("link", { name: "Learn more about GEM Stat ET" })
-    .first();
-  await expect(gemStatCard).toHaveAttribute("href", "/solutions/gem-stat-et");
-  await gemStatCard.evaluate((link: HTMLAnchorElement) => link.click());
+    .click();
   await expect(page).toHaveURL(/\/solutions\/gem-stat-et$/);
 
-  const productNavigation = page.getByRole("navigation", {
-    name: "Product navigation",
-  });
-  await productNavigation
+  await page
+    .getByRole("navigation", { name: "Product navigation" })
     .getByRole("link", { name: "Lighting Controls" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
   await expect(
-    productNavigation.getByRole("link", { name: "Lighting Controls" }),
+    page
+      .getByRole("navigation", { name: "Product navigation" })
+      .getByRole("link", { name: "Lighting Controls" }),
   ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
@@ -92,6 +92,18 @@ test("mobile product layouts place visuals before their descriptions", async ({
     const visualBox = await showcaseVisuals.nth(index).boundingBox();
     expect(visualBox?.y).toBeLessThan(copyBox?.y ?? 0);
   }
+});
+
+test("GEM Stat ET leads with the thermostat hero photo", async ({ page }) => {
+  await page.goto("/solutions/gem-stat-et");
+
+  await expect(
+    page
+      .getByRole("img", {
+        name: "GEM Stat ET thermostat with room temperature display",
+      })
+      .first(),
+  ).toBeVisible();
 });
 
 test("primary Solutions navigation exposes every product route", async ({
@@ -120,18 +132,8 @@ test("primary Solutions navigation exposes every product route", async ({
   await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
 });
 
-test("hotspots and ecosystem controls expose their selected details", async ({
-  page,
-}) => {
+test("ecosystem controls expose their selected details", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
-
-  await page.getByRole("button", { name: "Show Sensing area" }).focus();
-  await page.getByRole("button", { name: "Show Sensing area" }).press("Enter");
-  await expect(
-    page.getByText(
-      "Sensor capabilities are pending manufacturer verification.",
-    ),
-  ).toBeVisible();
 
   await page.getByRole("button", { name: "Lighting Controls" }).click();
   await expect(
@@ -165,7 +167,7 @@ test("specifications and theme controls remain accessible", async ({
 
   await page
     .getByRole("switch", { name: "Switch to night mode" })
-    .first()
+    .filter({ visible: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(

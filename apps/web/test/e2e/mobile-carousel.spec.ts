@@ -1,28 +1,31 @@
 import { expect, test } from "@playwright/test";
 
-test("mobile homepage carousels advance automatically", async ({ page }) => {
+test("mobile product stories remain readable without a carousel", async ({
+  page,
+}) => {
   const viewport = page.viewportSize();
   test.skip(!viewport || viewport.width >= 768, "Mobile behavior only");
 
   await page.goto("/");
 
-  const carousel = page.getByRole("region", { name: "Products" });
-  await carousel.scrollIntoViewIfNeeded();
-  const track = carousel.locator(".snap-row");
-  await expect
-    .poll(() =>
-      track.evaluate((element) => element.scrollWidth > element.clientWidth),
-    )
-    .toBe(true);
-  const initialScrollLeft = await track.evaluate(
-    (element) => element.scrollLeft,
-  );
-
-  await expect
-    .poll(() => track.evaluate((element) => element.scrollLeft), {
-      timeout: 5000,
-    })
-    .toBeGreaterThan(initialScrollLeft);
+  const products = page.locator("#solutions");
+  for (const label of [
+    "GEM Stat ET",
+    "GEM Link Wireless",
+    "Lighting Controls",
+    "Appliance Controls",
+  ]) {
+    const link = products.getByRole("link", {
+      name: "Learn more about " + label,
+    });
+    await link.scrollIntoViewIfNeeded();
+    await expect(link).toBeVisible();
+  }
+  expect(
+    await products.evaluate(
+      (element) => element.scrollWidth > element.clientWidth,
+    ),
+  ).toBe(false);
 });
 
 test("the Platform Demo text link has no button border", async ({ page }) => {
