@@ -10,19 +10,19 @@ describe("SiteHeader", () => {
     window.localStorage.clear();
   });
 
-  it("renders the V2 navigation, co-branding, and accessible theme switch", () => {
+  it("renders product navigation and an accessible theme switch", () => {
     document.documentElement.dataset.theme = "light";
     render(<SiteHeader />);
 
     expect(
-      screen.getByText("GEM Link Wireless / GEM Stat ET"),
+      screen.getByRole("link", { name: "Lodging Technologies home" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Get a Savings Analysis" }),
-    ).toHaveAttribute("href", "#contact");
+      screen.getByRole("link", { name: "Request a Proposal" }),
+    ).toHaveAttribute("href", "/request-for-proposal");
     expect(screen.getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
-      "#company",
+      "/company",
     );
 
     fireEvent.click(screen.getByText("Solutions"));

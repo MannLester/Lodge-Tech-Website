@@ -4,8 +4,8 @@ import { describe, expect, it } from "vitest";
 import { HeroSection } from "@/features/home/ui/hero-section";
 
 describe("HeroSection", () => {
-  it("communicates the approved primary outcome, proof points, and ticker", () => {
-    render(<HeroSection />);
+  it("communicates the approved primary outcome, proof points, and proposal action", () => {
+    const { container } = render(<HeroSection />);
 
     expect(
       screen.getByRole("heading", {
@@ -19,8 +19,16 @@ describe("HeroSection", () => {
       screen.getByText("Reduction in HVAC Operating Time"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Get a Savings Analysis" }),
-    ).toHaveAttribute("href", "#contact");
-    expect(screen.getByLabelText("Proof ticker")).toBeInTheDocument();
+      screen.getByRole("link", { name: "Request a Proposal / Site Survey" }),
+    ).toHaveAttribute("href", "/request-for-proposal");
+    expect(
+      screen.getByLabelText("Experience and performance"),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector('[data-hero-layer="day"]'),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector('[data-hero-layer="night"]'),
+    ).toBeInTheDocument();
   });
 });

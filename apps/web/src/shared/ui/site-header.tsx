@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import {
@@ -18,19 +19,16 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const contactHref = homeAnchor("contact", fromHome);
+  const proposalHref = "/request-for-proposal";
 
   return (
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
       <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <div className="flex min-w-0 items-center gap-3">
           <BrandMark href={fromHome ? "#top" : "/#top"} preload />
-          <span className="border-border text-muted hidden border-l pl-3 text-xs leading-4 xl:block">
-            GEM Link Wireless / GEM Stat ET
-          </span>
         </div>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">
           {primaryNavigationItems.map((item) =>
             item.hash === "solutions" ? (
               <details className="group relative" key={item.hash}>
@@ -61,6 +59,14 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                   ))}
                 </div>
               </details>
+            ) : item.hash === "company" ? (
+              <Link
+                className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
+                href="/company"
+                key={item.hash}
+              >
+                {item.label}
+              </Link>
             ) : (
               <a
                 className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
@@ -76,10 +82,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <ButtonLink
-            className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] !text-white"
-            href={contactHref}
+            className="!min-h-10 !border-0 !px-5 !py-2 !text-[0.8125rem] !text-white !shadow-none"
+            href={proposalHref}
           >
-            Get a Savings Analysis
+            Request a Proposal
           </ButtonLink>
         </div>
 
@@ -133,6 +139,15 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                     ))}
                   </div>
                 </div>
+              ) : item.hash === "company" ? (
+                <Link
+                  className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
+                  href="/company"
+                  key={item.hash}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <a
                   className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
@@ -144,8 +159,11 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                 </a>
               ),
             )}
-            <ButtonLink className="mt-4 w-full !text-white" href={contactHref}>
-              Get a Savings Analysis
+            <ButtonLink
+              className="mt-4 w-full !border-0 !text-white !shadow-none"
+              href={proposalHref}
+            >
+              Request a Proposal / Site Survey
             </ButtonLink>
           </div>
         </nav>
