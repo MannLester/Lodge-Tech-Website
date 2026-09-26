@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./marketing.css";
 @source "../../../packages/ui/src";
 
 @theme inline {
@@ -35,7 +36,7 @@
   --muted: #526273;
   --border: #dbe4ec;
   --brand: var(--brand-primary-blue);
-  --brand-fill: var(--brand-primary-blue);
+  --brand-fill: #087cb3;
   --brand-strong: var(--brand-deep-blue);
   --brand-soft: #e6f6fc;
   --shadow-color: rgb(11 19 36 / 0.12);
@@ -54,7 +55,7 @@
   --muted: #a9b8c7;
   --border: #2b4054;
   --brand: #62cff5;
-  --brand-fill: var(--brand-primary-blue);
+  --brand-fill: #087cb3;
   --brand-strong: #9de4fb;
   --brand-soft: #113a50;
   --shadow-color: rgb(0 0 0 / 0.36);
@@ -81,17 +82,23 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-button,
-a,
-input,
-textarea,
-select {
-  font: inherit;
-}
+@layer base {
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    color: inherit;
+  }
 }
 
 .text-brand {
@@ -100,10 +107,6 @@ a {
 
 .text-brand-strong {
   color: var(--brand-strong);
-}
-
-button {
-  color: inherit;
 }
 
 ::selection {
@@ -237,6 +240,8 @@ button {
 .hero-heading-accent,
 .hero-copy,
 .hero-eyebrow,
+.hero-product-links,
+.hero-secondary-link,
 .hero-eyebrow-line,
 .hero-proof-panel,
 .hero-stat-icon,
@@ -297,6 +302,8 @@ button {
 
 .hero-heading-accent,
 .hero-eyebrow,
+.hero-product-links,
+.hero-secondary-link,
 .hero-stat-icon {
   color: var(--brand-primary-blue);
   transition-property: color, background-color, box-shadow;
@@ -398,6 +405,8 @@ button {
 
 :root[data-theme="dark"] .hero-heading-accent,
 :root[data-theme="dark"] .hero-eyebrow,
+:root[data-theme="dark"] .hero-product-links,
+:root[data-theme="dark"] .hero-secondary-link,
 :root[data-theme="dark"] .hero-stat-icon {
   color: #6ed0f4;
 }
