@@ -50,17 +50,19 @@ export function CompanyPage() {
               <h2 id="story-heading">Where the work began.</h2>
             </div>
             <div className="company-page-founder">
-              <Image
-                alt="William C. Fizer, founder of Lodging Technologies"
-                className="company-page-founder-portrait"
-                placeholder="blur"
-                sizes="(max-width: 600px) 256px, 320px"
-                src={founderPortrait}
-              />
-              <div className="company-page-founder-copy">
-                <p className="chapter-label">Our founder</p>
-                <h3>William C. Fizer</h3>
-                <p>{companyProfile.origin}</p>
+              <div className="company-page-founder-layout">
+                <Image
+                  alt="William C. Fizer, founder of Lodging Technologies"
+                  className="company-page-founder-portrait"
+                  placeholder="blur"
+                  sizes="(max-width: 600px) 256px, 320px"
+                  src={founderPortrait}
+                />
+                <div className="company-page-founder-copy">
+                  <p className="chapter-label">Our founder</p>
+                  <h3>William C. Fizer</h3>
+                  <p>{companyProfile.origin}</p>
+                </div>
               </div>
             </div>
             <div className="company-page-approach">
