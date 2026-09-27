@@ -497,6 +497,56 @@
   font-size: 0.8rem;
   line-height: 1.8;
 }
+.marketing-site .video-brief-frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.marketing-site .platform-video-brief {
+  margin-top: 1.5rem;
+  border: 1px solid #4a6573;
+}
+.marketing-site .platform-video-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: radial-gradient(circle at 50% 50%, #2c6875, #0b2638 68%);
+}
+.marketing-site .platform-video-frame span:not(.platform-video-arrow) {
+  border: 1px solid #85b2ba;
+  padding: 0.65rem 0.8rem;
+  color: #f5f7f6;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.marketing-site .platform-video-frame .platform-video-arrow {
+  color: #a9c8cc;
+  font-size: 1.5rem;
+}
+.marketing-site .platform-video-brief figcaption {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.25rem;
+  border-top: 1px solid #4a6573;
+}
+.marketing-site .platform-video-brief figcaption > span {
+  color: #a9c8cc;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .platform-video-brief figcaption strong {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.marketing-site .platform-video-brief figcaption p {
+  color: #b7cbd2;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
 
 .marketing-site .industries-layout {
   display: grid;
