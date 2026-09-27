@@ -21,8 +21,7 @@ export function CompanyPage() {
                 Who <em>we are.</em>
               </h1>
               <p className="company-page-declaration">
-                Experience, technology, efficiency, and a forward-looking
-                vision.
+                Built around how people actually use a room.
               </p>
               <p className="company-page-introduction">
                 {companyProfile.introduction}
