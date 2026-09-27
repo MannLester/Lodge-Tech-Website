@@ -53,6 +53,32 @@ test("keeps product branding and a contact route in public-page footers", async 
   }
 });
 
+test("shows direct contact and company social links beside the inquiry form", async ({
+  page,
+}) => {
+  await page.goto("/#contact");
+  const contact = page.locator("#contact");
+  await expect(
+    contact.getByRole("form", { name: "General inquiry" }),
+  ).toBeVisible();
+  await expect(
+    contact.getByRole("link", { name: "(800) 524-2680" }),
+  ).toHaveAttribute("href", "tel:+18005242680");
+  await expect(contact.getByRole("link", { name: "Facebook" })).toHaveAttribute(
+    "href",
+    "https://www.facebook.com/profile.php?id=100066727996704",
+  );
+  await expect(contact.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+  ).toBe(false);
+});
+
 test("defaults to light even on a dark device and preserves a chosen theme", async ({
   page,
 }) => {

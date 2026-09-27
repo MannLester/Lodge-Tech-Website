@@ -1005,6 +1005,28 @@
 .marketing-site .contact-direct > a:focus-visible {
   text-decoration-color: currentColor;
 }
+.marketing-site .contact-social {
+  margin-top: 1.75rem;
+}
+.marketing-site .contact-social ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.65rem;
+}
+.marketing-site .contact-social a {
+  display: inline-flex;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+}
+.marketing-site .contact-social a:hover,
+.marketing-site .contact-social a:focus-visible {
+  text-decoration-color: currentColor;
+}
 .marketing-site .contact-next {
   max-width: 27rem;
   margin-top: 2.5rem;
