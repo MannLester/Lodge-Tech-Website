@@ -701,8 +701,9 @@
 .marketing-site .company-page-founder-copy h3 {
   margin-top: 0.5rem;
   font-size: clamp(1.65rem, 2.5vw, 2.25rem);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -0.04em;
+  line-height: 1.15;
 }
 .marketing-site .company-page-founder-copy > p:last-child,
 .marketing-site .company-page-approach p {
@@ -853,7 +854,6 @@
 }
 @media (max-width: 900px) {
   .marketing-site .company-page-hero-layout,
-  .marketing-site .company-page-founder,
   .marketing-site .company-page-approach,
   .marketing-site .company-page-values-layout,
   .marketing-site .company-page-next-layout {
@@ -863,11 +863,24 @@
   .marketing-site .company-page-gallery {
     max-width: 32rem;
   }
-  .marketing-site .company-page-founder-portrait {
-    max-width: 18rem;
+  .marketing-site .company-page-founder {
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.25rem, 4vw, 2rem);
   }
 }
 @media (max-width: 600px) {
+  .marketing-site .company-page-founder {
+    grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .marketing-site .company-page-founder-copy h3 {
+    font-size: 1.5rem;
+  }
+  .marketing-site .company-page-founder-copy > p:last-child {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
   .marketing-site .company-page-hero-copy h1 {
     font-size: clamp(2.5rem, 10vw, 3rem);
   }
