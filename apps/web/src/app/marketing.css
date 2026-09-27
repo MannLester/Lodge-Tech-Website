@@ -621,7 +621,7 @@
   overflow: hidden;
   background: #102d40;
   color: #f7faf9;
-  padding-block: clamp(4.5rem, 8vw, 8rem);
+  padding-block: clamp(3.25rem, 6vw, 5.5rem);
 }
 .marketing-site .company-page-hero-layout {
   display: grid;
@@ -631,11 +631,11 @@
 }
 .marketing-site .company-page-hero-copy h1 {
   max-width: 48rem;
-  margin-top: 2rem;
-  font-size: clamp(4.3rem, 8vw, 8rem);
+  margin-top: 1.25rem;
+  font-size: clamp(3.25rem, 5vw, 4rem);
   font-weight: 500;
   letter-spacing: -0.075em;
-  line-height: 0.98;
+  line-height: 1.05;
 }
 .marketing-site .company-page-hero-copy h1 em,
 .marketing-site .company-page-values h2 em {
@@ -643,23 +643,23 @@
   font-weight: 400;
 }
 .marketing-site .company-page-declaration {
-  max-width: 39rem;
-  margin-top: 2.5rem;
+  max-width: 32rem;
+  margin-top: 1.75rem;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.5rem, 2.3vw, 2.4rem);
-  line-height: 1.4;
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1.45;
 }
 .marketing-site .company-page-introduction {
   max-width: 36rem;
-  margin-top: 1.6rem;
+  margin-top: 1.25rem;
   color: #c8d8de;
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.65;
 }
 .marketing-site .company-page-scroll-link {
   display: inline-flex;
   gap: 2rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   border-bottom: 1px solid #c8d8de;
   padding-bottom: 0.75rem;
   font-size: 0.85rem;
@@ -682,27 +682,71 @@
 .marketing-site .company-page-story {
   scroll-margin-top: 4.25rem;
   background: var(--surface);
-  padding-block: clamp(4rem, 7vw, 7rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+.marketing-site .company-page-founder {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--editorial-line);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+}
+.marketing-site .company-page-founder-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.marketing-site .company-page-founder-copy h3 {
+  margin-top: 0.5rem;
+  font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.marketing-site .company-page-founder-copy > p:last-child,
+.marketing-site .company-page-approach p {
+  max-width: 38rem;
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.marketing-site .company-page-approach {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--editorial-line);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+}
+.marketing-site .company-page-approach h3 {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.marketing-site .company-page-approach p {
+  margin-top: 0;
 }
 .marketing-site .company-page-direction {
   background: var(--editorial-paper);
-  padding-block: clamp(5rem, 9vw, 9rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
 }
 .marketing-site .company-page-section-heading h2 {
-  margin-top: 1rem;
-  font-size: clamp(2.6rem, 5vw, 5rem);
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 500;
   letter-spacing: -0.06em;
 }
 .marketing-site .company-page-statement {
   display: grid;
   grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
-  gap: clamp(2rem, 7vw, 7rem);
+  gap: clamp(2rem, 5vw, 5rem);
   border-top: 1px solid var(--editorial-line);
-  padding-block: clamp(2.5rem, 5vw, 5rem);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
 }
 .marketing-site .company-page-section-heading + .company-page-statement {
-  margin-top: clamp(3rem, 6vw, 6rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 .marketing-site .company-page-statement:last-child {
   border-bottom: 1px solid var(--editorial-line);
@@ -716,19 +760,19 @@
 }
 .marketing-site .company-page-statement h3 {
   margin-top: 0.6rem;
-  font-size: clamp(1.7rem, 2.5vw, 2.6rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
   font-weight: 500;
   letter-spacing: -0.04em;
 }
 .marketing-site .company-page-statement p {
   max-width: 46rem;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.35rem, 2.3vw, 2.25rem);
-  line-height: 1.5;
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 .marketing-site .company-page-values {
   background: var(--surface);
-  padding-block: clamp(5rem, 9vw, 9rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
 }
 .marketing-site .company-page-values-layout {
   display: grid;
@@ -736,8 +780,8 @@
   gap: clamp(3rem, 8vw, 8rem);
 }
 .marketing-site .company-page-values h2 {
-  margin-top: 1rem;
-  font-size: clamp(3rem, 5vw, 5rem);
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 500;
   letter-spacing: -0.06em;
 }
@@ -756,13 +800,13 @@
   padding-block: 1.2rem;
 }
 .marketing-site .company-page-values li strong {
-  font-size: clamp(1.7rem, 3vw, 3rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
   font-weight: 500;
   letter-spacing: -0.05em;
 }
 .marketing-site .company-page-next {
   background: #e3eee9;
-  padding-block: clamp(4rem, 7vw, 7rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
 }
 :root[data-theme="dark"] .marketing-site .company-page-next {
   background: #173443;
@@ -775,8 +819,8 @@
 }
 .marketing-site .company-page-next h2 {
   max-width: 42rem;
-  margin-top: 1rem;
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1.1;
@@ -809,6 +853,8 @@
 }
 @media (max-width: 900px) {
   .marketing-site .company-page-hero-layout,
+  .marketing-site .company-page-founder,
+  .marketing-site .company-page-approach,
   .marketing-site .company-page-values-layout,
   .marketing-site .company-page-next-layout {
     grid-template-columns: 1fr;
@@ -817,10 +863,13 @@
   .marketing-site .company-page-gallery {
     max-width: 32rem;
   }
+  .marketing-site .company-page-founder-portrait {
+    max-width: 18rem;
+  }
 }
 @media (max-width: 600px) {
   .marketing-site .company-page-hero-copy h1 {
-    font-size: clamp(4rem, 15vw, 6rem);
+    font-size: clamp(2.5rem, 10vw, 3rem);
   }
   .marketing-site .company-page-statement {
     grid-template-columns: 1fr;
@@ -828,6 +877,9 @@
   }
   .marketing-site .company-page-values li {
     grid-template-columns: 2rem minmax(0, 1fr);
+  }
+  .marketing-site .company-page-approach {
+    gap: 1rem;
   }
 }
 .marketing-site .process-section {
@@ -1442,12 +1494,12 @@
   }
   .marketing-site .company-page-hero-copy h1 {
     margin-top: 1rem;
-    font-size: clamp(2.75rem, 10vw, 3.25rem);
+    font-size: clamp(2.5rem, 10vw, 3rem);
     line-height: 1.05;
   }
   .marketing-site .company-page-declaration {
     margin-top: 1.25rem;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
   }
   .marketing-site .company-page-introduction {
     margin-top: 1rem;
@@ -1462,10 +1514,10 @@
     font-size: clamp(2rem, 7vw, 2.25rem);
   }
   .marketing-site .company-page-statement p {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   .marketing-site .company-page-values li strong {
-    font-size: 1.45rem;
+    font-size: 1.25rem;
   }
   .marketing-site .proposal-hero h1 {
     margin-top: 0.75rem;
