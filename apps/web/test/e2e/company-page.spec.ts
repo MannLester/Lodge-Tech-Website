@@ -45,6 +45,12 @@ test("homepage company teaser opens the complete company story", async ({
       () => document.documentElement.scrollWidth > innerWidth,
     ),
   ).toBe(false);
+
+  await page.getByRole("switch", { name: "Switch to night mode" }).click();
+  await expect(page.locator("#our-story")).toHaveCSS(
+    "background-color",
+    "rgb(13, 26, 40)",
+  );
 });
 
 test("company gallery automatically advances on the new page", async ({
