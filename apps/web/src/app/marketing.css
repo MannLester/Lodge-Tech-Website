@@ -985,9 +985,29 @@
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 400;
 }
+.marketing-site .contact-direct {
+  max-width: 27rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 1.5rem;
+}
+.marketing-site .contact-direct > a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+}
+.marketing-site .contact-direct > a:hover,
+.marketing-site .contact-direct > a:focus-visible {
+  text-decoration-color: currentColor;
+}
 .marketing-site .contact-next {
   max-width: 27rem;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--editorial-line);
 }

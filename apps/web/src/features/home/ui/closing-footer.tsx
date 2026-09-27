@@ -26,6 +26,10 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
               Have a question about your property or our solutions? Send a
               general inquiry and we’ll help you find the right next step.
             </p>
+            <div className="contact-direct">
+              <p className="chapter-label">Call us</p>
+              <a href="tel:+18005242680">(800) 524-2680</a>
+            </div>
             <div className="contact-next">
               <p className="chapter-label">What happens next</p>
               <p>
