@@ -1,4 +1,10 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { SiteHeader } from "@/features/home/ui/site-header";
@@ -24,6 +30,14 @@ describe("SiteHeader", () => {
       "href",
       "/company",
     );
+    const desktopNavigation = screen.getByRole("navigation", {
+      name: "Primary",
+    });
+    const contactLink = within(desktopNavigation).getByRole("link", {
+      name: "Contact Us",
+    });
+    expect(contactLink).toHaveAttribute("href", "#contact");
+    expect(contactLink.previousElementSibling).toHaveTextContent("Company");
 
     fireEvent.click(screen.getByText("Solutions"));
     expect(screen.getByRole("link", { name: "GEM Stat ET" })).toHaveAttribute(
@@ -51,9 +65,36 @@ describe("SiteHeader", () => {
   it("uses root-qualified homepage anchors from product pages", () => {
     render(<SiteHeader fromHome={false} />);
 
+    expect(
+      within(screen.getByRole("navigation", { name: "Primary" })).getByRole(
+        "link",
+        { name: "Contact Us" },
+      ),
+    ).toHaveAttribute("href", "/#contact");
+
     fireEvent.click(screen.getByText("Solutions"));
     expect(
       screen.getByRole("link", { name: "Solutions Overview" }),
     ).toHaveAttribute("href", "/#solutions");
+  });
+
+  it("links to the inquiry form after Company in the mobile menu", () => {
+    render(<SiteHeader fromHome={false} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Open navigation" }));
+
+    const mobileNavigation = screen.getByRole("navigation", {
+      name: "Mobile navigation",
+    });
+    const contactLink = within(mobileNavigation).getByRole("link", {
+      name: "Contact Us",
+    });
+    expect(contactLink).toHaveAttribute("href", "/#contact");
+    expect(contactLink.previousElementSibling).toHaveTextContent("Company");
+
+    fireEvent.click(contactLink);
+    expect(
+      screen.queryByRole("navigation", { name: "Mobile navigation" }),
+    ).not.toBeInTheDocument();
   });
 });
