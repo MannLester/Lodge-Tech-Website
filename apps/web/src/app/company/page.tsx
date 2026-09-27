@@ -5,7 +5,7 @@ import { CompanyPage } from "@/features/company";
 export const metadata: Metadata = {
   title: "Company | Lodging Technologies",
   description:
-    "Learn about Lodging Technologies, our mission, vision, and values in property energy management.",
+    "Learn how Lodging Technologies began in hotel energy management and how we work with properties today.",
 };
 
 export default function Page() {

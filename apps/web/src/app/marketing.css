@@ -679,6 +679,11 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.marketing-site .company-page-story {
+  scroll-margin-top: 4.25rem;
+  background: var(--surface);
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
 .marketing-site .company-page-direction {
   background: var(--editorial-paper);
   padding-block: clamp(5rem, 9vw, 9rem);

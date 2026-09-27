@@ -15,6 +15,14 @@ test("homepage company teaser opens the complete company story", async ({
   await expect(
     page.getByRole("heading", { level: 1, name: "Who we are." }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Where the work began." }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("William C. Fizer", { exact: false }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: /Discover our story/ }).click();
+  await expect(page).toHaveURL(/\/company#our-story$/);
   await expect(page.getByRole("heading", { name: "Vision" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Mission" })).toBeVisible();
   await expect(
