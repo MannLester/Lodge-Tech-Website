@@ -21,6 +21,11 @@ test("homepage company teaser opens the complete company story", async ({
   await expect(
     page.getByText("William C. Fizer", { exact: false }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("img", {
+      name: "William C. Fizer, founder of Lodging Technologies",
+    }),
+  ).toBeVisible();
   await page.getByRole("link", { name: /Discover our story/ }).click();
   await expect(page).toHaveURL(/\/company#our-story$/);
   await expect(page.getByRole("heading", { name: "Vision" })).toBeVisible();
@@ -45,7 +50,10 @@ test("homepage company teaser opens the complete company story", async ({
       () => document.documentElement.scrollWidth > innerWidth,
     ),
   ).toBe(false);
+});
 
+test("company story follows night mode", async ({ page }) => {
+  await page.goto("/company");
   await page.getByRole("switch", { name: "Switch to night mode" }).click();
   await expect(page.locator("#our-story")).toHaveCSS(
     "background-color",
