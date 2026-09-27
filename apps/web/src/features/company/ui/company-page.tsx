@@ -26,13 +26,40 @@ export function CompanyPage() {
               <p className="company-page-introduction">
                 {companyProfile.introduction}
               </p>
-              <a className="company-page-scroll-link" href="#our-direction">
-                Discover what drives us <span aria-hidden>↓</span>
+              <a className="company-page-scroll-link" href="#our-story">
+                Discover our story <span aria-hidden>↓</span>
               </a>
             </div>
             <div className="company-page-gallery">
               <CompanyImageSlider />
               <p>Places, people, and technology in focus.</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="story-heading"
+          className="company-page-story"
+          id="our-story"
+        >
+          <div className="section-shell">
+            <div className="company-page-section-heading">
+              <p className="chapter-label">A story rooted in hospitality</p>
+              <h2 id="story-heading">Where the work began.</h2>
+            </div>
+            <div className="company-page-statement">
+              <div>
+                <span>01</span>
+                <h3>Origin</h3>
+              </div>
+              <p>{companyProfile.origin}</p>
+            </div>
+            <div className="company-page-statement">
+              <div>
+                <span>02</span>
+                <h3>Working with a property</h3>
+              </div>
+              <p>{companyProfile.approach}</p>
             </div>
           </div>
         </section>
