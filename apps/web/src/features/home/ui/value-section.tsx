@@ -37,7 +37,14 @@ export function ValueSection() {
               sizes="(max-width: 767px) 92vw, 60vw"
               src={roomImage}
             />
-            <span className="photo-caption">Intelligence at room level.</span>
+            <div className="occupancy-video-brief">
+              <span>Video concept / Room control</span>
+              <strong>Occupied to vacant.</strong>
+              <p>
+                Show a guest arriving, setting a comfortable temperature, then
+                leaving as the room follows its configured vacant strategy.
+              </p>
+            </div>
           </div>
           <div className="occupancy-explainer">
             <p className="chapter-label">Energy follows occupancy</p>
