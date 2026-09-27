@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 
+import founderPortrait from "@assets/company/william-fizer.jpg";
 import { companyProfile } from "@/features/company/model/company-profile";
 import { CompanyImageSlider } from "@/features/home";
 import { SiteFooter } from "@/shared/ui/site-footer";
@@ -47,18 +49,22 @@ export function CompanyPage() {
               <p className="chapter-label">A story rooted in hospitality</p>
               <h2 id="story-heading">Where the work began.</h2>
             </div>
-            <div className="company-page-statement">
-              <div>
-                <span>01</span>
-                <h3>Origin</h3>
+            <div className="company-page-founder">
+              <Image
+                alt="William C. Fizer, founder of Lodging Technologies"
+                className="company-page-founder-portrait"
+                placeholder="blur"
+                sizes="(max-width: 600px) 256px, 320px"
+                src={founderPortrait}
+              />
+              <div className="company-page-founder-copy">
+                <p className="chapter-label">Our founder</p>
+                <h3>William C. Fizer</h3>
+                <p>{companyProfile.origin}</p>
               </div>
-              <p>{companyProfile.origin}</p>
             </div>
-            <div className="company-page-statement">
-              <div>
-                <span>02</span>
-                <h3>Working with a property</h3>
-              </div>
+            <div className="company-page-approach">
+              <h3>Working with a property</h3>
               <p>{companyProfile.approach}</p>
             </div>
           </div>
