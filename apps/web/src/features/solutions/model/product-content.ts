@@ -5,7 +5,7 @@ import gemStatOfficeSettingImage from "@assets/gem-stat-et/office-setting.jpeg";
 import gemStatTreeSettingImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import gemStatThermostatImage from "@assets/gem-stat-et/thermostat.jpg";
 import lightingImage from "@assets/lighting.png";
-import platformImage from "@assets/platform.png";
+import platformImage from "@assets/platform-branded.png";
 
 export const productSlugs = [
   "gem-stat-et",
@@ -155,7 +155,8 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     metaDescription:
       "Explore the GEM Link Wireless connected building platform.",
     heroImage: platformImage,
-    heroImageAlt: "GEM Link Wireless platform product placeholder",
+    heroImageAlt:
+      "Lodging Technologies logo prominently displayed on an illustrative laptop and phone platform dashboard",
     features: [
       {
         title: "Central visibility",
