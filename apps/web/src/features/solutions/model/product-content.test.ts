@@ -6,12 +6,21 @@ import {
   productCtaHref,
   productSlugs,
   products,
+  solutionSlugs,
+  solutions,
 } from "@/features/solutions/model/product-content";
 
 describe("product content", () => {
   it("defines one complete entry for every public product route", () => {
-    expect(products).toHaveLength(4);
+    expect(products).toHaveLength(5);
     expect(products.map((product) => product.slug)).toEqual(productSlugs);
+    expect(solutions.map((solution) => solution.slug)).toEqual(solutionSlugs);
+    expect(solutions.map((solution) => solution.label)).toEqual([
+      "GEM Link Wireless™ – HVAC",
+      "GEM Link Wireless – Lighting Control",
+      "GEM Link Wireless – DHW Controls",
+      "GEM Link Wireless – Appliance Controls",
+    ]);
 
     for (const slug of productSlugs) {
       const product = getProduct(slug);

@@ -7,6 +7,9 @@ describe("getInquiryPrefill", () => {
     expect(getInquiryPrefill("?product=gem-stat-et&intent=demo")).toBe(
       "We would like to request a product demo for GEM Stat ET.",
     );
+    expect(getInquiryPrefill("?product=dhw-controls&intent=savings")).toBe(
+      "We would like to request a savings analysis for GEM Link Wireless – DHW Controls.",
+    );
   });
 
   it("ignores unknown query values", () => {
