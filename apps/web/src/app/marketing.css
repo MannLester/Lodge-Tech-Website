@@ -1536,6 +1536,59 @@
   line-height: 1.8;
   margin-top: 0.75rem;
 }
+.marketing-site .product-video-brief {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: 3rem;
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 3rem;
+}
+.marketing-site .product-video-frame {
+  position: relative;
+  background: var(--editorial-paper);
+}
+.marketing-site .product-video-frame[data-photo="false"] {
+  background: #f5f7f6;
+}
+.marketing-site .product-video-frame::after {
+  position: absolute;
+  inset: 50% 0 0;
+  background: linear-gradient(transparent, rgb(4 15 23 / 0.75));
+  content: "";
+}
+.marketing-site .product-video-frame[data-photo="false"]::after {
+  background: linear-gradient(transparent, rgb(245 247 246 / 0.9));
+}
+.marketing-site .product-video-frame > span {
+  position: absolute;
+  z-index: 1;
+  inset: auto 1.25rem 1.25rem;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.marketing-site .product-video-frame[data-photo="false"] > span {
+  color: #0b2638;
+}
+.marketing-site .product-video-brief figcaption strong {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.marketing-site .product-video-brief figcaption p {
+  max-width: 32rem;
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
 .marketing-site .technical-details details {
   border-bottom: 1px solid var(--editorial-line);
   padding-block: 1.25rem;
@@ -1846,5 +1899,10 @@
   }
   .marketing-site .product-feature-list {
     grid-template-columns: 1fr;
+  }
+  .marketing-site .product-video-brief {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-top: 2rem;
   }
 }

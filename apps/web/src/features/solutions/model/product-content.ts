@@ -27,6 +27,11 @@ type Showcase = Feature & {
   imagePosition?: string;
 };
 
+type VideoBrief = {
+  description: string;
+  title: string;
+};
+
 type SpecificationGroup = {
   items: ReadonlyArray<{ label: string; value: string }>;
   title: string;
@@ -46,6 +51,7 @@ export type ProductPageContent = {
   slug: ProductSlug;
   specifications: ReadonlyArray<SpecificationGroup>;
   subtitle: string;
+  videoBrief?: VideoBrief;
 };
 
 const pendingSpecifications: ReadonlyArray<SpecificationGroup> = [
@@ -141,6 +147,11 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         imagePosition: "object-center",
       },
     ],
+    videoBrief: {
+      title: "GEM Stat ET, room by room.",
+      description:
+        "Film the thermostat in a guest room: show a guest adjusting comfort, then illustrate how the configured vacant strategy follows their departure.",
+    },
     specifications: pendingSpecifications,
   },
   "gem-link-wireless": {
