@@ -4,6 +4,7 @@ import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
 import auxiliaryImage from "@assets/auxiliary.png";
 import platformImage from "@assets/platform-branded.png";
+import { GemLinkBrand } from "@/shared/ui/gem-link-brand";
 
 export function ProductSection() {
   return (
@@ -72,7 +73,11 @@ export function ProductSection() {
           <div>
             <p className="chapter-label">Connected HVAC control</p>
             <h3>
-              GEM Link Wireless<span className="product-suffix">™ – HVAC</span>
+              <GemLinkBrand
+                label="GEM Link Wireless™ – HVAC"
+                size="large"
+                stacked
+              />
             </h3>
             <p className="editorial-copy">
               GEM Link Wireless connects supported HVAC controls, including GEM
@@ -88,8 +93,7 @@ export function ProductSection() {
           </div>
           <figure className="wireless-platform-connection">
             <div className="wireless-platform-identity">
-              <span>GEM Link</span>
-              <small>Wireless</small>
+              <GemLinkBrand size="medium" />
             </div>
             <div className="wireless-platform-stage">
               <div className="wireless-platform-image">
@@ -147,7 +151,9 @@ export function ProductSection() {
               </div>
               <div>
                 <p className="chapter-label">Beyond HVAC</p>
-                <h3>{product.title}</h3>
+                <h3>
+                  <GemLinkBrand label={product.title} size="small" stacked />
+                </h3>
                 <p>{product.copy}</p>
                 <Link
                   aria-label={"Learn more about " + product.title}

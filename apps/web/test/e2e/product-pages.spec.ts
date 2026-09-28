@@ -16,15 +16,19 @@ for (const product of products) {
     page,
   }) => {
     await page.goto(`/solutions/${product.slug}`);
+    const brandedLabel =
+      product.slug === "gem-stat-et"
+        ? product.label
+        : product.label.replace("GEM Link Wireless", "GEM Link Wireless™");
 
     await expect(
-      page.getByRole("heading", { level: 1, name: product.label }),
+      page.getByRole("heading", { level: 1, name: brandedLabel }),
     ).toBeVisible();
     if (product.slug !== "gem-stat-et") {
       await expect(
         page
           .getByRole("navigation", { name: "Product navigation" })
-          .getByRole("link", { name: product.label }),
+          .getByRole("link", { name: brandedLabel }),
       ).toHaveAttribute("aria-current", "page");
     }
     await expect(
@@ -66,13 +70,13 @@ test("homepage cards and product navigation connect the four solutions", async (
 
   await page
     .getByRole("navigation", { name: "Product navigation" })
-    .getByRole("link", { name: "GEM Link Wireless – Lighting Control" })
+    .getByRole("link", { name: "GEM Link Wireless™ – Lighting Control" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
   await expect(
     page
       .getByRole("navigation", { name: "Product navigation" })
-      .getByRole("link", { name: "GEM Link Wireless – Lighting Control" }),
+      .getByRole("link", { name: "GEM Link Wireless™ – Lighting Control" }),
   ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
@@ -123,19 +127,19 @@ test("primary Solutions navigation exposes the four solution routes", async ({
     const primary = page.getByRole("navigation", { name: "Primary" });
     await primary.getByText("Solutions", { exact: true }).click();
     await expect(
-      primary.getByRole("link", { name: "GEM Link Wireless – DHW Controls" }),
+      primary.getByRole("link", { name: "GEM Link Wireless™ – DHW Controls" }),
     ).toHaveAttribute("href", "/solutions/dhw-controls");
     await primary
-      .getByRole("link", { name: "GEM Link Wireless – Appliance Controls" })
+      .getByRole("link", { name: "GEM Link Wireless™ – Appliance Controls" })
       .click();
   } else {
     await page.getByRole("button", { name: "Open navigation" }).click();
     const mobile = page.getByRole("navigation", { name: "Mobile navigation" });
     await expect(
-      mobile.getByRole("link", { name: "GEM Link Wireless – DHW Controls" }),
+      mobile.getByRole("link", { name: "GEM Link Wireless™ – DHW Controls" }),
     ).toHaveAttribute("href", "/solutions/dhw-controls");
     await mobile
-      .getByRole("link", { name: "GEM Link Wireless – Appliance Controls" })
+      .getByRole("link", { name: "GEM Link Wireless™ – Appliance Controls" })
       .click();
   }
 
@@ -146,7 +150,7 @@ test("ecosystem controls expose their selected details", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
 
   await page
-    .getByRole("button", { name: "GEM Link Wireless – Lighting Control" })
+    .getByRole("button", { name: "GEM Link Wireless™ – Lighting Control" })
     .click();
   await expect(
     page.getByRole("link", {

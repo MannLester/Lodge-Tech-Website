@@ -6,6 +6,7 @@ import {
   solutions,
   type ProductSlug,
 } from "@/features/solutions/model/product-content";
+import { GemLinkBrand } from "@/shared/ui/gem-link-brand";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 type EcosystemMapProps = {
@@ -32,7 +33,13 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
             onClick={() => setSelectedSlug(product.slug)}
             type="button"
           >
-            <span className="block text-sm font-bold">{product.label}</span>
+            <span className="block text-sm font-bold">
+              {product.slug === "gem-stat-et" ? (
+                product.label
+              ) : (
+                <GemLinkBrand label={product.label} size="compact" stacked />
+              )}
+            </span>
             <span className="text-muted mt-1 block text-xs leading-5">
               {product.eyebrow}
             </span>
@@ -45,7 +52,11 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
       >
         <p className="eyebrow">Selected solution</p>
         <h3 className="text-foreground mt-3 text-2xl font-bold">
-          {selected.label}
+          {selected.slug === "gem-stat-et" ? (
+            selected.label
+          ) : (
+            <GemLinkBrand label={selected.label} size="medium" stacked />
+          )}
         </h3>
         <p className="text-muted mt-3 text-sm leading-6">
           {selected.shortDescription}
