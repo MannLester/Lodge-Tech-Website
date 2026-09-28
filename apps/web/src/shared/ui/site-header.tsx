@@ -40,7 +40,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                     size={15}
                   />
                 </summary>
-                <div className="border-border bg-surface shadow-card absolute top-full left-1/2 mt-4 w-64 -translate-x-1/2 rounded-lg border p-2">
+                <div className="border-border bg-surface shadow-card absolute top-full left-1/2 mt-4 w-80 -translate-x-1/2 rounded-lg border p-2">
                   <a
                     className="text-brand-strong hover:bg-brand-soft block rounded-md px-3 py-2.5 text-sm font-semibold"
                     href={homeAnchor("solutions", fromHome)}

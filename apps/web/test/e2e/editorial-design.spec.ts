@@ -119,7 +119,7 @@ test("platform inquiry carries product context into the existing form", async ({
   await page.goto("/");
   await page.getByRole("link", { name: /Request Platform Demo/ }).click();
   await expect(page.getByLabel("Project notes")).toHaveValue(
-    "We would like to request a product demo for GEM Link Wireless.",
+    "We would like to request a product demo for GEM Link Wireless™ – HVAC.",
   );
 });
 

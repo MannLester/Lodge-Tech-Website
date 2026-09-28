@@ -42,7 +42,7 @@ export function ProductSection() {
             </span>
           </div>
           <div className="flagship-copy">
-            <p className="chapter-label">Room-level intelligence</p>
+            <p className="chapter-label">Inside the HVAC solution</p>
             <h3>
               GEM Stat<span className="product-suffix"> ET</span>
             </h3>
@@ -70,22 +70,20 @@ export function ProductSection() {
         </article>
         <article className="wireless-feature">
           <div>
-            <p className="chapter-label">Connected property control</p>
+            <p className="chapter-label">Connected HVAC control</p>
             <h3>
-              Every room.
-              <br />
-              <span className="muted-heading">Working together.</span>
+              GEM Link Wireless<span className="product-suffix">™ – HVAC</span>
             </h3>
             <p className="editorial-copy">
-              GEM Link Wireless brings supported room controls and building
-              loads into a coordinated operating view.
+              GEM Link Wireless connects supported HVAC controls, including GEM
+              Stat ET, with a coordinated operating view.
             </p>
             <Link
-              aria-label="Learn more about GEM Link Wireless"
+              aria-label="Learn more about GEM Link Wireless HVAC"
               className="editorial-link"
               href="/solutions/gem-link-wireless"
             >
-              Explore GEM Link Wireless <span aria-hidden>↗</span>
+              Explore HVAC controls <span aria-hidden>↗</span>
             </Link>
           </div>
           <figure className="wireless-platform-connection">
@@ -107,6 +105,7 @@ export function ProductSection() {
             <div className="connection-loads">
               <span>HVAC</span>
               <span>Lighting</span>
+              <span>DHW</span>
               <span>Appliances</span>
             </div>
             <figcaption>
@@ -118,13 +117,19 @@ export function ProductSection() {
         <div className="supporting-products">
           {[
             {
-              title: "Lighting Controls",
+              title: "GEM Link Wireless – Lighting Control",
               image: lightingImage,
               slug: "lighting-controls",
               copy: "The right light, around real building use.",
             },
             {
-              title: "Appliance Controls",
+              title: "GEM Link Wireless – DHW Controls",
+              image: auxiliaryImage,
+              slug: "dhw-controls",
+              copy: "Plan domestic hot water controls around property demand.",
+            },
+            {
+              title: "GEM Link Wireless – Appliance Controls",
               image: auxiliaryImage,
               slug: "appliance-controls",
               copy: "Bring overlooked loads into the conversation.",

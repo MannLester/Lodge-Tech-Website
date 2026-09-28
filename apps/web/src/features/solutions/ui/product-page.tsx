@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import {
   productCtaHref,
-  products,
+  solutions,
   type ProductPageContent,
 } from "@/features/solutions/model/product-content";
 import { EcosystemMap } from "@/features/solutions/ui/ecosystem-map";
@@ -57,7 +57,7 @@ export function ProductPage({ product }: ProductPageProps) {
           className="border-border bg-background mt-6 border-y"
         >
           <div className="section-shell flex flex-wrap gap-x-7 gap-y-2 py-4">
-            {products.map((item) => (
+            {solutions.map((item) => (
               <Link
                 aria-current={item.slug === product.slug ? "page" : undefined}
                 className={`py-2 text-sm ${item.slug === product.slug ? "text-brand-strong font-semibold underline underline-offset-8" : "text-muted hover:text-brand-strong"}`}
@@ -81,6 +81,18 @@ export function ProductPage({ product }: ProductPageProps) {
               </h1>
               <p className="mt-5 text-xl leading-relaxed">{product.subtitle}</p>
               <p className="editorial-copy">{product.description}</p>
+              {product.slug === "gem-stat-et" && (
+                <p className="editorial-copy">
+                  GEM Stat ET is a room-level product within the{" "}
+                  <Link
+                    className="editorial-link"
+                    href="/solutions/gem-link-wireless"
+                  >
+                    GEM Link Wireless™ – HVAC solution
+                  </Link>
+                  .
+                </p>
+              )}
               <div className="mt-8 flex flex-wrap gap-4">
                 <ButtonLink href={productCtaHref(product.slug, "demo")}>
                   Request a Demo
