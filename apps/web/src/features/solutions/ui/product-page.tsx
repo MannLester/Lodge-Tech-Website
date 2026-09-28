@@ -136,6 +136,32 @@ export function ProductPage({ product }: ProductPageProps) {
                 </article>
               ))}
             </div>
+            {product.videoBrief && (
+              <figure className="product-video-brief">
+                <div
+                  className="video-brief-frame product-video-frame"
+                  data-photo={Boolean(product.heroPhoto)}
+                >
+                  <Image
+                    alt=""
+                    className={
+                      product.heroPhoto ? "object-cover" : "object-contain p-6"
+                    }
+                    fill
+                    sizes="(max-width: 767px) 92vw, 45vw"
+                    src={product.heroImage}
+                  />
+                  <span>Planned product walkthrough</span>
+                </div>
+                <figcaption>
+                  <span className="chapter-label">
+                    Video concept / {product.label}
+                  </span>
+                  <strong>{product.videoBrief.title}</strong>
+                  <p>{product.videoBrief.description}</p>
+                </figcaption>
+              </figure>
+            )}
             {showcases.length > 0 && (
               <div className="mt-20 space-y-20">
                 {showcases.map((showcase, index) => (
