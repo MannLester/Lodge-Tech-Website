@@ -436,11 +436,19 @@ export function ProposalForm() {
         <div className="proposal-checks">
           <label>
             <input type="checkbox" name="products" value="gem-link-wireless" />{" "}
-            GEM Link Wireless
+            GEM Link Wireless™ – HVAC (including GEM Stat ET thermostats)
           </label>
           <label>
-            <input type="checkbox" name="products" value="gem-stat-et" /> GEM
-            Stat ET thermostats
+            <input type="checkbox" name="products" value="lighting-controls" />{" "}
+            GEM Link Wireless – Lighting Control
+          </label>
+          <label>
+            <input type="checkbox" name="products" value="dhw-controls" /> GEM
+            Link Wireless – DHW Controls
+          </label>
+          <label>
+            <input type="checkbox" name="products" value="appliance-controls" />{" "}
+            GEM Link Wireless – Appliance Controls
           </label>
         </div>
         <label className="proposal-full-label">

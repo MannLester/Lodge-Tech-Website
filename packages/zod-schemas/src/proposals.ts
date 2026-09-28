@@ -32,7 +32,17 @@ export const proposalSchema = z
     hvacModels: z.array(text(120).min(1)).max(20),
     guestControl: z.enum(["wall", "unit", "both", "other"]),
     utilityCompany: text(150),
-    products: z.array(z.enum(["gem-link-wireless", "gem-stat-et"])).max(2),
+    products: z
+      .array(
+        z.enum([
+          "gem-link-wireless",
+          "lighting-controls",
+          "dhw-controls",
+          "appliance-controls",
+          "gem-stat-et",
+        ]),
+      )
+      .max(5),
     notes: text(5000),
     website: text(200),
   })

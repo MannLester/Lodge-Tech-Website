@@ -20,6 +20,21 @@ function display(value: unknown): string {
   return String(value);
 }
 
+const productInterestLabels: Record<string, string> = {
+  "gem-link-wireless": "GEM Link Wireless™ – HVAC",
+  "lighting-controls": "GEM Link Wireless – Lighting Control",
+  "dhw-controls": "GEM Link Wireless – DHW Controls",
+  "appliance-controls": "GEM Link Wireless – Appliance Controls",
+  "gem-stat-et": "GEM Stat ET thermostats",
+};
+
+function displayProductInterest(value: unknown): string {
+  if (!Array.isArray(value)) return display(value);
+  return value
+    .map((item) => productInterestLabels[String(item)] ?? display(item))
+    .join(", ");
+}
+
 const labels: Record<string, string> = {
   street: "Street",
   addressLine2: "Address line 2",
@@ -133,7 +148,9 @@ export default async function AdminProposalsPage() {
                           {label}
                         </dt>
                         <dd className="mt-1 text-sm break-words">
-                          {display(details[key])}
+                          {key === "products"
+                            ? displayProductInterest(details[key])
+                            : display(details[key])}
                         </dd>
                       </div>
                     ))}
