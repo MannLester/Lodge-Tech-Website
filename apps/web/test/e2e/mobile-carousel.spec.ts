@@ -11,9 +11,10 @@ test("mobile product stories remain readable without a carousel", async ({
   const products = page.locator("#solutions");
   for (const label of [
     "GEM Stat ET",
-    "GEM Link Wireless",
-    "Lighting Controls",
-    "Appliance Controls",
+    "GEM Link Wireless HVAC",
+    "GEM Link Wireless – Lighting Control",
+    "GEM Link Wireless – DHW Controls",
+    "GEM Link Wireless – Appliance Controls",
   ]) {
     const link = products.getByRole("link", {
       name: "Learn more about " + label,
