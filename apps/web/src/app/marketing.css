@@ -784,13 +784,65 @@
   letter-spacing: -0.04em;
   line-height: 1.15;
 }
-.marketing-site .company-page-founder-copy > p:last-child,
+.marketing-site .company-page-founder-bio,
 .marketing-site .company-page-approach p {
   max-width: 38rem;
   margin-top: 1rem;
   color: var(--editorial-muted);
   font-size: 1rem;
   line-height: 1.7;
+}
+.marketing-site .founder-video-brief {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: min(100%, 58rem);
+  margin: 2rem auto 0;
+  border: 1px solid var(--editorial-line);
+}
+.marketing-site .founder-video-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: linear-gradient(135deg, #173c4e, #0b2638);
+  color: #f5f7f6;
+}
+.marketing-site .founder-video-frame span:first-child {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .founder-video-frame span:last-child {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-style: italic;
+  line-height: 1.1;
+}
+.marketing-site .founder-video-brief figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--editorial-paper);
+}
+.marketing-site .founder-video-brief figcaption > span {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .founder-video-brief figcaption strong {
+  margin-top: 0.6rem;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.marketing-site .founder-video-brief figcaption p {
+  margin-top: 0.75rem;
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  line-height: 1.65;
 }
 .marketing-site .company-page-approach {
   display: grid;
@@ -948,6 +1000,9 @@
     gap: clamp(1.25rem, 4vw, 2rem);
     width: min(100%, 42rem);
   }
+  .marketing-site .founder-video-brief {
+    width: min(100%, 42rem);
+  }
 }
 @media (max-width: 600px) {
   .marketing-site .company-page-founder-layout {
@@ -957,9 +1012,12 @@
   .marketing-site .company-page-founder-copy h3 {
     font-size: 1.5rem;
   }
-  .marketing-site .company-page-founder-copy > p:last-child {
+  .marketing-site .company-page-founder-bio {
     font-size: 0.9rem;
     line-height: 1.6;
+  }
+  .marketing-site .founder-video-brief {
+    grid-template-columns: 1fr;
   }
   .marketing-site .company-page-hero-copy h1 {
     font-size: clamp(2.5rem, 10vw, 3rem);
