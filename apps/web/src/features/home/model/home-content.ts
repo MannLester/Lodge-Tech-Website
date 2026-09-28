@@ -36,31 +36,31 @@ export const brandPillars = [
 export const products = [
   {
     description:
-      "Wireless occupancy-based HVAC control for guest rooms, units, and managed spaces.",
-    href: "/solutions/gem-stat-et",
-    mediaLabel: "GEM Stat ET product image",
-    title: "GEM Stat ET",
-  },
-  {
-    description:
-      "Networked control that links thermostats, lighting, appliances, and portfolio visibility.",
+      "Connected HVAC control for supported room equipment and property-wide visibility.",
     href: "/solutions/gem-link-wireless",
     mediaLabel: "GEM Link Wireless product image",
-    title: "GEM Link Wireless",
+    title: "GEM Link Wireless™ – HVAC",
   },
   {
     description:
       "Lighting strategies that reduce waste while preserving expected comfort and safety.",
     href: "/solutions/lighting-controls",
     mediaLabel: "Lighting control product image",
-    title: "Lighting Controls",
+    title: "GEM Link Wireless – Lighting Control",
   },
   {
     description:
-      "Appliance and auxiliary load coordination for equipment that should not run unmanaged.",
+      "Domestic hot water control planning for property equipment and demand.",
+    href: "/solutions/dhw-controls",
+    mediaLabel: "DHW control illustration",
+    title: "GEM Link Wireless – DHW Controls",
+  },
+  {
+    description:
+      "Appliance and auxiliary load coordination for suitable equipment.",
     href: "/solutions/appliance-controls",
     mediaLabel: "Appliance control product image",
-    title: "Appliance Controls",
+    title: "GEM Link Wireless – Appliance Controls",
   },
 ] as const;
 
