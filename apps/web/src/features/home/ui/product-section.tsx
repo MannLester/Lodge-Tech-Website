@@ -3,7 +3,7 @@ import Link from "next/link";
 import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
 import auxiliaryImage from "@assets/auxiliary.png";
-import platformImage from "@assets/platform.png";
+import platformImage from "@assets/platform-branded.png";
 
 export function ProductSection() {
   return (
@@ -94,7 +94,7 @@ export function ProductSection() {
             <div className="wireless-platform-stage">
               <div className="wireless-platform-image">
                 <Image
-                  alt="GEM Link Wireless platform illustrated on laptop and phone screens"
+                  alt="Lodging Technologies logo prominently displayed on an illustrative laptop and phone platform dashboard"
                   className="object-contain"
                   fill
                   sizes="(max-width: 767px) 92vw, (max-width: 1279px) 55vw, 48vw"
