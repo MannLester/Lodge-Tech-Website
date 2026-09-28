@@ -140,10 +140,21 @@
   overflow: hidden;
 }
 .marketing-site .occupancy-photo img {
-  transition: filter 600ms ease;
+  opacity: 0;
+  transition: opacity 600ms ease;
 }
-.marketing-site .occupancy-photo[data-occupied="false"] img {
-  filter: brightness(0.72) saturate(0.65);
+.marketing-site
+  .occupancy-photo[data-occupied="true"]
+  img[data-state="occupied"],
+.marketing-site
+  .occupancy-photo[data-occupied="false"]
+  img[data-state="vacant"] {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site .occupancy-photo img {
+    transition: none;
+  }
 }
 .marketing-site .occupancy-video-brief {
   position: absolute;
