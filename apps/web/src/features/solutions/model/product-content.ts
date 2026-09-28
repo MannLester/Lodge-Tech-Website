@@ -195,6 +195,11 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Help teams identify operating patterns and focus attention where adjustments may matter most.",
       },
     ],
+    videoBrief: {
+      title: "One connected property, in view.",
+      description:
+        "Walk through a real or approved demo view, tracing supported room controls and building loads into a property-wide operating picture.",
+    },
     specifications: pendingSpecifications,
   },
   "lighting-controls": {
