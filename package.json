@@ -8,6 +8,7 @@
   },
   "packageManager": "pnpm@10.34.5",
   "scripts": {
+    "clean": "turbo run clean && node -e \"fs.rmSync('node_modules/.cache', { recursive: true, force: true })\"",
     "dev": "pnpm --filter @lodging-technologies/web dev",
     "build": "turbo run build",
     "db:test": "supabase test db",

@@ -15,6 +15,7 @@
     "./theme-toggle": "./src/theme-toggle.tsx"
   },
   "scripts": {
+    "clean": "node -e \"['dist', 'build', '*.tsbuildinfo'].forEach(p => fs.rmSync(p, { recursive: true, force: true, glob: true }))\"",
     "build": "tsc -b",
     "lint": "pnpm -C ../.. exec eslint packages/ui",
     "typecheck": "tsc -b --pretty false",

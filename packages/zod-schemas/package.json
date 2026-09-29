@@ -9,6 +9,7 @@
     "./proposals": "./src/proposals.ts"
   },
   "scripts": {
+    "clean": "node -e \"['dist', 'build', '*.tsbuildinfo'].forEach(p => fs.rmSync(p, { recursive: true, force: true, glob: true }))\"",
     "build": "tsc -b",
     "lint": "pnpm -C ../.. exec eslint packages/zod-schemas",
     "typecheck": "tsc -b --pretty false",
