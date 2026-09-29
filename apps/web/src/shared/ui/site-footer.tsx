@@ -9,20 +9,20 @@ const footerLinkGroups = [
       { href: "/#technology", label: "Energy Optimization" },
       {
         href: "/solutions/gem-link-wireless",
-        label: "GEM Link Wireless™ – HVAC",
+        label: "GEM Link® Wireless – HVAC",
       },
-      { href: "/solutions/gem-stat-et", label: "GEM Stat ET" },
+      { href: "/solutions/gem-stat-et", label: "GEM Stat™ ET" },
       {
         href: "/solutions/lighting-controls",
-        label: "GEM Link Wireless – Lighting Control",
+        label: "GEM Link® Wireless – Lighting Control",
       },
       {
         href: "/solutions/dhw-controls",
-        label: "GEM Link Wireless – DHW Controls",
+        label: "GEM Link® Wireless – DHW Controls",
       },
       {
         href: "/solutions/appliance-controls",
-        label: "GEM Link Wireless – Appliance Controls",
+        label: "GEM Link® Wireless – Appliance Controls",
       },
       { href: "/#technology", label: "Cloud Platform" },
       { href: "/#technology", label: "Utility Rebate Capture" },
@@ -72,14 +72,14 @@ export function SiteFooter() {
               className="hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link Wireless™ – HVAC
+              GEM Link® Wireless – HVAC
             </Link>
             <Link className="hover:underline" href="/solutions/gem-stat-et">
               GEM Stat™ ET
             </Link>
           </div>
           <p className="text-muted mt-4 text-sm leading-6">
-            GEM Link Wireless and GEM Stat ET energy management for lodging,
+            GEM Link® Wireless and GEM Stat™ ET energy management for lodging,
             multifamily, senior living, student housing, and commercial
             properties.
           </p>
