@@ -43,7 +43,6 @@ const footerLinkGroups = [
     links: [
       { href: "/company", label: "About Us" },
       { href: "/#results", label: "Savings Review" },
-      { href: "/#contact", label: "Partner Network" },
       { href: "/#contact", label: "Contact & Support" },
     ],
   },
@@ -52,7 +51,6 @@ const footerLinkGroups = [
     links: [
       { href: "/#contact", label: "Blog" },
       { href: "/#contact", label: "White Papers" },
-      { href: "/#contact", label: "Webinars" },
       { href: "/#contact", label: "Savings Analysis" },
     ],
   },
