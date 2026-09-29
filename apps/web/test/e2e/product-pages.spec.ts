@@ -1,12 +1,12 @@
 import { expect, test } from "@playwright/test";
 
 const products = [
-  { label: "GEM Stat ET", slug: "gem-stat-et" },
-  { label: "GEM Link Wireless™ – HVAC", slug: "gem-link-wireless" },
-  { label: "GEM Link Wireless – Lighting Control", slug: "lighting-controls" },
-  { label: "GEM Link Wireless – DHW Controls", slug: "dhw-controls" },
+  { label: "GEM Stat™ ET", slug: "gem-stat-et" },
+  { label: "GEM Link® Wireless – HVAC", slug: "gem-link-wireless" },
+  { label: "GEM Link® Wireless – Lighting Control", slug: "lighting-controls" },
+  { label: "GEM Link® Wireless – DHW Controls", slug: "dhw-controls" },
   {
-    label: "GEM Link Wireless – Appliance Controls",
+    label: "GEM Link® Wireless – Appliance Controls",
     slug: "appliance-controls",
   },
 ] as const;
@@ -60,19 +60,19 @@ test("homepage cards and product navigation connect the four solutions", async (
 }) => {
   await page.goto("/");
   await page
-    .getByRole("link", { name: "Learn more about GEM Stat ET" })
+    .getByRole("link", { name: "Learn more about GEM Stat™ ET" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/gem-stat-et$/);
 
   await page
     .getByRole("navigation", { name: "Product navigation" })
-    .getByRole("link", { name: "GEM Link Wireless – Lighting Control" })
+    .getByRole("link", { name: "GEM Link® Wireless – Lighting Control" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
   await expect(
     page
       .getByRole("navigation", { name: "Product navigation" })
-      .getByRole("link", { name: "GEM Link Wireless – Lighting Control" }),
+      .getByRole("link", { name: "GEM Link® Wireless – Lighting Control" }),
   ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
@@ -100,13 +100,13 @@ test("mobile product layouts place visuals before their descriptions", async ({
   }
 });
 
-test("GEM Stat ET leads with the thermostat hero photo", async ({ page }) => {
+test("GEM Stat™ ET leads with the thermostat hero photo", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
 
   await expect(
     page
       .getByRole("img", {
-        name: "GEM Stat ET thermostat with room temperature display",
+        name: "GEM Stat™ ET thermostat with room temperature display",
       })
       .first(),
   ).toBeVisible();
@@ -123,19 +123,19 @@ test("primary Solutions navigation exposes the four solution routes", async ({
     const primary = page.getByRole("navigation", { name: "Primary" });
     await primary.getByText("Solutions", { exact: true }).click();
     await expect(
-      primary.getByRole("link", { name: "GEM Link Wireless – DHW Controls" }),
+      primary.getByRole("link", { name: "GEM Link® Wireless – DHW Controls" }),
     ).toHaveAttribute("href", "/solutions/dhw-controls");
     await primary
-      .getByRole("link", { name: "GEM Link Wireless – Appliance Controls" })
+      .getByRole("link", { name: "GEM Link® Wireless – Appliance Controls" })
       .click();
   } else {
     await page.getByRole("button", { name: "Open navigation" }).click();
     const mobile = page.getByRole("navigation", { name: "Mobile navigation" });
     await expect(
-      mobile.getByRole("link", { name: "GEM Link Wireless – DHW Controls" }),
+      mobile.getByRole("link", { name: "GEM Link® Wireless – DHW Controls" }),
     ).toHaveAttribute("href", "/solutions/dhw-controls");
     await mobile
-      .getByRole("link", { name: "GEM Link Wireless – Appliance Controls" })
+      .getByRole("link", { name: "GEM Link® Wireless – Appliance Controls" })
       .click();
   }
 
@@ -146,11 +146,11 @@ test("ecosystem controls expose their selected details", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
 
   await page
-    .getByRole("button", { name: "GEM Link Wireless – Lighting Control" })
+    .getByRole("button", { name: "GEM Link® Wireless – Lighting Control" })
     .click();
   await expect(
     page.getByRole("link", {
-      name: "Explore GEM Link Wireless – Lighting Control",
+      name: "Explore GEM Link® Wireless – Lighting Control",
     }),
   ).toBeVisible();
 });
@@ -163,7 +163,7 @@ test("product CTA carries safe context into the existing inquiry form", async ({
 
   await expect(page).toHaveURL(/product=gem-stat-et&intent=demo#contact$/);
   await expect(page.getByLabel("Project notes")).toHaveValue(
-    "We would like to request a product demo for GEM Stat ET.",
+    "We would like to request a product demo for GEM Stat™ ET.",
   );
 });
 
@@ -173,10 +173,10 @@ test("proposal form offers the four solutions as separate choices", async ({
   await page.goto("/request-for-proposal");
 
   for (const label of [
-    "GEM Link Wireless™ – HVAC (including GEM Stat ET thermostats)",
-    "GEM Link Wireless – Lighting Control",
-    "GEM Link Wireless – DHW Controls",
-    "GEM Link Wireless – Appliance Controls",
+    "GEM Link® Wireless – HVAC (including GEM Stat™ ET thermostats)",
+    "GEM Link® Wireless – Lighting Control",
+    "GEM Link® Wireless – DHW Controls",
+    "GEM Link® Wireless – Appliance Controls",
   ]) {
     await expect(page.getByRole("checkbox", { name: label })).toBeVisible();
   }

@@ -30,7 +30,7 @@ export function ProductSection() {
         <article className="flagship-product">
           <div className="flagship-photo">
             <Image
-              alt="GEM Stat ET thermostat pictured in a sunlit tree setting"
+              alt="GEM Stat™ ET thermostat pictured in a sunlit tree setting"
               className="object-cover object-left"
               fill
               placeholder="blur"
@@ -44,7 +44,7 @@ export function ProductSection() {
           <div className="flagship-copy">
             <p className="chapter-label">Inside the HVAC solution</p>
             <h3>
-              GEM Stat<span className="product-suffix"> ET</span>
+              GEM Stat™<span className="product-suffix"> ET</span>
             </h3>
             <p className="product-statement">
               A comfortable room.
@@ -57,14 +57,14 @@ export function ProductSection() {
             <ul className="editorial-list">
               <li>Respond to room occupancy</li>
               <li>Support guest comfort</li>
-              <li>Connect with GEM Link Wireless</li>
+              <li>Connect with GEM Link® Wireless</li>
             </ul>
             <Link
-              aria-label="Learn more about GEM Stat ET"
+              aria-label="Learn more about GEM Stat™ ET"
               className="editorial-link"
               href="/solutions/gem-stat-et"
             >
-              Explore GEM Stat ET <span aria-hidden>↗</span>
+              Explore GEM Stat™ ET <span aria-hidden>↗</span>
             </Link>
           </div>
         </article>
@@ -72,14 +72,14 @@ export function ProductSection() {
           <div>
             <p className="chapter-label">Connected HVAC control</p>
             <h3>
-              GEM Link Wireless<span className="product-suffix">™ – HVAC</span>
+              GEM Link® Wireless<span className="product-suffix"> – HVAC</span>
             </h3>
             <p className="editorial-copy">
-              GEM Link Wireless connects supported HVAC controls, including GEM
-              Stat ET, with a coordinated operating view.
+              GEM Link® Wireless connects supported HVAC controls, including GEM
+              Stat™ ET, with a coordinated operating view.
             </p>
             <Link
-              aria-label="Learn more about GEM Link Wireless HVAC"
+              aria-label="Learn more about GEM Link® Wireless HVAC"
               className="editorial-link"
               href="/solutions/gem-link-wireless"
             >
@@ -88,7 +88,7 @@ export function ProductSection() {
           </div>
           <figure className="wireless-platform-connection">
             <div className="wireless-platform-identity">
-              <span>GEM Link</span>
+              <span>GEM Link®</span>
               <small>Wireless</small>
             </div>
             <div className="wireless-platform-stage">
@@ -117,19 +117,19 @@ export function ProductSection() {
         <div className="supporting-products">
           {[
             {
-              title: "GEM Link Wireless – Lighting Control",
+              title: "GEM Link® Wireless – Lighting Control",
               image: lightingImage,
               slug: "lighting-controls",
               copy: "The right light, around real building use.",
             },
             {
-              title: "GEM Link Wireless – DHW Controls",
+              title: "GEM Link® Wireless – DHW Controls",
               image: auxiliaryImage,
               slug: "dhw-controls",
               copy: "Plan domestic hot water controls around property demand.",
             },
             {
-              title: "GEM Link Wireless – Appliance Controls",
+              title: "GEM Link® Wireless – Appliance Controls",
               image: auxiliaryImage,
               slug: "appliance-controls",
               copy: "Bring overlooked loads into the conversation.",

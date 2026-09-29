@@ -38,29 +38,29 @@ export const products = [
     description:
       "Connected HVAC control for supported room equipment and property-wide visibility.",
     href: "/solutions/gem-link-wireless",
-    mediaLabel: "GEM Link Wireless product image",
-    title: "GEM Link Wireless™ – HVAC",
+    mediaLabel: "GEM Link® Wireless product image",
+    title: "GEM Link® Wireless – HVAC",
   },
   {
     description:
       "Lighting strategies that reduce waste while preserving expected comfort and safety.",
     href: "/solutions/lighting-controls",
     mediaLabel: "Lighting control product image",
-    title: "GEM Link Wireless – Lighting Control",
+    title: "GEM Link® Wireless – Lighting Control",
   },
   {
     description:
       "Domestic hot water control planning for property equipment and demand.",
     href: "/solutions/dhw-controls",
     mediaLabel: "DHW control illustration",
-    title: "GEM Link Wireless – DHW Controls",
+    title: "GEM Link® Wireless – DHW Controls",
   },
   {
     description:
       "Appliance and auxiliary load coordination for suitable equipment.",
     href: "/solutions/appliance-controls",
     mediaLabel: "Appliance control product image",
-    title: "GEM Link Wireless – Appliance Controls",
+    title: "GEM Link® Wireless – Appliance Controls",
   },
 ] as const;
 
@@ -132,7 +132,7 @@ export const turnkeySteps = [
   },
   {
     description:
-      "Engineer a property-specific GEM Link Wireless and GEM Stat ET plan.",
+      "Engineer a property-specific GEM Link® Wireless and GEM Stat™ ET plan.",
     title: "Engineer",
   },
   {

@@ -21,11 +21,11 @@ function display(value: unknown): string {
 }
 
 const productInterestLabels: Record<string, string> = {
-  "gem-link-wireless": "GEM Link Wireless™ – HVAC",
-  "lighting-controls": "GEM Link Wireless – Lighting Control",
-  "dhw-controls": "GEM Link Wireless – DHW Controls",
-  "appliance-controls": "GEM Link Wireless – Appliance Controls",
-  "gem-stat-et": "GEM Stat ET thermostats",
+  "gem-link-wireless": "GEM Link® Wireless – HVAC",
+  "lighting-controls": "GEM Link® Wireless – Lighting Control",
+  "dhw-controls": "GEM Link® Wireless – DHW Controls",
+  "appliance-controls": "GEM Link® Wireless – Appliance Controls",
+  "gem-stat-et": "GEM Stat™ ET thermostats",
 };
 
 function displayProductInterest(value: unknown): string {

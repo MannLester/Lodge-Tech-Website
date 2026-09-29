@@ -83,12 +83,12 @@ export function ProductPage({ product }: ProductPageProps) {
               <p className="editorial-copy">{product.description}</p>
               {product.slug === "gem-stat-et" && (
                 <p className="editorial-copy">
-                  GEM Stat ET is a room-level product within the{" "}
+                  GEM Stat™ ET is a room-level product within the{" "}
                   <Link
                     className="editorial-link"
                     href="/solutions/gem-link-wireless"
                   >
-                    GEM Link Wireless™ – HVAC solution
+                    GEM Link® Wireless – HVAC solution
                   </Link>
                   .
                 </p>

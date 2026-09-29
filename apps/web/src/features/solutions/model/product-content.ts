@@ -107,17 +107,17 @@ const pendingSpecifications: ReadonlyArray<SpecificationGroup> = [
 const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   "gem-stat-et": {
     slug: "gem-stat-et",
-    label: "GEM Stat ET",
+    label: "GEM Stat™ ET",
     eyebrow: "Occupancy-based HVAC control",
     subtitle: "Responsive room control for modern building operations.",
     description:
-      "GEM Stat ET connects room-level comfort control with occupancy-aware energy management, helping operating teams reduce avoidable HVAC runtime while maintaining a clear experience for occupants.",
+      "GEM Stat™ ET connects room-level comfort control with occupancy-aware energy management, helping operating teams reduce avoidable HVAC runtime while maintaining a clear experience for occupants.",
     shortDescription:
       "Room-level HVAC control designed to work within the connected GEM ecosystem.",
     metaDescription:
-      "Explore the GEM Stat ET occupancy-based HVAC control solution.",
+      "Explore the GEM Stat™ ET occupancy-based HVAC control solution.",
     heroImage: gemStatThermostatImage,
-    heroImageAlt: "GEM Stat ET thermostat with room temperature display",
+    heroImageAlt: "GEM Stat™ ET thermostat with room temperature display",
     heroPhoto: true,
     features: [
       {
@@ -130,7 +130,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       },
       {
         title: "Connected visibility",
-        body: "Pair room-level control with GEM Link Wireless for broader operational awareness.",
+        body: "Pair room-level control with GEM Link® Wireless for broader operational awareness.",
       },
       {
         title: "Retrofit-oriented approach",
@@ -143,7 +143,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Give occupants a familiar room interface while enabling an operating strategy built around real occupancy patterns.",
         image: gemStatTreeSettingImage,
         imageAlt:
-          "GEM Stat ET thermostat pictured against a sunlit tree and park setting",
+          "GEM Stat™ ET thermostat pictured against a sunlit tree and park setting",
         imagePosition: "object-[center_35%]",
       },
       {
@@ -151,12 +151,12 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Connect individual spaces to portfolio-level monitoring and a consistent energy-management workflow.",
         image: gemStatOfficeSettingImage,
         imageAlt:
-          "GEM Stat ET thermostat on a wall beside an office meeting room",
+          "GEM Stat™ ET thermostat on a wall beside an office meeting room",
         imagePosition: "object-center",
       },
     ],
     videoBrief: {
-      title: "GEM Stat ET, room by room.",
+      title: "GEM Stat™ ET, room by room.",
       description:
         "Film the thermostat in a guest room: show a guest adjusting comfort, then illustrate how the configured vacant strategy follows their departure.",
     },
@@ -164,16 +164,16 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   },
   "gem-link-wireless": {
     slug: "gem-link-wireless",
-    label: "GEM Link Wireless™ – HVAC",
+    label: "GEM Link® Wireless – HVAC",
     eyebrow: "Connected HVAC control",
     subtitle:
       "Coordinate room comfort and HVAC operation across your property.",
     description:
-      "GEM Link Wireless connects supported room-level HVAC controls with a coordinated operating view, helping teams manage comfort and avoid unnecessary runtime across their property.",
+      "GEM Link® Wireless connects supported room-level HVAC controls with a coordinated operating view, helping teams manage comfort and avoid unnecessary runtime across their property.",
     shortDescription:
       "Connected HVAC control with room-level comfort and property-wide visibility.",
     metaDescription:
-      "Explore GEM Link Wireless HVAC controls and property-wide visibility.",
+      "Explore GEM Link® Wireless HVAC controls and property-wide visibility.",
     heroImage: platformImage,
     heroImageAlt:
       "Lodging Technologies logo prominently displayed on an illustrative laptop and phone platform dashboard",
@@ -188,7 +188,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       },
       {
         title: "Room-level control",
-        body: "Connect supported thermostats, including GEM Stat ET, to a broader HVAC strategy.",
+        body: "Connect supported thermostats, including GEM Stat™ ET, to a broader HVAC strategy.",
       },
       {
         title: "Operational continuity",
@@ -214,7 +214,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   },
   "lighting-controls": {
     slug: "lighting-controls",
-    label: "GEM Link Wireless – Lighting Control",
+    label: "GEM Link® Wireless – Lighting Control",
     eyebrow: "Managed lighting",
     subtitle: "Align lighting operation with occupancy and property needs.",
     description:
@@ -222,7 +222,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     shortDescription:
       "Practical lighting strategies coordinated around real building use.",
     metaDescription:
-      "Explore GEM Link Wireless lighting control for suitable property spaces.",
+      "Explore GEM Link® Wireless lighting control for suitable property spaces.",
     heroImage: lightingImage,
     heroImageAlt: "Lighting controls product placeholder",
     features: [
@@ -257,7 +257,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   },
   "dhw-controls": {
     slug: "dhw-controls",
-    label: "GEM Link Wireless – DHW Controls",
+    label: "GEM Link® Wireless – DHW Controls",
     eyebrow: "Domestic hot water control",
     subtitle: "Plan domestic hot water operation around property demand.",
     description:
@@ -265,7 +265,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     shortDescription:
       "A dedicated control strategy for domestic hot water systems.",
     metaDescription:
-      "Explore GEM Link Wireless controls for domestic hot water systems.",
+      "Explore GEM Link® Wireless controls for domestic hot water systems.",
     heroImage: auxiliaryImage,
     heroImageAlt: "Illustrative building control interface",
     features: [
@@ -283,7 +283,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       },
       {
         title: "Connected oversight",
-        body: "Evaluate how a supported DHW application fits into the broader GEM Link Wireless view.",
+        body: "Evaluate how a supported DHW application fits into the broader GEM Link® Wireless view.",
       },
     ],
     showcases: [
@@ -300,7 +300,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   },
   "appliance-controls": {
     slug: "appliance-controls",
-    label: "GEM Link Wireless – Appliance Controls",
+    label: "GEM Link® Wireless – Appliance Controls",
     eyebrow: "Managed auxiliary loads",
     subtitle: "Coordinate equipment that should not operate unmanaged.",
     description:
@@ -308,7 +308,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     shortDescription:
       "Control strategies for suitable appliance and auxiliary equipment loads.",
     metaDescription:
-      "Explore GEM Link Wireless controls for suitable appliance and auxiliary loads.",
+      "Explore GEM Link® Wireless controls for suitable appliance and auxiliary loads.",
     heroImage: auxiliaryImage,
     heroImageAlt: "Appliance controls product placeholder",
     features: [

@@ -132,11 +132,11 @@ test("platform inquiry carries product context into the existing form", async ({
   await page.goto("/");
   await page.getByRole("link", { name: /Request Platform Demo/ }).click();
   await expect(page.getByLabel("Project notes")).toHaveValue(
-    "We would like to request a product demo for GEM Link Wireless™ – HVAC.",
+    "We would like to request a product demo for GEM Link® Wireless – HVAC.",
   );
 });
 
-test("GEM Link puts the platform at the center of its pulsing connections", async ({
+test("GEM Link® Wireless puts the platform at the center of its pulsing connections", async ({
   page,
 }) => {
   await page.goto("/#solutions");
@@ -146,7 +146,7 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
 
   await expect(visual.getByRole("img")).toHaveCount(1);
   await expect(visual.locator(".wireless-platform-identity span")).toHaveText(
-    "GEM Link",
+    "GEM Link®",
   );
   await expect(visual.locator(".wireless-platform-identity small")).toHaveText(
     "Wireless",
