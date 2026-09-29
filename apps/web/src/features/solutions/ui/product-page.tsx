@@ -8,7 +8,6 @@ import {
   type ProductPageContent,
 } from "@/features/solutions/model/product-content";
 import { EcosystemMap } from "@/features/solutions/ui/ecosystem-map";
-import { GemLinkBrand } from "@/shared/ui/gem-link-brand";
 import { SiteFooter } from "@/shared/ui/site-footer";
 import { SiteHeader } from "@/shared/ui/site-header";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
@@ -65,11 +64,7 @@ export function ProductPage({ product }: ProductPageProps) {
                 href={`/solutions/${item.slug}`}
                 key={item.slug}
               >
-                {item.slug === "gem-stat-et" ? (
-                  item.label
-                ) : (
-                  <GemLinkBrand label={item.label} size="compact" />
-                )}
+                {item.label}
               </Link>
             ))}
           </div>
@@ -82,11 +77,7 @@ export function ProductPage({ product }: ProductPageProps) {
             <div data-product-intro>
               <p className="chapter-label">{product.eyebrow}</p>
               <h1 className="mt-5 leading-tight" id="product-heading">
-                {product.slug === "gem-stat-et" ? (
-                  product.label
-                ) : (
-                  <GemLinkBrand label={product.label} size="large" stacked />
-                )}
+                {product.label}
               </h1>
               <p className="mt-5 text-xl leading-relaxed">{product.subtitle}</p>
               <p className="editorial-copy">{product.description}</p>

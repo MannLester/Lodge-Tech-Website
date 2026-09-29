@@ -292,10 +292,24 @@
 }
 .marketing-site .wireless-platform-identity {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
+  gap: 0.45rem;
   margin-bottom: 1.5rem;
   text-align: center;
+  white-space: nowrap;
+}
+.marketing-site .wireless-platform-identity span {
+  display: block;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.marketing-site .wireless-platform-identity small {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 .marketing-site .wireless-platform-stage {
   position: relative;

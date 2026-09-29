@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { GemLinkBrand } from "@/shared/ui/gem-link-brand";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
@@ -73,7 +72,7 @@ export function SiteFooter() {
               className="hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              <GemLinkBrand label="GEM Link Wireless™ – HVAC" size="small" />
+              GEM Link Wireless™ – HVAC
             </Link>
             <Link className="hover:underline" href="/solutions/gem-stat-et">
               GEM Stat™ ET
@@ -111,15 +110,7 @@ export function SiteFooter() {
                       className="text-muted hover:text-brand-strong text-sm transition-colors"
                       href={link.href}
                     >
-                      {link.label.startsWith("GEM Link Wireless") ? (
-                        <GemLinkBrand
-                          label={link.label}
-                          size="compact"
-                          stacked
-                        />
-                      ) : (
-                        link.label
-                      )}
+                      {link.label}
                     </Link>
                   </li>
                 ))}

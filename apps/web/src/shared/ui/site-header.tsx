@@ -9,7 +9,6 @@ import {
   primaryNavigationItems,
   solutionNavigationItems,
 } from "@/shared/config/navigation";
-import { GemLinkBrand } from "@/shared/ui/gem-link-brand";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { ThemeToggle } from "@lodging-technologies/ui/theme-toggle";
@@ -55,7 +54,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                       href={solution.href}
                       key={solution.href}
                     >
-                      <GemLinkBrand label={solution.label} size="compact" />
+                      {solution.label}
                     </a>
                   ))}
                 </div>
@@ -135,7 +134,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                         key={solution.href}
                         onClick={() => setMenuOpen(false)}
                       >
-                        <GemLinkBrand label={solution.label} size="small" />
+                        {solution.label}
                       </a>
                     ))}
                   </div>
