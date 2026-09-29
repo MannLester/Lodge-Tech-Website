@@ -132,7 +132,7 @@ test("platform inquiry carries product context into the existing form", async ({
   await page.goto("/");
   await page.getByRole("link", { name: /Request Platform Demo/ }).click();
   await expect(page.getByLabel("Project notes")).toHaveValue(
-    "We would like to request a product demo for GEM Link Wireless™ – HVAC.",
+    "We would like to request a product demo for GEM Link® Wireless – HVAC.",
   );
 });
 
@@ -144,17 +144,21 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
   const visual = gemLink.locator(".wireless-platform-connection");
   const stage = visual.locator(".wireless-platform-stage");
 
-  await expect(visual.getByRole("img")).toHaveCount(2);
-  await expect(visual.locator(".wireless-platform-logo-light")).toBeVisible();
-  await expect(visual.locator(".wireless-platform-logo-dark")).toBeHidden();
-  await page.evaluate(() =>
-    document.documentElement.setAttribute("data-theme", "dark"),
+  await expect(visual.getByRole("img")).toHaveCount(1);
+  await expect(visual.locator(".wireless-platform-identity span")).toHaveText(
+    "GEM Link®",
   );
-  await expect(visual.locator(".wireless-platform-logo-light")).toBeHidden();
-  await expect(visual.locator(".wireless-platform-logo-dark")).toBeVisible();
-  await page.evaluate(() =>
-    document.documentElement.setAttribute("data-theme", "light"),
+  await expect(visual.locator(".wireless-platform-identity small")).toHaveText(
+    "Wireless",
   );
+  const gemLinkTitle = (await visual
+    .locator(".wireless-platform-identity span")
+    .boundingBox())!;
+  const wirelessTitle = (await visual
+    .locator(".wireless-platform-identity small")
+    .boundingBox())!;
+  expect(wirelessTitle.x).toBeGreaterThan(gemLinkTitle.x + gemLinkTitle.width);
+  expect(wirelessTitle.y).toBeLessThan(gemLinkTitle.y + gemLinkTitle.height);
   await expect(visual).toContainText(
     "One connected view, from room to property.",
   );

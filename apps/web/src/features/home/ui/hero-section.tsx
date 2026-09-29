@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import heroHouseImage from "@assets/day_house.png";
-import heroHouseNightImage from "@assets/day_night.png";
+import heroHouseImage from "@/assets/day_house.png";
+import heroHouseNightImage from "@/assets/day_night.png";
 import { proofStats } from "@/features/home/model/home-content";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
@@ -53,7 +53,7 @@ export function HeroSection() {
               className="underline-offset-4 hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link Wireless™ – HVAC
+              GEM Link® Wireless – HVAC
             </Link>
             <Link
               className="underline-offset-4 hover:underline"

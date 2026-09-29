@@ -42,7 +42,7 @@ export function PlatformSection() {
               <div>
                 <h3>Connect the property</h3>
                 <p>
-                  GEM Link Wireless connects supported controls and equipment.
+                  GEM Link® Wireless connects supported controls and equipment.
                 </p>
               </div>
             </li>

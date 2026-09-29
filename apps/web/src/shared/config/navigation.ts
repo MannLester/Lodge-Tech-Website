@@ -8,18 +8,18 @@ export const primaryNavigationItems = [
 ] as const;
 
 export const solutionNavigationItems = [
-  { href: "/solutions/gem-link-wireless", label: "GEM Link Wireless™ – HVAC" },
+  { href: "/solutions/gem-link-wireless", label: "GEM Link® Wireless – HVAC" },
   {
     href: "/solutions/lighting-controls",
-    label: "GEM Link Wireless – Lighting Control",
+    label: "GEM Link® Wireless – Lighting Control",
   },
   {
     href: "/solutions/dhw-controls",
-    label: "GEM Link Wireless – DHW Controls",
+    label: "GEM Link® Wireless – DHW Controls",
   },
   {
     href: "/solutions/appliance-controls",
-    label: "GEM Link Wireless – Appliance Controls",
+    label: "GEM Link® Wireless – Appliance Controls",
   },
 ] as const;
 

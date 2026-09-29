@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import occupiedRoomImage from "@assets/gem-stat-et/occupied-room.jpeg";
-import vacantRoomImage from "@assets/gem-stat-et/vacant-room.png";
+import occupiedRoomImage from "@/assets/gem-stat-et/occupied-room.jpeg";
+import vacantRoomImage from "@/assets/gem-stat-et/vacant-room.png";
 
 export function ValueSection() {
   const [occupied, setOccupied] = useState(true);

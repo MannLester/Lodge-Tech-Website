@@ -4,10 +4,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
 import { useEffect, useState } from "react";
 
-import buildingImage from "@assets/lodge-tech-building.png";
-import productGroupImage from "@assets/company/product-group-portrait.png";
-import roomImage from "@assets/company/room.png";
-import treeImage from "@assets/company/tree.png";
+// Absolute Path Aliases (Platform Baseline Compliant)
+import buildingImage from "@/assets/lodge-tech-building.png";
+import productGroupImage from "@/assets/company/product-group-portrait.png";
+import roomImage from "@/assets/company/room.png";
+import treeImage from "@/assets/company/tree.png";
 
 type Slide = {
   alt: string;

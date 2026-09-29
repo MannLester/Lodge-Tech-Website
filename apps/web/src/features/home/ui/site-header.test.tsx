@@ -41,15 +41,15 @@ describe("SiteHeader", () => {
 
     fireEvent.click(screen.getByText("Solutions"));
     expect(
-      screen.getByRole("link", { name: "GEM Link Wireless™ – HVAC" }),
+      screen.getByRole("link", { name: "GEM Link® Wireless – HVAC" }),
     ).toHaveAttribute("href", "/solutions/gem-link-wireless");
     expect(
       screen.getByRole("link", {
-        name: "GEM Link Wireless – Lighting Control",
+        name: "GEM Link® Wireless – Lighting Control",
       }),
     ).toHaveAttribute("href", "/solutions/lighting-controls");
     expect(
-      screen.getByRole("link", { name: "GEM Link Wireless – DHW Controls" }),
+      screen.getByRole("link", { name: "GEM Link® Wireless – DHW Controls" }),
     ).toHaveAttribute("href", "/solutions/dhw-controls");
 
     const themeSwitch = screen.getAllByRole("switch", {

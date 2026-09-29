@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import hospitalityImage from "@assets/hospitality.png";
-import multifamilyImage from "@assets/multifamily.png";
-import seniorLivingImage from "@assets/senior_living.png";
-import studentHousingImage from "@assets/student_housing.png";
-import officeImage from "@assets/gem-stat-et/office-setting.jpeg";
+
+// Absolute Path Aliases (Platform Baseline Compliant)
+import hospitalityImage from "@/assets/hospitality.png";
+import multifamilyImage from "@/assets/multifamily.png";
+import seniorLivingImage from "@/assets/senior_living.png";
+import studentHousingImage from "@/assets/student_housing.png";
+import officeImage from "@/assets/gem-stat-et/office-setting.jpeg";
 import { industries } from "@/features/home/model/home-content";
 
 const industryImages = [

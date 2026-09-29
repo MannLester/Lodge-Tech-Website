@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import founderPortrait from "@assets/company/william-fizer.jpg";
+import founderPortrait from "@/assets/company/william-fizer.jpg";
 import { companyProfile } from "@/features/company/model/company-profile";
 import { CompanyImageSlider } from "@/features/home";
 import { SiteFooter } from "@/shared/ui/site-footer";

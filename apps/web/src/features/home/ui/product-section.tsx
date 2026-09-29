@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
-import lightingImage from "@assets/lighting.png";
-import auxiliaryImage from "@assets/auxiliary.png";
-import gemLinkLogoBlue from "@assets/gem_link_logo_blue.png";
-import gemLinkLogoWhite from "@assets/gem_link_logo_white.png";
-import platformImage from "@assets/platform.png";
+
+// Absolute Path Aliases (Platform Engineering Standards)
+import gemStatImage from "@/assets/gem-stat-et/tree-setting.jpeg";
+import lightingImage from "@/assets/lighting.png";
+import auxiliaryImage from "@/assets/auxiliary.png";
+import gemLinkLogoBlue from "@/assets/gem_link_logo_blue.png";
+import gemLinkLogoWhite from "@/assets/gem_link_logo_white.png";
+import platformImage from "@/assets/platform-branded.png";
 
 export function ProductSection() {
   return (
@@ -29,10 +31,12 @@ export function ProductSection() {
             controls behind a more efficient building.
           </p>
         </div>
+
+        {/* Flagship Product: GEM Stat ET */}
         <article className="flagship-product">
           <div className="flagship-photo">
             <Image
-              alt="GEM Stat ET thermostat pictured in a sunlit tree setting"
+              alt="GEM Stat™ ET thermostat pictured in a sunlit tree setting"
               className="object-cover object-left"
               fill
               placeholder="blur"
@@ -46,7 +50,7 @@ export function ProductSection() {
           <div className="flagship-copy">
             <p className="chapter-label">Inside the HVAC solution</p>
             <h3>
-              GEM Stat<span className="product-suffix"> ET</span>
+              GEM Stat™<span className="product-suffix"> ET</span>
             </h3>
             <p className="product-statement">
               A comfortable room.
@@ -59,59 +63,69 @@ export function ProductSection() {
             <ul className="editorial-list">
               <li>Respond to room occupancy</li>
               <li>Support guest comfort</li>
-              <li>Connect with GEM Link Wireless</li>
+              <li>Connect with GEM Link® Wireless</li>
             </ul>
             <Link
-              aria-label="Learn more about GEM Stat ET"
+              aria-label="Learn more about GEM Stat™ ET"
               className="editorial-link"
               href="/solutions/gem-stat-et"
             >
-              Explore GEM Stat ET <span aria-hidden>↗</span>
+              Explore GEM Stat™ ET <span aria-hidden>↗</span>
             </Link>
           </div>
         </article>
+
+        {/* Wireless Feature: GEM Link Wireless + Restored Logo Brand Assets */}
         <article className="wireless-feature">
           <div>
             <p className="chapter-label">Connected HVAC control</p>
             <h3>
-              GEM Link Wireless<span className="product-suffix">™ – HVAC</span>
+              GEM Link® Wireless<span className="product-suffix"> – HVAC</span>
             </h3>
             <p className="editorial-copy">
-              GEM Link Wireless connects supported HVAC controls, including GEM
-              Stat ET, with a coordinated operating view.
+              GEM Link® Wireless connects supported HVAC controls, including GEM
+              Stat™ ET, with a coordinated operating view.
             </p>
             <Link
-              aria-label="Learn more about GEM Link Wireless HVAC"
+              aria-label="Learn more about GEM Link® Wireless HVAC"
               className="editorial-link"
               href="/solutions/gem-link-wireless"
             >
               Explore HVAC controls <span aria-hidden>↗</span>
             </Link>
           </div>
+
           <figure className="wireless-platform-connection">
+            {/* Restored Light & Dark Mode GEM Link Wordmark Logos (PR #40) */}
             <div className="wireless-platform-identity">
               <Image
                 alt="GEM Link® Wireless"
                 className="wireless-platform-logo wireless-platform-logo-light"
                 src={gemLinkLogoBlue}
+                priority
               />
               <Image
                 alt="GEM Link® Wireless"
                 className="wireless-platform-logo wireless-platform-logo-dark"
                 src={gemLinkLogoWhite}
+                priority
               />
             </div>
+
+            {/* Platform Stage Visual (PR #41 asset alignment) */}
             <div className="wireless-platform-stage">
               <div className="wireless-platform-image">
                 <Image
-                  alt="Lodging Technologies logo prominently displayed on an illustrative laptop and phone platform dashboard"
+                  alt="GEM Link® Wireless platform illustrated on laptop and phone screens"
                   className="object-contain"
                   fill
                   sizes="(max-width: 767px) 92vw, (max-width: 1279px) 55vw, 48vw"
                   src={platformImage}
+                  priority
                 />
               </div>
             </div>
+
             <div className="connection-loads">
               <span>HVAC</span>
               <span>Lighting</span>
@@ -124,22 +138,24 @@ export function ProductSection() {
             </figcaption>
           </figure>
         </article>
+
+        {/* Supporting Product Offerings */}
         <div className="supporting-products">
           {[
             {
-              title: "GEM Link Wireless – Lighting Control",
+              title: "GEM Link® Wireless – Lighting Control",
               image: lightingImage,
               slug: "lighting-controls",
               copy: "The right light, around real building use.",
             },
             {
-              title: "GEM Link Wireless – DHW Controls",
+              title: "GEM Link® Wireless – DHW Controls",
               image: auxiliaryImage,
               slug: "dhw-controls",
               copy: "Plan domestic hot water controls around property demand.",
             },
             {
-              title: "GEM Link Wireless – Appliance Controls",
+              title: "GEM Link® Wireless – Appliance Controls",
               image: auxiliaryImage,
               slug: "appliance-controls",
               copy: "Bring overlooked loads into the conversation.",
