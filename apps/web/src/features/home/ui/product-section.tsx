@@ -3,6 +3,8 @@ import Link from "next/link";
 import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import lightingImage from "@assets/lighting.png";
 import auxiliaryImage from "@assets/auxiliary.png";
+import gemLinkLogoBlue from "@assets/gem_link_logo_blue.png";
+import gemLinkLogoWhite from "@assets/gem_link_logo_white.png";
 import platformImage from "@assets/platform-branded.png";
 
 export function ProductSection() {
@@ -88,8 +90,16 @@ export function ProductSection() {
           </div>
           <figure className="wireless-platform-connection">
             <div className="wireless-platform-identity">
-              <span>GEM Link®</span>
-              <small>Wireless</small>
+              <Image
+                alt=""
+                className="wireless-platform-logo wireless-platform-logo-light"
+                src={gemLinkLogoBlue}
+              />
+              <Image
+                alt=""
+                className="wireless-platform-logo wireless-platform-logo-dark"
+                src={gemLinkLogoWhite}
+              />
             </div>
             <div className="wireless-platform-stage">
               <div className="wireless-platform-image">
