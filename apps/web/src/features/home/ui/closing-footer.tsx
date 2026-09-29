@@ -26,6 +26,33 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
               Have a question about your property or our solutions? Send a
               general inquiry and we’ll help you find the right next step.
             </p>
+            <div className="contact-direct">
+              <p className="chapter-label">Call us</p>
+              <a href="tel:+18005242680">(800) 524-2680</a>
+            </div>
+            <div className="contact-social">
+              <p className="chapter-label">Find us online</p>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100066727996704"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Facebook <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    LinkedIn <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
             <div className="contact-next">
               <p className="chapter-label">What happens next</p>
               <p>

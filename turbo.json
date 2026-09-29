@@ -12,6 +12,9 @@
       "dependsOn": ["^typecheck"],
       "outputs": ["tsconfig.tsbuildinfo", "dist/tsconfig.tsbuildinfo"]
     },
+    "clean": {
+      "cache": false
+    },
     "format:check": {
       "outputs": []
     },

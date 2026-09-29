@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 
+import founderPortrait from "@assets/company/william-fizer.jpg";
 import { companyProfile } from "@/features/company/model/company-profile";
 import { CompanyImageSlider } from "@/features/home";
 import { SiteFooter } from "@/shared/ui/site-footer";
@@ -21,19 +23,71 @@ export function CompanyPage() {
                 Who <em>we are.</em>
               </h1>
               <p className="company-page-declaration">
-                Experience, technology, efficiency, and a forward-looking
-                vision.
+                Built around how people actually use a room.
               </p>
               <p className="company-page-introduction">
                 {companyProfile.introduction}
               </p>
-              <a className="company-page-scroll-link" href="#our-direction">
-                Discover what drives us <span aria-hidden>↓</span>
+              <a className="company-page-scroll-link" href="#our-story">
+                Discover our story <span aria-hidden>↓</span>
               </a>
             </div>
             <div className="company-page-gallery">
               <CompanyImageSlider />
               <p>Places, people, and technology in focus.</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="story-heading"
+          className="company-page-story"
+          id="our-story"
+        >
+          <div className="section-shell">
+            <div className="company-page-section-heading">
+              <p className="chapter-label">A story rooted in hospitality</p>
+              <h2 id="story-heading">Where the work began.</h2>
+            </div>
+            <div className="company-page-founder">
+              <div className="company-page-founder-layout">
+                <Image
+                  alt="William C. Fizer, founder of Lodging Technologies"
+                  className="company-page-founder-portrait"
+                  placeholder="blur"
+                  sizes="(max-width: 600px) 256px, 320px"
+                  src={founderPortrait}
+                />
+                <div className="company-page-founder-copy">
+                  <p className="chapter-label">Our founder</p>
+                  <h3>William C. Fizer</h3>
+                  <p className="company-page-founder-bio">
+                    {companyProfile.origin}
+                  </p>
+                </div>
+              </div>
+              <figure className="founder-video-brief">
+                <div
+                  aria-hidden="true"
+                  className="video-brief-frame founder-video-frame"
+                >
+                  <span>The first idea</span>
+                  <span>Today&apos;s work</span>
+                </div>
+                <figcaption>
+                  <span>Video concept / Founder conversation</span>
+                  <strong>The story in his words.</strong>
+                  <p>
+                    Film William C. Fizer discussing the hotel R&amp;D problem
+                    that inspired occupancy sensing and how it informs the
+                    team&apos;s work today.
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+            <div className="company-page-approach">
+              <h3>Working with a property</h3>
+              <p>{companyProfile.approach}</p>
             </div>
           </div>
         </section>

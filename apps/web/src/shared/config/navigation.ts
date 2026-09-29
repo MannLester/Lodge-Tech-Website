@@ -4,6 +4,7 @@ export const primaryNavigationItems = [
   { hash: "industries", label: "Industries" },
   { hash: "results", label: "Results" },
   { hash: "company", label: "Company" },
+  { hash: "contact", label: "Contact Us" },
 ] as const;
 
 export const solutionNavigationItems = [
