@@ -342,7 +342,7 @@
 .marketing-site .connection-loads {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 1.8rem;
   padding-top: 1rem;
   border-top: 1px solid var(--editorial-line);
@@ -379,6 +379,9 @@
 }
 .marketing-site .connection-loads span:nth-child(3)::before {
   animation-delay: 0.9s;
+}
+.marketing-site .connection-loads span:nth-child(4)::before {
+  animation-delay: 1.35s;
 }
 
 @keyframes connection-ring-pulse {
@@ -420,14 +423,14 @@
 }
 .marketing-site .supporting-products {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 3rem;
   border-top: 1px solid var(--editorial-line);
   padding-top: 2.5rem;
 }
 .marketing-site .supporting-product {
   display: grid;
-  grid-template-columns: 0.9fr 1.2fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   align-items: center;
 }
@@ -438,7 +441,7 @@
 }
 .marketing-site .supporting-product h3 {
   margin-top: 0.65rem;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 500;
   letter-spacing: -0.035em;
 }
@@ -1628,6 +1631,7 @@
     min-height: 35rem;
   }
   .marketing-site .supporting-products {
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
   .marketing-site .supporting-product {

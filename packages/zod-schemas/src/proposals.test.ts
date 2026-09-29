@@ -33,6 +33,17 @@ const valid = {
 describe("proposalSchema", () => {
   it("accepts a complete proposal profile", () => {
     expect(proposalSchema.safeParse(valid).success).toBe(true);
+    expect(
+      proposalSchema.safeParse({
+        ...valid,
+        products: [
+          "gem-link-wireless",
+          "lighting-controls",
+          "dhw-controls",
+          "appliance-controls",
+        ],
+      }).success,
+    ).toBe(true);
   });
 
   it("requires a suite description when suites are declared", () => {

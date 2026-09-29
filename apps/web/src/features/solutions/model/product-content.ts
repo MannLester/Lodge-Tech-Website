@@ -11,10 +11,18 @@ export const productSlugs = [
   "gem-stat-et",
   "gem-link-wireless",
   "lighting-controls",
+  "dhw-controls",
   "appliance-controls",
 ] as const;
 
 export type ProductSlug = (typeof productSlugs)[number];
+
+export const solutionSlugs = [
+  "gem-link-wireless",
+  "lighting-controls",
+  "dhw-controls",
+  "appliance-controls",
+] as const;
 
 type Feature = {
   body: string;
@@ -156,15 +164,16 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   },
   "gem-link-wireless": {
     slug: "gem-link-wireless",
-    label: "GEM Link Wireless",
-    eyebrow: "Connected building intelligence",
-    subtitle: "Bring distributed controls into one coordinated operating view.",
+    label: "GEM Link Wireless™ – HVAC",
+    eyebrow: "Connected HVAC control",
+    subtitle:
+      "Coordinate room comfort and HVAC operation across your property.",
     description:
-      "GEM Link Wireless provides the connective layer between supported room controls, building loads, and remote operational visibility so teams can manage more spaces with greater consistency.",
+      "GEM Link Wireless connects supported room-level HVAC controls with a coordinated operating view, helping teams manage comfort and avoid unnecessary runtime across their property.",
     shortDescription:
-      "Wireless connectivity for coordinated controls and portfolio visibility.",
+      "Connected HVAC control with room-level comfort and property-wide visibility.",
     metaDescription:
-      "Explore the GEM Link Wireless connected building platform.",
+      "Explore GEM Link Wireless HVAC controls and property-wide visibility.",
     heroImage: platformImage,
     heroImageAlt: "GEM Link Wireless platform product placeholder",
     features: [
@@ -177,8 +186,8 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
         body: "Support property teams without requiring a visit to every managed space.",
       },
       {
-        title: "Expandable ecosystem",
-        body: "Connect HVAC, lighting, and managed appliance strategies.",
+        title: "Room-level control",
+        body: "Connect supported thermostats, including GEM Stat ET, to a broader HVAC strategy.",
       },
       {
         title: "Operational continuity",
@@ -187,8 +196,8 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     ],
     showcases: [
       {
-        title: "Connect the controllable loads",
-        body: "Create a common operating layer for supported thermostats, lighting controls, and appliance applications.",
+        title: "Connect the HVAC controls",
+        body: "Create a common operating layer for supported thermostats and room-level HVAC applications.",
       },
       {
         title: "Move from signals to action",
@@ -204,15 +213,15 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
   },
   "lighting-controls": {
     slug: "lighting-controls",
-    label: "Lighting Controls",
+    label: "GEM Link Wireless – Lighting Control",
     eyebrow: "Managed lighting",
     subtitle: "Align lighting operation with occupancy and property needs.",
     description:
-      "Lighting Controls help properties reduce unnecessary runtime in suitable spaces while preserving the visibility, comfort, and safety expected by occupants and operating teams.",
+      "Lighting control helps properties reduce unnecessary runtime in suitable spaces while preserving the visibility, comfort, and safety expected by occupants and operating teams.",
     shortDescription:
       "Practical lighting strategies coordinated around real building use.",
     metaDescription:
-      "Explore occupancy-aware lighting control solutions from Lodging Technologies.",
+      "Explore GEM Link Wireless lighting control for suitable property spaces.",
     heroImage: lightingImage,
     heroImageAlt: "Lighting controls product placeholder",
     features: [
@@ -245,17 +254,60 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     ],
     specifications: pendingSpecifications,
   },
+  "dhw-controls": {
+    slug: "dhw-controls",
+    label: "GEM Link Wireless – DHW Controls",
+    eyebrow: "Domestic hot water control",
+    subtitle: "Plan domestic hot water operation around property demand.",
+    description:
+      "DHW controls address domestic hot water as a distinct building system. A suitable strategy depends on the property's equipment, demand patterns, and service requirements.",
+    shortDescription:
+      "A dedicated control strategy for domestic hot water systems.",
+    metaDescription:
+      "Explore GEM Link Wireless controls for domestic hot water systems.",
+    heroImage: auxiliaryImage,
+    heroImageAlt: "Illustrative building control interface",
+    features: [
+      {
+        title: "System-specific planning",
+        body: "Assess the domestic hot water equipment and operating requirements before defining a control approach.",
+      },
+      {
+        title: "Demand-aware operation",
+        body: "Review when hot water is needed and where operating schedules may be appropriate.",
+      },
+      {
+        title: "Service continuity",
+        body: "Keep occupant hot water needs central to every proposed control strategy.",
+      },
+      {
+        title: "Connected oversight",
+        body: "Evaluate how a supported DHW application fits into the broader GEM Link Wireless view.",
+      },
+    ],
+    showcases: [
+      {
+        title: "Treat hot water as its own system",
+        body: "Review plant equipment, storage, circulation, and service requirements before identifying suitable control opportunities.",
+      },
+      {
+        title: "Coordinate with property operations",
+        body: "Discuss how domestic hot water control can align with the building's wider energy-management plan.",
+      },
+    ],
+    specifications: pendingSpecifications,
+  },
   "appliance-controls": {
     slug: "appliance-controls",
-    label: "Appliance Controls",
+    label: "GEM Link Wireless – Appliance Controls",
     eyebrow: "Managed auxiliary loads",
     subtitle: "Coordinate equipment that should not operate unmanaged.",
     description:
-      "Appliance Controls extend an energy-management strategy beyond HVAC and lighting to suitable plug loads, water heating, exhaust, and other auxiliary equipment applications.",
+      "Appliance Controls extend an energy-management strategy beyond HVAC, lighting, and domestic hot water to suitable plug loads, exhaust, and other auxiliary equipment applications.",
     shortDescription:
       "Control strategies for suitable appliance and auxiliary equipment loads.",
     metaDescription:
-      "Explore appliance and auxiliary load control solutions from Lodging Technologies.",
+      "Explore GEM Link Wireless controls for suitable appliance and auxiliary loads.",
     heroImage: auxiliaryImage,
     heroImageAlt: "Appliance controls product placeholder",
     features: [
@@ -291,6 +343,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
 };
 
 export const products = productSlugs.map((slug) => productDefinitions[slug]);
+export const solutions = solutionSlugs.map((slug) => productDefinitions[slug]);
 
 export function isProductSlug(value: string): value is ProductSlug {
   return productSlugs.includes(value as ProductSlug);

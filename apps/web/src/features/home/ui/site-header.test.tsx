@@ -40,13 +40,17 @@ describe("SiteHeader", () => {
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
 
     fireEvent.click(screen.getByText("Solutions"));
-    expect(screen.getByRole("link", { name: "GEM Stat ET" })).toHaveAttribute(
-      "href",
-      "/solutions/gem-stat-et",
-    );
     expect(
-      screen.getByRole("link", { name: "Lighting Controls" }),
+      screen.getByRole("link", { name: "GEM Link Wireless™ – HVAC" }),
+    ).toHaveAttribute("href", "/solutions/gem-link-wireless");
+    expect(
+      screen.getByRole("link", {
+        name: "GEM Link Wireless – Lighting Control",
+      }),
     ).toHaveAttribute("href", "/solutions/lighting-controls");
+    expect(
+      screen.getByRole("link", { name: "GEM Link Wireless – DHW Controls" }),
+    ).toHaveAttribute("href", "/solutions/dhw-controls");
 
     const themeSwitch = screen.getAllByRole("switch", {
       name: "Switch to night mode",
