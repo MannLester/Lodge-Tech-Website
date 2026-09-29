@@ -131,21 +131,17 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
   const visual = gemLink.locator(".wireless-platform-connection");
   const stage = visual.locator(".wireless-platform-stage");
 
-  await expect(visual.getByRole("img")).toHaveCount(1);
-  await expect(visual.locator(".wireless-platform-identity span")).toHaveText(
-    "GEM Link",
+  await expect(visual.getByRole("img")).toHaveCount(2);
+  await expect(visual.locator(".wireless-platform-logo-light")).toBeVisible();
+  await expect(visual.locator(".wireless-platform-logo-dark")).toBeHidden();
+  await page.evaluate(() =>
+    document.documentElement.setAttribute("data-theme", "dark"),
   );
-  await expect(visual.locator(".wireless-platform-identity small")).toHaveText(
-    "Wireless",
+  await expect(visual.locator(".wireless-platform-logo-light")).toBeHidden();
+  await expect(visual.locator(".wireless-platform-logo-dark")).toBeVisible();
+  await page.evaluate(() =>
+    document.documentElement.setAttribute("data-theme", "light"),
   );
-  const gemLinkTitle = (await visual
-    .locator(".wireless-platform-identity span")
-    .boundingBox())!;
-  const wirelessTitle = (await visual
-    .locator(".wireless-platform-identity small")
-    .boundingBox())!;
-  expect(wirelessTitle.x).toBeGreaterThan(gemLinkTitle.x + gemLinkTitle.width);
-  expect(wirelessTitle.y).toBeLessThan(gemLinkTitle.y + gemLinkTitle.height);
   await expect(visual).toContainText(
     "One connected view, from room to property.",
   );
