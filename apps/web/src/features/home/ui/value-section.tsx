@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import roomImage from "@assets/gem-stat-et/guest-room.jpeg";
+import occupiedRoomImage from "@assets/gem-stat-et/occupied-room.jpeg";
+import vacantRoomImage from "@assets/gem-stat-et/vacant-room.png";
 
 export function ValueSection() {
   const [occupied, setOccupied] = useState(true);
@@ -30,12 +31,30 @@ export function ValueSection() {
         <div className="occupancy-layout">
           <div className="occupancy-photo" data-occupied={occupied}>
             <Image
-              alt="A wall-mounted thermostat beside a comfortable guest room"
+              alt={
+                occupied
+                  ? "Illustrative thermostat in an occupied guest room"
+                  : ""
+              }
+              aria-hidden={!occupied}
               className="object-cover object-[center_44%]"
+              data-state="occupied"
               fill
               placeholder="blur"
               sizes="(max-width: 767px) 92vw, 60vw"
-              src={roomImage}
+              src={occupiedRoomImage}
+            />
+            <Image
+              alt={
+                occupied ? "" : "Illustrative thermostat in a vacant guest room"
+              }
+              aria-hidden={occupied}
+              className="object-cover object-[center_44%]"
+              data-state="vacant"
+              fill
+              placeholder="blur"
+              sizes="(max-width: 767px) 92vw, 60vw"
+              src={vacantRoomImage}
             />
             <div className="occupancy-video-brief">
               <span>Video concept / Room control</span>

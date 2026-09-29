@@ -7,10 +7,23 @@ const footerLinkGroups = [
     label: "Technology",
     links: [
       { href: "/#technology", label: "Energy Optimization" },
-      { href: "/solutions/gem-link-wireless", label: "GEM Link Wireless" },
+      {
+        href: "/solutions/gem-link-wireless",
+        label: "GEM Link Wireless™ – HVAC",
+      },
       { href: "/solutions/gem-stat-et", label: "GEM Stat ET" },
-      { href: "/solutions/lighting-controls", label: "Lighting Controls" },
-      { href: "/solutions/appliance-controls", label: "Appliance Controls" },
+      {
+        href: "/solutions/lighting-controls",
+        label: "GEM Link Wireless – Lighting Control",
+      },
+      {
+        href: "/solutions/dhw-controls",
+        label: "GEM Link Wireless – DHW Controls",
+      },
+      {
+        href: "/solutions/appliance-controls",
+        label: "GEM Link Wireless – Appliance Controls",
+      },
       { href: "/#technology", label: "Cloud Platform" },
       { href: "/#technology", label: "Utility Rebate Capture" },
     ],
@@ -30,7 +43,6 @@ const footerLinkGroups = [
     links: [
       { href: "/company", label: "About Us" },
       { href: "/#results", label: "Savings Review" },
-      { href: "/#contact", label: "Partner Network" },
       { href: "/#contact", label: "Contact & Support" },
     ],
   },
@@ -39,7 +51,6 @@ const footerLinkGroups = [
     links: [
       { href: "/#contact", label: "Blog" },
       { href: "/#contact", label: "White Papers" },
-      { href: "/#contact", label: "Webinars" },
       { href: "/#contact", label: "Savings Analysis" },
     ],
   },
@@ -59,7 +70,7 @@ export function SiteFooter() {
               className="hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless
+              GEM Link Wireless™ – HVAC
             </Link>
             <Link className="hover:underline" href="/solutions/gem-stat-et">
               GEM Stat™ ET

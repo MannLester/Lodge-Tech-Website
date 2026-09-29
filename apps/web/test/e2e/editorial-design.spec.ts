@@ -4,6 +4,11 @@ test("occupancy illustration responds to keyboard input without changing theme",
   page,
 }) => {
   await page.goto("/");
+  const photo = page.locator(".occupancy-photo");
+  const occupiedImage = photo.locator('img[data-state="occupied"]');
+  const vacantImage = photo.locator('img[data-state="vacant"]');
+  await expect(occupiedImage).toHaveCSS("opacity", "1");
+  await expect(vacantImage).toHaveCSS("opacity", "0");
   const vacant = page.getByRole("button", { name: "Vacant", exact: true });
   await vacant.focus();
   await page.keyboard.press("Enter");
@@ -11,11 +16,19 @@ test("occupancy illustration responds to keyboard input without changing theme",
   await expect(page.locator(".occupancy-response")).toContainText(
     "Room empty.",
   );
+  await expect(photo).toHaveAttribute("data-occupied", "false");
+  await expect(vacantImage).toHaveCSS("opacity", "1");
+  await expect(occupiedImage).toHaveCSS("opacity", "0");
+  await expect(vacantImage).toHaveAttribute(
+    "alt",
+    "Illustrative thermostat in a vacant guest room",
+  );
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await page.getByRole("button", { name: "Occupied", exact: true }).click();
   await expect(page.locator(".occupancy-response")).toContainText(
     "Welcome in.",
   );
+  await expect(occupiedImage).toHaveCSS("opacity", "1");
 });
 
 test("industry selection exposes one relevant description and contact route", async ({
@@ -119,7 +132,7 @@ test("platform inquiry carries product context into the existing form", async ({
   await page.goto("/");
   await page.getByRole("link", { name: /Request Platform Demo/ }).click();
   await expect(page.getByLabel("Project notes")).toHaveValue(
-    "We would like to request a product demo for GEM Link Wireless.",
+    "We would like to request a product demo for GEM Link Wireless™ – HVAC.",
   );
 });
 
