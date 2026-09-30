@@ -292,31 +292,37 @@
 }
 .marketing-site .wireless-feature {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: center;
-  gap: clamp(3rem, 5vw, 5rem);
-  padding-block: 4.5rem 3rem;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: stretch;
+  gap: clamp(2.5rem, 4vw, 4rem);
+  padding-block: 5rem 0;
 }
-.marketing-site .wireless-feature h3 {
-  margin-top: 1.5rem;
-  font-size: clamp(2.1rem, 3.5vw, 3.5rem);
-  line-height: 1.13;
-  letter-spacing: -0.05em;
-  font-weight: 500;
+.marketing-site .connected-property-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.5rem clamp(0.5rem, 2vw, 1.25rem);
+}
+.marketing-site .connected-property-mode {
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  text-align: center;
 }
 .marketing-site .wireless-platform-connection {
   min-width: 0;
-  width: min(100%, 28rem);
+  width: min(100%, 31rem);
   margin-inline: auto;
 }
 .marketing-site .wireless-platform-identity {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-top: 2rem;
 }
 .marketing-site .wireless-platform-logo {
   display: block;
-  width: clamp(13rem, 18vw, 16rem);
+  width: clamp(14rem, 21vw, 19rem);
   max-width: 100%;
   height: auto;
 }
@@ -329,9 +335,9 @@
 }
 .marketing-site .wireless-platform-stage {
   position: relative;
-  width: min(100%, 25rem);
+  width: min(100%, 28rem);
   margin-inline: auto;
-  padding: clamp(1rem, 2.5vw, 2rem);
+  padding: clamp(1rem, 2.5vw, 1.75rem);
 }
 .marketing-site .wireless-platform-stage::before,
 .marketing-site .wireless-platform-stage::after {
@@ -355,21 +361,15 @@
   z-index: 1;
 }
 .marketing-site .wireless-platform-connection figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.4rem 0.75rem;
-  margin-top: 1.5rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-.marketing-site .wireless-platform-connection figcaption .small-note {
-  width: 100%;
+  margin-top: 2rem;
+  color: var(--editorial-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 .marketing-site .connection-loads {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 1.8rem;
   padding-top: 1rem;
   border-top: 1px solid var(--editorial-line);
@@ -406,9 +406,6 @@
 }
 .marketing-site .connection-loads span:nth-child(3)::before {
   animation-delay: 0.9s;
-}
-.marketing-site .connection-loads span:nth-child(4)::before {
-  animation-delay: 1.35s;
 }
 
 @keyframes connection-ring-pulse {
@@ -448,31 +445,49 @@
     animation: none;
   }
 }
-.marketing-site .supporting-products {
+.marketing-site .beyond-hvac-panel {
+  min-width: 0;
+  border: 1px solid var(--editorial-line);
+  border-radius: 1.5rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--surface);
+}
+.marketing-site .beyond-hvac-panel > h3 {
+  border-radius: 0.25rem;
+  padding: 0.8rem 1rem;
+  background: #16354a;
+  color: #fff;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.marketing-site .beyond-hvac-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 3rem;
-  border-top: 1px solid var(--editorial-line);
-  padding-top: 2.5rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 .marketing-site .supporting-product {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: minmax(8.5rem, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
   align-items: center;
 }
 .marketing-site .supporting-product-image {
   position: relative;
   aspect-ratio: 1;
-  background: #fff;
+  overflow: hidden;
+  border-radius: 0.65rem;
+  background: #111;
 }
-.marketing-site .supporting-product h3 {
-  margin-top: 0.65rem;
-  font-size: 1.15rem;
+.marketing-site .supporting-product h4 {
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
   font-weight: 500;
   letter-spacing: -0.035em;
+  line-height: 1.25;
 }
-.marketing-site .supporting-product p:not(.chapter-label) {
+.marketing-site .supporting-product p {
   margin-top: 0.75rem;
   font-size: 0.8rem;
   line-height: 1.7;
@@ -480,6 +495,9 @@
 }
 .marketing-site .supporting-product .editorial-link {
   margin-top: 1rem;
+}
+.marketing-site .product-panel-link {
+  margin-top: 2rem;
 }
 
 .marketing-site .platform-section {
@@ -1665,15 +1683,12 @@
   .marketing-site .flagship-photo {
     min-height: 35rem;
   }
-  .marketing-site .supporting-products {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .marketing-site .supporting-product {
+  .marketing-site .wireless-feature {
     grid-template-columns: 1fr;
   }
-  .marketing-site .supporting-product-image {
-    aspect-ratio: 16 / 9;
+  .marketing-site .connected-property-panel {
+    width: min(100%, 42rem);
+    margin-inline: auto;
   }
   .marketing-site .platform-story {
     padding-left: 2rem;
@@ -1753,9 +1768,9 @@
     margin-top: 1rem;
     font-size: 1.1rem;
   }
-  .marketing-site .wireless-feature h3 {
-    margin-top: 1rem;
-    font-size: 1.875rem;
+  .marketing-site .beyond-hvac-panel > h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
   }
   .marketing-site .company-lead {
     font-size: 1.35rem;
@@ -1874,27 +1889,23 @@
     padding-block: 0.75rem;
   }
   .marketing-site .wireless-feature {
-    padding-block: 4rem 2rem;
+    padding-block: 3.5rem 0;
   }
   .marketing-site .wireless-platform-connection {
-    width: min(100%, 18rem);
+    width: min(100%, 26rem);
   }
   .marketing-site .wireless-platform-stage {
-    width: 12rem;
-  }
-  .marketing-site .supporting-products {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    width: min(100%, 24rem);
   }
   .marketing-site .supporting-product {
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 1.25rem;
+    grid-template-columns: minmax(6.75rem, 0.75fr) minmax(0, 1.25fr);
+    gap: 1rem;
   }
   .marketing-site .supporting-product-image {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1;
   }
-  .marketing-site .supporting-product h3 {
-    font-size: 1.15rem;
+  .marketing-site .supporting-product h4 {
+    font-size: 1rem;
   }
   .marketing-site .platform-story {
     padding: 1.5rem 0 0;

@@ -1,11 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
-import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
-import lightingImage from "@assets/lighting.png";
 import auxiliaryImage from "@assets/auxiliary.png";
+import exhaustImage from "@assets/exhaust.png";
+import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import gemLinkLogoBlue from "@assets/gem_link_logo_blue.png";
 import gemLinkLogoWhite from "@assets/gem_link_logo_white.png";
+import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform-branded.png";
+
+const supportingProducts = [
+  {
+    title: "GEM Link® Wireless – Lighting Control",
+    image: lightingImage,
+    slug: "lighting-controls",
+    copy: "The right light, around real building use.",
+  },
+  {
+    title: "GEM Link® Wireless – DHW Controls",
+    image: auxiliaryImage,
+    slug: "dhw-controls",
+    copy: "Plan domestic hot water controls around property demand.",
+  },
+  {
+    title: "GEM Link® Wireless – Appliance Controls",
+    image: exhaustImage,
+    slug: "appliance-controls",
+    copy: "Bring overlooked loads into the conversation.",
+  },
+] as const;
 
 export function ProductSection() {
   return (
@@ -29,6 +51,7 @@ export function ProductSection() {
             controls behind a more efficient building.
           </p>
         </div>
+
         <article className="flagship-product">
           <div className="flagship-photo">
             <Image
@@ -70,106 +93,85 @@ export function ProductSection() {
             </Link>
           </div>
         </article>
-        <article className="wireless-feature">
-          <div>
-            <p className="chapter-label">Connected HVAC control</p>
-            <h3>
-              GEM Link® Wireless<span className="product-suffix"> – HVAC</span>
-            </h3>
-            <p className="editorial-copy">
-              GEM Link® Wireless connects supported HVAC controls, including GEM
-              Stat™ ET, with a coordinated operating view.
-            </p>
-            <Link
-              aria-label="Learn more about GEM Link® Wireless HVAC"
-              className="editorial-link"
-              href="/solutions/gem-link-wireless"
-            >
-              Explore HVAC controls <span aria-hidden>↗</span>
-            </Link>
-          </div>
-          <figure className="wireless-platform-connection">
+
+        <article className="wireless-feature product-showcase">
+          <div className="connected-property-panel">
+            <p className="chapter-label">Connected property control</p>
+            <h3 className="sr-only">GEM Link® Wireless HVAC</h3>
             <div className="wireless-platform-identity">
               <Image
-                alt=""
+                alt="GEM Link Wireless"
                 className="wireless-platform-logo wireless-platform-logo-light"
                 src={gemLinkLogoBlue}
               />
               <Image
-                alt=""
+                alt="GEM Link Wireless"
                 className="wireless-platform-logo wireless-platform-logo-dark"
                 src={gemLinkLogoWhite}
               />
             </div>
-            <div className="wireless-platform-stage">
-              <div className="wireless-platform-image">
-                <Image
-                  alt="Lodging Technologies logo prominently displayed on an illustrative laptop and phone platform dashboard"
-                  className="object-contain"
-                  fill
-                  sizes="(max-width: 767px) 92vw, (max-width: 1279px) 55vw, 48vw"
-                  src={platformImage}
-                />
+            <p className="connected-property-mode">HVAC</p>
+            <figure className="wireless-platform-connection">
+              <div className="wireless-platform-stage">
+                <div className="wireless-platform-image">
+                  <Image
+                    alt="Lodging Technologies platform displayed on a laptop and phone"
+                    className="object-contain"
+                    fill
+                    sizes="(max-width: 767px) 82vw, (max-width: 1023px) 65vw, 38vw"
+                    src={platformImage}
+                  />
+                </div>
               </div>
+              <div className="connection-loads">
+                <span>HVAC</span>
+                <span>Lighting</span>
+                <span>Appliance</span>
+              </div>
+              <figcaption>
+                GEM Link® Wireless brings supported room controls and building
+                loads into a coordinated operating view.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="beyond-hvac-panel">
+            <h3>Beyond HVAC</h3>
+            <div className="beyond-hvac-list">
+              {supportingProducts.map((product) => (
+                <article className="supporting-product" key={product.slug}>
+                  <div className="supporting-product-image">
+                    <Image
+                      alt={product.title + " application illustration"}
+                      className="object-cover"
+                      fill
+                      sizes="(max-width: 767px) 38vw, (max-width: 1023px) 28vw, 13vw"
+                      src={product.image}
+                    />
+                  </div>
+                  <div className="supporting-product-copy">
+                    <h4>{product.title}</h4>
+                    <p>{product.copy}</p>
+                    <Link
+                      aria-label={"Learn more about " + product.title}
+                      className="editorial-link"
+                      href={"/solutions/" + product.slug}
+                    >
+                      Explore controls <span aria-hidden>↗</span>
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
-            <div className="connection-loads">
-              <span>HVAC</span>
-              <span>Lighting</span>
-              <span>DHW</span>
-              <span>Appliances</span>
-            </div>
-            <figcaption>
-              <span>One connected view, from room to property.</span>
-              <span className="small-note">Illustrative platform view.</span>
-            </figcaption>
-          </figure>
+            <Link
+              aria-label="Learn more about GEM Link® Wireless HVAC"
+              className="editorial-link product-panel-link"
+              href="/solutions/gem-link-wireless"
+            >
+              Explore GEM Link Wireless <span aria-hidden>↗</span>
+            </Link>
+          </div>
         </article>
-        <div className="supporting-products">
-          {[
-            {
-              title: "GEM Link® Wireless – Lighting Control",
-              image: lightingImage,
-              slug: "lighting-controls",
-              copy: "The right light, around real building use.",
-            },
-            {
-              title: "GEM Link® Wireless – DHW Controls",
-              image: auxiliaryImage,
-              slug: "dhw-controls",
-              copy: "Plan domestic hot water controls around property demand.",
-            },
-            {
-              title: "GEM Link® Wireless – Appliance Controls",
-              image: auxiliaryImage,
-              slug: "appliance-controls",
-              copy: "Bring overlooked loads into the conversation.",
-            },
-          ].map((product) => (
-            <article className="supporting-product" key={product.slug}>
-              <div className="supporting-product-image">
-                <Image
-                  alt={product.title + " application illustration"}
-                  className="object-contain"
-                  fill
-                  sizes="(max-width: 767px) 35vw, 20vw"
-                  src={product.image}
-                />
-              </div>
-              <div>
-                <p className="chapter-label">Beyond HVAC</p>
-                <h3>{product.title}</h3>
-                <p>{product.copy}</p>
-                <Link
-                  aria-label={"Learn more about " + product.title}
-                  className="editorial-link"
-                  href={"/solutions/" + product.slug}
-                >
-                  Explore controls <span aria-hidden>↗</span>
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
       </div>
     </section>
   );
