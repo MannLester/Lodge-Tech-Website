@@ -62,6 +62,11 @@ test("keeps product branding and a contact route in public-page footers", async 
     );
     await expect(bbbLink).toHaveAttribute("target", "_blank");
     await expect(bbbLink).toHaveAttribute("rel", "noopener noreferrer");
+    const bbbSeal = bbbLink.getByRole("img", {
+      name: "BBB Accredited Business",
+    });
+    await expect(bbbSeal).toBeVisible();
+    expect((await bbbSeal.boundingBox())!.width).toBeGreaterThanOrEqual(128);
   }
 });
 
