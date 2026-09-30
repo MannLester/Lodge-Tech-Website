@@ -53,7 +53,7 @@ export function HeroSection() {
               className="underline-offset-4 hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless – HVAC
+              GEM Link® Wireless
             </Link>
             <Link
               className="underline-offset-4 hover:underline"
