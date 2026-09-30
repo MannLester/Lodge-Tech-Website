@@ -178,6 +178,16 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
   await expect(beyondHvac.locator(".supporting-product-image img")).toHaveCount(
     3,
   );
+  const thumbnailWidths = await beyondHvac
+    .locator(".supporting-product-image")
+    .evaluateAll((thumbnails) =>
+      thumbnails.map((thumbnail) => thumbnail.getBoundingClientRect().width),
+    );
+  const maximumThumbnailWidth =
+    page.viewportSize()!.width >= 768 ? 120 : 92;
+  for (const width of thumbnailWidths) {
+    expect(width).toBeLessThanOrEqual(maximumThumbnailWidth);
+  }
   await expect(
     beyondHvac.getByRole("link", {
       name: "Learn more about GEM Link® Wireless HVAC",
