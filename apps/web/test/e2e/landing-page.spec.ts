@@ -53,6 +53,15 @@ test("keeps product branding and a contact route in public-page footers", async 
     await expect(
       footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
+    const bbbLink = footer.getByRole("link", {
+      name: "BBB Accredited Business with an A+ rating (opens in a new tab)",
+    });
+    await expect(bbbLink).toHaveAttribute(
+      "href",
+      "https://www.bbb.org/us/va/roanoke/profile/energy-management-consultant/lodging-technology-0613-1103",
+    );
+    await expect(bbbLink).toHaveAttribute("target", "_blank");
+    await expect(bbbLink).toHaveAttribute("rel", "noopener noreferrer");
   }
 });
 
