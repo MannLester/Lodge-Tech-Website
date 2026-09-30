@@ -1891,104 +1891,21 @@
   .marketing-site .wireless-feature {
     padding-block: 3.5rem 0;
   }
-  .marketing-site .product-showcase {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: 0.75rem;
-  }
-  .marketing-site .product-showcase .connected-property-panel {
-    width: 100%;
-    padding: 0.75rem 0.25rem;
-  }
-  .marketing-site .product-showcase .chapter-label {
-    font-size: 0.58rem;
-    text-align: center;
-  }
-  .marketing-site .product-showcase .wireless-platform-identity {
-    margin-top: 1rem;
-  }
-  .marketing-site .product-showcase .wireless-platform-logo {
-    width: min(100%, 8rem);
-  }
-  .marketing-site .product-showcase .connected-property-mode {
-    margin-top: 0.5rem;
-    font-size: 1.25rem;
-  }
   .marketing-site .wireless-platform-connection {
     width: min(100%, 26rem);
-  }
-  .marketing-site .product-showcase .wireless-platform-connection {
-    width: 100%;
   }
   .marketing-site .wireless-platform-stage {
     width: min(100%, 24rem);
   }
-  .marketing-site .product-showcase .wireless-platform-stage {
-    width: 100%;
-    padding: 0.5rem;
-  }
-  .marketing-site .product-showcase .wireless-platform-stage::after {
-    inset: 0.35rem;
-  }
-  .marketing-site .product-showcase .connection-loads {
-    margin-top: 0.8rem;
-    padding-top: 0.6rem;
-    font-size: clamp(0.43rem, 1.8vw, 0.58rem);
-  }
-  .marketing-site .product-showcase .connection-loads::before {
-    height: 0.8rem;
-  }
-  .marketing-site .product-showcase .connection-loads span::before {
-    top: -0.85rem;
-    width: 0.35rem;
-    height: 0.35rem;
-  }
-  .marketing-site .product-showcase .wireless-platform-connection figcaption {
-    margin-top: 0.85rem;
-    font-size: 0.62rem;
-    line-height: 1.5;
-  }
-  .marketing-site .product-showcase .beyond-hvac-panel {
-    border-radius: 0.75rem;
-    padding: 0.55rem;
-  }
-  .marketing-site .product-showcase .beyond-hvac-panel > h3 {
-    padding: 0.55rem 0.35rem;
-    font-size: clamp(0.7rem, 3.2vw, 0.9rem);
-    letter-spacing: 0.08em;
-  }
-  .marketing-site .product-showcase .beyond-hvac-list {
-    gap: 0.85rem;
-    margin-top: 0.85rem;
-  }
   .marketing-site .supporting-product {
     grid-template-columns: 5.75rem minmax(0, 1fr);
     gap: 1rem;
-  }
-  .marketing-site .product-showcase .supporting-product {
-    grid-template-columns: clamp(2.5rem, 12vw, 3rem) minmax(0, 1fr);
-    gap: 0.45rem;
   }
   .marketing-site .supporting-product-image {
     aspect-ratio: 1;
   }
   .marketing-site .supporting-product h4 {
     font-size: 1rem;
-  }
-  .marketing-site .product-showcase .supporting-product h4 {
-    font-size: clamp(0.65rem, 2.7vw, 0.8rem);
-  }
-  .marketing-site .product-showcase .supporting-product p {
-    margin-top: 0.25rem;
-    font-size: clamp(0.5rem, 2.1vw, 0.62rem);
-    line-height: 1.4;
-  }
-  .marketing-site .product-showcase .supporting-product .editorial-link {
-    margin-top: 0.35rem;
-    font-size: clamp(0.5rem, 2.1vw, 0.62rem);
-  }
-  .marketing-site .product-showcase .product-panel-link {
-    margin-top: 0.85rem;
-    font-size: clamp(0.55rem, 2.2vw, 0.68rem);
   }
   .marketing-site .platform-story {
     padding: 1.5rem 0 0;
