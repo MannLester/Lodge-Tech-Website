@@ -84,6 +84,21 @@ export function SiteFooter() {
           <p className="text-muted mt-4 text-sm leading-6">
             Proudly serving North America including the Caribbean.
           </p>
+          <a
+            aria-label="BBB Accredited Business with an A+ rating (opens in a new tab)"
+            className="border-border text-foreground hover:border-brand hover:text-brand-strong mt-5 inline-flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-semibold transition-colors"
+            href="https://www.bbb.org/us/va/roanoke/profile/energy-management-consultant/lodging-technology-0613-1103"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span
+              aria-hidden="true"
+              className="bg-brand inline-flex size-7 items-center justify-center rounded-full text-[0.65rem] font-bold text-white"
+            >
+              BBB
+            </span>
+            <span>Accredited Business · A+ Rating</span>
+          </a>
           <Link
             className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
             href="/request-for-proposal"
