@@ -1166,17 +1166,25 @@
   margin-top: 0.65rem;
 }
 .marketing-site .contact-social a {
+  align-items: center;
   display: inline-flex;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 0.25em;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+.marketing-site .contact-social svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 .marketing-site .contact-social a:hover,
 .marketing-site .contact-social a:focus-visible {
-  text-decoration-color: currentColor;
+  color: var(--editorial-paper);
+  background: var(--editorial-ink);
 }
 .marketing-site .contact-next {
   max-width: 27rem;

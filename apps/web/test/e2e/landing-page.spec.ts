@@ -67,14 +67,18 @@ test("shows direct contact and company social links beside the inquiry form", as
   await expect(
     contact.getByRole("link", { name: "(800) 524-2680" }),
   ).toHaveAttribute("href", "tel:+18005242680");
-  await expect(contact.getByRole("link", { name: "Facebook" })).toHaveAttribute(
+  const facebookLink = contact.getByRole("link", { name: "Facebook" });
+  await expect(facebookLink).toHaveAttribute(
     "href",
     "https://www.facebook.com/profile.php?id=100066727996704",
   );
-  await expect(contact.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(
+  await expect(facebookLink.locator("svg")).toBeVisible();
+  const linkedInLink = contact.getByRole("link", { name: "LinkedIn" });
+  await expect(linkedInLink).toHaveAttribute(
     "href",
     "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
   );
+  await expect(linkedInLink.locator("svg")).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > innerWidth,
