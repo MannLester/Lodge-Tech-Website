@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import heroHouseImage from "@assets/day_house.png";
 import heroHouseNightImage from "@assets/day_night.png";
-import { proofStats } from "@/features/home/model/home-content";
+import { ProofStats } from "@/features/home/ui/proof-stats";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 export function HeroSection() {
@@ -91,21 +91,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="hero-proof-strip border-border relative z-10 border-t">
-        <div
-          aria-label="Experience and performance"
-          className="section-shell grid py-7 md:grid-cols-3"
-        >
-          {proofStats.map((stat) => {
-            return (
-              <article className="proof-stat" key={stat.label}>
-                <p className="proof-value">{stat.value}</p>
-                <p className="proof-label">{stat.label}</p>
-              </article>
-            );
-          })}
-        </div>
-      </div>
+      <ProofStats />
     </section>
   );
 }

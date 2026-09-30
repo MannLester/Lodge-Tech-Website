@@ -1,11 +1,23 @@
 export const proofStats = [
-  { label: "Years of Experience", value: "40+" },
   {
+    countTo: 40,
+    label: "Years of Experience",
+    prefix: "",
+    suffix: "+",
+    value: "40+",
+  },
+  {
+    countTo: 100_000,
     label: "Installations Across North America & the Caribbean",
+    prefix: "",
+    suffix: "+",
     value: "100,000+",
   },
   {
+    countTo: 45,
     label: "Reduction in HVAC Operating Time",
+    prefix: "Up to ",
+    suffix: "%",
     value: "Up to 45%",
   },
 ] as const;

@@ -120,6 +120,8 @@
   font-size: clamp(1.75rem, 3vw, 2.8rem);
   font-weight: 500;
   letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .marketing-site .proof-label {
   max-width: 17rem;
