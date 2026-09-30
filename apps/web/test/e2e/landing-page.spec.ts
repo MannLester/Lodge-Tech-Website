@@ -49,7 +49,7 @@ test("keeps product branding and a contact route in public-page footers", async 
     await expect(gemLinkLinks.first()).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await expect(
       footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
