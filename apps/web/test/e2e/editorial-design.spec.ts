@@ -45,6 +45,26 @@ test("industry selection exposes one relevant description and contact route", as
     "Student housing photography",
   );
   await expect(industries.getByRole("region")).toHaveCount(1);
+  if (page.viewportSize()!.width < 768) {
+    await expect(industries.locator(".industry-photo")).toBeHidden();
+    await expect(
+      industries.getByRole("region").getByRole("img"),
+    ).toHaveAttribute("alt", "Student housing photography");
+
+    const commercial = industries.getByRole("button", {
+      name: /Commercial & Office/,
+    });
+    await commercial.click();
+    const commercialPanel = industries.getByRole("region");
+    await expect(commercial).toHaveAttribute("aria-expanded", "true");
+    await expect(commercialPanel.getByRole("img")).toHaveAttribute(
+      "alt",
+      "Commercial office photography",
+    );
+    expect((await commercialPanel.getByRole("img").boundingBox())!.y).toBeGreaterThan(
+      (await commercial.boundingBox())!.y,
+    );
+  }
   await industries.getByRole("link", { name: /Discuss your property/ }).click();
   await expect(page).toHaveURL(/#contact$/);
 });
@@ -56,9 +76,11 @@ test("property photos crossfade on selection and settle without motion when requ
   const industries = page.locator("#industries");
   const photos = industries.locator(".industry-photo-layer");
   await industries.scrollIntoViewIfNeeded();
-  await photos.evaluateAll((images) =>
-    Promise.all(images.map((image) => (image as HTMLImageElement).decode())),
-  );
+  if (page.viewportSize()!.width >= 768) {
+    await photos.evaluateAll((images) =>
+      Promise.all(images.map((image) => (image as HTMLImageElement).decode())),
+    );
+  }
   await industries.getByRole("button", { name: /Student Housing/ }).click();
   await expect(photos.nth(3)).toHaveAttribute("data-active", "true");
   await expect(photos.nth(0)).toHaveAttribute("data-active", "false");
