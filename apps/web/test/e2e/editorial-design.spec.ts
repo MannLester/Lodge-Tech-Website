@@ -165,7 +165,9 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
     .locator(".wireless-platform-image")
     .boundingBox())!.width;
   expect(stageWidth).toBeLessThanOrEqual((await visual.boundingBox())!.width);
-  expect(imageWidth).toBeGreaterThanOrEqual(240);
+  expect(imageWidth).toBeGreaterThanOrEqual(
+    page.viewportSize()!.width >= 768 ? 240 : 100,
+  );
   await expect(visual.locator(".connection-loads span")).toHaveText([
     "HVAC",
     "Lighting",
@@ -187,6 +189,38 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
     page.viewportSize()!.width >= 768 ? 120 : 92;
   for (const width of thumbnailWidths) {
     expect(width).toBeLessThanOrEqual(maximumThumbnailWidth);
+  }
+  if (page.viewportSize()!.width < 768) {
+    const { beyondHvacBox, connectedBox } = await gemLink.evaluate((showcase) => {
+      const connectedRect = showcase
+        .querySelector(".connected-property-panel")!
+        .getBoundingClientRect();
+      const beyondHvacRect = showcase
+        .querySelector(".beyond-hvac-panel")!
+        .getBoundingClientRect();
+
+      return {
+        beyondHvacBox: {
+          x: beyondHvacRect.x,
+          y: beyondHvacRect.y,
+        },
+        connectedBox: {
+          width: connectedRect.width,
+          x: connectedRect.x,
+          y: connectedRect.y,
+        },
+      };
+    });
+
+    expect(Math.abs(connectedBox.y - beyondHvacBox.y)).toBeLessThanOrEqual(1);
+    expect(connectedBox.x + connectedBox.width).toBeLessThanOrEqual(
+      beyondHvacBox.x,
+    );
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBe(true);
   }
   await expect(
     beyondHvac.getByRole("link", {
