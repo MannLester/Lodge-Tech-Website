@@ -618,6 +618,13 @@
   opacity: 1;
   transform: scale(1);
 }
+.marketing-site .industry-mobile-photo {
+  position: relative;
+  display: none;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
 .marketing-site .industry-caption-text {
   display: inline-block;
   animation: industry-copy-enter 480ms ease-out both;
@@ -1913,7 +1920,10 @@
     border-top: 1px solid #4a6573;
   }
   .marketing-site .industry-photo {
-    min-height: 19rem;
+    display: none;
+  }
+  .marketing-site .industry-mobile-photo {
+    display: block;
   }
   .marketing-site .industry-option button {
     font-size: 1rem;

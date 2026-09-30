@@ -91,6 +91,16 @@ export function IndustriesSection() {
                   id={"industry-panel-" + index}
                   role="region"
                 >
+                  <div className="industry-mobile-photo">
+                    <Image
+                      alt={industry.mediaLabel}
+                      className="object-cover"
+                      fill
+                      placeholder="blur"
+                      sizes="(max-width: 767px) calc(100vw - 4.5rem), 1px"
+                      src={industryImages[index]}
+                    />
+                  </div>
                   <p>{industry.description}</p>
                   <a className="editorial-link" href="#contact">
                     Discuss your property <span aria-hidden>↗</span>
