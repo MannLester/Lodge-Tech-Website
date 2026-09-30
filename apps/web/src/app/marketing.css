@@ -27,6 +27,23 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
+.marketing-site .header-phone-link {
+  color: var(--brand-primary-blue);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color 180ms ease;
+}
+.marketing-site .header-phone-link:hover,
+.marketing-site .header-phone-link:focus-visible {
+  color: var(--brand-deep-blue);
+}
+:root[data-theme="dark"] .marketing-site .header-phone-link {
+  color: var(--brand-white);
+}
+:root[data-theme="dark"] .marketing-site .header-phone-link:hover,
+:root[data-theme="dark"] .marketing-site .header-phone-link:focus-visible {
+  color: #6ed0f4;
+}
 .marketing-site .display-heading {
   margin-top: 1.5rem;
   font-size: clamp(2.15rem, 3.8vw, 3.8rem);

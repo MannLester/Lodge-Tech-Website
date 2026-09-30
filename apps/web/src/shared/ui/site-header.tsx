@@ -19,6 +19,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const phoneHref = "tel:+18005242680";
   const proposalHref = "/request-for-proposal";
 
   return (
@@ -77,6 +78,13 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
               </a>
             ),
           )}
+          <a
+            aria-label="Call Lodging Technologies at (800) 524-2680"
+            className="header-phone-link text-[0.8125rem]"
+            href={phoneHref}
+          >
+            (800) 524-2680
+          </a>
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -159,6 +167,14 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                 </a>
               ),
             )}
+            <a
+              aria-label="Call Lodging Technologies at (800) 524-2680"
+              className="header-phone-link border-border border-b px-2 py-3 text-base"
+              href={phoneHref}
+              onClick={() => setMenuOpen(false)}
+            >
+              (800) 524-2680
+            </a>
             <ButtonLink
               className="mt-4 w-full !border-0 !text-white !shadow-none"
               href={proposalHref}

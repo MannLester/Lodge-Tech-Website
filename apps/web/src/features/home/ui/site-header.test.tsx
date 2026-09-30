@@ -38,6 +38,11 @@ describe("SiteHeader", () => {
     });
     expect(contactLink).toHaveAttribute("href", "#contact");
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
+    const phoneLink = within(desktopNavigation).getByRole("link", {
+      name: "Call Lodging Technologies at (800) 524-2680",
+    });
+    expect(phoneLink).toHaveAttribute("href", "tel:+18005242680");
+    expect(phoneLink.previousElementSibling).toBe(contactLink);
 
     fireEvent.click(screen.getByText("Solutions"));
     expect(
@@ -95,6 +100,11 @@ describe("SiteHeader", () => {
     });
     expect(contactLink).toHaveAttribute("href", "/#contact");
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
+    expect(
+      within(mobileNavigation).getByRole("link", {
+        name: "Call Lodging Technologies at (800) 524-2680",
+      }),
+    ).toHaveAttribute("href", "tel:+18005242680");
 
     fireEvent.click(contactLink);
     expect(
