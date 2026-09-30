@@ -12,7 +12,7 @@ test("shows the benefit, products, and proposal path without overflow", async ({
     }),
   ).toBeVisible();
   await expect(
-    hero.getByRole("link", { name: "GEM Link® Wireless" }),
+    hero.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
   ).toBeVisible();
   await expect(hero.getByRole("link", { name: "GEM Stat™ ET" })).toBeVisible();
   await expect(
@@ -43,10 +43,10 @@ test("keeps product branding and a contact route in public-page footers", async 
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await expect(
       footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
