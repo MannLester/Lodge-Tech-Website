@@ -35,20 +35,36 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
               <ul>
                 <li>
                   <a
+                    aria-label="Facebook"
                     href="https://www.facebook.com/profile.php?id=100066727996704"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    Facebook <span aria-hidden="true">↗</span>
+                    <svg
+                      aria-hidden="true"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.414c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.49 0-1.956.931-1.956 1.887v2.262h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073Z" />
+                    </svg>
                   </a>
                 </li>
                 <li>
                   <a
+                    aria-label="LinkedIn"
                     href="https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    LinkedIn <span aria-hidden="true">↗</span>
+                    <svg
+                      aria-hidden="true"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20.452 20.452h-3.555v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.447-2.136 2.94v5.666H9.354V8.997h3.414v1.564h.048c.475-.9 1.636-1.85 3.367-1.85 3.601 0 4.269 2.37 4.269 5.455v6.286ZM5.342 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126Zm1.78 13.019H3.56V8.997h3.562v11.455ZM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003Z" />
+                    </svg>
                   </a>
                 </li>
               </ul>
