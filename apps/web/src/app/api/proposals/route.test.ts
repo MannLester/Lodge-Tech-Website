@@ -31,6 +31,7 @@ const proposal = {
   guestControl: "wall",
   utilityCompany: "",
   products: [],
+  applianceApplications: [],
   notes: "",
   website: "",
 };
