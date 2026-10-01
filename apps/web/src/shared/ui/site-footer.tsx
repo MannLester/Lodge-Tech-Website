@@ -108,7 +108,7 @@ export function SiteFooter() {
             className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
             href="/request-for-proposal"
           >
-            Request a Proposal / Site Survey
+            Request for Proposal / Site Survey
           </Link>
         </div>
 
