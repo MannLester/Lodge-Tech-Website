@@ -37,12 +37,14 @@ export const proposalSchema = z
         z.enum([
           "gem-link-wireless",
           "lighting-controls",
-          "dhw-controls",
           "appliance-controls",
           "gem-stat-et",
         ]),
       )
-      .max(5),
+      .max(4),
+    applianceApplications: z
+      .array(z.enum(["two-burner-cooktop", "in-room-electric-water-heater"]))
+      .max(2),
     notes: text(5000),
     website: text(200),
   })
@@ -52,6 +54,16 @@ export const proposalSchema = z
         code: "custom",
         path: ["suites"],
         message: "Add at least one suite type when suites are present.",
+      });
+    }
+    if (
+      proposal.applianceApplications.length > 0 &&
+      !proposal.products.includes("appliance-controls")
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["applianceApplications"],
+        message: "Select Appliance Control for the chosen applications.",
       });
     }
   });

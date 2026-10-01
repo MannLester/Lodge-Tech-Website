@@ -68,7 +68,8 @@ test("proposal form sends structured property information", async ({
   await form.locator('[name="firstName"]').fill("Morgan");
   await form.locator('[name="lastName"]').fill("Lee");
   await form.locator('[name="email"]').fill("morgan@example.com");
-  await form.locator('[name="phone"]').fill("555-123-4567");
+  await form.locator('[name="phone"]').fill("+1 (555) 123-4567");
+  await expect(form.locator('[name="phone"]')).toHaveValue("(555) 123-4567");
   await form.locator('[name="propertyName"]').fill("Harbor Hotel");
   await form.locator('[name="street"]').fill("1 Main St");
   await form.locator('[name="city"]').fill("Boston");
@@ -78,10 +79,25 @@ test("proposal form sends structured property information", async ({
   await form.locator('[name="entry"]').selectOption("interior");
   await form.locator('[name="balcony"]').selectOption("none");
   await form.locator('[name="guestControl"]').selectOption("wall");
+  await form.locator('[name="hvacType"]').selectOption("Electric Heat Only");
+  await form
+    .getByRole("checkbox", { name: "GEM Link® – Appliance Control" })
+    .check();
+  await form
+    .getByRole("checkbox", {
+      name: "Individual in-room Electric Hot Water Heater",
+    })
+    .check();
   await form.getByRole("button", { name: /Send proposal request/ }).click();
   await expect(
     form.getByText(/Your proposal request has been received/),
   ).toBeVisible();
   expect(submitted?.propertyName).toBe("Harbor Hotel");
   expect(submitted?.entry).toBe("interior");
+  expect(submitted?.phone).toBe("(555) 123-4567");
+  expect(submitted?.hvacType).toBe("Electric Heat Only");
+  expect(submitted?.products).toEqual(["appliance-controls"]);
+  expect(submitted?.applianceApplications).toEqual([
+    "in-room-electric-water-heater",
+  ]);
 });

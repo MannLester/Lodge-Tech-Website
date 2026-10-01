@@ -4,6 +4,9 @@ import { type FormEvent, useState } from "react";
 
 import { proposalSchema } from "@lodging-technologies/zod-schemas/proposals";
 
+import { normalizeProposalPhone } from "@/features/proposals/model/normalize-proposal-phone";
+import { BrandText } from "@/shared/ui/brand-text";
+
 const inputClass = "proposal-input";
 const optionalCount = (value: FormDataEntryValue | null) =>
   value === null || String(value).trim() === "" ? null : Number(value);
@@ -12,6 +15,7 @@ const value = (data: FormData, key: string) => String(data.get(key) ?? "");
 export function ProposalForm() {
   const [suiteRows, setSuiteRows] = useState([0]);
   const [modelRows, setModelRows] = useState([0]);
+  const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
@@ -62,6 +66,7 @@ export function ProposalForm() {
       guestControl: value(data, "guestControl"),
       utilityCompany: value(data, "utilityCompany"),
       products: data.getAll("products").map(String),
+      applianceApplications: data.getAll("applianceApplications").map(String),
       notes: value(data, "notes"),
       website: value(data, "website"),
     };
@@ -93,6 +98,7 @@ export function ProposalForm() {
       form.reset();
       setSuiteRows([0]);
       setModelRows([0]);
+      setPhone("");
       setStatus("success");
     } catch {
       setError(
@@ -160,6 +166,11 @@ export function ProposalForm() {
               type="tel"
               required
               autoComplete="tel"
+              inputMode="tel"
+              onChange={(event) =>
+                setPhone(normalizeProposalPhone(event.target.value))
+              }
+              value={phone}
             />
           </label>
         </div>
@@ -365,9 +376,10 @@ export function ProposalForm() {
             <select className={inputClass} name="hvacType" defaultValue="">
               <option value="">Select or describe below</option>
               <option>PTAC</option>
-              <option>Mini-split</option>
-              <option>Central HVAC</option>
-              <option>Fan coil</option>
+              <option>Split System</option>
+              <option>Mini-Split</option>
+              <option>Fan Coil</option>
+              <option>Electric Heat Only</option>
               <option>Other</option>
             </select>
           </label>
@@ -435,21 +447,64 @@ export function ProposalForm() {
         <p className="proposal-hint">Products of interest</p>
         <div className="proposal-checks">
           <label>
-            <input type="checkbox" name="products" value="gem-link-wireless" />{" "}
-            GEM Link® Wireless – HVAC (including GEM Stat™ ET thermostats)
+            <input
+              aria-label="GEM Stat™ ET Thermostat Energy Management System"
+              type="checkbox"
+              name="products"
+              value="gem-stat-et"
+            />{" "}
+            <BrandText>
+              GEM Stat™ ET Thermostat Energy Management System
+            </BrandText>
           </label>
           <label>
-            <input type="checkbox" name="products" value="lighting-controls" />{" "}
-            GEM Link® Wireless – Lighting Control
+            <input
+              aria-label="GEM Link® Wireless – HVAC Control"
+              type="checkbox"
+              name="products"
+              value="gem-link-wireless"
+            />{" "}
+            <BrandText>GEM Link® Wireless – HVAC Control</BrandText>
           </label>
           <label>
-            <input type="checkbox" name="products" value="dhw-controls" /> GEM
-            Link® Wireless – DHW Controls
+            <input
+              aria-label="GEM Link® Wireless – Lighting Control"
+              type="checkbox"
+              name="products"
+              value="lighting-controls"
+            />{" "}
+            <BrandText>GEM Link® Wireless – Lighting Control</BrandText>
           </label>
           <label>
-            <input type="checkbox" name="products" value="appliance-controls" />{" "}
-            GEM Link® Wireless – Appliance Controls
+            <input
+              aria-label="GEM Link® – Appliance Control"
+              type="checkbox"
+              name="products"
+              value="appliance-controls"
+            />{" "}
+            <BrandText>GEM Link® – Appliance Control</BrandText>
           </label>
+          <div
+            className="proposal-subchecks"
+            aria-label="Appliance applications"
+          >
+            <label>
+              <input
+                type="checkbox"
+                name="applianceApplications"
+                value="two-burner-cooktop"
+              />{" "}
+              Two Burner Cooktop
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="applianceApplications"
+                value="in-room-electric-water-heater"
+              />{" "}
+              Individual in-room Electric Hot Water Heater
+            </label>
+          </div>
         </div>
         <label className="proposal-full-label">
           Notes for your proposal
