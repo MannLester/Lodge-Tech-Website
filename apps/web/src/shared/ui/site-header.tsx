@@ -81,7 +81,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           )}
           <a
             aria-label="Call Lodging Technologies at (877) 435-5465"
-            className="header-phone-link text-[0.8125rem]"
+            className="header-phone-link text-brand hover:text-brand-strong text-[0.8125rem] font-semibold transition-colors"
             href={phoneHref}
           >
             (877) 435-5465
@@ -170,7 +170,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
             )}
             <a
               aria-label="Call Lodging Technologies at (877) 435-5465"
-              className="header-phone-link border-border border-b px-2 py-3 text-base"
+              className="header-phone-link border-border text-brand hover:text-brand-strong border-b px-2 py-3 text-base font-semibold transition-colors"
               href={phoneHref}
               onClick={() => setMenuOpen(false)}
             >
