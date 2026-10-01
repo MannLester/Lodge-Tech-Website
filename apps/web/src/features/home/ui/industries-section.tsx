@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import hospitalityImage from "@assets/hospitality.png";
+import hospitalityImage from "@assets/hospitality-portico.jpg";
 import multifamilyImage from "@assets/multifamily.png";
 import seniorLivingImage from "@assets/senior_living.png";
 import studentHousingImage from "@assets/student_housing.png";
