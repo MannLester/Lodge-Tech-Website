@@ -4,6 +4,7 @@ import Link from "next/link";
 import heroHouseImage from "@assets/day_house.png";
 import heroHouseNightImage from "@assets/day_night.png";
 import { ProofStats } from "@/features/home/ui/proof-stats";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 export function HeroSection() {
@@ -53,13 +54,13 @@ export function HeroSection() {
               className="underline-offset-4 hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless
+              <BrandText>GEM Link® Wireless</BrandText>
             </Link>
             <Link
               className="underline-offset-4 hover:underline"
               href="/solutions/gem-stat-et"
             >
-              GEM Stat™ ET
+              <BrandText>GEM Stat™ ET</BrandText>
             </Link>
           </div>
           <h1

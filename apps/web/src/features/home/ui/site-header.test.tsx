@@ -38,11 +38,7 @@ describe("SiteHeader", () => {
     });
     expect(contactLink).toHaveAttribute("href", "#contact");
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
-    const phoneLink = within(desktopNavigation).getByRole("link", {
-      name: "Call Lodging Technologies at (800) 524-2680",
-    });
-    expect(phoneLink).toHaveAttribute("href", "tel:+18005242680");
-    expect(phoneLink.previousElementSibling).toBe(contactLink);
+    expect(desktopNavigation).not.toHaveTextContent("(800) 524-2680");
 
     fireEvent.click(screen.getByText("Solutions"));
     expect(
@@ -54,8 +50,8 @@ describe("SiteHeader", () => {
       }),
     ).toHaveAttribute("href", "/solutions/lighting-controls");
     expect(
-      screen.getByRole("link", { name: "GEM Link® Wireless – DHW Controls" }),
-    ).toHaveAttribute("href", "/solutions/dhw-controls");
+      screen.getByRole("link", { name: "GEM Link® – Appliance Control" }),
+    ).toHaveAttribute("href", "/solutions/appliance-controls");
 
     const themeSwitch = screen.getAllByRole("switch", {
       name: "Switch to night mode",
@@ -100,11 +96,7 @@ describe("SiteHeader", () => {
     });
     expect(contactLink).toHaveAttribute("href", "/#contact");
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
-    expect(
-      within(mobileNavigation).getByRole("link", {
-        name: "Call Lodging Technologies at (800) 524-2680",
-      }),
-    ).toHaveAttribute("href", "tel:+18005242680");
+    expect(mobileNavigation).not.toHaveTextContent("(800) 524-2680");
 
     fireEvent.click(contactLink);
     expect(

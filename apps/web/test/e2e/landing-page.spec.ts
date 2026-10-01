@@ -67,10 +67,13 @@ test("keeps product branding and a contact route in public-page footers", async 
     });
     await expect(bbbSeal).toBeVisible();
     expect((await bbbSeal.boundingBox())!.width).toBeGreaterThanOrEqual(128);
+    await expect(footer).toContainText(
+      "© 2026 Lodging Technologies LLC. All rights reserved.",
+    );
   }
 });
 
-test("shows direct contact and company social links beside the inquiry form", async ({
+test("shows the inquiry form and company social links without the retired phone", async ({
   page,
 }) => {
   await page.goto("/#contact");
@@ -78,9 +81,7 @@ test("shows direct contact and company social links beside the inquiry form", as
   await expect(
     contact.getByRole("form", { name: "General inquiry" }),
   ).toBeVisible();
-  await expect(
-    contact.getByRole("link", { name: "(800) 524-2680" }),
-  ).toHaveAttribute("href", "tel:+18005242680");
+  await expect(contact).not.toContainText("(800) 524-2680");
   const facebookLink = contact.getByRole("link", { name: "Facebook" });
   await expect(facebookLink).toHaveAttribute(
     "href",

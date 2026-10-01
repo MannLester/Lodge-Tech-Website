@@ -6,6 +6,7 @@ import {
   solutions,
   type ProductSlug,
 } from "@/features/solutions/model/product-content";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 type EcosystemMapProps = {
@@ -32,7 +33,9 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
             onClick={() => setSelectedSlug(product.slug)}
             type="button"
           >
-            <span className="block text-sm font-bold">{product.label}</span>
+            <span className="block text-sm font-bold">
+              <BrandText>{product.label}</BrandText>
+            </span>
             <span className="text-muted mt-1 block text-xs leading-5">
               {product.eyebrow}
             </span>

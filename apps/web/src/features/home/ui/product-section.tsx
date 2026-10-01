@@ -1,31 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import auxiliaryImage from "@assets/auxiliary.png";
-import exhaustImage from "@assets/exhaust.png";
+import appliancePowerPackImage from "@assets/appliance-power-pack.jpeg";
 import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import gemLinkLogoBlue from "@assets/gem_link_logo_blue.png";
 import gemLinkLogoWhite from "@assets/gem_link_logo_white.png";
 import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform-branded.png";
+import { BrandText } from "@/shared/ui/brand-text";
 
 const supportingProducts = [
   {
     title: "GEM Link® Wireless – Lighting Control",
     image: lightingImage,
+    imageAlt: "Lighting control application illustration",
     slug: "lighting-controls",
     copy: "The right light, around real building use.",
   },
   {
-    title: "GEM Link® Wireless – DHW Controls",
-    image: auxiliaryImage,
-    slug: "dhw-controls",
-    copy: "Plan domestic hot water controls around property demand.",
-  },
-  {
-    title: "GEM Link® Wireless – Appliance Controls",
-    image: exhaustImage,
+    title: "GEM Link® – Appliance Control",
+    image: appliancePowerPackImage,
+    imageAlt:
+      "Power Pack appliance-control relay with red, black, and white wiring",
     slug: "appliance-controls",
-    copy: "Bring overlooked loads into the conversation.",
+    copy: "Coordinate suitable in-room cooktops and individual electric water heaters.",
   },
 ] as const;
 
@@ -69,7 +66,8 @@ export function ProductSection() {
           <div className="flagship-copy">
             <p className="chapter-label">Inside the HVAC solution</p>
             <h3>
-              GEM Stat™<span className="product-suffix"> ET</span>
+              <BrandText>GEM Stat™</BrandText>
+              <span className="product-suffix"> ET</span>
             </h3>
             <p className="product-statement">
               A comfortable room.
@@ -82,14 +80,17 @@ export function ProductSection() {
             <ul className="editorial-list">
               <li>Respond to room occupancy</li>
               <li>Support guest comfort</li>
-              <li>Connect with GEM Link® Wireless</li>
+              <li>
+                Connect with <BrandText>GEM Link® Wireless</BrandText>
+              </li>
             </ul>
             <Link
               aria-label="Learn more about GEM Stat™ ET"
               className="editorial-link"
               href="/solutions/gem-stat-et"
             >
-              Explore GEM Stat™ ET <span aria-hidden>↗</span>
+              Explore <BrandText>GEM Stat™ ET</BrandText>{" "}
+              <span aria-hidden>↗</span>
             </Link>
           </div>
         </article>
@@ -129,8 +130,8 @@ export function ProductSection() {
                 <span>Appliance</span>
               </div>
               <figcaption>
-                GEM Link® Wireless brings supported room controls and building
-                loads into a coordinated operating view.
+                <BrandText>GEM Link® Wireless</BrandText> brings supported room
+                controls and building loads into a coordinated operating view.
               </figcaption>
             </figure>
           </div>
@@ -142,15 +143,21 @@ export function ProductSection() {
                 <article className="supporting-product" key={product.slug}>
                   <div className="supporting-product-image">
                     <Image
-                      alt={product.title + " application illustration"}
-                      className="object-cover"
+                      alt={product.imageAlt}
+                      className={
+                        product.slug === "appliance-controls"
+                          ? "bg-white object-contain"
+                          : "object-cover"
+                      }
                       fill
                       sizes="(max-width: 767px) 38vw, (max-width: 1023px) 28vw, 13vw"
                       src={product.image}
                     />
                   </div>
                   <div className="supporting-product-copy">
-                    <h4>{product.title}</h4>
+                    <h4>
+                      <BrandText>{product.title}</BrandText>
+                    </h4>
                     <p>{product.copy}</p>
                     <Link
                       aria-label={"Learn more about " + product.title}

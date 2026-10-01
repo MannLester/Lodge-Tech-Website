@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 
-import auxiliaryImage from "@assets/auxiliary.png";
+import appliancePowerPackImage from "@assets/appliance-power-pack.jpeg";
 import gemStatOfficeSettingImage from "@assets/gem-stat-et/office-setting.jpeg";
 import gemStatTreeSettingImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import gemStatThermostatImage from "@assets/gem-stat-et/thermostat.jpg";
@@ -11,7 +11,6 @@ export const productSlugs = [
   "gem-stat-et",
   "gem-link-wireless",
   "lighting-controls",
-  "dhw-controls",
   "appliance-controls",
 ] as const;
 
@@ -20,7 +19,6 @@ export type ProductSlug = (typeof productSlugs)[number];
 export const solutionSlugs = [
   "gem-link-wireless",
   "lighting-controls",
-  "dhw-controls",
   "appliance-controls",
 ] as const;
 
@@ -51,6 +49,7 @@ export type ProductPageContent = {
   features: ReadonlyArray<Feature>;
   heroImage: StaticImageData;
   heroImageAlt: string;
+  heroImageClass?: string;
   heroPhoto?: boolean;
   label: string;
   metaDescription: string;
@@ -255,88 +254,48 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     ],
     specifications: pendingSpecifications,
   },
-  "dhw-controls": {
-    slug: "dhw-controls",
-    label: "GEM Link® Wireless – DHW Controls",
-    eyebrow: "Domestic hot water control",
-    subtitle: "Plan domestic hot water operation around property demand.",
-    description:
-      "DHW controls address domestic hot water as a distinct building system. A suitable strategy depends on the property's equipment, demand patterns, and service requirements.",
-    shortDescription:
-      "A dedicated control strategy for domestic hot water systems.",
-    metaDescription:
-      "Explore GEM Link® Wireless controls for domestic hot water systems.",
-    heroImage: auxiliaryImage,
-    heroImageAlt: "Illustrative building control interface",
-    features: [
-      {
-        title: "System-specific planning",
-        body: "Assess the domestic hot water equipment and operating requirements before defining a control approach.",
-      },
-      {
-        title: "Demand-aware operation",
-        body: "Review when hot water is needed and where operating schedules may be appropriate.",
-      },
-      {
-        title: "Service continuity",
-        body: "Keep occupant hot water needs central to every proposed control strategy.",
-      },
-      {
-        title: "Connected oversight",
-        body: "Evaluate how a supported DHW application fits into the broader GEM Link® Wireless view.",
-      },
-    ],
-    showcases: [
-      {
-        title: "Treat hot water as its own system",
-        body: "Review plant equipment, storage, circulation, and service requirements before identifying suitable control opportunities.",
-      },
-      {
-        title: "Coordinate with property operations",
-        body: "Discuss how domestic hot water control can align with the building's wider energy-management plan.",
-      },
-    ],
-    specifications: pendingSpecifications,
-  },
   "appliance-controls": {
     slug: "appliance-controls",
-    label: "GEM Link® Wireless – Appliance Controls",
-    eyebrow: "Managed auxiliary loads",
-    subtitle: "Coordinate equipment that should not operate unmanaged.",
+    label: "GEM Link® – Appliance Control",
+    eyebrow: "Managed in-room appliances",
+    subtitle: "Coordinate selected equipment around real room use.",
     description:
-      "Appliance Controls extend an energy-management strategy beyond HVAC, lighting, and domestic hot water to suitable plug loads, exhaust, and other auxiliary equipment applications.",
+      "GEM Link® Appliance Control extends an energy-management strategy to suitable in-room electric appliances, including two-burner cooktops and individual electric water heaters.",
     shortDescription:
-      "Control strategies for suitable appliance and auxiliary equipment loads.",
+      "Control selected in-room electric appliances around occupancy and operating needs.",
     metaDescription:
-      "Explore GEM Link® Wireless controls for suitable appliance and auxiliary loads.",
-    heroImage: auxiliaryImage,
-    heroImageAlt: "Appliance controls product placeholder",
+      "Explore GEM Link® Appliance Control for suitable in-room electric appliances.",
+    heroImage: appliancePowerPackImage,
+    heroImageAlt:
+      "Power Pack appliance-control relay with red, black, and white wiring",
+    heroImageClass: "object-contain p-4",
+    heroPhoto: true,
     features: [
       {
-        title: "Broader load coverage",
-        body: "Extend control planning beyond the largest HVAC and lighting loads.",
+        title: "Two-burner cooktops",
+        body: "Evaluate occupancy-based control for suitable in-room electric cooktops.",
       },
       {
-        title: "Application-specific logic",
-        body: "Evaluate operating rules around each suitable equipment type.",
+        title: "Individual water heaters",
+        body: "Consider control for individual in-room electric water heaters where properties use them.",
       },
       {
-        title: "Schedule coordination",
-        body: "Align selected loads with occupancy and operating requirements.",
+        title: "Application-specific planning",
+        body: "Match operating rules to the appliance, room, and property requirements.",
       },
       {
-        title: "Ecosystem integration",
-        body: "Coordinate auxiliary applications with a broader property strategy.",
+        title: "Connected coordination",
+        body: "Bring suitable appliance applications into the broader GEM Link® strategy.",
       },
     ],
     showcases: [
       {
-        title: "Address overlooked operating expense",
-        body: "Identify suitable equipment that may consume energy outside the periods when it provides useful service.",
+        title: "Designed for specific in-room loads",
+        body: "Discuss two-burner cooktops and other suitable electric appliances as part of the room energy plan.",
       },
       {
-        title: "Build a coordinated strategy",
-        body: "Bring selected appliance and auxiliary loads into the same planning conversation as HVAC and lighting.",
+        title: "A fit for select property types",
+        body: "Individual in-room electric water-heater control may be relevant for timeshare properties and apartments where each unit has its own heater.",
       },
     ],
     specifications: pendingSpecifications,

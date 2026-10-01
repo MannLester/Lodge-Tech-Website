@@ -10,6 +10,7 @@ import {
 import { EcosystemMap } from "@/features/solutions/ui/ecosystem-map";
 import { SiteFooter } from "@/shared/ui/site-footer";
 import { SiteHeader } from "@/shared/ui/site-header";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 type ProductPageProps = { product: ProductPageContent };
@@ -64,7 +65,7 @@ export function ProductPage({ product }: ProductPageProps) {
                 href={`/solutions/${item.slug}`}
                 key={item.slug}
               >
-                {item.label}
+                <BrandText>{item.label}</BrandText>
               </Link>
             ))}
           </div>
@@ -77,18 +78,19 @@ export function ProductPage({ product }: ProductPageProps) {
             <div data-product-intro>
               <p className="chapter-label">{product.eyebrow}</p>
               <h1 className="mt-5 leading-tight" id="product-heading">
-                {product.label}
+                <BrandText>{product.label}</BrandText>
               </h1>
               <p className="mt-5 text-xl leading-relaxed">{product.subtitle}</p>
               <p className="editorial-copy">{product.description}</p>
               {product.slug === "gem-stat-et" && (
                 <p className="editorial-copy">
-                  GEM Stat™ ET is a room-level product within the{" "}
+                  <BrandText>GEM Stat™ ET</BrandText> is a room-level product
+                  within the{" "}
                   <Link
                     className="editorial-link"
                     href="/solutions/gem-link-wireless"
                   >
-                    GEM Link® Wireless – HVAC solution
+                    <BrandText>GEM Link® Wireless – HVAC solution</BrandText>
                   </Link>
                   .
                 </p>
@@ -113,9 +115,10 @@ export function ProductPage({ product }: ProductPageProps) {
                     "illustration",
                   )}
                   className={
-                    product.heroPhoto
+                    product.heroImageClass ??
+                    (product.heroPhoto
                       ? "object-cover object-left"
-                      : "object-contain p-6"
+                      : "object-contain p-6")
                   }
                   fill
                   preload
@@ -167,7 +170,7 @@ export function ProductPage({ product }: ProductPageProps) {
                 </div>
                 <figcaption>
                   <span className="chapter-label">
-                    Video concept / {product.label}
+                    Video concept / <BrandText>{product.label}</BrandText>
                   </span>
                   <strong>{product.videoBrief.title}</strong>
                   <p>{product.videoBrief.description}</p>
@@ -275,7 +278,7 @@ export function ProductPage({ product }: ProductPageProps) {
           <div className="section-shell">
             <p className="chapter-label">Your property. Your next step.</p>
             <h2 className="display-heading" id="bottom-cta-heading">
-              Let’s see where {product.label}
+              Let’s see where <BrandText>{product.label}</BrandText>
               <br />
               fits in your building.
             </h2>

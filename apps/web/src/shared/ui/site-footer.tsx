@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import bbbAccreditedBusinessSeal from "@assets/bbb-accredited-business.svg";
+import { BrandText } from "@/shared/ui/brand-text";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
@@ -19,12 +20,8 @@ const footerLinkGroups = [
         label: "GEM Link® Wireless – Lighting Control",
       },
       {
-        href: "/solutions/dhw-controls",
-        label: "GEM Link® Wireless – DHW Controls",
-      },
-      {
         href: "/solutions/appliance-controls",
-        label: "GEM Link® Wireless – Appliance Controls",
+        label: "GEM Link® – Appliance Control",
       },
       { href: "/#technology", label: "Cloud Platform" },
       { href: "/#technology", label: "Utility Rebate Capture" },
@@ -72,16 +69,18 @@ export function SiteFooter() {
               className="hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless
+              <BrandText>GEM Link® Wireless</BrandText>
             </Link>
             <Link className="hover:underline" href="/solutions/gem-stat-et">
-              GEM Stat™ ET
+              <BrandText>GEM Stat™ ET</BrandText>
             </Link>
           </div>
           <p className="text-muted mt-4 text-sm leading-6">
-            GEM Link® Wireless and GEM Stat™ ET energy management for lodging,
-            multifamily, senior living, student housing, and commercial
-            properties.
+            <BrandText>
+              GEM Link® Wireless and GEM Stat™ ET energy management for lodging,
+              multifamily, senior living, student housing, and commercial
+              properties.
+            </BrandText>
           </p>
           <p className="text-muted mt-4 text-sm leading-6">
             Proudly serving North America including the Caribbean.
@@ -129,7 +128,7 @@ export function SiteFooter() {
                       className="text-muted hover:text-brand-strong text-sm transition-colors"
                       href={link.href}
                     >
-                      {link.label}
+                      <BrandText>{link.label}</BrandText>
                     </Link>
                   </li>
                 ))}
@@ -139,7 +138,7 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="section-shell border-border text-muted mt-10 border-t pt-5 text-xs">
-        &copy; 2026 Lodging Technologies. All rights reserved.
+        &copy; 2026 Lodging Technologies LLC. All rights reserved.
       </div>
     </footer>
   );

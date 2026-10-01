@@ -36,6 +36,11 @@ test("industry selection exposes one relevant description and contact route", as
 }) => {
   await page.goto("/");
   const industries = page.locator("#industries");
+  await expect(
+    industries.getByRole("img", {
+      name: "Hotel entrance with a covered drive-under portico",
+    }),
+  ).toBeVisible();
   const selected = industries.getByRole("button", { name: /Student Housing/ });
   await selected.focus();
   await page.keyboard.press("Enter");
@@ -61,9 +66,9 @@ test("industry selection exposes one relevant description and contact route", as
       "alt",
       "Commercial office photography",
     );
-    expect((await commercialPanel.getByRole("img").boundingBox())!.y).toBeGreaterThan(
-      (await commercial.boundingBox())!.y,
-    );
+    expect(
+      (await commercialPanel.getByRole("img").boundingBox())!.y,
+    ).toBeGreaterThan((await commercial.boundingBox())!.y);
   }
   await industries.getByRole("link", { name: /Discuss your property/ }).click();
   await expect(page).toHaveURL(/#contact$/);
@@ -169,7 +174,9 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
   const beyondHvac = gemLink.locator(".beyond-hvac-panel");
 
   await expect(visual.getByRole("img")).toHaveCount(1);
-  await expect(connected.locator(".wireless-platform-logo-light")).toBeVisible();
+  await expect(
+    connected.locator(".wireless-platform-logo-light"),
+  ).toBeVisible();
   await expect(connected.locator(".wireless-platform-logo-dark")).toBeHidden();
   await page.evaluate(() =>
     document.documentElement.setAttribute("data-theme", "dark"),
@@ -196,17 +203,16 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
   await expect(
     beyondHvac.getByRole("heading", { name: "Beyond HVAC" }),
   ).toBeVisible();
-  await expect(beyondHvac.locator(".supporting-product")).toHaveCount(3);
+  await expect(beyondHvac.locator(".supporting-product")).toHaveCount(2);
   await expect(beyondHvac.locator(".supporting-product-image img")).toHaveCount(
-    3,
+    2,
   );
   const thumbnailWidths = await beyondHvac
     .locator(".supporting-product-image")
     .evaluateAll((thumbnails) =>
       thumbnails.map((thumbnail) => thumbnail.getBoundingClientRect().width),
     );
-  const maximumThumbnailWidth =
-    page.viewportSize()!.width >= 768 ? 120 : 92;
+  const maximumThumbnailWidth = page.viewportSize()!.width >= 768 ? 120 : 92;
   for (const width of thumbnailWidths) {
     expect(width).toBeLessThanOrEqual(maximumThumbnailWidth);
   }
