@@ -123,7 +123,7 @@ test("Appliance Control leads with the supplied Power Pack photo", async ({
   ).toBeVisible();
 });
 
-test("primary Solutions navigation exposes the three solution routes", async ({
+test("primary Solutions navigation exposes the four product routes", async ({
   page,
 }) => {
   await page.goto("/");
@@ -133,12 +133,18 @@ test("primary Solutions navigation exposes the three solution routes", async ({
   if (viewport.width >= 1024) {
     const primary = page.getByRole("navigation", { name: "Primary" });
     await primary.getByText("Solutions", { exact: true }).click();
+    await expect(
+      primary.getByRole("link", { name: "GEM Stat™ ET" }),
+    ).toBeVisible();
     await primary
       .getByRole("link", { name: "GEM Link® – Appliance Control" })
       .click();
   } else {
     await page.getByRole("button", { name: "Open navigation" }).click();
     const mobile = page.getByRole("navigation", { name: "Mobile navigation" });
+    await expect(
+      mobile.getByRole("link", { name: "GEM Stat™ ET" }),
+    ).toBeVisible();
     await mobile
       .getByRole("link", { name: "GEM Link® – Appliance Control" })
       .click();

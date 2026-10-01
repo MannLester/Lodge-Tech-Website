@@ -39,8 +39,17 @@ describe("SiteHeader", () => {
     expect(contactLink).toHaveAttribute("href", "#contact");
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
     expect(desktopNavigation).not.toHaveTextContent("(800) 524-2680");
+    expect(
+      within(desktopNavigation).getByRole("link", {
+        name: "Call Lodging Technologies at (877) 435-5465",
+      }),
+    ).toHaveAttribute("href", "tel:+18774355465");
 
     fireEvent.click(screen.getByText("Solutions"));
+    expect(screen.getByRole("link", { name: "GEM Stat™ ET" })).toHaveAttribute(
+      "href",
+      "/solutions/gem-stat-et",
+    );
     expect(
       screen.getByRole("link", { name: "GEM Link® Wireless – HVAC" }),
     ).toHaveAttribute("href", "/solutions/gem-link-wireless");
@@ -97,6 +106,11 @@ describe("SiteHeader", () => {
     expect(contactLink).toHaveAttribute("href", "/#contact");
     expect(contactLink.previousElementSibling).toHaveTextContent("Company");
     expect(mobileNavigation).not.toHaveTextContent("(800) 524-2680");
+    expect(
+      within(mobileNavigation).getByRole("link", {
+        name: "Call Lodging Technologies at (877) 435-5465",
+      }),
+    ).toHaveAttribute("href", "tel:+18774355465");
 
     fireEvent.click(contactLink);
     expect(
