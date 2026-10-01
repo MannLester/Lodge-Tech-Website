@@ -36,7 +36,9 @@ test("persists an inquiry and removes the verification record", async ({
     await form
       .getByLabel("Project notes")
       .fill("Temporary persistence verification record.");
-    await form.getByRole("button", { name: "Send My Request" }).click();
+    await form
+      .getByRole("button", { name: "Request Proposal / Site Survey" })
+      .click();
 
     await expect(
       form.getByText(

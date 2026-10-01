@@ -24,7 +24,7 @@ export function Button({
 
   return (
     <Component
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-md border px-5 py-2.5 text-sm font-semibold transition-colors ${variants[variant]} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors ${variants[variant]} ${className}`}
       {...props}
     />
   );
