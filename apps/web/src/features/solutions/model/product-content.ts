@@ -223,7 +223,7 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
     metaDescription:
       "Explore GEM Link® Wireless lighting control for suitable property spaces.",
     heroImage: lightingImage,
-    heroImageAlt: "Lighting controls product placeholder",
+    heroImageAlt: "Illustrative lighting control interface",
     features: [
       {
         title: "Occupancy response",
