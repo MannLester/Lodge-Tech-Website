@@ -1,0 +1,1960 @@
+/* Public marketing pages only. Administrative surfaces keep their own layout. */
+.marketing-site {
+  --editorial-ink: #16354a;
+  --editorial-muted: #59707c;
+  --editorial-paper: #f4f3ee;
+  --editorial-line: #d6deda;
+  color: var(--editorial-ink);
+}
+
+:root[data-theme="dark"] .marketing-site {
+  --editorial-ink: #edf2f3;
+  --editorial-muted: #acbec8;
+  --editorial-paper: #10232e;
+  --editorial-line: #304551;
+}
+
+.marketing-site .section-shell {
+  width: min(100% - 3rem, 80rem);
+}
+.marketing-site .editorial-section {
+  padding-block: clamp(4.5rem, 8vw, 8.5rem);
+}
+.marketing-site .chapter-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.marketing-site .display-heading {
+  margin-top: 1.5rem;
+  font-size: clamp(2.15rem, 3.8vw, 3.8rem);
+  line-height: 1.13;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+.marketing-site .muted-heading {
+  color: var(--editorial-muted);
+}
+.marketing-site .editorial-copy {
+  max-width: 31rem;
+  margin-top: 1.75rem;
+  color: var(--editorial-muted);
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+.marketing-site .editorial-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 2.75rem;
+  margin-top: 1.75rem;
+  padding-block: 0.65rem;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.marketing-site .editorial-link span {
+  font-size: 1.3rem;
+  transition: transform 180ms ease;
+}
+.marketing-site .editorial-link:hover span {
+  transform: translate(2px, -2px);
+}
+.marketing-site .section-masthead {
+  display: grid;
+  grid-template-columns: 1.4fr 0.75fr;
+  align-items: end;
+  gap: 4rem;
+  margin-bottom: 3.5rem;
+}
+.marketing-site .section-masthead > .editorial-copy {
+  margin: 0 0 0.3rem;
+}
+.marketing-site .editorial-intro {
+  max-width: 60rem;
+  margin-bottom: 3.5rem;
+}
+.marketing-site .small-note {
+  margin-top: 2rem;
+  font-size: 0.68rem;
+  line-height: 1.7;
+  color: var(--editorial-muted);
+}
+.marketing-site .photo-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 4rem 2rem 1.5rem;
+  background: linear-gradient(transparent, rgb(4 15 23 / 0.65));
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+/* The original day/night house remains the opening scene. */
+.marketing-site .hero-heading {
+  font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+.marketing-site .hero-heading-accent {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+}
+.marketing-site .hero-proof-strip {
+  background: var(--background);
+}
+.marketing-site .proof-stat {
+  padding: 0.5rem 2.5rem;
+  border-left: 1px solid var(--editorial-line);
+}
+.marketing-site .proof-stat:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.marketing-site .proof-value {
+  font-size: clamp(1.75rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.marketing-site .proof-label {
+  max-width: 17rem;
+  margin-top: 0.4rem;
+  color: var(--editorial-muted);
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+.marketing-site .occupancy-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  background: var(--editorial-paper);
+}
+.marketing-site .occupancy-photo {
+  position: relative;
+  min-height: 34rem;
+  overflow: hidden;
+}
+.marketing-site .occupancy-photo img {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.marketing-site
+  .occupancy-photo[data-occupied="true"]
+  img[data-state="occupied"],
+.marketing-site
+  .occupancy-photo[data-occupied="false"]
+  img[data-state="vacant"] {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site .occupancy-photo img {
+    transition: none;
+  }
+}
+.marketing-site .occupancy-video-brief {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  gap: 0.4rem;
+  padding: 5.5rem clamp(1.25rem, 3vw, 2rem) 1.5rem;
+  background: linear-gradient(transparent, rgb(4 15 23 / 0.82));
+  color: #fff;
+}
+.marketing-site .occupancy-video-brief > span {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .occupancy-video-brief strong {
+  font-size: clamp(1.2rem, 2.3vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.marketing-site .occupancy-video-brief p {
+  max-width: 34rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.marketing-site .occupancy-explainer {
+  padding: clamp(2rem, 4vw, 4rem);
+  align-self: center;
+}
+.marketing-site .occupancy-switch {
+  display: inline-flex;
+  margin-top: 1.5rem;
+  padding: 4px;
+  border: 1px solid var(--editorial-line);
+  border-radius: 2rem;
+}
+.marketing-site .occupancy-switch button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.marketing-site .occupancy-switch button[aria-pressed="true"] {
+  background: var(--editorial-ink);
+  color: var(--background);
+}
+.marketing-site .occupancy-response {
+  margin-top: 2.5rem;
+  min-height: 15rem;
+}
+.marketing-site .status-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+}
+.marketing-site .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4c917d;
+}
+.marketing-site .occupancy-response h3 {
+  margin-block: 1rem;
+  font-size: clamp(1.9rem, 2.7vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  font-weight: 500;
+}
+.marketing-site .occupancy-response p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--editorial-muted);
+}
+
+.marketing-site .product-section {
+  background: var(--editorial-paper);
+}
+.marketing-site .flagship-product {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.marketing-site .flagship-photo {
+  position: relative;
+  min-height: 42rem;
+  overflow: hidden;
+}
+.marketing-site .flagship-copy h3 {
+  margin-top: 1.5rem;
+  font-size: clamp(2.5rem, 4.7vw, 4.8rem);
+  letter-spacing: -0.07em;
+  font-weight: 500;
+  line-height: 1.05;
+}
+.marketing-site .product-suffix {
+  font-weight: 300;
+}
+.marketing-site .product-statement {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+.marketing-site .editorial-list {
+  margin-top: 1.8rem;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .editorial-list li {
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--editorial-line);
+  font-size: 0.75rem;
+}
+.marketing-site .wireless-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: stretch;
+  gap: clamp(2.5rem, 4vw, 4rem);
+  padding-block: 5rem 0;
+}
+.marketing-site .connected-property-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.5rem clamp(0.5rem, 2vw, 1.25rem);
+}
+.marketing-site .connected-property-mode {
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  text-align: center;
+}
+.marketing-site .wireless-platform-connection {
+  min-width: 0;
+  width: min(100%, 31rem);
+  margin-inline: auto;
+}
+.marketing-site .wireless-platform-identity {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.marketing-site .wireless-platform-logo {
+  display: block;
+  width: clamp(14rem, 21vw, 19rem);
+  max-width: 100%;
+  height: auto;
+}
+.marketing-site .wireless-platform-logo-dark,
+:root[data-theme="dark"] .marketing-site .wireless-platform-logo-light {
+  display: none;
+}
+:root[data-theme="dark"] .marketing-site .wireless-platform-logo-dark {
+  display: block;
+}
+.marketing-site .wireless-platform-stage {
+  position: relative;
+  width: min(100%, 28rem);
+  margin-inline: auto;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+}
+.marketing-site .wireless-platform-stage::before,
+.marketing-site .wireless-platform-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--brand) 25%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: connection-ring-pulse 4s ease-out infinite;
+}
+.marketing-site .wireless-platform-stage::after {
+  inset: 0.8rem;
+  border-style: dashed;
+  animation-delay: 0.9s;
+}
+.marketing-site .wireless-platform-image {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  z-index: 1;
+}
+.marketing-site .wireless-platform-connection figcaption {
+  margin-top: 2rem;
+  color: var(--editorial-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.marketing-site .connection-loads {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--editorial-line);
+  font-size: 0.75rem;
+  text-align: center;
+}
+.marketing-site .connection-loads::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: 1.8rem;
+  background: var(--editorial-line);
+}
+.marketing-site .connection-loads span {
+  position: relative;
+}
+.marketing-site .connection-loads span::before {
+  content: "";
+  position: absolute;
+  top: -1.3rem;
+  left: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 30%, transparent);
+  transform: translateX(-50%);
+  animation: connection-load-pulse 4s ease-in-out infinite;
+}
+.marketing-site .connection-loads span:nth-child(2)::before {
+  animation-delay: 0.45s;
+}
+.marketing-site .connection-loads span:nth-child(3)::before {
+  animation-delay: 0.9s;
+}
+
+@keyframes connection-ring-pulse {
+  0%,
+  12% {
+    opacity: 0.65;
+    transform: scale(0.98);
+  }
+  56% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+  88%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes connection-load-pulse {
+  0%,
+  20%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 30%, transparent);
+    opacity: 0.55;
+  }
+  48% {
+    box-shadow: 0 0 0 0.55rem transparent;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site .wireless-platform-stage::before,
+  .marketing-site .wireless-platform-stage::after,
+  .marketing-site .connection-loads span::before {
+    animation: none;
+  }
+}
+.marketing-site .beyond-hvac-panel {
+  min-width: 0;
+  border: 1px solid var(--editorial-line);
+  border-radius: 1.5rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--surface);
+}
+.marketing-site .beyond-hvac-panel > h3 {
+  border-radius: 0.25rem;
+  padding: 0.8rem 1rem;
+  background: #16354a;
+  color: #fff;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.marketing-site .beyond-hvac-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.marketing-site .supporting-product {
+  display: grid;
+  grid-template-columns: clamp(6.5rem, 8vw, 7.5rem) minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: center;
+}
+.marketing-site .supporting-product-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 0.65rem;
+  background: #111;
+}
+.marketing-site .supporting-product h4 {
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+}
+.marketing-site .supporting-product p {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--editorial-muted);
+}
+.marketing-site .supporting-product .editorial-link {
+  margin-top: 1rem;
+}
+.marketing-site .product-panel-link {
+  margin-top: 2rem;
+}
+
+.marketing-site .platform-section {
+  background: #123447;
+  color: #f5f7f6;
+}
+.marketing-site .platform-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.marketing-site .platform-section .display-heading span {
+  color: #a9c8cc;
+}
+.marketing-site .platform-section .editorial-copy,
+.marketing-site .platform-section .small-note {
+  color: #b7cbd2;
+}
+.marketing-site .platform-story {
+  border-left: 1px solid #4a6573;
+  padding-left: 3rem;
+}
+.marketing-site .platform-story ol {
+  margin-top: 2rem;
+}
+.marketing-site .platform-story li {
+  display: flex;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid #4a6573;
+}
+.marketing-site .platform-story li > span {
+  color: #a9c8cc;
+  font-size: 0.75rem;
+  padding-top: 0.2rem;
+}
+.marketing-site .platform-story h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.marketing-site .platform-story li p {
+  margin-top: 0.6rem;
+  color: #b7cbd2;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.marketing-site .video-brief-frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.marketing-site .platform-video-brief {
+  margin-top: 1.5rem;
+  border: 1px solid #4a6573;
+}
+.marketing-site .platform-video-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: radial-gradient(circle at 50% 50%, #2c6875, #0b2638 68%);
+}
+.marketing-site .platform-video-frame span:not(.platform-video-arrow) {
+  border: 1px solid #85b2ba;
+  padding: 0.65rem 0.8rem;
+  color: #f5f7f6;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.marketing-site .platform-video-frame .platform-video-arrow {
+  color: #a9c8cc;
+  font-size: 1.5rem;
+}
+.marketing-site .platform-video-brief figcaption {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.25rem;
+  border-top: 1px solid #4a6573;
+}
+.marketing-site .platform-video-brief figcaption > span {
+  color: #a9c8cc;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .platform-video-brief figcaption strong {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.marketing-site .platform-video-brief figcaption p {
+  color: #b7cbd2;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.marketing-site .industries-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.marketing-site .industry-photo {
+  position: relative;
+  min-height: 36rem;
+  overflow: hidden;
+}
+.marketing-site .industry-photo-layer {
+  opacity: 0;
+  transform: scale(1.045);
+  transition:
+    opacity 600ms ease,
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.marketing-site .industry-photo-layer[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.marketing-site .industry-mobile-photo {
+  position: relative;
+  display: none;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.marketing-site .industry-caption-text {
+  display: inline-block;
+  animation: industry-copy-enter 480ms ease-out both;
+}
+.marketing-site .industry-option {
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .industry-option:last-child {
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .industry-option button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: 1.4rem;
+  gap: 1rem;
+  text-align: left;
+  font-size: 1.05rem;
+  letter-spacing: -0.025em;
+  cursor: pointer;
+}
+.marketing-site .industry-number {
+  font-size: 0.65rem;
+  color: var(--editorial-muted);
+}
+.marketing-site .industry-arrow {
+  margin-left: auto;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.marketing-site .industry-option [role="region"] {
+  padding: 0 0 1.5rem 2rem;
+}
+.marketing-site .industry-option [role="region"]:not([hidden]) {
+  animation: industry-copy-enter 480ms ease-out both;
+}
+.marketing-site .industry-option [role="region"] > p {
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.marketing-site .industry-option .editorial-link {
+  margin-top: 0.8rem;
+}
+.marketing-site .industry-option[data-active="true"] button {
+  font-weight: 600;
+}
+
+@keyframes industry-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site .industry-photo-layer {
+    transition: none;
+  }
+  .marketing-site .industry-caption-text,
+  .marketing-site .industry-option [role="region"]:not([hidden]) {
+    animation: none;
+  }
+}
+
+.marketing-site .assessment-section {
+  background: var(--editorial-paper);
+}
+.marketing-site .assessment-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.marketing-site .assessment-rows > div {
+  padding-block: 1.8rem;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .assessment-rows > div:last-child {
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .assessment-rows dt {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.marketing-site .assessment-rows dt span {
+  display: inline-block;
+  width: 2.5rem;
+  font-size: 0.65rem;
+  color: var(--editorial-muted);
+}
+.marketing-site .assessment-rows dd {
+  margin: 0.7rem 0 0 2.5rem;
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.marketing-site .company-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.marketing-site .company-layout [data-testid="company-gallery"] {
+  max-width: none;
+}
+.marketing-site .company-layout [data-testid="company-gallery"] > div {
+  border-radius: 0;
+  border: 0;
+}
+.marketing-site .company-lead {
+  margin-top: 1.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.65rem;
+  line-height: 1.4;
+}
+.marketing-site .company-page-hero {
+  overflow: hidden;
+  background: #102d40;
+  color: #f7faf9;
+  padding-block: clamp(3.25rem, 6vw, 5.5rem);
+}
+.marketing-site .company-page-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.82fr);
+  align-items: center;
+  gap: clamp(3rem, 8vw, 8rem);
+}
+.marketing-site .company-page-hero-copy h1 {
+  max-width: 48rem;
+  margin-top: 1.25rem;
+  font-size: clamp(3.25rem, 5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 1.05;
+}
+.marketing-site .company-page-hero-copy h1 em,
+.marketing-site .company-page-values h2 em {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+.marketing-site .company-page-declaration {
+  max-width: 32rem;
+  margin-top: 1.75rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1.45;
+}
+.marketing-site .company-page-introduction {
+  max-width: 36rem;
+  margin-top: 1.25rem;
+  color: #c8d8de;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.marketing-site .company-page-scroll-link {
+  display: inline-flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  border-bottom: 1px solid #c8d8de;
+  padding-bottom: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.marketing-site .company-page-gallery [data-testid="company-gallery"] {
+  max-width: none;
+}
+.marketing-site .company-page-gallery [data-testid="company-gallery"] > div {
+  border: 0;
+  border-radius: 0;
+}
+.marketing-site .company-page-gallery > p {
+  margin-top: 0.9rem;
+  color: #b6cbd3;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.marketing-site .company-page-story {
+  scroll-margin-top: 4.25rem;
+  background: var(--surface);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+.marketing-site .company-page-founder {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--editorial-line);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+}
+.marketing-site .company-page-founder-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  width: min(100%, 58rem);
+  margin-inline: auto;
+}
+.marketing-site .company-page-founder-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.marketing-site .company-page-founder-copy h3 {
+  margin-top: 0.5rem;
+  font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.marketing-site .company-page-founder-bio,
+.marketing-site .company-page-approach p {
+  max-width: 38rem;
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.marketing-site .founder-video-brief {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: min(100%, 58rem);
+  margin: 2rem auto 0;
+  border: 1px solid var(--editorial-line);
+}
+.marketing-site .founder-video-frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: linear-gradient(135deg, #173c4e, #0b2638);
+  color: #f5f7f6;
+}
+.marketing-site .founder-video-frame span:first-child {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .founder-video-frame span:last-child {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-style: italic;
+  line-height: 1.1;
+}
+.marketing-site .founder-video-brief figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--editorial-paper);
+}
+.marketing-site .founder-video-brief figcaption > span {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marketing-site .founder-video-brief figcaption strong {
+  margin-top: 0.6rem;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.marketing-site .founder-video-brief figcaption p {
+  margin-top: 0.75rem;
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+.marketing-site .company-page-approach {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--editorial-line);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+}
+.marketing-site .company-page-approach h3 {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.marketing-site .company-page-approach p {
+  margin-top: 0;
+}
+.marketing-site .company-page-direction {
+  background: var(--editorial-paper);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+.marketing-site .company-page-section-heading h2 {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+.marketing-site .company-page-statement {
+  display: grid;
+  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  border-top: 1px solid var(--editorial-line);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+}
+.marketing-site .company-page-section-heading + .company-page-statement {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+.marketing-site .company-page-statement:last-child {
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .company-page-statement span,
+.marketing-site .company-page-values li span {
+  color: var(--editorial-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.marketing-site .company-page-statement h3 {
+  margin-top: 0.6rem;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.marketing-site .company-page-statement p {
+  max-width: 46rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.marketing-site .company-page-values {
+  background: var(--surface);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+.marketing-site .company-page-values-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+  gap: clamp(3rem, 8vw, 8rem);
+}
+.marketing-site .company-page-values h2 {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+.marketing-site .company-page-values ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .company-page-values li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--editorial-line);
+  padding-block: 1.2rem;
+}
+.marketing-site .company-page-values li strong {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+.marketing-site .company-page-next {
+  background: #e3eee9;
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+:root[data-theme="dark"] .marketing-site .company-page-next {
+  background: #173443;
+}
+.marketing-site .company-page-next-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.75fr);
+  align-items: end;
+  gap: 4rem;
+}
+.marketing-site .company-page-next h2 {
+  max-width: 42rem;
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1.1;
+}
+.marketing-site .company-page-next-layout > div:last-child p {
+  max-width: 24rem;
+  color: var(--editorial-muted);
+  line-height: 1.7;
+}
+.marketing-site .company-page-primary-link {
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  border-radius: 999px;
+  background: #087cb3;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+.marketing-site .company-page-secondary-link {
+  display: block;
+  width: fit-content;
+  margin-top: 1.25rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .marketing-site .company-page-hero-layout,
+  .marketing-site .company-page-approach,
+  .marketing-site .company-page-values-layout,
+  .marketing-site .company-page-next-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .marketing-site .company-page-gallery {
+    max-width: 32rem;
+  }
+  .marketing-site .company-page-founder-layout {
+    grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.25rem, 4vw, 2rem);
+    width: min(100%, 42rem);
+  }
+  .marketing-site .founder-video-brief {
+    width: min(100%, 42rem);
+  }
+}
+@media (max-width: 600px) {
+  .marketing-site .company-page-founder-layout {
+    grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .marketing-site .company-page-founder-copy h3 {
+    font-size: 1.5rem;
+  }
+  .marketing-site .company-page-founder-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .marketing-site .founder-video-brief {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .company-page-hero-copy h1 {
+    font-size: clamp(2.5rem, 10vw, 3rem);
+  }
+  .marketing-site .company-page-statement {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .marketing-site .company-page-values li {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+  .marketing-site .company-page-approach {
+    gap: 1rem;
+  }
+}
+.marketing-site .process-section {
+  border-top: 1px solid var(--editorial-line);
+  --process-active: #4c917d;
+  --process-halo: rgba(76, 145, 125, 0.3);
+}
+:root[data-theme="dark"] .marketing-site .process-section {
+  --process-active: #83d0ad;
+  --process-halo: rgba(131, 208, 173, 0.3);
+}
+.marketing-site .process-timeline {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 4rem;
+}
+.marketing-site .process-timeline li {
+  position: relative;
+  padding: 2rem 1.5rem 0 0;
+  border-top: 1px solid var(--editorial-line);
+  transition: border-color 320ms ease;
+}
+.marketing-site .process-timeline li::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--editorial-ink);
+  transition:
+    background-color 320ms ease,
+    box-shadow 320ms ease,
+    transform 320ms ease;
+}
+.marketing-site .process-timeline li:has(~ li:is(:hover, :focus-visible)) {
+  border-color: var(--process-active);
+}
+.marketing-site
+  .process-timeline
+  li:is(:hover, :focus-visible, :has(~ li:is(:hover, :focus-visible)))::before {
+  background: var(--process-active);
+  box-shadow: 0 0 0 4px var(--process-halo);
+}
+.marketing-site .process-timeline li:is(:hover, :focus-visible)::before {
+  transform: scale(1.25);
+  box-shadow:
+    0 0 0 5px var(--process-halo),
+    0 0 20px var(--process-active);
+}
+.marketing-site .process-timeline li:focus-visible {
+  outline: 2px solid var(--process-active);
+  outline-offset: 8px;
+}
+.marketing-site .process-number {
+  color: var(--editorial-muted);
+  font-size: 0.7rem;
+}
+.marketing-site .process-timeline h3 {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.marketing-site .process-timeline p {
+  margin-top: 0.75rem;
+  color: var(--editorial-muted);
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing-site .process-timeline li,
+  .marketing-site .process-timeline li::before {
+    transition: none;
+  }
+}
+.marketing-site .contact-section {
+  background: var(--editorial-paper);
+}
+.marketing-site .contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.marketing-site .contact-section .display-heading {
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+.marketing-site .contact-section em {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+.marketing-site .contact-direct {
+  max-width: 27rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 1.5rem;
+}
+.marketing-site .contact-direct > a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+}
+.marketing-site .contact-direct > a:hover,
+.marketing-site .contact-direct > a:focus-visible {
+  text-decoration-color: currentColor;
+}
+.marketing-site .contact-social {
+  margin-top: 1.75rem;
+}
+.marketing-site .contact-social ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.65rem;
+}
+.marketing-site .contact-social a {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+.marketing-site .contact-social svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.marketing-site .contact-social a:hover,
+.marketing-site .contact-social a:focus-visible {
+  color: var(--editorial-paper);
+  background: var(--editorial-ink);
+}
+.marketing-site .contact-next {
+  max-width: 27rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--editorial-line);
+}
+.marketing-site .contact-next > p:last-child {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  color: var(--editorial-muted);
+  line-height: 1.8;
+}
+.marketing-site .contact-layout form {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 2.5rem;
+}
+
+.marketing-site .contact-layout :is(input, select, textarea) {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Proposal intake is its own editorial journey, distinct from the short inquiry. */
+.marketing-site .proposal-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(32rem, 42vw, 40rem);
+  overflow: hidden;
+  background: #0b2638;
+  color: #f7fbfc;
+  padding-block: clamp(5rem, 8vw, 8rem);
+}
+.marketing-site .proposal-hero-photo {
+  position: absolute;
+  z-index: -2;
+  inset-block: 0;
+  right: 0;
+  width: 45%;
+  mask-image: linear-gradient(90deg, transparent, #000 30%);
+}
+.marketing-site .proposal-hero-photo img {
+  object-fit: cover;
+  object-position: center 47%;
+}
+.marketing-site .proposal-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #0b2638 0%,
+    #0b2638 37%,
+    rgb(11 38 56 / 92%) 52%,
+    rgb(11 38 56 / 45%) 75%,
+    rgb(11 38 56 / 20%) 100%
+  );
+}
+.marketing-site .proposal-hero .section-shell {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 3rem, 80rem);
+}
+.marketing-site .proposal-hero h1 {
+  margin-top: 1rem;
+  max-width: 38rem;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 1;
+}
+.marketing-site .proposal-hero h1 em,
+.marketing-site .proposal-aside h2 em {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+.marketing-site .proposal-hero p:last-child {
+  max-width: 39rem;
+  margin-top: 2rem;
+  color: #e4eef1;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.7;
+}
+@media (max-width: 700px) {
+  .marketing-site .proposal-hero {
+    min-height: 34rem;
+    align-items: end;
+    padding-block: 5rem 3rem;
+  }
+  .marketing-site .proposal-hero-photo {
+    left: 0;
+    width: 100%;
+    mask-image: none;
+  }
+  .marketing-site .proposal-hero-photo img {
+    object-position: center 43%;
+  }
+  .marketing-site .proposal-hero::after {
+    background: linear-gradient(
+      180deg,
+      rgb(7 30 46 / 52%) 0%,
+      rgb(7 30 46 / 72%) 36%,
+      rgb(7 30 46 / 96%) 100%
+    );
+  }
+  .marketing-site .proposal-hero h1 {
+    font-size: clamp(3.1rem, 13vw, 5rem);
+  }
+}
+.marketing-site .proposal-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.5fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  padding-block: clamp(4rem, 8vw, 8rem);
+}
+.marketing-site .proposal-aside {
+  align-self: start;
+  position: sticky;
+  top: 7rem;
+}
+.marketing-site .proposal-aside h2 {
+  margin-top: 1.3rem;
+  font-size: clamp(2.3rem, 3.8vw, 4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+.marketing-site .proposal-aside > p:not(.chapter-label) {
+  margin-top: 1.5rem;
+  max-width: 23rem;
+  color: var(--editorial-muted);
+  line-height: 1.8;
+}
+.marketing-site .proposal-aside a {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--editorial-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+}
+.marketing-site .proposal-form {
+  min-width: 0;
+}
+.marketing-site .proposal-form-intro {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .proposal-form-intro > p {
+  max-width: 35rem;
+  margin-top: 0.7rem;
+  color: var(--editorial-muted);
+  line-height: 1.7;
+}
+.marketing-site .proposal-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 2.5rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--editorial-line);
+}
+.marketing-site .proposal-form legend {
+  padding: 0 0 1.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.marketing-site .proposal-fields {
+  display: grid;
+  gap: 1.2rem;
+}
+.marketing-site .proposal-fields.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.marketing-site .proposal-fields.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.marketing-site .proposal-form label {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+.marketing-site .proposal-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.15rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--editorial-line);
+  border-radius: 0;
+  background: var(--editorial-paper);
+  color: var(--editorial-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+.marketing-site .proposal-input:focus {
+  outline: 2px solid #0b95d4;
+  outline-offset: 2px;
+}
+.marketing-site .proposal-input::placeholder {
+  color: var(--editorial-muted);
+  opacity: 0.8;
+}
+.marketing-site .proposal-counts,
+.marketing-site .proposal-choices {
+  margin-top: 1.2rem;
+}
+.marketing-site .proposal-hint {
+  display: block;
+  margin-bottom: 1.1rem;
+  color: var(--editorial-muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.65;
+}
+.marketing-site .proposal-repeat {
+  margin-bottom: 1rem;
+  padding: 1.1rem;
+  background: var(--editorial-paper);
+}
+.marketing-site .proposal-text-button {
+  margin: 0.4rem 0 1rem;
+  padding: 0.4rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--editorial-ink);
+  font: inherit;
+  font-size: 0.83rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+  cursor: pointer;
+}
+.marketing-site .proposal-model-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+.marketing-site .proposal-model-row .proposal-text-button {
+  flex: none;
+  margin: 0;
+}
+.marketing-site .proposal-checks {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.marketing-site .proposal-checks label {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.marketing-site .proposal-checks input {
+  accent-color: #0b95d4;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.marketing-site .proposal-subchecks {
+  display: grid;
+  gap: 0.65rem;
+  margin: -0.15rem 0 0.4rem 1.8rem;
+  border-left: 1px solid var(--editorial-line);
+  padding-left: 1rem;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+}
+.marketing-site .proposal-full-label {
+  margin-top: 1.5rem;
+}
+.marketing-site .proposal-full-label .proposal-hint {
+  margin: 0;
+}
+.marketing-site .proposal-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 2.5rem;
+}
+.marketing-site .proposal-submit p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+}
+.marketing-site .proposal-submit button {
+  min-height: 3.4rem;
+  padding: 0.8rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: #087cb3;
+  color: white;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.marketing-site .proposal-submit button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.marketing-site .proposal-feedback {
+  min-height: 2rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.marketing-site .proposal-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 900px) {
+  .marketing-site .proposal-content {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .proposal-aside {
+    position: static;
+  }
+}
+@media (max-width: 600px) {
+  .marketing-site .proposal-fields.two,
+  .marketing-site .proposal-fields.three {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .proposal-submit {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .marketing-site .proposal-submit button {
+    width: 100%;
+  }
+}
+
+/* Product detail pages share the editorial scale, with practical specifications. */
+.marketing-site .product-detail-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.marketing-site .product-detail-hero h1 {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+.marketing-site .product-detail-visual {
+  position: relative;
+  min-height: 35rem;
+  overflow: hidden;
+  background: var(--editorial-paper);
+}
+.marketing-site .product-feature-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 4rem;
+  margin-top: 3rem;
+}
+.marketing-site .product-feature-list article {
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 1.5rem;
+}
+.marketing-site .product-feature-list h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.marketing-site .product-feature-list p {
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-top: 0.75rem;
+}
+.marketing-site .product-video-brief {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: 3rem;
+  border-top: 1px solid var(--editorial-line);
+  padding-top: 3rem;
+}
+.marketing-site .product-video-frame {
+  position: relative;
+  background: var(--editorial-paper);
+}
+.marketing-site .product-video-frame[data-photo="false"] {
+  background: #f5f7f6;
+}
+.marketing-site .product-video-frame::after {
+  position: absolute;
+  inset: 50% 0 0;
+  background: linear-gradient(transparent, rgb(4 15 23 / 0.75));
+  content: "";
+}
+.marketing-site .product-video-frame[data-photo="false"]::after {
+  background: linear-gradient(transparent, rgb(245 247 246 / 0.9));
+}
+.marketing-site .product-video-frame > span {
+  position: absolute;
+  z-index: 1;
+  inset: auto 1.25rem 1.25rem;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.marketing-site .product-video-frame[data-photo="false"] > span {
+  color: #0b2638;
+}
+.marketing-site .product-video-brief figcaption strong {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+.marketing-site .product-video-brief figcaption p {
+  max-width: 32rem;
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.marketing-site .technical-details details {
+  border-bottom: 1px solid var(--editorial-line);
+  padding-block: 1.25rem;
+}
+.marketing-site .technical-details summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+.marketing-site .technical-details p,
+.marketing-site .technical-details dd {
+  margin-top: 1rem;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+@media (min-width: 100rem) {
+  .marketing-site .hero > .section-shell > div {
+    transform: none;
+  }
+}
+@media (max-width: 63.99rem) {
+  .marketing-site .contact-layout {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .section-masthead,
+  .marketing-site .platform-layout,
+  .marketing-site .company-layout,
+  .marketing-site .assessment-layout,
+  .marketing-site .contact-layout,
+  .marketing-site .industries-layout,
+  .marketing-site .wireless-feature,
+  .marketing-site .product-detail-hero {
+    gap: 2.5rem;
+  }
+  .marketing-site .flagship-photo {
+    min-height: 35rem;
+  }
+  .marketing-site .wireless-feature {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .connected-property-panel {
+    width: min(100%, 42rem);
+    margin-inline: auto;
+  }
+  .marketing-site .platform-story {
+    padding-left: 2rem;
+  }
+  .marketing-site .process-timeline {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 0;
+  }
+  .marketing-site .contact-layout form {
+    padding: 1.5rem;
+  }
+}
+@media (max-width: 47.99rem) {
+  .marketing-site .section-shell {
+    width: calc(100% - 2.5rem);
+  }
+  .marketing-site .editorial-section {
+    padding-block: 3rem;
+  }
+  .marketing-site .display-heading {
+    margin-top: 0.75rem;
+    font-size: clamp(1.875rem, 6vw, 2.125rem);
+    line-height: 1.15;
+  }
+  .marketing-site .editorial-copy {
+    margin-top: 1rem;
+    line-height: 1.65;
+  }
+  .marketing-site .editorial-link {
+    margin-top: 1rem;
+  }
+  .marketing-site .editorial-intro {
+    margin-bottom: 2rem;
+  }
+  .marketing-site .small-note {
+    margin-top: 1rem;
+  }
+  .marketing-site .section-masthead,
+  .marketing-site .occupancy-layout,
+  .marketing-site .flagship-product,
+  .marketing-site .wireless-feature,
+  .marketing-site .platform-layout,
+  .marketing-site .industries-layout,
+  .marketing-site .assessment-layout,
+  .marketing-site .company-layout,
+  .marketing-site .contact-layout,
+  .marketing-site .product-detail-hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .marketing-site .section-masthead {
+    margin-bottom: 2rem;
+  }
+  .marketing-site .hero-heading {
+    max-width: 22rem;
+    margin-top: 1rem;
+    font-size: clamp(2.25rem, 9vw, 2.65rem);
+    line-height: 1.1;
+  }
+  .marketing-site .hero-product-links {
+    margin-top: 1rem;
+  }
+  .marketing-site .hero-copy {
+    margin-top: 1.25rem;
+  }
+  .marketing-site .hero-copy + div {
+    margin-top: 1.5rem;
+  }
+  .marketing-site .occupancy-response h3 {
+    font-size: 1.65rem;
+  }
+  .marketing-site .flagship-copy h3 {
+    margin-top: 1rem;
+    font-size: 2rem;
+  }
+  .marketing-site .product-statement {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+  .marketing-site .beyond-hvac-panel > h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+  }
+  .marketing-site .company-lead {
+    font-size: 1.35rem;
+  }
+  .marketing-site .contact-section .display-heading {
+    font-size: clamp(2rem, 7vw, 2.25rem);
+  }
+  .marketing-site .contact-next {
+    margin-top: 1.5rem;
+  }
+  .marketing-site .product-detail-hero h1 {
+    font-size: clamp(2.25rem, 8vw, 2.6rem);
+  }
+  .marketing-site .product-detail-hero [data-product-intro] > h1 {
+    margin-top: 1rem;
+  }
+  .marketing-site .product-detail-hero [data-product-intro] > h1 + p {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  .marketing-site .company-page-hero-copy h1 {
+    margin-top: 1rem;
+    font-size: clamp(2.5rem, 10vw, 3rem);
+    line-height: 1.05;
+  }
+  .marketing-site .company-page-declaration {
+    margin-top: 1.25rem;
+    font-size: 1.15rem;
+  }
+  .marketing-site .company-page-introduction {
+    margin-top: 1rem;
+    line-height: 1.65;
+  }
+  .marketing-site .company-page-scroll-link {
+    margin-top: 1.5rem;
+  }
+  .marketing-site .company-page-section-heading h2,
+  .marketing-site .company-page-values h2,
+  .marketing-site .company-page-next h2 {
+    font-size: clamp(2rem, 7vw, 2.25rem);
+  }
+  .marketing-site .company-page-statement p {
+    font-size: 1rem;
+  }
+  .marketing-site .company-page-values li strong {
+    font-size: 1.25rem;
+  }
+  .marketing-site .proposal-hero h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(2.5rem, 9vw, 2.875rem);
+    line-height: 1.05;
+  }
+  .marketing-site .proposal-hero p:last-child {
+    margin-top: 1.25rem;
+  }
+  .marketing-site .proposal-aside h2 {
+    margin-top: 1rem;
+    font-size: 2rem;
+  }
+  .marketing-site .proposal-aside > p:not(.chapter-label),
+  .marketing-site .proposal-aside a {
+    margin-top: 1rem;
+  }
+  .marketing-site .proof-stat,
+  .marketing-site .proof-stat:first-child {
+    border-left: 0;
+    border-top: 1px solid var(--editorial-line);
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .marketing-site .proof-stat:first-child {
+    border-top: 0;
+  }
+  .marketing-site .proof-value {
+    min-width: 8rem;
+    font-size: 1.8rem;
+  }
+  .marketing-site .proof-label {
+    margin-top: 0;
+  }
+  .marketing-site .occupancy-photo {
+    min-height: 20rem;
+  }
+  .marketing-site .occupancy-layout {
+    position: relative;
+  }
+  .marketing-site .occupancy-switch {
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    right: 1rem;
+    margin-top: 0;
+    padding: 3px;
+    background: var(--editorial-paper);
+    box-shadow: 0 6px 24px rgb(4 15 23 / 0.2);
+  }
+  .marketing-site .occupancy-switch button {
+    min-height: 2.5rem;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.7rem;
+  }
+  .marketing-site .occupancy-explainer {
+    padding: 0 1.5rem 2rem;
+  }
+  .marketing-site .occupancy-response {
+    min-height: 0;
+    margin-top: 1.5rem;
+  }
+  .marketing-site .flagship-photo {
+    min-height: 21rem;
+  }
+  .marketing-site .flagship-copy {
+    padding-block: 0.75rem;
+  }
+  .marketing-site .wireless-feature {
+    padding-block: 3.5rem 0;
+  }
+  .marketing-site .wireless-platform-connection {
+    width: min(100%, 26rem);
+  }
+  .marketing-site .wireless-platform-stage {
+    width: min(100%, 24rem);
+  }
+  .marketing-site .supporting-product {
+    grid-template-columns: 5.75rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .marketing-site .supporting-product-image {
+    aspect-ratio: 1;
+  }
+  .marketing-site .supporting-product h4 {
+    font-size: 1rem;
+  }
+  .marketing-site .platform-story {
+    padding: 1.5rem 0 0;
+    border-left: 0;
+    border-top: 1px solid #4a6573;
+  }
+  .marketing-site .industry-photo {
+    display: none;
+  }
+  .marketing-site .industry-mobile-photo {
+    display: block;
+  }
+  .marketing-site .industry-option button {
+    font-size: 1rem;
+  }
+  .marketing-site .company-layout {
+    gap: 3rem;
+  }
+  .marketing-site .process-timeline {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 2rem;
+  }
+  .marketing-site .process-timeline li {
+    border-top: 0;
+    border-left: 1px solid var(--editorial-line);
+    padding: 0 0 2rem 2rem;
+  }
+  .marketing-site .process-timeline li::before {
+    top: 3px;
+    left: -5px;
+  }
+  .marketing-site .process-timeline h3 {
+    margin-top: 0.5rem;
+  }
+  .marketing-site .process-timeline p {
+    max-width: 25rem;
+  }
+  .marketing-site .contact-layout form {
+    padding: 1.5rem 1rem;
+  }
+  .marketing-site .product-detail-visual {
+    min-height: 20rem;
+  }
+  .marketing-site .product-feature-list {
+    grid-template-columns: 1fr;
+  }
+  .marketing-site .product-video-brief {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+}

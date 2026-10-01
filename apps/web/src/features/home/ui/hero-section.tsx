@@ -1,13 +1,11 @@
-import { Building2, CalendarDays, Gauge } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import heroHouseImage from "@assets/day_house.png";
 import heroHouseNightImage from "@assets/day_night.png";
-import { proofStats } from "@/features/home/model/home-content";
+import { ProofStats } from "@/features/home/ui/proof-stats";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
-
-const statIcons = [CalendarDays, Building2, Gauge] as const;
 
 export function HeroSection() {
   return (
@@ -44,7 +42,7 @@ export function HeroSection() {
       </div>
 
       <div className="section-shell relative z-10 grid gap-10 py-16 sm:py-20 lg:min-h-[calc(100dvh-4.25rem)] lg:grid-cols-12 lg:items-center lg:py-16">
-        <div className="max-w-xl lg:col-span-6 lg:-translate-x-10 lg:pr-4 xl:-translate-x-14">
+        <div className="max-w-xl lg:col-span-6 lg:pr-4">
           <p className="hero-eyebrow text-[0.6875rem] leading-tight font-bold tracking-[0.16em] uppercase">
             Whole-property energy intelligence
           </p>
@@ -56,13 +54,13 @@ export function HeroSection() {
               className="underline-offset-4 hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless
+              <BrandText>GEM Link® Wireless</BrandText>
             </Link>
             <Link
               className="underline-offset-4 hover:underline"
               href="/solutions/gem-stat-et"
             >
-              GEM Stat™ ET
+              <BrandText>GEM Stat™ ET</BrandText>
             </Link>
           </div>
           <h1
@@ -78,11 +76,11 @@ export function HeroSection() {
           </p>
           <div className="mt-8 flex flex-col items-stretch gap-5 sm:items-start">
             <ButtonLink
-              className="px-6 !text-white"
+              className="!border-0 px-6 !text-white !shadow-none"
               href="/request-for-proposal"
               showArrow
             >
-              Request for Proposal / Site Survey
+              Request a Proposal / Site Survey
             </ButtonLink>
             <a
               className="hero-secondary-link py-2 text-center text-sm font-semibold underline underline-offset-4 sm:text-left"
@@ -94,31 +92,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="hero-proof-panel relative z-10 border-t">
-        <div
-          aria-label="Experience and performance"
-          className="section-shell grid gap-6 py-7 sm:grid-cols-3"
-        >
-          {proofStats.map((stat, index) => {
-            const Icon = statIcons[index];
-            return (
-              <article className="flex items-center gap-4" key={stat.label}>
-                <span className="hero-stat-icon grid size-11 shrink-0 place-items-center rounded-full text-white">
-                  <Icon aria-hidden size={21} />
-                </span>
-                <div>
-                  <p className="hero-stat-value text-2xl font-semibold text-white">
-                    {stat.value}
-                  </p>
-                  <p className="hero-stat-label mt-1 max-w-60 text-xs leading-5">
-                    {stat.label}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
+      <ProofStats />
     </section>
   );
 }

@@ -5,7 +5,12 @@ import { getInquiryPrefill } from "@/features/home/model/inquiry-context";
 describe("getInquiryPrefill", () => {
   it("builds editable copy from allowlisted product and intent values", () => {
     expect(getInquiryPrefill("?product=gem-stat-et&intent=demo")).toBe(
-      "We would like to request a product demo for GEM Stat ET.",
+      "We would like to request a product demo for GEM Stat™ ET.",
+    );
+    expect(
+      getInquiryPrefill("?product=appliance-controls&intent=savings"),
+    ).toBe(
+      "We would like to request a savings analysis for GEM Link® – Appliance Control.",
     );
   });
 

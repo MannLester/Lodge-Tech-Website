@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { readAdminSession } from "@/features/admin-auth";
+import { BrandText } from "@/shared/ui/brand-text";
 import { getServerSupabaseClient } from "@/shared/supabase/server";
 
 export const metadata: Metadata = {
@@ -18,6 +19,34 @@ function display(value: unknown): string {
       .map(([key, item]) => `${key}: ${display(item)}`)
       .join(" · ");
   return String(value);
+}
+
+const productInterestLabels: Record<string, string> = {
+  "gem-link-wireless": "GEM Link® Wireless – HVAC Control",
+  "lighting-controls": "GEM Link® Wireless – Lighting Control",
+  "dhw-controls": "Individual electric water-heater control (legacy selection)",
+  "appliance-controls": "GEM Link® – Appliance Control",
+  "gem-stat-et": "GEM Stat™ ET Thermostat Energy Management System",
+};
+
+const applianceApplicationLabels: Record<string, string> = {
+  "two-burner-cooktop": "Two Burner Cooktop",
+  "in-room-electric-water-heater":
+    "Individual in-room Electric Hot Water Heater",
+};
+
+function displayProductInterest(value: unknown): string {
+  if (!Array.isArray(value)) return display(value);
+  return value
+    .map((item) => productInterestLabels[String(item)] ?? display(item))
+    .join(", ");
+}
+
+function displayApplianceApplications(value: unknown): string {
+  if (!Array.isArray(value)) return display(value);
+  return value
+    .map((item) => applianceApplicationLabels[String(item)] ?? display(item))
+    .join(", ");
 }
 
 const labels: Record<string, string> = {
@@ -40,6 +69,7 @@ const labels: Record<string, string> = {
   guestControl: "Guest controls",
   utilityCompany: "Utility company",
   products: "Product interest",
+  applianceApplications: "Appliance applications",
   notes: "Notes",
 };
 
@@ -133,7 +163,13 @@ export default async function AdminProposalsPage() {
                           {label}
                         </dt>
                         <dd className="mt-1 text-sm break-words">
-                          {display(details[key])}
+                          <BrandText>
+                            {key === "products"
+                              ? displayProductInterest(details[key])
+                              : key === "applianceApplications"
+                                ? displayApplianceApplications(details[key])
+                                : display(details[key])}
+                          </BrandText>
                         </dd>
                       </div>
                     ))}

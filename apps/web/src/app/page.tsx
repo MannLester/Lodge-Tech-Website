@@ -6,6 +6,7 @@ import {
   IndustriesSection,
   ProcessSection,
   ProductSection,
+  PlatformSection,
   ResultsSection,
   SiteHeader,
   ValueSection,
@@ -24,15 +25,16 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const initialInquiryMessage = getInquiryPrefillFromValues(product, intent);
 
   return (
-    <div id="top">
+    <div className="marketing-site" id="top">
       <SiteHeader />
       <main>
         <HeroSection />
         <ValueSection />
         <ProductSection />
+        <PlatformSection />
         <IndustriesSection />
-        <CompanySection />
         <ResultsSection />
+        <CompanySection />
         <ProcessSection />
       </main>
       <ClosingFooter initialInquiryMessage={initialInquiryMessage} />

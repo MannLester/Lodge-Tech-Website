@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import {
@@ -8,6 +9,7 @@ import {
   primaryNavigationItems,
   solutionNavigationItems,
 } from "@/shared/config/navigation";
+import { BrandText } from "@/shared/ui/brand-text";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { ThemeToggle } from "@lodging-technologies/ui/theme-toggle";
@@ -22,21 +24,12 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
 
   return (
     <header className="border-border bg-surface sticky top-0 z-50 border-b transition-colors">
-      <div
-        className="mx-auto flex min-h-[4.25rem] w-[calc(100%-2rem)] max-w-[90rem] items-center justify-between gap-4 md:w-[calc(100%-3rem)] xl:gap-8"
-        data-header-shell
-      >
+      <div className="section-shell flex min-h-[4.25rem] items-center justify-between gap-5">
         <div className="flex min-w-0 items-center gap-3">
           <BrandMark href={fromHome ? "#top" : "/#top"} preload />
-          <span className="border-border text-brand-strong hidden border-l pl-3 text-xs leading-4 font-semibold xl:block">
-            GEM Link® Wireless / GEM Stat™ ET
-          </span>
         </div>
 
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-5 lg:flex xl:gap-7 2xl:gap-8"
-        >
+        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">
           {primaryNavigationItems.map((item) =>
             item.hash === "solutions" ? (
               <details className="group relative" key={item.hash}>
@@ -48,7 +41,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                     size={15}
                   />
                 </summary>
-                <div className="border-border bg-surface shadow-card absolute top-full left-1/2 mt-4 w-64 -translate-x-1/2 rounded-lg border p-2">
+                <div className="border-border bg-surface shadow-card absolute top-full left-1/2 mt-4 w-80 -translate-x-1/2 rounded-lg border p-2">
                   <a
                     className="text-brand-strong hover:bg-brand-soft block rounded-md px-3 py-2.5 text-sm font-semibold"
                     href={homeAnchor("solutions", fromHome)}
@@ -62,11 +55,19 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                       href={solution.href}
                       key={solution.href}
                     >
-                      {solution.label}
+                      <BrandText>{solution.label}</BrandText>
                     </a>
                   ))}
                 </div>
               </details>
+            ) : item.hash === "company" ? (
+              <Link
+                className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
+                href="/company"
+                key={item.hash}
+              >
+                {item.label}
+              </Link>
             ) : (
               <a
                 className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
@@ -79,13 +80,13 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
           )}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex xl:gap-4">
+        <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <ButtonLink
-            className="!min-h-10 !px-5 !py-2 !text-[0.8125rem] whitespace-nowrap !text-white"
+            className="!min-h-10 !border-0 !px-5 !py-2 !text-[0.8125rem] !text-white !shadow-none"
             href={proposalHref}
           >
-            Request for Proposal
+            Request a Proposal
           </ButtonLink>
         </div>
 
@@ -134,11 +135,20 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                         key={solution.href}
                         onClick={() => setMenuOpen(false)}
                       >
-                        {solution.label}
+                        <BrandText>{solution.label}</BrandText>
                       </a>
                     ))}
                   </div>
                 </div>
+              ) : item.hash === "company" ? (
+                <Link
+                  className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
+                  href="/company"
+                  key={item.hash}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <a
                   className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
@@ -150,8 +160,11 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                 </a>
               ),
             )}
-            <ButtonLink className="mt-4 w-full !text-white" href={proposalHref}>
-              Request for Proposal
+            <ButtonLink
+              className="mt-4 w-full !border-0 !text-white !shadow-none"
+              href={proposalHref}
+            >
+              Request a Proposal / Site Survey
             </ButtonLink>
           </div>
         </nav>

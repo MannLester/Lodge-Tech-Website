@@ -1,34 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-test("keeps the header proposal action clear and uses available desktop width", async ({
-  page,
-}) => {
-  await page.goto("/");
-
-  const viewportWidth = page.viewportSize()?.width ?? 0;
-  if (viewportWidth >= 1024) {
-    const action = page
-      .locator("header")
-      .getByRole("link", { name: "Request for Proposal" });
-    await expect(action).toBeVisible();
-    await expect(action).toHaveCSS("white-space", "nowrap");
-
-    if (viewportWidth >= 1440) {
-      const headerWidth = await page
-        .locator("[data-header-shell]")
-        .evaluate((element) => element.getBoundingClientRect().width);
-      expect(headerWidth).toBeGreaterThan(1300);
-    }
-  } else {
-    await page.getByRole("button", { name: "Open navigation" }).click();
-    await expect(
-      page
-        .getByRole("navigation", { name: "Mobile navigation" })
-        .getByRole("link", { name: "Request for Proposal" }),
-    ).toBeVisible();
-  }
-});
-
 test("shows the benefit, products, and proposal path without overflow", async ({
   page,
 }) => {
@@ -41,14 +12,14 @@ test("shows the benefit, products, and proposal path without overflow", async ({
     }),
   ).toBeVisible();
   await expect(
-    hero.getByRole("link", { name: "GEM Link® Wireless" }),
+    hero.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
   ).toBeVisible();
   await expect(hero.getByRole("link", { name: "GEM Stat™ ET" })).toBeVisible();
   await expect(
     hero.getByText("Reduction in HVAC Operating Time"),
   ).toBeVisible();
   await hero
-    .getByRole("link", { name: "Request for Proposal / Site Survey" })
+    .getByRole("link", { name: "Request a Proposal / Site Survey" })
     .click();
   await expect(page).toHaveURL(/\/request-for-proposal$/);
   await expect(
@@ -70,41 +41,83 @@ test("keeps product branding and a contact route in public-page footers", async 
     await page.goto(path);
     const footer = page.locator("footer");
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
-    await expect(
-      footer.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
-    ).toBeVisible();
+    const gemLinkLinks = footer.getByRole("link", {
+      name: "GEM Link® Wireless",
+      exact: true,
+    });
+    await expect(gemLinkLinks).toHaveCount(2);
+    await expect(gemLinkLinks.first()).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await expect(
-      footer.getByRole("link", { name: "Request for Proposal / Site Survey" }),
+      footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
+    const bbbLink = footer.getByRole("link", {
+      name: "BBB Accredited Business with an A+ rating (opens in a new tab)",
+    });
+    await expect(bbbLink).toHaveAttribute(
+      "href",
+      "https://www.bbb.org/us/va/roanoke/profile/energy-management-consultant/lodging-technology-0613-1103",
+    );
+    await expect(bbbLink).toHaveAttribute("target", "_blank");
+    await expect(bbbLink).toHaveAttribute("rel", "noopener noreferrer");
+    const bbbSeal = bbbLink.getByRole("img", {
+      name: "BBB Accredited Business",
+    });
+    await expect(bbbSeal).toBeVisible();
+    expect((await bbbSeal.boundingBox())!.width).toBeGreaterThanOrEqual(128);
+    await expect(footer).toContainText(
+      "© 2026 Lodging Technologies LLC. All rights reserved.",
+    );
   }
 });
 
-test("defaults to light, preserves theme choice, and keeps proof values legible", async ({
+test("shows the inquiry form and company social links without the retired phone", async ({
+  page,
+}) => {
+  await page.goto("/#contact");
+  const contact = page.locator("#contact");
+  await expect(
+    contact.getByRole("form", { name: "General inquiry" }),
+  ).toBeVisible();
+  await expect(contact).not.toContainText("(800) 524-2680");
+  const facebookLink = contact.getByRole("link", { name: "Facebook" });
+  await expect(facebookLink).toHaveAttribute(
+    "href",
+    "https://www.facebook.com/profile.php?id=100066727996704",
+  );
+  await expect(facebookLink.locator("svg")).toBeVisible();
+  const linkedInLink = contact.getByRole("link", { name: "LinkedIn" });
+  await expect(linkedInLink).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
+  );
+  await expect(linkedInLink.locator("svg")).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+  ).toBe(false);
+});
+
+test("defaults to light even on a dark device and preserves a chosen theme", async ({
   page,
 }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
   const nightHouse = page.locator('[data-hero-layer="night"]');
-  const proofValue = page.locator(".hero-stat-value").first();
-
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await expect(nightHouse).toHaveCSS("opacity", "0");
-  await expect(proofValue).toHaveCSS("color", "rgb(255, 255, 255)");
-
   await page
     .getByRole("switch", { name: "Switch to night mode" })
     .filter({ visible: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(nightHouse).toHaveCSS("opacity", "1");
-
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(nightHouse).toHaveCSS("opacity", "1");
-
   await page
     .getByRole("switch", { name: "Switch to day mode" })
     .filter({ visible: true })
@@ -134,41 +147,6 @@ test("provides navigation appropriate to the viewport", async ({ page }) => {
   }
 });
 
-test("emphasizes Company values with responsive type and motion-aware pulses", async ({
-  page,
-}) => {
-  await page.goto("/#company");
-  const heading = page.getByText("Our Values", { exact: true });
-  const values = page.locator("[data-company-values]");
-  const firstValue = values.locator("li").first();
-  const firstCheck = values.locator(".company-value-check").first();
-  const viewport = page.viewportSize();
-
-  if (!viewport) throw new Error("Viewport is required for this test.");
-
-  await expect(heading).toHaveCSS(
-    "font-size",
-    viewport.width >= 1024 ? "30px" : "24px",
-  );
-  await expect(values).toHaveCSS("margin-top", "40px");
-  await expect(firstValue).toHaveCSS(
-    "font-size",
-    viewport.width >= 1024 ? "18px" : "16px",
-  );
-  expect(
-    await firstCheck.evaluate(
-      (element) => getComputedStyle(element, "::after").animationName,
-    ),
-  ).toBe("company-value-pulse");
-
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  expect(
-    await firstCheck.evaluate(
-      (element) => getComputedStyle(element, "::after").animationName,
-    ),
-  ).toBe("none");
-});
-
 test("validates and completes the proposal inquiry form", async ({ page }) => {
   await page.route("**/api/inquiries", async (route) => {
     await route.fulfill({
@@ -182,9 +160,7 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   const form = page.getByRole("form", {
     name: "General inquiry",
   });
-  await form
-    .getByRole("button", { name: "Request Proposal / Site Survey" })
-    .click();
+  await form.getByRole("button", { name: "Send My Request" }).click();
 
   await expect(form.getByText("Enter your name.")).toBeVisible();
   await expect(form.getByText("Enter your email.")).toBeVisible();
@@ -201,9 +177,7 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   await form
     .getByLabel("Project notes")
     .fill("We want to review HVAC and lighting savings.");
-  await form
-    .getByRole("button", { name: "Request Proposal / Site Survey" })
-    .click();
+  await form.getByRole("button", { name: "Send My Request" }).click();
 
   await expect(
     form.getByText(

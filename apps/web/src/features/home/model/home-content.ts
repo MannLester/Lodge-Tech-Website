@@ -1,11 +1,23 @@
 export const proofStats = [
-  { label: "Years of Experience", value: "40+" },
   {
+    countTo: 40,
+    label: "Years of Experience",
+    prefix: "",
+    suffix: "+",
+    value: "40+",
+  },
+  {
+    countTo: 100_000,
     label: "Installations Across North America & the Caribbean",
+    prefix: "",
+    suffix: "+",
     value: "100,000+",
   },
   {
+    countTo: 45,
     label: "Reduction in HVAC Operating Time",
+    prefix: "Up to ",
+    suffix: "%",
     value: "Up to 45%",
   },
 ] as const;
@@ -33,50 +45,27 @@ export const brandPillars = [
   },
 ] as const;
 
-export const companyProfile = {
-  introduction:
-    "Lodging Technologies develops smart solutions for property energy management, combining technology, automation, and occupancy analysis to optimize HVAC systems and other electrical equipment.",
-  mission:
-    "Lodging Technologies develops and delivers innovative energy management and building technologies that reduce energy consumption, lower operating costs, and improve building performance, combining decades of proven experience with the technologies of tomorrow.",
-  values: [
-    "Innovation",
-    "Efficiency",
-    "Reliability",
-    "Comfort",
-    "Sustainability",
-  ],
-  vision:
-    "To transform how buildings use energy by making intelligent, high-efficiency technologies the standard for facilities worldwide.",
-} as const;
-
 export const products = [
   {
     description:
-      "Wireless occupancy-based HVAC control for guest rooms, units, and managed spaces.",
-    href: "/solutions/gem-stat-et",
-    mediaLabel: "GEM Stat ET product image",
-    title: "GEM Stat ET",
-  },
-  {
-    description:
-      "Networked control that links thermostats, lighting, appliances, and portfolio visibility.",
+      "Connected HVAC control for supported room equipment and property-wide visibility.",
     href: "/solutions/gem-link-wireless",
-    mediaLabel: "GEM Link Wireless product image",
-    title: "GEM Link Wireless",
+    mediaLabel: "GEM Link® Wireless product image",
+    title: "GEM Link® Wireless – HVAC",
   },
   {
     description:
       "Lighting strategies that reduce waste while preserving expected comfort and safety.",
     href: "/solutions/lighting-controls",
     mediaLabel: "Lighting control product image",
-    title: "Lighting Controls",
+    title: "GEM Link® Wireless – Lighting Control",
   },
   {
     description:
-      "Appliance and auxiliary load coordination for equipment that should not run unmanaged.",
+      "Control selected in-room cooktops and individual electric water heaters.",
     href: "/solutions/appliance-controls",
-    mediaLabel: "Appliance control product image",
-    title: "Appliance Controls",
+    mediaLabel: "Power Pack appliance-control product image",
+    title: "GEM Link® – Appliance Control",
   },
 ] as const;
 
@@ -84,7 +73,7 @@ export const industries = [
   {
     description:
       "Reduce energy expense across guest rooms, common areas, and variable occupancy patterns.",
-    mediaLabel: "Hospitality property photography",
+    mediaLabel: "Hotel entrance with a covered drive-under portico",
     title: "Hospitality",
   },
   {
@@ -148,7 +137,7 @@ export const turnkeySteps = [
   },
   {
     description:
-      "Engineer a property-specific GEM Link Wireless and GEM Stat ET plan.",
+      "Engineer a property-specific GEM Link® Wireless and GEM Stat™ ET plan.",
     title: "Engineer",
   },
   {

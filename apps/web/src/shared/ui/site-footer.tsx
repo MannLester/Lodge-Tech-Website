@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 
+import bbbAccreditedBusinessSeal from "@assets/bbb-accredited-business.svg";
+import { BrandText } from "@/shared/ui/brand-text";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
@@ -7,10 +10,19 @@ const footerLinkGroups = [
     label: "Technology",
     links: [
       { href: "/#technology", label: "Energy Optimization" },
-      { href: "/solutions/gem-link-wireless", label: "GEM Link Wireless" },
-      { href: "/solutions/gem-stat-et", label: "GEM Stat ET" },
-      { href: "/solutions/lighting-controls", label: "Lighting Controls" },
-      { href: "/solutions/appliance-controls", label: "Appliance Controls" },
+      {
+        href: "/solutions/gem-link-wireless",
+        label: "GEM Link® Wireless",
+      },
+      { href: "/solutions/gem-stat-et", label: "GEM Stat™ ET" },
+      {
+        href: "/solutions/lighting-controls",
+        label: "GEM Link® Wireless – Lighting Control",
+      },
+      {
+        href: "/solutions/appliance-controls",
+        label: "GEM Link® – Appliance Control",
+      },
       { href: "/#technology", label: "Cloud Platform" },
       { href: "/#technology", label: "Utility Rebate Capture" },
     ],
@@ -28,9 +40,8 @@ const footerLinkGroups = [
   {
     label: "Company",
     links: [
-      { href: "/#company", label: "About Us" },
+      { href: "/company", label: "About Us" },
       { href: "/#results", label: "Savings Review" },
-      { href: "/#contact", label: "Partner Network" },
       { href: "/#contact", label: "Contact & Support" },
     ],
   },
@@ -39,7 +50,6 @@ const footerLinkGroups = [
     links: [
       { href: "/#contact", label: "Blog" },
       { href: "/#contact", label: "White Papers" },
-      { href: "/#contact", label: "Webinars" },
       { href: "/#contact", label: "Savings Analysis" },
     ],
   },
@@ -59,20 +69,41 @@ export function SiteFooter() {
               className="hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless
+              <BrandText>GEM Link® Wireless</BrandText>
             </Link>
             <Link className="hover:underline" href="/solutions/gem-stat-et">
-              GEM Stat™ ET
+              <BrandText>GEM Stat™ ET</BrandText>
             </Link>
           </div>
           <p className="text-muted mt-4 text-sm leading-6">
-            GEM Link Wireless and GEM Stat ET energy management for lodging,
-            multifamily, senior living, student housing, and commercial
-            properties.
+            <BrandText>
+              GEM Link® Wireless and GEM Stat™ ET energy management for lodging,
+              multifamily, senior living, student housing, and commercial
+              properties.
+            </BrandText>
           </p>
           <p className="text-muted mt-4 text-sm leading-6">
             Proudly serving North America including the Caribbean.
           </p>
+          <a
+            aria-label="BBB Accredited Business with an A+ rating (opens in a new tab)"
+            className="border-border hover:border-brand mt-5 inline-flex items-center gap-3 rounded-lg border bg-white p-3 shadow-sm transition-colors"
+            href="https://www.bbb.org/us/va/roanoke/profile/energy-management-consultant/lodging-technology-0613-1103"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Image
+              alt="BBB Accredited Business"
+              className="h-auto w-32 sm:w-36"
+              src={bbbAccreditedBusinessSeal}
+            />
+            <span className="border-border flex flex-col border-l pl-3 text-center text-slate-950">
+              <span className="text-[0.62rem] font-bold tracking-wide uppercase">
+                BBB Rating
+              </span>
+              <strong className="text-2xl leading-none">A+</strong>
+            </span>
+          </a>
           <Link
             className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
             href="/request-for-proposal"
@@ -93,12 +124,12 @@ export function SiteFooter() {
               <ul className="mt-4 space-y-3">
                 {group.links.map((link) => (
                   <li key={`${group.label}-${link.label}`}>
-                    <a
+                    <Link
                       className="text-muted hover:text-brand-strong text-sm transition-colors"
                       href={link.href}
                     >
-                      {link.label}
-                    </a>
+                      <BrandText>{link.label}</BrandText>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -107,7 +138,7 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="section-shell border-border text-muted mt-10 border-t pt-5 text-xs">
-        &copy; 2026 Lodging Technologies. All rights reserved.
+        &copy; 2026 Lodging Technologies LLC. All rights reserved.
       </div>
     </footer>
   );

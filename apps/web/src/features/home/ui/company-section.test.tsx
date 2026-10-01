@@ -1,30 +1,33 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { CompanySection } from "@/features/home/ui/company-section";
 
 describe("CompanySection", () => {
-  it("presents the approved company story, mission, vision, and values", () => {
-    const { container } = render(<CompanySection />);
+  afterEach(() => {
+    cleanup();
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
+  it("presents the concise company story and a route to the full profile", () => {
+    render(<CompanySection />);
 
     expect(
       screen.getByRole("heading", {
-        name: "Experience, technology, efficiency, and a forward-looking vision.",
+        name: "Technology is only part of the story.",
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Mission")).toBeInTheDocument();
-    expect(screen.getByText("Vision")).toBeInTheDocument();
-    expect(screen.getByText("Innovation")).toBeInTheDocument();
-    expect(screen.getByText("Sustainability")).toBeInTheDocument();
-    expect(screen.getByText("Our Values")).toHaveClass(
-      "text-2xl",
-      "lg:text-3xl",
-      "font-semibold",
-    );
-    const values = container.querySelector("[data-company-values]");
-    expect(values).toHaveClass("mt-10");
-    expect(values?.querySelector("li")).toHaveClass("text-base", "lg:text-lg");
-    expect(values?.querySelectorAll(".company-value-check")).toHaveLength(5);
+    expect(
+      screen.getByRole("link", { name: /Know more about the company/ }),
+    ).toHaveAttribute("href", "/company");
     expect(
       screen.getByAltText(
         "Lodging Technologies branded modern building exterior",
@@ -66,5 +69,47 @@ describe("CompanySection", () => {
         name: "Lodging Technologies branded group of thermostat and control devices on green plinths",
       }),
     ).toBeInTheDocument();
+  });
+
+  it("advances automatically and pauses while the gallery is hovered", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({
+        matches: false,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const { container } = render(<CompanySection />);
+    const gallery = within(container).getByTestId("company-gallery");
+
+    await act(async () => vi.advanceTimersByTime(3000));
+    expect(gallery).toHaveAttribute("data-active-slide", "Tree scene");
+
+    fireEvent.mouseEnter(gallery);
+    await act(async () => vi.advanceTimersByTime(6000));
+    expect(gallery).toHaveAttribute("data-active-slide", "Tree scene");
+
+    fireEvent.mouseLeave(gallery);
+    await act(async () => vi.advanceTimersByTime(3000));
+    expect(gallery).toHaveAttribute("data-active-slide", "Guest room");
+  });
+
+  it("keeps the gallery still when reduced motion is requested", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({
+        matches: true,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+    const { container } = render(<CompanySection />);
+    const gallery = within(container).getByTestId("company-gallery");
+
+    await act(async () => vi.advanceTimersByTime(6000));
+    expect(gallery).toHaveAttribute("data-active-slide", "Building");
   });
 });

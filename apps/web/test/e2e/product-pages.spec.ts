@@ -1,10 +1,13 @@
 import { expect, test } from "@playwright/test";
 
 const products = [
-  { label: "GEM Stat ET", slug: "gem-stat-et" },
-  { label: "GEM Link Wireless", slug: "gem-link-wireless" },
-  { label: "Lighting Controls", slug: "lighting-controls" },
-  { label: "Appliance Controls", slug: "appliance-controls" },
+  { label: "GEM Stat™ ET", slug: "gem-stat-et" },
+  { label: "GEM Link® Wireless – HVAC", slug: "gem-link-wireless" },
+  { label: "GEM Link® Wireless – Lighting Control", slug: "lighting-controls" },
+  {
+    label: "GEM Link® – Appliance Control",
+    slug: "appliance-controls",
+  },
 ] as const;
 
 for (const product of products) {
@@ -16,9 +19,13 @@ for (const product of products) {
     await expect(
       page.getByRole("heading", { level: 1, name: product.label }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("navigation", { name: "Product navigation" }),
-    ).toHaveCount(0);
+    if (product.slug !== "gem-stat-et") {
+      await expect(
+        page
+          .getByRole("navigation", { name: "Product navigation" })
+          .getByRole("link", { name: product.label }),
+      ).toHaveAttribute("aria-current", "page");
+    }
     await expect(
       page.getByRole("heading", {
         name: "Designed for practical building operations.",
@@ -30,12 +37,13 @@ for (const product of products) {
       }),
     ).toBeVisible();
     await expect(
+      page.getByRole("heading", { name: "Details for technical evaluation." }),
+    ).toBeVisible();
+    await expect(
       page.getByRole("heading", {
-        name: "Plan around your property—not generic estimates.",
+        name: new RegExp("Let’s see where " + product.label),
       }),
     ).toBeVisible();
-    await expect(page.getByText(/pending verification/i)).toHaveCount(0);
-    await expect(page.getByText(/development placeholder/i)).toHaveCount(0);
 
     const hasDocumentOverflow = await page.evaluate(
       () =>
@@ -46,14 +54,25 @@ for (const product of products) {
   });
 }
 
-test("homepage cards and the back link connect solution routes", async ({
+test("homepage cards and product navigation connect the current solutions", async ({
   page,
 }) => {
   await page.goto("/");
   await page
-    .getByRole("link", { name: "Learn more about GEM Stat ET" })
+    .getByRole("link", { name: "Learn more about GEM Stat™ ET" })
     .click();
   await expect(page).toHaveURL(/\/solutions\/gem-stat-et$/);
+
+  await page
+    .getByRole("navigation", { name: "Product navigation" })
+    .getByRole("link", { name: "GEM Link® Wireless – Lighting Control" })
+    .click();
+  await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
+  await expect(
+    page
+      .getByRole("navigation", { name: "Product navigation" })
+      .getByRole("link", { name: "GEM Link® Wireless – Lighting Control" }),
+  ).toHaveAttribute("aria-current", "page");
 
   await page.getByRole("link", { name: "Back to Solutions" }).click();
   await expect(page).toHaveURL(/\/#solutions$/);
@@ -80,7 +99,31 @@ test("mobile product layouts place visuals before their descriptions", async ({
   }
 });
 
-test("primary Solutions navigation exposes every product route", async ({
+test("GEM Stat™ ET leads with the thermostat hero photo", async ({ page }) => {
+  await page.goto("/solutions/gem-stat-et");
+
+  await expect(
+    page
+      .getByRole("img", {
+        name: "GEM Stat™ ET thermostat with room temperature display",
+      })
+      .first(),
+  ).toBeVisible();
+});
+
+test("Appliance Control leads with the supplied Power Pack photo", async ({
+  page,
+}) => {
+  await page.goto("/solutions/appliance-controls");
+
+  await expect(
+    page.getByRole("img", {
+      name: "Power Pack appliance-control relay with red, black, and white wiring",
+    }),
+  ).toBeVisible();
+});
+
+test("primary Solutions navigation exposes the three solution routes", async ({
   page,
 }) => {
   await page.goto("/");
@@ -90,17 +133,15 @@ test("primary Solutions navigation exposes every product route", async ({
   if (viewport.width >= 1024) {
     const primary = page.getByRole("navigation", { name: "Primary" });
     await primary.getByText("Solutions", { exact: true }).click();
-    await expect(
-      primary.getByRole("link", { name: "GEM Stat ET" }),
-    ).toHaveAttribute("href", "/solutions/gem-stat-et");
-    await primary.getByRole("link", { name: "Appliance Controls" }).click();
+    await primary
+      .getByRole("link", { name: "GEM Link® – Appliance Control" })
+      .click();
   } else {
     await page.getByRole("button", { name: "Open navigation" }).click();
     const mobile = page.getByRole("navigation", { name: "Mobile navigation" });
-    await expect(
-      mobile.getByRole("link", { name: "GEM Stat ET" }),
-    ).toHaveAttribute("href", "/solutions/gem-stat-et");
-    await mobile.getByRole("link", { name: "Appliance Controls" }).click();
+    await mobile
+      .getByRole("link", { name: "GEM Link® – Appliance Control" })
+      .click();
   }
 
   await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
@@ -109,9 +150,13 @@ test("primary Solutions navigation exposes every product route", async ({
 test("ecosystem controls expose their selected details", async ({ page }) => {
   await page.goto("/solutions/gem-stat-et");
 
-  await page.getByRole("button", { name: "Lighting Controls" }).click();
+  await page
+    .getByRole("button", { name: "GEM Link® Wireless – Lighting Control" })
+    .click();
   await expect(
-    page.getByRole("link", { name: "Explore Lighting Controls" }),
+    page.getByRole("link", {
+      name: "Explore GEM Link® Wireless – Lighting Control",
+    }),
   ).toBeVisible();
 });
 
@@ -119,84 +164,64 @@ test("product CTA carries safe context into the existing inquiry form", async ({
   page,
 }) => {
   await page.goto("/solutions/gem-stat-et");
-  await page
-    .getByRole("link", { name: "Request a Product Demo" })
-    .first()
-    .click();
+  await page.getByRole("link", { name: "Request a Demo" }).first().click();
 
   await expect(page).toHaveURL(/product=gem-stat-et&intent=demo#contact$/);
   await expect(page.getByLabel("Project notes")).toHaveValue(
-    "We would like to request a product demo for GEM Stat ET.",
+    "We would like to request a product demo for GEM Stat™ ET.",
   );
 });
 
-test("product pages expose the theme control and proposal CTA", async ({
+test("proposal form offers the approved products and appliance applications", async ({
   page,
 }) => {
-  await page.goto("/solutions/gem-stat-et");
+  await page.goto("/request-for-proposal");
+
+  for (const label of [
+    "GEM Stat™ ET Thermostat Energy Management System",
+    "GEM Link® Wireless – HVAC Control",
+    "GEM Link® Wireless – Lighting Control",
+    "GEM Link® – Appliance Control",
+    "Two Burner Cooktop",
+    "Individual in-room Electric Hot Water Heater",
+  ]) {
+    await expect(page.getByRole("checkbox", { name: label })).toBeVisible();
+  }
+});
+
+test("retired water-heater solution redirects to Appliance Control", async ({
+  page,
+}) => {
+  await page.goto("/solutions/dhw-controls");
+  await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
   await expect(
-    page
-      .locator("[data-product-intro]")
-      .getByRole("link", { name: "Request for Proposal / Site Survey" })
-      .first(),
-  ).toHaveAttribute("href", "/?product=gem-stat-et&intent=savings#contact");
-  await expect(
-    page
-      .getByRole("switch", { name: "Switch to night mode" })
-      .filter({ visible: true }),
+    page.getByRole("heading", {
+      level: 1,
+      name: "GEM Link® – Appliance Control",
+    }),
   ).toBeVisible();
 });
 
-test("proposal cards use integrated high-contrast actions in both themes", async ({
+test("specifications and theme controls remain accessible", async ({
   page,
 }) => {
   await page.goto("/solutions/gem-stat-et");
 
-  const planningAction = page
-    .locator("[data-planning-card]")
-    .getByRole("link", { name: "Request for Proposal / Site Survey" });
-  const evaluationAction = page
-    .locator("[data-evaluation-card]")
-    .getByRole("link", { name: "Request for Proposal / Site Survey" });
-
-  const expectNoVisibleShadow = async (
-    action: typeof planningAction,
-  ): Promise<void> => {
-    const hasNoVisibleShadow = await action.evaluate((element) => {
-      const shadow = getComputedStyle(element).boxShadow;
-      if (shadow === "none") return true;
-
-      const colors = shadow.match(/rgba\([^)]*\)/g) ?? [];
-      return colors.every((color) => /,\s*0\)$/.test(color));
-    });
-    expect(hasNoVisibleShadow).toBe(true);
-  };
-
-  const expectHighContrastActions = async (): Promise<void> => {
-    await expect(planningAction).toHaveCSS(
-      "background-color",
-      "rgb(8, 124, 179)",
-    );
-    await expect(planningAction).toHaveCSS("border-color", "rgb(8, 124, 179)");
-    await expect(planningAction).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(evaluationAction).toHaveCSS(
-      "background-color",
-      "rgb(16, 42, 67)",
-    );
-    await expect(evaluationAction).toHaveCSS("border-color", "rgb(16, 42, 67)");
-    await expect(evaluationAction).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expectNoVisibleShadow(planningAction);
-    await expectNoVisibleShadow(evaluationAction);
-  };
-
-  await expectHighContrastActions();
+  const connectivity = page.locator("details").filter({
+    hasText: "Connectivity and installation",
+  });
+  await expect(connectivity).not.toHaveAttribute("open", "");
+  await connectivity.locator("summary").click();
+  await expect(connectivity).toHaveAttribute("open", "");
 
   await page
     .getByRole("switch", { name: "Switch to night mode" })
     .filter({ visible: true })
     .click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expectHighContrastActions();
+  await expect(
+    page.getByRole("navigation", { name: "Product navigation" }),
+  ).not.toHaveCSS("background-color", "rgb(255, 255, 255)");
 });
 
 test("unknown product slugs return not found", async ({ page }) => {

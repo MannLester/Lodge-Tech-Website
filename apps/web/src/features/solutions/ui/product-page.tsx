@@ -1,283 +1,297 @@
-import {
-  ArrowLeft,
-  Building2,
-  Check,
-  ClipboardCheck,
-  MessageSquareText,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import {
   productCtaHref,
+  solutions,
   type ProductPageContent,
 } from "@/features/solutions/model/product-content";
 import { EcosystemMap } from "@/features/solutions/ui/ecosystem-map";
-import { ProductVisual } from "@/features/solutions/ui/product-visual";
 import { SiteFooter } from "@/shared/ui/site-footer";
 import { SiteHeader } from "@/shared/ui/site-header";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
-type ProductPageProps = {
-  product: ProductPageContent;
-};
+type ProductPageProps = { product: ProductPageContent };
 
-const trustItems = [
+const technicalTopics = [
   {
-    icon: Building2,
-    label: "Property review",
-    value: "Start with your building and operating needs",
+    title: "Performance and electrical",
+    body: "Discuss your equipment, operating requirements, and controllable loads with our team to assess a suitable configuration.",
   },
   {
-    icon: ClipboardCheck,
-    label: "Solution fit",
-    value: "Match controls to suitable spaces and loads",
+    title: "Connectivity and installation",
+    body: "Review supported equipment, installation conditions, and connectivity requirements for your property before selecting a system.",
   },
   {
-    icon: MessageSquareText,
-    label: "Project path",
-    value: "Continue with a proposal or site survey",
+    title: "Compliance and documentation",
+    body: "Request the technical documentation and certification information applicable to the proposed equipment.",
   },
-] as const;
+];
 
 export function ProductPage({ product }: ProductPageProps) {
+  const verifiedGroups = product.specifications
+    .map((group) => ({
+      ...group,
+      items: group.items.filter(
+        (item) => !/pending|placeholder/i.test(item.value),
+      ),
+    }))
+    .filter((group) => group.items.length > 0);
+  const showcases = product.showcases.filter((showcase) => showcase.image);
   return (
-    <div id="top">
+    <div className="marketing-site" id="top">
       <SiteHeader fromHome={false} />
       <main>
         <div className="section-shell pt-6">
           <Link
-            className="text-brand-strong inline-flex items-center gap-2 text-sm font-semibold hover:underline"
+            className="text-brand-strong inline-flex items-center gap-2 text-sm hover:underline"
             href="/#solutions"
           >
             <ArrowLeft aria-hidden size={16} />
             Back to Solutions
           </Link>
         </div>
-
-        <section
-          aria-labelledby="product-heading"
-          className="section-band pt-10! sm:pt-14!"
+        <nav
+          aria-label="Product navigation"
+          className="border-border bg-background mt-6 border-y"
         >
-          <div className="section-shell border-border bg-surface shadow-soft grid gap-9 rounded-2xl border p-6 sm:p-9 lg:grid-cols-[1fr_0.88fr] lg:items-center lg:p-12">
-            <div data-product-intro>
-              <p className="eyebrow">{product.eyebrow}</p>
-              <h1
-                className="text-foreground mt-4 text-4xl leading-tight font-bold sm:text-5xl"
-                id="product-heading"
+          <div className="section-shell flex flex-wrap gap-x-7 gap-y-2 py-4">
+            {solutions.map((item) => (
+              <Link
+                aria-current={item.slug === product.slug ? "page" : undefined}
+                className={`py-2 text-sm ${item.slug === product.slug ? "text-brand-strong font-semibold underline underline-offset-8" : "text-muted hover:text-brand-strong"}`}
+                href={`/solutions/${item.slug}`}
+                key={item.slug}
               >
-                {product.label}
-              </h1>
-              <p className="text-brand-strong mt-3 text-lg font-semibold sm:text-xl">
-                {product.subtitle}
-              </p>
-              <p className="text-muted mt-5 max-w-2xl text-base leading-7">
-                {product.description}
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href={productCtaHref(product.slug, "savings")}>
-                  Request for Proposal / Site Survey
-                </ButtonLink>
-                <ButtonLink
-                  href={productCtaHref(product.slug, "demo")}
-                  variant="outline"
-                >
-                  Request a Product Demo
-                </ButtonLink>
-              </div>
-            </div>
-            <div className="order-first lg:order-last" data-product-visual>
-              <ProductVisual
-                alt={product.heroImageAlt}
-                image={product.heroImage}
-                photo={product.heroPhoto}
-              />
-            </div>
-          </div>
-        </section>
-
-        <section
-          aria-label="Project evaluation process"
-          className="pb-16 sm:pb-20"
-        >
-          <div className="section-shell border-border bg-surface-muted grid overflow-hidden rounded-xl border md:grid-cols-3">
-            {trustItems.map(({ icon: Icon, label, value }) => (
-              <div
-                className="border-border flex items-center gap-4 border-b p-5 last:border-b-0 md:border-r md:border-b-0 md:last:border-r-0"
-                key={label}
-              >
-                <span className="bg-brand-soft text-brand-strong grid size-10 shrink-0 place-items-center rounded-full">
-                  <Icon aria-hidden size={20} />
-                </span>
-                <div>
-                  <p className="text-foreground text-sm font-bold">{label}</p>
-                  <p className="text-muted mt-1 text-xs">{value}</p>
-                </div>
-              </div>
+                <BrandText>{item.label}</BrandText>
+              </Link>
             ))}
           </div>
-        </section>
-
+        </nav>
         <section
-          aria-labelledby="features-heading"
-          className="section-band bg-surface-muted"
+          aria-labelledby="product-heading"
+          className="editorial-section"
         >
-          <div className="section-shell">
-            <p className="eyebrow">Key features</p>
-            <h2
-              className="text-foreground mt-3 text-3xl font-bold sm:text-4xl"
-              id="features-heading"
-            >
-              Designed for practical building operations.
-            </h2>
-            <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {product.features.map((feature) => (
-                <article
-                  className="border-border bg-surface rounded-xl border p-6"
-                  key={feature.title}
+          <div className="section-shell product-detail-hero">
+            <div data-product-intro>
+              <p className="chapter-label">{product.eyebrow}</p>
+              <h1 className="mt-5 leading-tight" id="product-heading">
+                <BrandText>{product.label}</BrandText>
+              </h1>
+              <p className="mt-5 text-xl leading-relaxed">{product.subtitle}</p>
+              <p className="editorial-copy">{product.description}</p>
+              {product.slug === "gem-stat-et" && (
+                <p className="editorial-copy">
+                  <BrandText>GEM Stat™ ET</BrandText> is a room-level product
+                  within the{" "}
+                  <Link
+                    className="editorial-link"
+                    href="/solutions/gem-link-wireless"
+                  >
+                    <BrandText>GEM Link® Wireless – HVAC solution</BrandText>
+                  </Link>
+                  .
+                </p>
+              )}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <ButtonLink href={productCtaHref(product.slug, "demo")}>
+                  Request a Demo
+                </ButtonLink>
+                <ButtonLink
+                  href={productCtaHref(product.slug, "savings")}
+                  variant="outline"
                 >
-                  <span className="bg-brand-soft text-brand-strong grid size-9 place-items-center rounded-full">
-                    <Check aria-hidden size={18} strokeWidth={2.5} />
-                  </span>
-                  <h3 className="text-foreground mt-5 font-bold">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted mt-2 text-sm leading-6">
-                    {feature.body}
-                  </p>
-                </article>
-              ))}
+                  Get a Savings Analysis
+                </ButtonLink>
+              </div>
             </div>
-
-            <div className="mt-16 space-y-14">
-              {product.showcases.map((showcase, index) => (
-                <article
-                  className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14"
-                  key={showcase.title}
-                >
-                  <div
-                    className={`order-last ${index % 2 ? "lg:order-2" : "lg:order-1"}`}
-                    data-showcase-copy
-                  >
-                    <p className="eyebrow">Feature showcase {index + 1}</p>
-                    <h3 className="text-foreground mt-3 text-2xl font-bold sm:text-3xl">
-                      {showcase.title}
-                    </h3>
-                    <p className="text-muted mt-4 text-base leading-7">
-                      {showcase.body}
-                    </p>
-                  </div>
-                  <div
-                    className={`border-border bg-surface relative order-first aspect-[16/10] overflow-hidden rounded-xl border ${index % 2 ? "lg:order-1" : "lg:order-2"}`}
-                    data-showcase-visual
-                  >
-                    <Image
-                      alt={
-                        showcase.imageAlt ?? `${product.label} solution visual`
-                      }
-                      className={
-                        showcase.image
-                          ? `object-cover ${showcase.imagePosition ?? "object-center"}`
-                          : "object-contain p-10 opacity-75"
-                      }
-                      fill
-                      sizes="(max-width: 1023px) 92vw, 42vw"
-                      src={showcase.image ?? product.heroImage}
-                    />
-                  </div>
-                </article>
-              ))}
+            <div className="order-first md:order-last" data-product-visual>
+              <div className="product-detail-visual">
+                <Image
+                  alt={product.heroImageAlt.replace(
+                    /product placeholder/i,
+                    "illustration",
+                  )}
+                  className={
+                    product.heroImageClass ??
+                    (product.heroPhoto
+                      ? "object-cover object-left"
+                      : "object-contain p-6")
+                  }
+                  fill
+                  preload
+                  sizes="(max-width: 767px) 92vw, 48vw"
+                  src={product.heroImage}
+                />
+                {!product.heroPhoto && (
+                  <span className="photo-caption">
+                    Illustrative solution overview
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </section>
-
-        <section aria-labelledby="ecosystem-heading" className="section-band">
+        <section
+          aria-labelledby="features-heading"
+          className="editorial-section product-section"
+        >
           <div className="section-shell">
-            <p className="eyebrow">Connected ecosystem</p>
-            <h2
-              className="text-foreground mt-3 text-3xl font-bold sm:text-4xl"
-              id="ecosystem-heading"
-            >
+            <p className="chapter-label">Purpose in every detail</p>
+            <h2 className="display-heading" id="features-heading">
+              Designed for practical building operations.
+            </h2>
+            <div className="product-feature-list">
+              {product.features.map((feature) => (
+                <article key={feature.title}>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.body}</p>
+                </article>
+              ))}
+            </div>
+            {product.videoBrief && (
+              <figure className="product-video-brief">
+                <div
+                  className="video-brief-frame product-video-frame"
+                  data-photo={Boolean(product.heroPhoto)}
+                >
+                  <Image
+                    alt=""
+                    className={
+                      product.heroPhoto ? "object-cover" : "object-contain p-6"
+                    }
+                    fill
+                    sizes="(max-width: 767px) 92vw, 45vw"
+                    src={product.heroImage}
+                  />
+                  <span>Planned product walkthrough</span>
+                </div>
+                <figcaption>
+                  <span className="chapter-label">
+                    Video concept / <BrandText>{product.label}</BrandText>
+                  </span>
+                  <strong>{product.videoBrief.title}</strong>
+                  <p>{product.videoBrief.description}</p>
+                </figcaption>
+              </figure>
+            )}
+            {showcases.length > 0 && (
+              <div className="mt-20 space-y-20">
+                {showcases.map((showcase, index) => (
+                  <article
+                    className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
+                    key={showcase.title}
+                  >
+                    <div
+                      className={`order-last ${index % 2 ? "lg:order-2" : "lg:order-1"}`}
+                      data-showcase-copy
+                    >
+                      <p className="chapter-label">In your space</p>
+                      <h3 className="display-heading">{showcase.title}</h3>
+                      <p className="editorial-copy">{showcase.body}</p>
+                    </div>
+                    <div
+                      className={`relative order-first aspect-[4/3] overflow-hidden ${index % 2 ? "lg:order-1" : "lg:order-2"}`}
+                      data-showcase-visual
+                    >
+                      <Image
+                        alt={showcase.imageAlt ?? product.label}
+                        className={`object-cover ${showcase.imagePosition ?? "object-center"}`}
+                        fill
+                        sizes="(max-width: 1023px) 92vw, 45vw"
+                        src={showcase.image!}
+                      />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+        <section
+          aria-labelledby="ecosystem-heading"
+          className="editorial-section"
+        >
+          <div className="section-shell">
+            <p className="chapter-label">Part of a connected property</p>
+            <h2 className="display-heading" id="ecosystem-heading">
               See how the solutions work together.
             </h2>
-            <p className="text-muted mt-4 max-w-3xl leading-7">
-              Select a solution to understand its role, then move directly to
-              its dedicated page.
+            <p className="editorial-copy">
+              Explore each solution’s role in your building.
             </p>
             <EcosystemMap currentSlug={product.slug} />
           </div>
         </section>
-
-        <section aria-labelledby="proof-heading" className="section-band">
-          <div
-            className="section-shell bg-brand-night shadow-soft overflow-hidden rounded-2xl text-white"
-            data-planning-card
-          >
-            <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-              <div className="bg-brand-deep p-8 sm:p-10">
-                <ClipboardCheck
-                  aria-hidden
-                  className="text-brand-white"
-                  size={38}
-                />
-                <p className="text-brand-white mt-6 text-xs font-bold tracking-widest uppercase">
-                  Property-specific planning
-                </p>
-                <p className="mt-3 text-2xl font-bold">Start with real needs</p>
-                <p className="mt-3 text-sm leading-6 text-white/70">
-                  Review the building, operating patterns, and controllable
-                  loads before selecting a project path.
-                </p>
-              </div>
-              <div className="p-8 sm:p-10 lg:p-12">
-                <h2
-                  className="text-3xl font-bold sm:text-4xl"
-                  id="proof-heading"
-                >
-                  Plan around your property—not generic estimates.
-                </h2>
-                <p className="mt-5 max-w-2xl leading-7 text-white/75">
-                  Tell us where energy is being used and what your team needs to
-                  protect. We’ll help identify a practical next step without
-                  relying on unsupported performance claims.
-                </p>
-                <ButtonLink
-                  className="border-brand-fill! bg-brand-fill! mt-7 text-white! shadow-none! hover:brightness-110"
-                  href={productCtaHref(product.slug, "savings")}
-                >
-                  Request for Proposal / Site Survey
-                </ButtonLink>
-              </div>
+        <section
+          aria-labelledby="specifications-heading"
+          className="editorial-section assessment-section"
+        >
+          <div className="section-shell assessment-layout">
+            <div>
+              <p className="chapter-label">Before you specify</p>
+              <h2 className="display-heading" id="specifications-heading">
+                Details for technical evaluation.
+              </h2>
+              <p className="editorial-copy">
+                The right fit depends on your building. Talk with our team about
+                equipment compatibility, installation, and technical
+                requirements.
+              </p>
+              <Link
+                className="editorial-link"
+                href={productCtaHref(product.slug, "demo")}
+              >
+                Discuss technical requirements <span aria-hidden>↗</span>
+              </Link>
+            </div>
+            <div className="technical-details">
+              {verifiedGroups.length > 0
+                ? verifiedGroups.map((group, index) => (
+                    <details key={group.title} open={index === 0}>
+                      <summary>{group.title}</summary>
+                      <dl>
+                        {group.items.map((item) => (
+                          <div className="mt-4" key={item.label}>
+                            <dt>{item.label}</dt>
+                            <dd>{item.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </details>
+                  ))
+                : technicalTopics.map((topic, index) => (
+                    <details key={topic.title} open={index === 0}>
+                      <summary>{topic.title}</summary>
+                      <p>{topic.body}</p>
+                    </details>
+                  ))}
             </div>
           </div>
         </section>
-
         <section
           aria-labelledby="bottom-cta-heading"
-          className="pb-16 sm:pb-20 lg:pb-24"
+          className="editorial-section platform-section"
         >
-          <div
-            className="section-shell bg-brand-fill shadow-card flex flex-col gap-6 rounded-2xl px-7 py-9 text-white sm:px-10 lg:flex-row lg:items-center lg:justify-between"
-            data-evaluation-card
-          >
-            <div>
-              <h2
-                className="text-2xl font-bold sm:text-3xl"
-                id="bottom-cta-heading"
-              >
-                Ready to evaluate {product.label}?
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-white/80">
-                Tell us about your building and we’ll help identify the right
-                next step.
-              </p>
-            </div>
-            <ButtonLink
-              className="border-brand-night! bg-brand-night! hover:bg-brand-deep! shrink-0 text-white! shadow-none!"
+          <div className="section-shell">
+            <p className="chapter-label">Your property. Your next step.</p>
+            <h2 className="display-heading" id="bottom-cta-heading">
+              Let’s see where <BrandText>{product.label}</BrandText>
+              <br />
+              fits in your building.
+            </h2>
+            <p className="editorial-copy">
+              Share your property details so we can discuss a suitable proposal
+              or site survey.
+            </p>
+            <Link
+              className="editorial-link"
               href={productCtaHref(product.slug, "savings")}
             >
-              Request for Proposal / Site Survey
-            </ButtonLink>
+              Get a Savings Analysis <span aria-hidden>↗</span>
+            </Link>
           </div>
         </section>
       </main>

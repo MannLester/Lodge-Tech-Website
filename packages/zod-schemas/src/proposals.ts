@@ -32,7 +32,19 @@ export const proposalSchema = z
     hvacModels: z.array(text(120).min(1)).max(20),
     guestControl: z.enum(["wall", "unit", "both", "other"]),
     utilityCompany: text(150),
-    products: z.array(z.enum(["gem-link-wireless", "gem-stat-et"])).max(2),
+    products: z
+      .array(
+        z.enum([
+          "gem-link-wireless",
+          "lighting-controls",
+          "appliance-controls",
+          "gem-stat-et",
+        ]),
+      )
+      .max(4),
+    applianceApplications: z
+      .array(z.enum(["two-burner-cooktop", "in-room-electric-water-heater"]))
+      .max(2),
     notes: text(5000),
     website: text(200),
   })
@@ -42,6 +54,16 @@ export const proposalSchema = z
         code: "custom",
         path: ["suites"],
         message: "Add at least one suite type when suites are present.",
+      });
+    }
+    if (
+      proposal.applianceApplications.length > 0 &&
+      !proposal.products.includes("appliance-controls")
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["applianceApplications"],
+        message: "Select Appliance Control for the chosen applications.",
       });
     }
   });

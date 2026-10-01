@@ -12,14 +12,14 @@ describe("HeroSection", () => {
         name: "Save energy without sacrificing comfort.",
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText("40+")).toBeInTheDocument();
-    expect(screen.getByText("100,000+")).toBeInTheDocument();
-    expect(screen.getByText("Up to 45%")).toBeInTheDocument();
+    expect(screen.getAllByText("40+")).toHaveLength(2);
+    expect(screen.getAllByText("100,000+")).toHaveLength(2);
+    expect(screen.getAllByText("Up to 45%")).toHaveLength(2);
     expect(
       screen.getByText("Reduction in HVAC Operating Time"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Request for Proposal / Site Survey" }),
+      screen.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
     expect(
       screen.getByLabelText("Experience and performance"),

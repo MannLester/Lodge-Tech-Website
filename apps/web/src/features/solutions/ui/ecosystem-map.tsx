@@ -3,9 +3,10 @@
 import { useState } from "react";
 
 import {
-  products,
+  solutions,
   type ProductSlug,
 } from "@/features/solutions/model/product-content";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 type EcosystemMapProps = {
@@ -15,7 +16,7 @@ type EcosystemMapProps = {
 export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
   const [selectedSlug, setSelectedSlug] = useState<ProductSlug>(currentSlug);
   const selected =
-    products.find((product) => product.slug === selectedSlug) ?? products[0];
+    solutions.find((product) => product.slug === selectedSlug) ?? solutions[0];
 
   return (
     <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-center">
@@ -24,7 +25,7 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
           aria-hidden
           className="bg-brand-soft border-brand absolute inset-[20%] hidden rounded-full border border-dashed sm:block"
         />
-        {products.map((product) => (
+        {solutions.map((product) => (
           <button
             aria-pressed={selectedSlug === product.slug}
             className={`relative min-h-24 cursor-pointer rounded-lg border p-4 text-left transition-colors ${selectedSlug === product.slug ? "border-brand bg-brand-soft text-brand-strong" : "border-border bg-surface text-foreground hover:border-brand"}`}
@@ -32,7 +33,9 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
             onClick={() => setSelectedSlug(product.slug)}
             type="button"
           >
-            <span className="block text-sm font-bold">{product.label}</span>
+            <span className="block text-sm font-bold">
+              <BrandText>{product.label}</BrandText>
+            </span>
             <span className="text-muted mt-1 block text-xs leading-5">
               {product.eyebrow}
             </span>

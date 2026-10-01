@@ -7,8 +7,6 @@ import { ProposalForm } from "@/features/proposals";
 import { SiteHeader } from "@/shared/ui/site-header";
 import { SiteFooter } from "@/shared/ui/site-footer";
 
-import "./proposal.css";
-
 export const metadata: Metadata = {
   title: "Request a Proposal | Lodging Technologies",
   description:
