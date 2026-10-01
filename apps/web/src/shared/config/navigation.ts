@@ -14,12 +14,8 @@ export const solutionNavigationItems = [
     label: "GEM Link® Wireless – Lighting Control",
   },
   {
-    href: "/solutions/dhw-controls",
-    label: "GEM Link® Wireless – DHW Controls",
-  },
-  {
     href: "/solutions/appliance-controls",
-    label: "GEM Link® Wireless – Appliance Controls",
+    label: "GEM Link® – Appliance Control",
   },
 ] as const;
 

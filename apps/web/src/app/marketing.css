@@ -1476,6 +1476,15 @@
   width: 1.1rem;
   height: 1.1rem;
 }
+.marketing-site .proposal-subchecks {
+  display: grid;
+  gap: 0.65rem;
+  margin: -0.15rem 0 0.4rem 1.8rem;
+  border-left: 1px solid var(--editorial-line);
+  padding-left: 1rem;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+}
 .marketing-site .proposal-full-label {
   margin-top: 1.5rem;
 }

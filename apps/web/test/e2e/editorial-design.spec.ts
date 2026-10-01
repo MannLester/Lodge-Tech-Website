@@ -36,6 +36,11 @@ test("industry selection exposes one relevant description and contact route", as
 }) => {
   await page.goto("/");
   const industries = page.locator("#industries");
+  await expect(
+    industries.getByRole("img", {
+      name: "Hotel entrance with a covered drive-under portico",
+    }),
+  ).toBeVisible();
   const selected = industries.getByRole("button", { name: /Student Housing/ });
   await selected.focus();
   await page.keyboard.press("Enter");
@@ -201,9 +206,9 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
   await expect(
     beyondHvac.getByRole("heading", { name: "Beyond HVAC" }),
   ).toBeVisible();
-  await expect(beyondHvac.locator(".supporting-product")).toHaveCount(3);
+  await expect(beyondHvac.locator(".supporting-product")).toHaveCount(2);
   await expect(beyondHvac.locator(".supporting-product-image img")).toHaveCount(
-    3,
+    2,
   );
   const thumbnailWidths = await beyondHvac
     .locator(".supporting-product-image")

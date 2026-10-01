@@ -42,7 +42,7 @@ test("keeps product branding and a contact route in public-page footers", async 
     const footer = page.locator("footer");
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
     const gemLinkLinks = footer.getByRole("link", {
-      name: "GEM Link® Wireless – HVAC",
+      name: "GEM Link® Wireless",
       exact: true,
     });
     await expect(gemLinkLinks).toHaveCount(2);
@@ -51,7 +51,7 @@ test("keeps product branding and a contact route in public-page footers", async 
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
     ).toHaveCount(2);
     await expect(
-      footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
+      footer.getByRole("link", { name: "Request for Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
     const bbbLink = footer.getByRole("link", {
       name: "BBB Accredited Business with an A+ rating (opens in a new tab)",
@@ -67,6 +67,9 @@ test("keeps product branding and a contact route in public-page footers", async 
     });
     await expect(bbbSeal).toBeVisible();
     expect((await bbbSeal.boundingBox())!.width).toBeGreaterThanOrEqual(128);
+    await expect(footer).toContainText(
+      "© 2026 Lodging Technologies LLC. All rights reserved.",
+    );
   }
 });
 

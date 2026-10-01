@@ -6,6 +6,15 @@ const repoRoot = resolve(appDir, "../..");
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/solutions/dhw-controls",
+        destination: "/solutions/appliance-controls",
+        permanent: true,
+      },
+    ];
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: "3mb",

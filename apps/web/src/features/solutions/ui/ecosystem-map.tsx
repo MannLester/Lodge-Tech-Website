@@ -15,8 +15,8 @@ import {
   PirSensorIcon,
   ThermostatIcon,
   TransceiverIcon,
-  WaterHeaterIcon,
 } from "@/features/solutions/ui/solution-system-icons";
+import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
 type EcosystemMapProps = {
@@ -39,10 +39,8 @@ const connectionDescriptions: Record<ProductSlug, string> = {
     "The transceiver receives room signals and applies the configured control strategy to supported HVAC equipment.",
   "lighting-controls":
     "A GEM Link control path can use shared occupancy and door signals to manage suitable lighting loads.",
-  "dhw-controls":
-    "The control strategy can extend to supported domestic hot water equipment while keeping service requirements central to the plan.",
   "appliance-controls":
-    "The same occupancy-led strategy can extend to suitable appliance and auxiliary equipment loads.",
+    "The same occupancy-led strategy can extend to suitable loads such as two-burner cooktops and individual electric water heaters.",
 };
 
 function SolutionNode({
@@ -64,7 +62,9 @@ function SolutionNode({
       <span className="ecosystem-node-icon">{icon}</span>
       <span>
         <span className="ecosystem-node-overline">{overline}</span>
-        <strong>{children}</strong>
+        <strong>
+          <BrandText>{children}</BrandText>
+        </strong>
       </span>
     </button>
   );
@@ -180,22 +180,13 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
               GEM Link® Wireless – Lighting Control
             </SolutionNode>
             <SolutionNode
-              icon={<WaterHeaterIcon />}
-              isSelected={selectedSlug === "dhw-controls"}
-              onSelect={() => setSelectedSlug("dhw-controls")}
-              overline="Domestic hot water"
-              slug="dhw-controls"
-            >
-              GEM Link® Wireless – DHW Controls
-            </SolutionNode>
-            <SolutionNode
               icon={<ApplianceIcon />}
               isSelected={selectedSlug === "appliance-controls"}
               onSelect={() => setSelectedSlug("appliance-controls")}
-              overline="Appliance and auxiliary loads"
+              overline="Selected electric loads"
               slug="appliance-controls"
             >
-              GEM Link® Wireless – Appliance Controls
+              GEM Link® – Appliance Control
             </SolutionNode>
           </div>
         </section>
@@ -204,7 +195,9 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
       <div aria-live="polite" className="ecosystem-detail">
         <div>
           <p className="ecosystem-stage-label">Selected solution</p>
-          <h3>{selected.label}</h3>
+          <h3>
+            <BrandText>{selected.label}</BrandText>
+          </h3>
           <p>{connectionDescriptions[selected.slug]}</p>
         </div>
         {selected.slug === currentSlug ? (
