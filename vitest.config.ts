@@ -9,8 +9,8 @@ export default defineConfig({
   resolve: {
     dedupe: ["react", "react-dom"],
     alias: {
+      "@/assets": fileURLToPath(new URL("./apps/web/assets", import.meta.url)),
       "@": fileURLToPath(new URL("./apps/web/src", import.meta.url)),
-      "@assets": fileURLToPath(new URL("./apps/web/assets", import.meta.url)),
       react: fileURLToPath(new URL("./node_modules/react", import.meta.url)),
       "react-dom": fileURLToPath(
         new URL("./node_modules/react-dom", import.meta.url),
