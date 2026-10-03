@@ -136,13 +136,25 @@ test("provides navigation appropriate to the viewport", async ({ page }) => {
     const menuButton = page.getByRole("button", { name: "Open navigation" });
     await expect(menuButton).toBeVisible();
     await menuButton.click();
+    const mobileNavigation = page.getByRole("navigation", {
+      name: "Mobile navigation",
+    });
+    await expect(mobileNavigation).toBeVisible();
     await expect(
-      page.getByRole("navigation", { name: "Mobile navigation" }),
-    ).toBeVisible();
+      mobileNavigation.getByRole("link", {
+        name: "Call Lodging Technologies at (877) 435-5465",
+      }),
+    ).toHaveAttribute("href", "tel:+18774355465");
   } else {
+    const primaryNavigation = page.getByRole("navigation", {
+      name: "Primary",
+    });
+    await expect(primaryNavigation).toBeVisible();
     await expect(
-      page.getByRole("navigation", { name: "Primary" }),
-    ).toBeVisible();
+      primaryNavigation.getByRole("link", {
+        name: "Call Lodging Technologies at (877) 435-5465",
+      }),
+    ).toHaveAttribute("href", "tel:+18774355465");
   }
 });
 
