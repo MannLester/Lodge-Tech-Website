@@ -97,6 +97,14 @@ test("shows the inquiry form and current contact links", async ({
     "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
   );
   await expect(linkedInLink.locator("svg")).toBeVisible();
+  const instagramLink = contact.getByRole("link", { name: "Instagram" });
+  await expect(instagramLink).toHaveAttribute(
+    "href",
+    "https://www.instagram.com/lodgingtechnologies/",
+  );
+  await expect(instagramLink).toHaveAttribute("target", "_blank");
+  await expect(instagramLink).toHaveAttribute("rel", "noopener noreferrer");
+  await expect(instagramLink.locator("svg")).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > innerWidth,
