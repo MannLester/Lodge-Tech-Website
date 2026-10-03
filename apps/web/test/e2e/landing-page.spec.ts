@@ -73,7 +73,7 @@ test("keeps product branding and a contact route in public-page footers", async 
   }
 });
 
-test("shows the inquiry form and company social links without the retired phone", async ({
+test("shows the inquiry form and current contact links", async ({
   page,
 }) => {
   await page.goto("/#contact");
@@ -82,6 +82,9 @@ test("shows the inquiry form and company social links without the retired phone"
     contact.getByRole("form", { name: "General inquiry" }),
   ).toBeVisible();
   await expect(contact).not.toContainText("(800) 524-2680");
+  await expect(
+    contact.getByRole("link", { name: "(877) 435-5465" }),
+  ).toHaveAttribute("href", "tel:+18774355465");
   const facebookLink = contact.getByRole("link", { name: "Facebook" });
   await expect(facebookLink).toHaveAttribute(
     "href",
