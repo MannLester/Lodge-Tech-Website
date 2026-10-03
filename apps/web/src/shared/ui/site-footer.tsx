@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
+import bbbAccreditedBusinessSeal from "@/assets/bbb-accredited-business.svg";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
@@ -84,6 +86,25 @@ export function SiteFooter() {
           <p className="text-muted mt-4 text-sm leading-6">
             Proudly serving North America including the Caribbean.
           </p>
+          <a
+            aria-label="BBB Accredited Business with an A+ rating (opens in a new tab)"
+            className="border-border hover:border-brand mt-5 inline-flex items-center gap-3 rounded-lg border bg-white p-3 shadow-sm transition-colors"
+            href="https://www.bbb.org/us/va/roanoke/profile/energy-management-consultant/lodging-technology-0613-1103"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Image
+              alt="BBB Accredited Business"
+              className="h-auto w-32 sm:w-36"
+              src={bbbAccreditedBusinessSeal}
+            />
+            <span className="border-border flex flex-col border-l pl-3 text-center text-slate-950">
+              <span className="text-[0.62rem] font-bold tracking-wide uppercase">
+                BBB Rating
+              </span>
+              <strong className="text-2xl leading-none">A+</strong>
+            </span>
+          </a>
           <Link
             className="text-brand-strong mt-5 inline-block text-sm font-semibold underline underline-offset-4"
             href="/request-for-proposal"

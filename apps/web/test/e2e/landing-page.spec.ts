@@ -41,15 +41,32 @@ test("keeps product branding and a contact route in public-page footers", async 
     await page.goto(path);
     const footer = page.locator("footer");
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
-    await expect(
-      footer.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
-    ).toHaveCount(2);
+    const gemLinkLinks = footer.getByRole("link", {
+      name: "GEM Link® Wireless – HVAC",
+      exact: true,
+    });
+    await expect(gemLinkLinks).toHaveCount(2);
+    await expect(gemLinkLinks.first()).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
     ).toHaveCount(2);
     await expect(
       footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
+    const bbbLink = footer.getByRole("link", {
+      name: "BBB Accredited Business with an A+ rating (opens in a new tab)",
+    });
+    await expect(bbbLink).toHaveAttribute(
+      "href",
+      "https://www.bbb.org/us/va/roanoke/profile/energy-management-consultant/lodging-technology-0613-1103",
+    );
+    await expect(bbbLink).toHaveAttribute("target", "_blank");
+    await expect(bbbLink).toHaveAttribute("rel", "noopener noreferrer");
+    const bbbSeal = bbbLink.getByRole("img", {
+      name: "BBB Accredited Business",
+    });
+    await expect(bbbSeal).toBeVisible();
+    expect((await bbbSeal.boundingBox())!.width).toBeGreaterThanOrEqual(128);
   }
 });
 
