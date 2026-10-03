@@ -172,17 +172,19 @@ test("GEM Link® Wireless pairs connected control with Beyond HVAC products", as
   const visual = connected.locator(".wireless-platform-connection");
   const stage = visual.locator(".wireless-platform-stage");
   const beyondHvac = gemLink.locator(".beyond-hvac-panel");
+  const lightWordmark = connected.locator(".wireless-platform-logo-light");
+  const darkWordmark = connected.locator(".wireless-platform-logo-dark");
 
   await expect(visual.getByRole("img")).toHaveCount(1);
-  await expect(
-    connected.locator(".wireless-platform-logo-light"),
-  ).toBeVisible();
-  await expect(connected.locator(".wireless-platform-logo-dark")).toBeHidden();
+  await expect(lightWordmark).toHaveAttribute("alt", "");
+  await expect(darkWordmark).toHaveAttribute("alt", "");
+  await expect(lightWordmark).toBeVisible();
+  await expect(darkWordmark).toBeHidden();
   await page.evaluate(() =>
     document.documentElement.setAttribute("data-theme", "dark"),
   );
-  await expect(connected.locator(".wireless-platform-logo-light")).toBeHidden();
-  await expect(connected.locator(".wireless-platform-logo-dark")).toBeVisible();
+  await expect(lightWordmark).toBeHidden();
+  await expect(darkWordmark).toBeVisible();
   await page.evaluate(() =>
     document.documentElement.setAttribute("data-theme", "light"),
   );

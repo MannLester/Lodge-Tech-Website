@@ -101,12 +101,12 @@ export function ProductSection() {
             <h3 className="sr-only">GEM Link® Wireless HVAC</h3>
             <div className="wireless-platform-identity">
               <Image
-                alt="GEM Link Wireless"
+                alt=""
                 className="wireless-platform-logo wireless-platform-logo-light"
                 src={gemLinkLogoBlue}
               />
               <Image
-                alt="GEM Link Wireless"
+                alt=""
                 className="wireless-platform-logo wireless-platform-logo-dark"
                 src={gemLinkLogoWhite}
               />
