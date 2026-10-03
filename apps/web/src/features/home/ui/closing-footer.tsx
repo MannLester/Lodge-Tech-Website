@@ -28,7 +28,7 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
             </p>
             <div className="contact-direct">
               <p className="chapter-label">Call us</p>
-              <a href="tel:+18005242680">(800) 524-2680</a>
+              <a href="tel:+18774355465">(877) 435-5465</a>
             </div>
             <div className="contact-social">
               <p className="chapter-label">Find us online</p>
