@@ -11,7 +11,7 @@ const footerLinkGroups = [
       { href: "/#technology", label: "Energy Optimization" },
       {
         href: "/solutions/gem-link-wireless",
-        label: "GEM Link® Wireless – HVAC",
+        label: "GEM Link® Wireless",
       },
       { href: "/solutions/gem-stat-et", label: "GEM Stat™ ET" },
       {
@@ -72,7 +72,7 @@ export function SiteFooter() {
               className="hover:underline"
               href="/solutions/gem-link-wireless"
             >
-              GEM Link® Wireless – HVAC
+              GEM Link® Wireless
             </Link>
             <Link className="hover:underline" href="/solutions/gem-stat-et">
               GEM Stat™ ET
