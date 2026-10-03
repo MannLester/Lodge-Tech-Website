@@ -12,7 +12,7 @@ test("shows the benefit, products, and proposal path without overflow", async ({
     }),
   ).toBeVisible();
   await expect(
-    hero.getByRole("link", { name: "GEM Link® Wireless" }),
+    hero.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
   ).toBeVisible();
   await expect(hero.getByRole("link", { name: "GEM Stat™ ET" })).toBeVisible();
   await expect(
@@ -43,10 +43,10 @@ test("keeps product branding and a contact route in public-page footers", async 
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Link® Wireless", exact: true }),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await expect(
       footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
@@ -64,14 +64,18 @@ test("shows direct contact and company social links beside the inquiry form", as
   await expect(
     contact.getByRole("link", { name: "(800) 524-2680" }),
   ).toHaveAttribute("href", "tel:+18005242680");
-  await expect(contact.getByRole("link", { name: "Facebook" })).toHaveAttribute(
+  const facebookLink = contact.getByRole("link", { name: "Facebook" });
+  await expect(facebookLink).toHaveAttribute(
     "href",
     "https://www.facebook.com/profile.php?id=100066727996704",
   );
-  await expect(contact.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(
+  await expect(facebookLink.locator("svg")).toBeVisible();
+  const linkedInLink = contact.getByRole("link", { name: "LinkedIn" });
+  await expect(linkedInLink).toHaveAttribute(
     "href",
     "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
   );
+  await expect(linkedInLink.locator("svg")).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth > innerWidth,
