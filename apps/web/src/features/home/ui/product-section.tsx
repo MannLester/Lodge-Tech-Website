@@ -99,13 +99,13 @@ export function ProductSection() {
             {/* Restored Light & Dark Mode GEM Link Wordmark Logos (PR #40) */}
             <div className="wireless-platform-identity">
               <Image
-                alt="GEM Link® Wireless"
+                alt=""
                 className="wireless-platform-logo wireless-platform-logo-light"
                 src={gemLinkLogoBlue}
                 priority
               />
               <Image
-                alt="GEM Link® Wireless"
+                alt=""
                 className="wireless-platform-logo wireless-platform-logo-dark"
                 src={gemLinkLogoWhite}
                 priority

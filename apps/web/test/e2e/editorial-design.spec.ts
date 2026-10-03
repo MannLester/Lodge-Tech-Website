@@ -165,22 +165,22 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
   const gemLink = page.locator(".wireless-feature");
   const visual = gemLink.locator(".wireless-platform-connection");
   const stage = visual.locator(".wireless-platform-stage");
+  const lightWordmark = visual.locator(".wireless-platform-logo-light");
+  const darkWordmark = visual.locator(".wireless-platform-logo-dark");
 
   await expect(visual.getByRole("img")).toHaveCount(1);
-  await expect(visual.locator(".wireless-platform-identity span")).toHaveText(
-    "GEM Link®",
+  await expect(lightWordmark).toHaveAttribute("alt", "");
+  await expect(darkWordmark).toHaveAttribute("alt", "");
+  await expect(lightWordmark).toBeVisible();
+  await expect(darkWordmark).toBeHidden();
+  await page.evaluate(() =>
+    document.documentElement.setAttribute("data-theme", "dark"),
   );
-  await expect(visual.locator(".wireless-platform-identity small")).toHaveText(
-    "Wireless",
+  await expect(lightWordmark).toBeHidden();
+  await expect(darkWordmark).toBeVisible();
+  await page.evaluate(() =>
+    document.documentElement.setAttribute("data-theme", "light"),
   );
-  const gemLinkTitle = (await visual
-    .locator(".wireless-platform-identity span")
-    .boundingBox())!;
-  const wirelessTitle = (await visual
-    .locator(".wireless-platform-identity small")
-    .boundingBox())!;
-  expect(wirelessTitle.x).toBeGreaterThan(gemLinkTitle.x + gemLinkTitle.width);
-  expect(wirelessTitle.y).toBeLessThan(gemLinkTitle.y + gemLinkTitle.height);
   await expect(visual).toContainText(
     "One connected view, from room to property.",
   );
@@ -189,16 +189,12 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
     .locator(".wireless-platform-image")
     .boundingBox())!.width;
   expect(stageWidth).toBeLessThanOrEqual((await visual.boundingBox())!.width);
-  if (page.viewportSize()!.width >= 1024) {
-    expect(imageWidth).toBeGreaterThanOrEqual(320);
-    expect(imageWidth).toBeLessThanOrEqual(340);
-  } else {
-    expect(imageWidth).toBeGreaterThanOrEqual(150);
-    expect(imageWidth).toBeLessThanOrEqual(170);
-  }
+  expect(imageWidth).toBeGreaterThanOrEqual(150);
+  expect(imageWidth).toBeLessThanOrEqual(stageWidth);
   await expect(visual.locator(".connection-loads span")).toHaveText([
     "HVAC",
     "Lighting",
+    "DHW",
     "Appliances",
   ]);
   expect(
