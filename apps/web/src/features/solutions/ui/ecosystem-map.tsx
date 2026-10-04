@@ -1,11 +1,21 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useState } from "react";
 
 import {
-  solutions,
+  products,
   type ProductSlug,
 } from "@/features/solutions/model/product-content";
+import {
+  ApplianceIcon,
+  DoorContactIcon,
+  HvacIcon,
+  LightingIcon,
+  PirSensorIcon,
+  ThermostatIcon,
+  TransceiverIcon,
+} from "@/features/solutions/ui/solution-system-icons";
 import { BrandText } from "@/shared/ui/brand-text";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 
@@ -13,53 +23,182 @@ type EcosystemMapProps = {
   currentSlug: ProductSlug;
 };
 
+type SolutionNodeProps = {
+  children: string;
+  icon: ReactNode;
+  isSelected: boolean;
+  onSelect: () => void;
+  overline: string;
+  slug: ProductSlug;
+};
+
+const connectionDescriptions: Record<ProductSlug, string> = {
+  "gem-stat-et":
+    "A complementary room-level thermostat solution for occupancy-aware HVAC control. It is shown beside the GEM Link control path without implying a direct wired connection.",
+  "gem-link-wireless":
+    "The transceiver receives room signals and applies the configured control strategy to supported HVAC equipment.",
+  "lighting-controls":
+    "A GEM Link control path can use shared occupancy and door signals to manage suitable lighting loads.",
+  "appliance-controls":
+    "The same occupancy-led strategy can extend to suitable loads such as two-burner cooktops and individual electric water heaters.",
+};
+
+function SolutionNode({
+  children,
+  icon,
+  isSelected,
+  onSelect,
+  overline,
+  slug,
+}: SolutionNodeProps) {
+  return (
+    <button
+      aria-pressed={isSelected}
+      className="ecosystem-solution-node"
+      data-solution-node={slug}
+      onClick={onSelect}
+      type="button"
+    >
+      <span className="ecosystem-node-icon">{icon}</span>
+      <span>
+        <span className="ecosystem-node-overline">{overline}</span>
+        <strong>
+          <BrandText>{children}</BrandText>
+        </strong>
+      </span>
+    </button>
+  );
+}
+
 export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
   const [selectedSlug, setSelectedSlug] = useState<ProductSlug>(currentSlug);
   const selected =
-    solutions.find((product) => product.slug === selectedSlug) ?? solutions[0];
+    products.find((product) => product.slug === selectedSlug) ?? products[0];
 
   return (
-    <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-      <div className="border-border bg-surface-muted relative grid gap-3 rounded-xl border p-5 sm:grid-cols-2 sm:p-8">
-        <span
-          aria-hidden
-          className="bg-brand-soft border-brand absolute inset-[20%] hidden rounded-full border border-dashed sm:block"
-        />
-        {solutions.map((product) => (
-          <button
-            aria-pressed={selectedSlug === product.slug}
-            className={`relative min-h-24 cursor-pointer rounded-lg border p-4 text-left transition-colors ${selectedSlug === product.slug ? "border-brand bg-brand-soft text-brand-strong" : "border-border bg-surface text-foreground hover:border-brand"}`}
-            key={product.slug}
-            onClick={() => setSelectedSlug(product.slug)}
-            type="button"
-          >
-            <span className="block text-sm font-bold">
-              <BrandText>{product.label}</BrandText>
-            </span>
-            <span className="text-muted mt-1 block text-xs leading-5">
-              {product.eyebrow}
-            </span>
-          </button>
-        ))}
+    <div className="ecosystem-experience">
+      <div className="ecosystem-legend" aria-label="Diagram legend">
+        <span>
+          <i className="ecosystem-legend-line" aria-hidden />
+          GEM Link control path
+        </span>
+        <span>
+          <i className="ecosystem-legend-outline" aria-hidden />
+          Complementary room solution
+        </span>
       </div>
+
       <div
-        aria-live="polite"
-        className="border-border bg-surface rounded-xl border p-6 sm:p-8"
+        aria-label="Connected solution diagram"
+        className="ecosystem-diagram"
+        data-testid="connected-solution-diagram"
+        role="group"
       >
-        <p className="eyebrow">Selected solution</p>
-        <h3 className="text-foreground mt-3 text-2xl font-bold">
-          {selected.label}
-        </h3>
-        <p className="text-muted mt-3 text-sm leading-6">
-          {selected.shortDescription}
-        </p>
+        <div className="ecosystem-thermostat-path">
+          <p>Complementary room control</p>
+          <SolutionNode
+            icon={<ThermostatIcon />}
+            isSelected={selectedSlug === "gem-stat-et"}
+            onSelect={() => setSelectedSlug("gem-stat-et")}
+            overline="Occupancy-based thermostat"
+            slug="gem-stat-et"
+          >
+            GEM Stat™ ET
+          </SolutionNode>
+        </div>
+
+        <section
+          className="ecosystem-signal-card"
+          aria-labelledby="signals-title"
+        >
+          <p className="ecosystem-stage-label">01 / Sense</p>
+          <h3 id="signals-title">Room signals</h3>
+          <div className="ecosystem-signal-list">
+            <div>
+              <PirSensorIcon />
+              <span>PIR occupancy sensor</span>
+            </div>
+            <div>
+              <DoorContactIcon />
+              <span>Entry and balcony contacts</span>
+            </div>
+          </div>
+        </section>
+
+        <div className="ecosystem-flow ecosystem-flow-input" aria-hidden>
+          <span>Wireless signals</span>
+          <i />
+        </div>
+
+        <section
+          className="ecosystem-control-card"
+          aria-labelledby="control-title"
+        >
+          <p className="ecosystem-stage-label">02 / Decide</p>
+          <h3 id="control-title">Control layer</h3>
+          <SolutionNode
+            icon={<TransceiverIcon />}
+            isSelected={selectedSlug === "gem-link-wireless"}
+            onSelect={() => setSelectedSlug("gem-link-wireless")}
+            overline="Transceiver control module"
+            slug="gem-link-wireless"
+          >
+            GEM Link® Wireless – HVAC
+          </SolutionNode>
+        </section>
+
+        <div className="ecosystem-flow ecosystem-flow-output" aria-hidden>
+          <span>Configured response</span>
+          <i />
+        </div>
+
+        <section className="ecosystem-load-card" aria-labelledby="loads-title">
+          <p className="ecosystem-stage-label">03 / Act</p>
+          <h3 id="loads-title">Managed loads</h3>
+          <div className="ecosystem-load-list">
+            <div className="ecosystem-static-load">
+              <span className="ecosystem-node-icon">
+                <HvacIcon />
+              </span>
+              <span>
+                <small>Supported equipment</small>
+                <strong>HVAC</strong>
+              </span>
+            </div>
+            <SolutionNode
+              icon={<LightingIcon />}
+              isSelected={selectedSlug === "lighting-controls"}
+              onSelect={() => setSelectedSlug("lighting-controls")}
+              overline="Suitable lighting loads"
+              slug="lighting-controls"
+            >
+              GEM Link® Wireless – Lighting Control
+            </SolutionNode>
+            <SolutionNode
+              icon={<ApplianceIcon />}
+              isSelected={selectedSlug === "appliance-controls"}
+              onSelect={() => setSelectedSlug("appliance-controls")}
+              overline="Selected electric loads"
+              slug="appliance-controls"
+            >
+              GEM Link® – Appliance Control
+            </SolutionNode>
+          </div>
+        </section>
+      </div>
+
+      <div aria-live="polite" className="ecosystem-detail">
+        <div>
+          <p className="ecosystem-stage-label">Selected solution</p>
+          <h3>
+            <BrandText>{selected.label}</BrandText>
+          </h3>
+          <p>{connectionDescriptions[selected.slug]}</p>
+        </div>
         {selected.slug === currentSlug ? (
-          <p className="text-brand-strong mt-5 text-sm font-semibold">
-            You are viewing this solution.
-          </p>
+          <p className="ecosystem-current">You are viewing this solution.</p>
         ) : (
           <ButtonLink
-            className="mt-5"
             href={`/solutions/${selected.slug}`}
             showArrow
             variant="outline"
@@ -68,6 +207,11 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
           </ButtonLink>
         )}
       </div>
+
+      <p className="ecosystem-source-note">
+        Solid lines trace the documented GEM Link® control path. GEM Stat™ ET is
+        presented as a complementary room-level HVAC solution.
+      </p>
     </div>
   );
 }
