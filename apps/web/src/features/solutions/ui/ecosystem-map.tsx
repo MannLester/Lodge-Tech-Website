@@ -107,6 +107,11 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
           </SolutionNode>
         </div>
 
+        <div className="ecosystem-affinity-flow" aria-hidden>
+          <span>Separate room-comfort path</span>
+          <i />
+        </div>
+
         <section
           className="ecosystem-signal-card"
           aria-labelledby="signals-title"
@@ -216,8 +221,8 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
       </div>
 
       <p className="ecosystem-source-note">
-        Solid lines trace the documented GEM Link® control path. GEM Stat™ ET
-        is presented as a complementary room-level HVAC solution.
+        Solid lines trace the documented GEM Link® control path. GEM Stat™ ET is
+        presented as a complementary room-level HVAC solution.
       </p>
     </div>
   );
