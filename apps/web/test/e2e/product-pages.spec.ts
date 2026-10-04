@@ -153,12 +153,29 @@ test("primary Solutions navigation exposes the four product routes", async ({
   await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
 });
 
-test("ecosystem controls expose their selected details", async ({ page }) => {
+test("ecosystem diagram exposes its connections and selected details", async ({
+  page,
+}) => {
   await page.goto("/solutions/gem-stat-et");
 
-  await page
-    .getByRole("button", { name: "GEM Link® Wireless – Lighting Control" })
-    .click();
+  const diagram = page.getByRole("group", {
+    name: "Connected solution diagram",
+  });
+  await expect(diagram.getByText("PIR occupancy sensor")).toBeVisible();
+  await expect(diagram.getByText("Entry and balcony contacts")).toBeVisible();
+  await expect(diagram.getByText("Control layer")).toBeVisible();
+  await expect(diagram.getByText("Managed loads")).toBeVisible();
+
+  for (const label of products.map((product) => product.label)) {
+    await expect(diagram.getByRole("button", { name: label })).toBeVisible();
+  }
+
+  const lightingControl = diagram.getByRole("button", {
+    name: "GEM Link® Wireless – Lighting Control",
+  });
+  await lightingControl.focus();
+  await page.keyboard.press("Enter");
+  await expect(lightingControl).toHaveAttribute("aria-pressed", "true");
   await expect(
     page.getByRole("link", {
       name: "Explore GEM Link® Wireless – Lighting Control",
