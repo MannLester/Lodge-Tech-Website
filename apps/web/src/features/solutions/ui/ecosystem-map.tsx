@@ -107,6 +107,11 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
           </SolutionNode>
         </div>
 
+        <div className="ecosystem-affinity-flow" aria-hidden>
+          <span>Separate room-comfort path</span>
+          <i />
+        </div>
+
         <section
           className="ecosystem-signal-card"
           aria-labelledby="signals-title"

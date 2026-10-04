@@ -1589,7 +1589,7 @@
 .marketing-site .ecosystem-diagram {
   display: grid;
   grid-template-areas:
-    "thermostat . . . ."
+    "thermostat affinity affinity affinity loads"
     "signals input control output loads";
   grid-template-columns:
     minmax(13rem, 0.95fr) minmax(2.5rem, 0.38fr) minmax(14rem, 1fr)
@@ -1617,6 +1617,34 @@
   padding: 0.7rem;
   border: 1px dashed color-mix(in srgb, var(--brand) 60%, transparent);
   border-radius: 1rem;
+}
+.marketing-site .ecosystem-affinity-flow {
+  grid-area: affinity;
+  align-self: center;
+  color: var(--editorial-muted);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.marketing-site .ecosystem-affinity-flow i {
+  position: relative;
+  display: block;
+  height: 1px;
+  margin-top: 0.55rem;
+  border-top: 1px dashed color-mix(in srgb, var(--brand) 65%, transparent);
+}
+.marketing-site .ecosystem-affinity-flow i::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-top: 1px solid var(--brand);
+  border-right: 1px solid var(--brand);
+  content: "";
+  transform: translateY(-50%) rotate(45deg);
 }
 .marketing-site .ecosystem-thermostat-path > p {
   margin: 0 0 0.55rem 0.3rem;
@@ -1897,6 +1925,7 @@
   .marketing-site .ecosystem-diagram {
     grid-template-areas:
       "thermostat"
+      "affinity"
       "signals"
       "input"
       "control"
@@ -1907,6 +1936,9 @@
   }
   .marketing-site .ecosystem-thermostat-path {
     width: min(100%, 25rem);
+  }
+  .marketing-site .ecosystem-affinity-flow {
+    display: none;
   }
   .marketing-site .ecosystem-flow {
     grid-template-rows: auto 2.2rem;
