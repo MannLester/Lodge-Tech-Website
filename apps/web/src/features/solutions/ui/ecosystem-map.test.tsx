@@ -36,9 +36,7 @@ describe("EcosystemMap", () => {
     expect(screen.getByText("You are viewing this solution.")).toBeVisible();
 
     expect(
-      screen.getByRole("button", {
-        name: /GEM Link® Wireless – DHW Controls/,
-      }),
+      screen.getByRole("button", { name: /GEM Link® – Appliance Control/ }),
     ).toBeVisible();
 
     const lighting = screen.getByRole("button", {
