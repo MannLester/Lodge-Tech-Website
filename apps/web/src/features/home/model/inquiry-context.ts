@@ -1,6 +1,5 @@
 const productLabels = {
-  "appliance-controls": "GEM Link® Wireless – Appliance Controls",
-  "dhw-controls": "GEM Link® Wireless – DHW Controls",
+  "appliance-controls": "GEM Link® – Appliance Control",
   "gem-link-wireless": "GEM Link® Wireless – HVAC",
   "gem-stat-et": "GEM Stat™ ET",
   "lighting-controls": "GEM Link® Wireless – Lighting Control",

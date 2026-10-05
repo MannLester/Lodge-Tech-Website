@@ -12,20 +12,20 @@ import {
 
 describe("product content", () => {
   it("defines one complete entry for every public product route", () => {
-    expect(products).toHaveLength(5);
+    expect(products).toHaveLength(4);
     expect(products.map((product) => product.slug)).toEqual(productSlugs);
     expect(solutions.map((solution) => solution.slug)).toEqual(solutionSlugs);
     expect(solutions.map((solution) => solution.label)).toEqual([
       "GEM Link® Wireless – HVAC",
       "GEM Link® Wireless – Lighting Control",
-      "GEM Link® Wireless – DHW Controls",
-      "GEM Link® Wireless – Appliance Controls",
+      "GEM Link® – Appliance Control",
     ]);
 
     for (const slug of productSlugs) {
       const product = getProduct(slug);
       expect(product.features).toHaveLength(4);
       expect(product.showcases).toHaveLength(2);
+      expect(product.heroImageAlt).not.toContain("placeholder");
       expect(product.specifications.length).toBeGreaterThanOrEqual(3);
     }
   });

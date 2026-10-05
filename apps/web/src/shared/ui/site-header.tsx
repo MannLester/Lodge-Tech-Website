@@ -9,6 +9,7 @@ import {
   primaryNavigationItems,
   solutionNavigationItems,
 } from "@/shared/config/navigation";
+import { BrandText } from "@/shared/ui/brand-text";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 import { ButtonLink } from "@lodging-technologies/ui/button-link";
 import { ThemeToggle } from "@lodging-technologies/ui/theme-toggle";
@@ -55,7 +56,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                       href={solution.href}
                       key={solution.href}
                     >
-                      {solution.label}
+                      <BrandText>{solution.label}</BrandText>
                     </a>
                   ))}
                 </div>
@@ -142,7 +143,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                         key={solution.href}
                         onClick={() => setMenuOpen(false)}
                       >
-                        {solution.label}
+                        <BrandText>{solution.label}</BrandText>
                       </a>
                     ))}
                   </div>

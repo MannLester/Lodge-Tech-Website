@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { BrandText } from "@/shared/ui/brand-text";
+
 export function PlatformSection() {
   return (
     <section
@@ -42,7 +44,8 @@ export function PlatformSection() {
               <div>
                 <h3>Connect the property</h3>
                 <p>
-                  GEM Link® Wireless connects supported controls and equipment.
+                  <BrandText>GEM Link® Wireless</BrandText> connects supported
+                  controls and equipment.
                 </p>
               </div>
             </li>

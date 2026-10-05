@@ -62,17 +62,10 @@ export const products = [
   },
   {
     description:
-      "Domestic hot water control planning for property equipment and demand.",
-    href: "/solutions/dhw-controls",
-    mediaLabel: "DHW control illustration",
-    title: "GEM Link® Wireless – DHW Controls",
-  },
-  {
-    description:
-      "Appliance and auxiliary load coordination for suitable equipment.",
+      "Control selected in-room cooktops and individual electric water heaters.",
     href: "/solutions/appliance-controls",
-    mediaLabel: "Appliance control product image",
-    title: "GEM Link® Wireless – Appliance Controls",
+    mediaLabel: "Power Pack appliance-control product image",
+    title: "GEM Link® – Appliance Control",
   },
 ] as const;
 
@@ -80,7 +73,7 @@ export const industries = [
   {
     description:
       "Reduce energy expense across guest rooms, common areas, and variable occupancy patterns.",
-    mediaLabel: "Hospitality property photography",
+    mediaLabel: "Hotel entrance with a covered drive-under portico",
     title: "Hospitality",
   },
   {

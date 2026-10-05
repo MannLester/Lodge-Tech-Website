@@ -13,8 +13,7 @@ test("mobile product stories remain readable without a carousel", async ({
     "GEM Stat™ ET",
     "GEM Link® Wireless HVAC",
     "GEM Link® Wireless – Lighting Control",
-    "GEM Link® Wireless – DHW Controls",
-    "GEM Link® Wireless – Appliance Controls",
+    "GEM Link® – Appliance Control",
   ]) {
     const link = products.getByRole("link", {
       name: "Learn more about " + label,

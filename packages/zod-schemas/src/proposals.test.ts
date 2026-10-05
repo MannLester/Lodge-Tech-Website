@@ -26,6 +26,7 @@ const valid = {
   guestControl: "wall",
   utilityCompany: "",
   products: ["gem-link-wireless"],
+  applianceApplications: [],
   notes: "",
   website: "",
 };
@@ -37,13 +38,27 @@ describe("proposalSchema", () => {
       proposalSchema.safeParse({
         ...valid,
         products: [
+          "gem-stat-et",
           "gem-link-wireless",
           "lighting-controls",
-          "dhw-controls",
           "appliance-controls",
+        ],
+        applianceApplications: [
+          "two-burner-cooktop",
+          "in-room-electric-water-heater",
         ],
       }).success,
     ).toBe(true);
+  });
+
+  it("requires Appliance Control when an appliance application is selected", () => {
+    const parsed = proposalSchema.safeParse({
+      ...valid,
+      applianceApplications: ["two-burner-cooktop"],
+    });
+    expect(parsed.success).toBe(false);
+    if (!parsed.success)
+      expect(parsed.error.issues[0]?.path).toEqual(["applianceApplications"]);
   });
 
   it("requires a suite description when suites are declared", () => {

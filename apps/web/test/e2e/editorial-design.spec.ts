@@ -36,6 +36,11 @@ test("industry selection exposes one relevant description and contact route", as
 }) => {
   await page.goto("/");
   const industries = page.locator("#industries");
+  await expect(
+    industries.getByRole("img", {
+      name: "Hotel entrance with a covered drive-under portico",
+    }),
+  ).toBeVisible();
   const selected = industries.getByRole("button", { name: /Student Housing/ });
   await selected.focus();
   await page.keyboard.press("Enter");
@@ -158,15 +163,17 @@ test("platform inquiry carries product context into the existing form", async ({
   );
 });
 
-test("GEM Link puts the platform at the center of its pulsing connections", async ({
+test("GEM Link® Wireless pairs connected control with Beyond HVAC products", async ({
   page,
 }) => {
   await page.goto("/#solutions");
-  const gemLink = page.locator(".wireless-feature");
-  const visual = gemLink.locator(".wireless-platform-connection");
+  const gemLink = page.locator(".product-showcase");
+  const connected = gemLink.locator(".connected-property-panel");
+  const visual = connected.locator(".wireless-platform-connection");
   const stage = visual.locator(".wireless-platform-stage");
-  const lightWordmark = visual.locator(".wireless-platform-logo-light");
-  const darkWordmark = visual.locator(".wireless-platform-logo-dark");
+  const beyondHvac = gemLink.locator(".beyond-hvac-panel");
+  const lightWordmark = connected.locator(".wireless-platform-logo-light");
+  const darkWordmark = connected.locator(".wireless-platform-logo-dark");
 
   await expect(visual.getByRole("img")).toHaveCount(1);
   await expect(lightWordmark).toHaveAttribute("alt", "");
@@ -182,21 +189,42 @@ test("GEM Link puts the platform at the center of its pulsing connections", asyn
     document.documentElement.setAttribute("data-theme", "light"),
   );
   await expect(visual).toContainText(
-    "One connected view, from room to property.",
+    "GEM Link® Wireless brings supported room controls and building loads into a coordinated operating view.",
   );
   const stageWidth = (await stage.boundingBox())!.width;
   const imageWidth = (await visual
     .locator(".wireless-platform-image")
     .boundingBox())!.width;
   expect(stageWidth).toBeLessThanOrEqual((await visual.boundingBox())!.width);
-  expect(imageWidth).toBeGreaterThanOrEqual(150);
+  expect(imageWidth).toBeGreaterThanOrEqual(240);
   expect(imageWidth).toBeLessThanOrEqual(stageWidth);
   await expect(visual.locator(".connection-loads span")).toHaveText([
     "HVAC",
     "Lighting",
-    "DHW",
-    "Appliances",
+    "Appliance",
   ]);
+  await expect(
+    beyondHvac.getByRole("heading", { name: "Beyond HVAC" }),
+  ).toBeVisible();
+  await expect(beyondHvac.locator(".supporting-product")).toHaveCount(2);
+  await expect(beyondHvac.locator(".supporting-product-image img")).toHaveCount(
+    2,
+  );
+  const thumbnailWidths = await beyondHvac
+    .locator(".supporting-product-image")
+    .evaluateAll((thumbnails) =>
+      thumbnails.map((thumbnail) => thumbnail.getBoundingClientRect().width),
+    );
+  const maximumThumbnailWidth =
+    page.viewportSize()!.width >= 768 ? 120 : 92;
+  for (const width of thumbnailWidths) {
+    expect(width).toBeLessThanOrEqual(maximumThumbnailWidth);
+  }
+  await expect(
+    beyondHvac.getByRole("link", {
+      name: "Learn more about GEM Link® Wireless HVAC",
+    }),
+  ).toHaveAttribute("href", "/solutions/gem-link-wireless");
   expect(
     await stage.evaluate(
       (element) => getComputedStyle(element, "::before").animationName,
