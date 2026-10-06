@@ -1,6 +1,31 @@
 .marketing-site .results-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(30rem, 46vw, 42rem);
   padding-block: clamp(4rem, 8vw, 7rem);
-  background: var(--editorial-paper);
+  overflow: hidden;
+  background: #0b2638;
+  color: #f5f7f6;
+}
+.marketing-site .results-hero-image {
+  z-index: -2;
+  object-fit: cover;
+  object-position: center 52%;
+}
+.marketing-site .results-hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    rgb(11 38 56 / 96%) 0%,
+    rgb(11 38 56 / 90%) 35%,
+    rgb(11 38 56 / 68%) 62%,
+    rgb(11 38 56 / 25%) 100%
+  );
 }
 .marketing-site .results-hero h1 {
   max-width: 18ch;
@@ -9,6 +34,7 @@
 }
 .marketing-site .results-hero .editorial-copy {
   max-width: 42rem;
+  color: #e4eef1;
 }
 .marketing-site .results-case-layout {
   display: grid;
@@ -96,6 +122,16 @@
 .marketing-site .results-table td:last-child {
   font-weight: 600;
 }
+@media (max-width: 74.99rem) {
+  .marketing-site .results-hero::after {
+    background: linear-gradient(
+      90deg,
+      rgb(11 38 56 / 92%) 0%,
+      rgb(11 38 56 / 82%) 60%,
+      rgb(11 38 56 / 74%) 100%
+    );
+  }
+}
 @media (max-width: 63.99rem) {
   .marketing-site .results-case-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -104,6 +140,17 @@
 @media (max-width: 47.99rem) {
   .marketing-site .results-hero {
     padding-block: 3rem;
+  }
+  .marketing-site .results-hero-image {
+    object-position: 62% center;
+  }
+  .marketing-site .results-hero::after {
+    background: linear-gradient(
+      180deg,
+      rgb(11 38 56 / 85%) 0%,
+      rgb(11 38 56 / 82%) 58%,
+      rgb(11 38 56 / 72%) 100%
+    );
   }
   .marketing-site .results-table {
     font-size: 0.8125rem;
