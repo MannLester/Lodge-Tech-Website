@@ -166,3 +166,31 @@ export function ApplianceIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function OperatingViewIcon(props: IconProps) {
+  return (
+    <svg {...sharedProps} {...props}>
+      <rect
+        className="solution-icon-fill solution-icon-stroke"
+        x="10"
+        y="15"
+        width="76"
+        height="54"
+        rx="7"
+      />
+      <rect
+        className="solution-icon-screen"
+        x="18"
+        y="23"
+        width="60"
+        height="38"
+        rx="3"
+      />
+      <path d="M36 80h24M48 69v11" className="solution-icon-detail" />
+      <path
+        d="M28 52V40m13 12V32m13 20V37m13 15V29"
+        className="solution-icon-signal"
+      />
+    </svg>
+  );
+}
