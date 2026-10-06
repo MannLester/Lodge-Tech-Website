@@ -42,14 +42,20 @@ test("keeps product branding and a contact route in public-page footers", async 
     const footer = page.locator("footer");
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
     const gemLinkLinks = footer.getByRole("link", {
-      name: "GEM Link® Wireless",
+      name: "GEM Link® Wireless – HVAC",
       exact: true,
     });
-    await expect(gemLinkLinks).toHaveCount(2);
+    await expect(gemLinkLinks).toHaveCount(1);
     await expect(gemLinkLinks.first()).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toHaveCount(2);
+    ).toHaveCount(1);
+    await expect(
+      footer.getByRole("link", { name: "Property Results" }),
+    ).toHaveAttribute("href", "/results");
+    await expect(footer).not.toContainText(
+      /Blog|White Papers|Utility Rebate Capture|Cloud Platform/,
+    );
     await expect(
       footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
@@ -73,9 +79,7 @@ test("keeps product branding and a contact route in public-page footers", async 
   }
 });
 
-test("shows the inquiry form and current contact links", async ({
-  page,
-}) => {
+test("shows the inquiry form and current contact links", async ({ page }) => {
   await page.goto("/#contact");
   const contact = page.locator("#contact");
   await expect(
