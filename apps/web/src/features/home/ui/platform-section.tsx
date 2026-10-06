@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ConnectedViewGraph } from "@/features/solutions";
 import { BrandText } from "@/shared/ui/brand-text";
 
 export function PlatformSection() {
@@ -59,26 +60,18 @@ export function PlatformSection() {
               </div>
             </li>
           </ol>
-          <figure className="platform-flow-figure">
-            <figcaption>
-              <p className="chapter-label">Connected view</p>
-              <h3>From room signal to building insight.</h3>
-              <p>
-                Follow occupancy sensing through supported controls to operating
-                information your team can review.
-              </p>
-            </figcaption>
-            <div aria-hidden="true" className="platform-flow-frame">
-              <span>Room signal</span>
-              <span className="platform-flow-arrow">→</span>
-              <span>Property view</span>
-            </div>
-          </figure>
-          <p className="small-note">
-            Illustrative system flow. Available capabilities depend on the
-            selected equipment and configuration.
-          </p>
         </div>
+        <figure className="platform-flow-figure">
+          <figcaption>
+            <p className="chapter-label">Connected view</p>
+            <h3>From room signal to building insight.</h3>
+            <p>
+              Follow occupancy sensing through supported controls to operating
+              information your team can review.
+            </p>
+          </figcaption>
+          <ConnectedViewGraph />
+        </figure>
       </div>
     </section>
   );
