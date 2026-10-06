@@ -9,20 +9,12 @@ import { BrandText } from "@/shared/ui/brand-text";
 
 const supportingProducts = [
   {
-    title: "GEM Link® Wireless – Lighting Control",
+    title: "GEM Link® Wireless – Lighting Controls",
     image: appliancePowerPackImage,
     imageAlt:
       "Power Pack relay for lighting control with red, black, and white wiring",
     slug: "lighting-controls",
     copy: "The right light, around real building use.",
-  },
-  {
-    title: "GEM Link® – Appliance Control",
-    image: appliancePowerPackImage,
-    imageAlt:
-      "Power Pack appliance-control relay with red, black, and white wiring",
-    slug: "appliance-controls",
-    copy: "Coordinate suitable in-room cooktops and individual electric water heaters.",
   },
 ] as const;
 
@@ -129,13 +121,19 @@ export function ProductSection() {
               <div className="connection-loads">
                 <span>HVAC</span>
                 <span>Lighting</span>
-                <span>Appliance</span>
               </div>
               <figcaption>
                 <BrandText>GEM Link® Wireless</BrandText> brings supported room
                 controls and building loads into a coordinated operating view.
               </figcaption>
             </figure>
+            <Link
+              aria-label="Learn more about GEM Link® Wireless HVAC"
+              className="editorial-link product-panel-link"
+              href="/solutions/gem-link-wireless"
+            >
+              Explore GEM Link Wireless <span aria-hidden>↗</span>
+            </Link>
           </div>
 
           <div className="beyond-hvac-panel">
@@ -168,13 +166,6 @@ export function ProductSection() {
                 </article>
               ))}
             </div>
-            <Link
-              aria-label="Learn more about GEM Link® Wireless HVAC"
-              className="editorial-link product-panel-link"
-              href="/solutions/gem-link-wireless"
-            >
-              Explore GEM Link Wireless <span aria-hidden>↗</span>
-            </Link>
           </div>
         </article>
       </div>
