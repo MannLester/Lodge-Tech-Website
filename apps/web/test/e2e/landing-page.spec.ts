@@ -189,7 +189,9 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   const form = page.getByRole("form", {
     name: "General inquiry",
   });
-  await form.getByRole("button", { name: "Send My Request" }).click();
+  await form
+    .getByRole("button", { name: "Request Proposal / Site Survey" })
+    .click();
 
   await expect(form.getByText("Enter your name.")).toBeVisible();
   await expect(form.getByText("Enter your email.")).toBeVisible();
@@ -206,7 +208,9 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   await form
     .getByLabel("Project notes")
     .fill("We want to review HVAC and lighting savings.");
-  await form.getByRole("button", { name: "Send My Request" }).click();
+  await form
+    .getByRole("button", { name: "Request Proposal / Site Survey" })
+    .click();
 
   await expect(
     form.getByText(
