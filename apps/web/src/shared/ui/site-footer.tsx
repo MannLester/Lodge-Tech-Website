@@ -23,7 +23,7 @@ const footerLinkGroups = [
     label: "Company",
     links: [
       { href: "/company", label: "About Us" },
-      { href: "/results", label: "Property Results" },
+      { href: "/#results", label: "Property Results" },
       { href: "/#contact", label: "Contact & Support" },
     ],
   },
