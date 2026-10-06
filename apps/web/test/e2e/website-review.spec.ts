@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("room and connected stories keep readable text apart from their illustrations", async ({
+test("room overlay and connected stories retain readable typography", async ({
   page,
 }) => {
   await page.goto("/");
@@ -11,7 +11,15 @@ test("room and connected stories keep readable text apart from their illustratio
     );
     const photo = await page.locator(".occupancy-photo").boundingBox();
     const caption = await page.locator(".occupancy-caption").boundingBox();
-    expect(caption!.y).toBeGreaterThanOrEqual(photo!.y + photo!.height);
+    expect(caption!.y).toBeGreaterThanOrEqual(photo!.y);
+    expect(caption!.y + caption!.height).toBeLessThanOrEqual(
+      photo!.y + photo!.height + 1,
+    );
+    await expect(
+      page.locator(".occupancy-caption p:not(.chapter-label)"),
+    ).toHaveText(
+      "Guests choose their comfort while they’re in the room. When they leave, occupancy sensing helps the controls follow the property’s configured energy-saving settings.",
+    );
     const flow = page.locator(".platform-flow-figure");
     await expect(
       flow.getByRole("heading", {
@@ -49,7 +57,26 @@ test("room and connected stories keep readable text apart from their illustratio
       ".platform-flow-figure figcaption",
     ]) {
       const contrast = await page.locator(selector).evaluate((element) => {
-        const background = getComputedStyle(element).backgroundColor;
+        const containerStyle = getComputedStyle(element);
+        let background = containerStyle.backgroundColor;
+        if (element.classList.contains("occupancy-caption")) {
+          const shades = [
+            ...containerStyle.backgroundImage.matchAll(
+              /rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/g,
+            ),
+          ]
+            .map((match) => ({
+              channels: match.slice(1, 4).map(Number),
+              alpha: Number(match[4] ?? 1),
+            }))
+            .filter((shade) => shade.alpha > 0)
+            .sort((a, b) => a.alpha - b.alpha);
+          const shade = shades[0];
+          const composite = shade.channels.map(
+            (channel) => channel * shade.alpha + 255 * (1 - shade.alpha),
+          );
+          background = `rgb(${composite.join(", ")})`;
+        }
         const text = element.querySelector("p:not(.chapter-label)")!;
         const style = getComputedStyle(text);
         const luminance = (color: string) => {

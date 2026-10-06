@@ -138,11 +138,8 @@
 }
 .marketing-site .occupancy-photo {
   position: relative;
-  min-height: clamp(22rem, 35vw, 32rem);
+  min-height: 34rem;
   overflow: hidden;
-}
-.marketing-site .occupancy-scene {
-  min-width: 0;
 }
 .marketing-site .occupancy-photo img {
   opacity: 0;
@@ -162,14 +159,20 @@
   }
 }
 .marketing-site .occupancy-caption {
+  position: absolute;
+  inset: auto 0 0;
   display: grid;
   gap: 0.75rem;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  background: #123447;
+  padding: 4.5rem clamp(1.5rem, 3vw, 2rem) 1.5rem;
+  background: linear-gradient(
+    transparent,
+    rgb(4 15 23 / 86%) 4rem,
+    rgb(4 15 23 / 95%)
+  );
   color: #f5f7f6;
 }
 .marketing-site .occupancy-caption .chapter-label {
-  color: #b7cbd2;
+  color: #e4eef1;
 }
 .marketing-site .occupancy-caption h3 {
   font-size: clamp(1.2rem, 2.3vw, 1.8rem);
@@ -179,7 +182,7 @@
 }
 .marketing-site .occupancy-caption p:not(.chapter-label) {
   max-width: 34rem;
-  color: #d5e2e7;
+  color: #f5f7f6;
   font-size: 0.95rem;
   line-height: 1.75;
 }
@@ -2398,7 +2401,7 @@
     margin-top: 0;
   }
   .marketing-site .occupancy-photo {
-    min-height: 20rem;
+    min-height: 26rem;
   }
   .marketing-site .occupancy-layout {
     position: relative;
