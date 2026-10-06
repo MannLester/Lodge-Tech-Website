@@ -45,7 +45,7 @@ const footerLinkGroups = [
 export function SiteFooter() {
   return (
     <footer className="border-border bg-surface-muted border-t py-10">
-      <div className="section-shell grid gap-10 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_2.5fr]">
+      <div className="section-shell grid gap-10 md:grid-cols-[16rem_minmax(0,1fr)] lg:grid-cols-[1fr_2.5fr]">
         <div className="max-w-64">
           <BrandMark href="/#top" />
           <p className="text-muted mt-4 text-sm leading-6">
@@ -67,7 +67,7 @@ export function SiteFooter() {
           >
             <Image
               alt="BBB Accredited Business"
-              className="h-auto w-32 sm:w-36"
+              className="h-auto w-32 shrink-0 sm:w-36"
               src={bbbAccreditedBusinessSeal}
             />
             <span className="border-border flex flex-col border-l pl-3 text-center text-slate-950">
