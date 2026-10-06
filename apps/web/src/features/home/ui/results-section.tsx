@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function ResultsSection() {
   return (
     <section
@@ -14,10 +16,13 @@ export function ResultsSection() {
             is in the details.
           </h2>
           <p className="editorial-copy">
-            Every property operates differently. A useful savings conversation
-            starts with your equipment, your occupancy patterns, and your
-            utility costs.
+            Explore reported property results, then start a savings conversation
+            with your equipment, occupancy patterns, and utility costs.
           </p>
+          <Link className="editorial-link" href="/results">
+            Explore property results <span aria-hidden>↗</span>
+          </Link>
+          <br />
           <a className="editorial-link" href="#contact">
             Start a Savings Review <span aria-hidden>↗</span>
           </a>

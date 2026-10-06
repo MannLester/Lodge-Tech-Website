@@ -54,10 +54,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                   ))}
                 </div>
               </details>
-            ) : item.hash === "company" ? (
+            ) : item.hash === "company" || item.hash === "results" ? (
               <Link
                 className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
-                href="/company"
+                href={`/${item.hash}`}
                 key={item.hash}
               >
                 {item.label}
@@ -137,10 +137,10 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                     ))}
                   </div>
                 </div>
-              ) : item.hash === "company" ? (
+              ) : item.hash === "company" || item.hash === "results" ? (
                 <Link
                   className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
-                  href="/company"
+                  href={`/${item.hash}`}
                   key={item.hash}
                   onClick={() => setMenuOpen(false)}
                 >
