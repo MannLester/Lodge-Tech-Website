@@ -36,7 +36,7 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
                 <li>
                   <a
                     aria-label="Facebook"
-                    href="https://www.facebook.com/profile.php?id=100066727996704"
+                    href="https://www.facebook.com/people/Lodging-Technologies/61594577464936/"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -53,7 +53,7 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
                 <li>
                   <a
                     aria-label="LinkedIn"
-                    href="https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc"
+                    href="https://www.linkedin.com/company/lodging-technologies"
                     rel="noopener noreferrer"
                     target="_blank"
                   >

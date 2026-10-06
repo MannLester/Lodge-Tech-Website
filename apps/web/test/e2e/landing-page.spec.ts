@@ -99,13 +99,13 @@ test("shows the inquiry form and current contact links", async ({ page }) => {
   const facebookLink = contact.getByRole("link", { name: "Facebook" });
   await expect(facebookLink).toHaveAttribute(
     "href",
-    "https://www.facebook.com/profile.php?id=100066727996704",
+    "https://www.facebook.com/people/Lodging-Technologies/61594577464936/",
   );
   await expect(facebookLink.locator("svg")).toBeVisible();
   const linkedInLink = contact.getByRole("link", { name: "LinkedIn" });
   await expect(linkedInLink).toHaveAttribute(
     "href",
-    "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
+    "https://www.linkedin.com/company/lodging-technologies",
   );
   await expect(linkedInLink.locator("svg")).toBeVisible();
   const instagramLink = contact.getByRole("link", { name: "Instagram" });
