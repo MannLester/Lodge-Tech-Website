@@ -18,7 +18,6 @@ describe("product content", () => {
     expect(solutions.map((solution) => solution.label)).toEqual([
       "GEM Link® Wireless – HVAC",
       "GEM Link® Wireless – Lighting Control",
-      "GEM Link® – Appliance Control",
     ]);
 
     for (const slug of productSlugs) {
