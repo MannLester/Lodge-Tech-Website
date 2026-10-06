@@ -66,24 +66,6 @@ export function CompanyPage() {
                   </p>
                 </div>
               </div>
-              <figure className="founder-video-brief">
-                <div
-                  aria-hidden="true"
-                  className="video-brief-frame founder-video-frame"
-                >
-                  <span>The first idea</span>
-                  <span>Today&apos;s work</span>
-                </div>
-                <figcaption>
-                  <span>Video concept / Founder conversation</span>
-                  <strong>The story in his words.</strong>
-                  <p>
-                    Film William C. Fizer discussing the hotel R&amp;D problem
-                    that inspired occupancy sensing and how it informs the
-                    team&apos;s work today.
-                  </p>
-                </figcaption>
-              </figure>
             </div>
             <div className="company-page-approach">
               <h3>Working with a property</h3>
