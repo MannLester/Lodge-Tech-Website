@@ -18,6 +18,32 @@ test("room and connected stories keep readable text apart from their illustratio
         name: "From room signal to building insight.",
       }),
     ).toBeVisible();
+    const graph = flow.getByRole("list", {
+      name: "From room signals to property review",
+    });
+    await expect(graph.getByRole("listitem")).toHaveCount(4);
+    await expect(graph.locator("svg")).toHaveCount(6);
+    await expect(graph).not.toContainText("Appliance");
+    await expect(
+      graph.getByRole("link", { name: "Lighting controls" }),
+    ).toHaveAttribute("href", "/solutions/lighting-controls");
+    const nodes = await graph.getByRole("listitem").all();
+    for (let index = 1; index < nodes.length; index += 1) {
+      const previous = (await nodes[index - 1].boundingBox())!;
+      const next = (await nodes[index].boundingBox())!;
+      if (page.viewportSize()!.width >= 1120)
+        expect(next.x).toBeGreaterThan(previous.x);
+      else expect(next.y).toBeGreaterThan(previous.y + previous.height);
+    }
+    const reviewLine = await graph
+      .locator(".connected-view-review-source")
+      .evaluate((node) => {
+        const style = getComputedStyle(node, "::after");
+        return window.matchMedia("(max-width: 69.99rem)").matches
+          ? style.borderLeftStyle
+          : style.borderTopStyle;
+      });
+    expect(reviewLine).toBe("dashed");
     for (const selector of [
       ".occupancy-caption",
       ".platform-flow-figure figcaption",
