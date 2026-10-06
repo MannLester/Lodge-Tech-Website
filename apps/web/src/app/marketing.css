@@ -138,8 +138,11 @@
 }
 .marketing-site .occupancy-photo {
   position: relative;
-  min-height: 34rem;
+  min-height: clamp(22rem, 35vw, 32rem);
   overflow: hidden;
+}
+.marketing-site .occupancy-scene {
+  min-width: 0;
 }
 .marketing-site .occupancy-photo img {
   opacity: 0;
@@ -158,30 +161,27 @@
     transition: none;
   }
 }
-.marketing-site .occupancy-video-brief {
-  position: absolute;
-  inset: auto 0 0;
+.marketing-site .occupancy-caption {
   display: grid;
-  gap: 0.4rem;
-  padding: 5.5rem clamp(1.25rem, 3vw, 2rem) 1.5rem;
-  background: linear-gradient(transparent, rgb(4 15 23 / 0.82));
-  color: #fff;
+  gap: 0.75rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: #123447;
+  color: #f5f7f6;
 }
-.marketing-site .occupancy-video-brief > span {
-  font-size: 0.63rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.marketing-site .occupancy-caption .chapter-label {
+  color: #b7cbd2;
 }
-.marketing-site .occupancy-video-brief strong {
+.marketing-site .occupancy-caption h3 {
   font-size: clamp(1.2rem, 2.3vw, 1.8rem);
   font-weight: 600;
-  letter-spacing: -0.04em;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
 }
-.marketing-site .occupancy-video-brief p {
+.marketing-site .occupancy-caption p:not(.chapter-label) {
   max-width: 34rem;
-  font-size: 0.8rem;
-  line-height: 1.6;
+  color: #d5e2e7;
+  font-size: 0.95rem;
+  line-height: 1.75;
 }
 .marketing-site .occupancy-explainer {
   padding: clamp(2rem, 4vw, 4rem);

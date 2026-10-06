@@ -29,42 +29,47 @@ export function ValueSection() {
           </p>
         </div>
         <div className="occupancy-layout">
-          <div className="occupancy-photo" data-occupied={occupied}>
-            <Image
-              alt={
-                occupied
-                  ? "Illustrative thermostat in an occupied guest room"
-                  : ""
-              }
-              aria-hidden={!occupied}
-              className="object-cover object-[center_44%]"
-              data-state="occupied"
-              fill
-              placeholder="blur"
-              sizes="(max-width: 767px) 92vw, 60vw"
-              src={occupiedRoomImage}
-            />
-            <Image
-              alt={
-                occupied ? "" : "Illustrative thermostat in a vacant guest room"
-              }
-              aria-hidden={occupied}
-              className="object-cover object-[center_44%]"
-              data-state="vacant"
-              fill
-              placeholder="blur"
-              sizes="(max-width: 767px) 92vw, 60vw"
-              src={vacantRoomImage}
-            />
-            <div className="occupancy-video-brief">
-              <span>Video concept / Room control</span>
-              <strong>Occupied to vacant.</strong>
-              <p>
-                Show a guest arriving, setting a comfortable temperature, then
-                leaving as the room follows its configured vacant strategy.
-              </p>
+          <figure className="occupancy-scene">
+            <div className="occupancy-photo" data-occupied={occupied}>
+              <Image
+                alt={
+                  occupied
+                    ? "Illustrative thermostat in an occupied guest room"
+                    : ""
+                }
+                aria-hidden={!occupied}
+                className="object-cover object-[center_44%]"
+                data-state="occupied"
+                fill
+                placeholder="blur"
+                sizes="(max-width: 767px) 92vw, 60vw"
+                src={occupiedRoomImage}
+              />
+              <Image
+                alt={
+                  occupied
+                    ? ""
+                    : "Illustrative thermostat in a vacant guest room"
+                }
+                aria-hidden={occupied}
+                className="object-cover object-[center_44%]"
+                data-state="vacant"
+                fill
+                placeholder="blur"
+                sizes="(max-width: 767px) 92vw, 60vw"
+                src={vacantRoomImage}
+              />
             </div>
-          </div>
+            <figcaption className="occupancy-caption">
+              <p className="chapter-label">Room control</p>
+              <h3>Occupied to vacant.</h3>
+              <p>
+                Guests choose their comfort while they’re in the room. When they
+                leave, occupancy sensing helps the controls follow the
+                property’s configured energy-saving settings.
+              </p>
+            </figcaption>
+          </figure>
           <div className="occupancy-explainer">
             <p className="chapter-label">Energy follows occupancy</p>
             <div
