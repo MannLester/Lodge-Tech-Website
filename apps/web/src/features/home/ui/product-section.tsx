@@ -89,7 +89,9 @@ export function ProductSection() {
               className="editorial-link"
               href="/solutions/gem-stat-et"
             >
-              Explore <BrandText>GEM Stat™ ET</BrandText>{" "}
+              <span>
+                Explore <BrandText>GEM Stat™ ET</BrandText>
+              </span>
               <span aria-hidden>↗</span>
             </Link>
           </div>

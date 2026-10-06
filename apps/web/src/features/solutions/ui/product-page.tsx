@@ -90,7 +90,9 @@ export function ProductPage({ product }: ProductPageProps) {
                     className="editorial-link"
                     href="/solutions/gem-link-wireless"
                   >
-                    <BrandText>GEM Link® Wireless – HVAC solution</BrandText>
+                    <span>
+                      <BrandText>GEM Link® Wireless – HVAC solution</BrandText>
+                    </span>
                   </Link>
                   .
                 </p>

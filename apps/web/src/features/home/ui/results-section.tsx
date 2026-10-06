@@ -19,13 +19,14 @@ export function ResultsSection() {
             Explore reported property results, then start a savings conversation
             with your equipment, occupancy patterns, and utility costs.
           </p>
-          <Link className="editorial-link" href="/results">
-            Explore property results <span aria-hidden>↗</span>
-          </Link>
-          <br />
-          <a className="editorial-link" href="#contact">
-            Start a Savings Review <span aria-hidden>↗</span>
-          </a>
+          <div className="assessment-actions">
+            <Link className="editorial-link" href="/results">
+              Explore property results <span aria-hidden>↗</span>
+            </Link>
+            <a className="editorial-link" href="#contact">
+              Start a Savings Review <span aria-hidden>↗</span>
+            </a>
+          </div>
         </div>
         <dl className="assessment-rows">
           <div>
