@@ -5,6 +5,7 @@ export function ProcessSection() {
     <section
       aria-labelledby="process-heading"
       className="editorial-section process-section"
+      id="process"
     >
       <div className="section-shell">
         <div className="section-masthead">
