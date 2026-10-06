@@ -9,6 +9,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/results",
+        destination: "/#results",
+        permanent: false,
+      },
+      {
         source: "/solutions/dhw-controls",
         destination: "/solutions/appliance-controls",
         permanent: true,
