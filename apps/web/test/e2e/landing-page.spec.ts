@@ -59,7 +59,7 @@ test("keeps product branding and a contact route in public-page footers", async 
     ).toHaveAttribute("href", "/solutions/lighting-controls");
     await expect(
       footer.getByRole("link", { name: "Property Results" }),
-    ).toHaveAttribute("href", "/results");
+    ).toHaveAttribute("href", "/#results");
     await expect(footer).not.toContainText(
       /Blog|White Papers|Utility Rebate Capture|Cloud Platform/,
     );

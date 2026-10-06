@@ -32,7 +32,7 @@ describe("SiteHeader", () => {
     );
     expect(screen.getByRole("link", { name: "Results" })).toHaveAttribute(
       "href",
-      "/results",
+      "#results",
     );
     const desktopNavigation = screen.getByRole("navigation", {
       name: "Primary",
@@ -82,6 +82,13 @@ describe("SiteHeader", () => {
     expect(
       within(screen.getByRole("navigation", { name: "Primary" })).getByRole(
         "link",
+        { name: "Results" },
+      ),
+    ).toHaveAttribute("href", "/#results");
+
+    expect(
+      within(screen.getByRole("navigation", { name: "Primary" })).getByRole(
+        "link",
         { name: "Contact Us" },
       ),
     ).toHaveAttribute("href", "/#contact");
@@ -105,7 +112,7 @@ describe("SiteHeader", () => {
     expect(contactLink).toHaveAttribute("href", "/#contact");
     expect(
       within(mobileNavigation).getByRole("link", { name: "Results" }),
-    ).toHaveAttribute("href", "/results");
+    ).toHaveAttribute("href", "/#results");
     expect(mobileNavigation).not.toHaveTextContent(/Appliance|DHW|GEM Stat/);
     expect(
       within(mobileNavigation).getByRole("link", {
