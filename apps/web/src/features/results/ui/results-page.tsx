@@ -1,4 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
+
+import resultsHeroImage from "@assets/results/guest-room-controls.jpeg";
 
 import { BrandText } from "@/shared/ui/brand-text";
 import { SiteFooter } from "@/shared/ui/site-footer";
@@ -20,6 +23,15 @@ export function ResultsPage() {
           className="editorial-section results-hero"
           aria-labelledby="results-page-heading"
         >
+          <Image
+            alt=""
+            aria-hidden="true"
+            className="results-hero-image"
+            fill
+            preload
+            sizes="100vw"
+            src={resultsHeroImage}
+          />
           <div className="section-shell">
             <p className="chapter-label">Lodging Technologies / Results</p>
             <h1 className="display-heading" id="results-page-heading">
