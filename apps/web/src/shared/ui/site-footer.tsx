@@ -2,27 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import bbbAccreditedBusinessSeal from "@assets/bbb-accredited-business.svg";
+import { solutionNavigationItems } from "@/shared/config/navigation";
 import { BrandText } from "@/shared/ui/brand-text";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
   {
     label: "Products",
-    links: [
-      {
-        href: "/solutions/gem-link-wireless",
-        label: "GEM Link® Wireless – HVAC",
-      },
-      { href: "/solutions/gem-stat-et", label: "GEM Stat™ ET" },
-      {
-        href: "/solutions/lighting-controls",
-        label: "GEM Link® Wireless – Lighting Controls",
-      },
-      {
-        href: "/solutions/appliance-controls",
-        label: "GEM Link® – Appliance Control",
-      },
-    ],
+    links: solutionNavigationItems,
   },
   {
     label: "Services & industries",
@@ -50,7 +37,7 @@ export function SiteFooter() {
           <BrandMark href="/#top" />
           <p className="text-muted mt-4 text-sm leading-6">
             <BrandText>
-              GEM Link® Wireless and GEM Stat™ ET energy management for lodging,
+              GEM Link® Wireless HVAC and lighting controls for lodging,
               multifamily, senior living, student housing, and commercial
               properties.
             </BrandText>
