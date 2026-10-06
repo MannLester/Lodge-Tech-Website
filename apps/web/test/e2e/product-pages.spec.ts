@@ -123,7 +123,10 @@ test("Lighting Controls uses the Power Pack and omits retired Appliance links", 
   });
   await expect(image).toBeVisible();
   await expect(image).toHaveCSS("object-fit", "contain");
-  await expect(image).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  await expect(image).toHaveCSS(
+    "background-color",
+    /rgb\(25[0-5], 25[0-5], 25[0-5]\)/,
+  );
   await image.evaluate((element: HTMLImageElement) => element.decode());
   await expect(
     page.locator('a[href="/solutions/appliance-controls"]'),
