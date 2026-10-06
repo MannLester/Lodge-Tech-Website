@@ -43,13 +43,6 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
                   />
                 </summary>
                 <div className="border-border bg-surface shadow-card absolute top-full left-1/2 mt-4 w-80 -translate-x-1/2 rounded-lg border p-2">
-                  <a
-                    className="text-brand-strong hover:bg-brand-soft block rounded-md px-3 py-2.5 text-sm font-semibold"
-                    href={homeAnchor("solutions", fromHome)}
-                  >
-                    Solutions Overview
-                  </a>
-                  <div className="border-border my-1 border-t" />
                   {solutionNavigationItems.map((solution) => (
                     <a
                       className="text-muted hover:bg-surface-muted hover:text-brand-strong block rounded-md px-3 py-2.5 text-sm transition-colors"
@@ -64,7 +57,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
             ) : item.hash === "company" ? (
               <Link
                 className="text-muted hover:text-brand-strong text-[0.875rem] font-normal transition-colors"
-                href="/company"
+                href={`/${item.hash}`}
                 key={item.hash}
               >
                 {item.label}
@@ -128,13 +121,9 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
             {primaryNavigationItems.map((item) =>
               item.hash === "solutions" ? (
                 <div className="border-border border-b py-2" key={item.hash}>
-                  <a
-                    className="text-foreground block px-2 py-2 text-base font-semibold"
-                    href={homeAnchor("solutions", fromHome)}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Solutions Overview
-                  </a>
+                  <p className="text-foreground px-2 py-2 text-base font-semibold">
+                    Solutions
+                  </p>
                   <div className="grid gap-1 pl-3">
                     {solutionNavigationItems.map((solution) => (
                       <a
@@ -151,7 +140,7 @@ export function SiteHeader({ fromHome = true }: SiteHeaderProps) {
               ) : item.hash === "company" ? (
                 <Link
                   className="border-border text-muted hover:text-brand-strong border-b px-2 py-3 text-base font-normal transition-colors"
-                  href="/company"
+                  href={`/${item.hash}`}
                   key={item.hash}
                   onClick={() => setMenuOpen(false)}
                 >

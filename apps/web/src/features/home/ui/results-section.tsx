@@ -18,9 +18,11 @@ export function ResultsSection() {
             starts with your equipment, your occupancy patterns, and your
             utility costs.
           </p>
-          <a className="editorial-link" href="#contact">
-            Start a Savings Review <span aria-hidden>↗</span>
-          </a>
+          <div className="assessment-actions">
+            <a className="editorial-link" href="#contact">
+              Start a Savings Review <span aria-hidden>↗</span>
+            </a>
+          </div>
         </div>
         <dl className="assessment-rows">
           <div>

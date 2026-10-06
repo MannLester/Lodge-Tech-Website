@@ -42,14 +42,27 @@ test("keeps product branding and a contact route in public-page footers", async 
     const footer = page.locator("footer");
     await expect(footer.getByLabel("Lodging Technologies home")).toBeVisible();
     const gemLinkLinks = footer.getByRole("link", {
-      name: "GEM Link® Wireless",
+      name: "GEM Link® Wireless – HVAC",
       exact: true,
     });
-    await expect(gemLinkLinks).toHaveCount(2);
+    await expect(gemLinkLinks).toHaveCount(1);
     await expect(gemLinkLinks.first()).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toHaveCount(2);
+    ).toHaveCount(0);
+    await expect(footer.locator('a[href^="/solutions/"]')).toHaveCount(2);
+    await expect(footer).not.toContainText(/GEM Stat|Appliance|DHW/);
+    await expect(
+      footer.getByRole("link", {
+        name: "GEM Link® Wireless – Lighting Controls",
+      }),
+    ).toHaveAttribute("href", "/solutions/lighting-controls");
+    await expect(
+      footer.getByRole("link", { name: "Property Results" }),
+    ).toHaveAttribute("href", "/#results");
+    await expect(footer).not.toContainText(
+      /Blog|White Papers|Utility Rebate Capture|Cloud Platform/,
+    );
     await expect(
       footer.getByRole("link", { name: "Request for Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
@@ -88,13 +101,13 @@ test("shows direct contact and company social links beside the inquiry form", as
   const facebookLink = contact.getByRole("link", { name: "Facebook" });
   await expect(facebookLink).toHaveAttribute(
     "href",
-    "https://www.facebook.com/profile.php?id=100066727996704",
+    "https://www.facebook.com/people/Lodging-Technologies/61594577464936/",
   );
   await expect(facebookLink.locator("svg")).toBeVisible();
   const linkedInLink = contact.getByRole("link", { name: "LinkedIn" });
   await expect(linkedInLink).toHaveAttribute(
     "href",
-    "https://www.linkedin.com/company/lodging-technology-ltc-enterprises-llc",
+    "https://www.linkedin.com/company/lodging-technologies",
   );
   await expect(linkedInLink.locator("svg")).toBeVisible();
   const instagramLink = contact.getByRole("link", { name: "Instagram" });

@@ -19,7 +19,10 @@ for (const product of products) {
     await expect(
       page.getByRole("heading", { level: 1, name: product.label }),
     ).toBeVisible();
-    if (product.slug !== "gem-stat-et") {
+    if (
+      product.slug !== "gem-stat-et" &&
+      product.slug !== "appliance-controls"
+    ) {
       await expect(
         page
           .getByRole("navigation", { name: "Product navigation" })
@@ -31,11 +34,10 @@ for (const product of products) {
         name: "Designed for practical building operations.",
       }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("heading", {
-        name: "See how the solutions work together.",
-      }),
-    ).toBeVisible();
+    await expect(page.locator("#ecosystem-heading")).toBeHidden();
+    await expect(page.locator("#ecosystem-heading")).toHaveText(
+      "See how the solutions work together.",
+    );
     await expect(
       page.getByRole("heading", { name: "Details for technical evaluation." }),
     ).toBeVisible();
@@ -111,6 +113,28 @@ test("GEM Stat™ ET leads with the thermostat hero photo", async ({ page }) => 
   ).toBeVisible();
 });
 
+test("Lighting Controls uses the Power Pack and omits retired Appliance links", async ({
+  page,
+}) => {
+  await page.goto("/solutions/lighting-controls");
+  const image = page.locator("[data-product-visual]").getByRole("img", {
+    name: "Power Pack relay for lighting control with red, black, and white wiring",
+  });
+  await expect(image).toBeVisible();
+  await expect(image).toHaveCSS("object-fit", "contain");
+  await expect(image).toHaveCSS(
+    "background-color",
+    /rgb\(25[0-5], 25[0-5], 25[0-5]\)/,
+  );
+  await image.evaluate((element: HTMLImageElement) => element.decode());
+  await expect(
+    page.locator('a[href="/solutions/appliance-controls"]'),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: /Appliance Control/ }),
+  ).toHaveCount(0);
+});
+
 test("Appliance Control leads with the supplied Power Pack photo", async ({
   page,
 }) => {
@@ -123,7 +147,7 @@ test("Appliance Control leads with the supplied Power Pack photo", async ({
   ).toBeVisible();
 });
 
-test("primary Solutions navigation exposes the three solution routes", async ({
+test("primary Solutions navigation exposes only HVAC and lighting routes", async ({
   page,
 }) => {
   await page.goto("/");
@@ -133,47 +157,40 @@ test("primary Solutions navigation exposes the three solution routes", async ({
   if (viewport.width >= 1024) {
     const primary = page.getByRole("navigation", { name: "Primary" });
     await primary.getByText("Solutions", { exact: true }).click();
+    await expect(primary.locator("details a")).toHaveCount(2);
+    await expect(primary).not.toContainText(/GEM Stat|Appliance|DHW/);
     await primary
-      .getByRole("link", { name: "GEM Link® – Appliance Control" })
+      .getByRole("link", { name: "GEM Link® Wireless – Lighting Controls" })
       .click();
   } else {
     await page.getByRole("button", { name: "Open navigation" }).click();
     const mobile = page.getByRole("navigation", { name: "Mobile navigation" });
+    await expect(mobile).not.toContainText(/GEM Stat|Appliance|DHW/);
+    await expect(mobile.locator('a[href^="/solutions/"]')).toHaveCount(2);
     await mobile
-      .getByRole("link", { name: "GEM Link® – Appliance Control" })
+      .getByRole("link", { name: "GEM Link® Wireless – Lighting Controls" })
       .click();
   }
 
-  await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
+  await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
 });
 
-test("ecosystem diagram exposes its connections and selected details", async ({
+test("product ecosystem section is hidden while its code and diagram are retained", async ({
   page,
 }) => {
   await page.goto("/solutions/gem-stat-et");
 
-  const diagram = page.getByRole("group", {
-    name: "Connected solution diagram",
-  });
-  await expect(diagram.getByText("PIR occupancy sensor")).toBeVisible();
-  await expect(diagram.getByText("Entry and balcony contacts")).toBeVisible();
-  await expect(diagram.getByText("Control layer")).toBeVisible();
-  await expect(diagram.getByText("Managed loads")).toBeVisible();
-
-  for (const label of products.map((product) => product.label)) {
-    await expect(diagram.getByRole("button", { name: label })).toBeVisible();
-  }
-
-  const lightingControl = diagram.getByRole("button", {
-    name: "GEM Link® Wireless – Lighting Control",
-  });
-  await lightingControl.focus();
-  await page.keyboard.press("Enter");
-  await expect(lightingControl).toHaveAttribute("aria-pressed", "true");
+  const section = page.locator('section[aria-labelledby="ecosystem-heading"]');
+  await expect(section).toHaveAttribute("hidden", "");
+  await expect(section).toBeHidden();
+  await expect(section.locator(".ecosystem-diagram")).toHaveCount(1);
+  await expect(section).toContainText("PIR occupancy sensor");
+  await expect(section).toContainText("Entry and balcony contacts");
   await expect(
-    page.getByRole("link", {
-      name: "Explore GEM Link® Wireless – Lighting Control",
-    }),
+    page.getByRole("group", { name: "Connected solution diagram" }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Details for technical evaluation." }),
   ).toBeVisible();
 });
 

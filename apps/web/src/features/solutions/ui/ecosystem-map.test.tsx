@@ -26,18 +26,17 @@ describe("EcosystemMap", () => {
     expect(within(diagram).getByText("Control layer")).toBeVisible();
     expect(within(diagram).getByText("Managed loads")).toBeVisible();
     expect(within(diagram).getByText("HVAC")).toBeVisible();
+    expect(
+      within(diagram).queryByRole("button", { name: /Appliance Control/ }),
+    ).toBeNull();
   });
 
-  it("starts on the current solution and exposes every product route", () => {
+  it("starts on the current solution and exposes available product routes", () => {
     render(<EcosystemMap currentSlug="gem-stat-et" />);
 
     const thermostat = screen.getByRole("button", { name: /GEM Stat™ ET/ });
     expect(thermostat).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByText("You are viewing this solution.")).toBeVisible();
-
-    expect(
-      screen.getByRole("button", { name: /GEM Link® – Appliance Control/ }),
-    ).toBeVisible();
 
     const lighting = screen.getByRole("button", {
       name: /GEM Link® Wireless – Lighting Control/,

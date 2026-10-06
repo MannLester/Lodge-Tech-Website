@@ -29,7 +29,7 @@ export function ValueSection() {
           </p>
         </div>
         <div className="occupancy-layout">
-          <div className="occupancy-photo" data-occupied={occupied}>
+          <figure className="occupancy-photo" data-occupied={occupied}>
             <Image
               alt={
                 occupied
@@ -56,15 +56,16 @@ export function ValueSection() {
               sizes="(max-width: 767px) 92vw, 60vw"
               src={vacantRoomImage}
             />
-            <div className="occupancy-video-brief">
-              <span>Video concept / Room control</span>
-              <strong>Occupied to vacant.</strong>
+            <figcaption className="occupancy-caption">
+              <p className="chapter-label">Room control</p>
+              <h3>Occupied to vacant.</h3>
               <p>
-                Show a guest arriving, setting a comfortable temperature, then
-                leaving as the room follows its configured vacant strategy.
+                Guests choose their comfort while they’re in the room. When they
+                leave, occupancy sensing helps the controls follow the
+                property’s configured energy-saving settings.
               </p>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
           <div className="occupancy-explainer">
             <p className="chapter-label">Energy follows occupancy</p>
             <div

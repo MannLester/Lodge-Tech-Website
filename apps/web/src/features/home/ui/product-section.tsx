@@ -4,25 +4,17 @@ import appliancePowerPackImage from "@/assets/appliance-power-pack.jpeg";
 import gemStatImage from "@/assets/gem-stat-et/tree-setting.jpeg";
 import gemLinkLogoBlue from "@/assets/gem_link_logo_blue.png";
 import gemLinkLogoWhite from "@/assets/gem_link_logo_white.png";
-import lightingImage from "@/assets/lighting.png";
 import platformImage from "@/assets/platform-branded.png";
 import { BrandText } from "@/shared/ui/brand-text";
 
 const supportingProducts = [
   {
-    title: "GEM Link® Wireless – Lighting Control",
-    image: lightingImage,
-    imageAlt: "Lighting control application illustration",
-    slug: "lighting-controls",
-    copy: "The right light, around real building use.",
-  },
-  {
-    title: "GEM Link® – Appliance Control",
+    title: "GEM Link® Wireless – Lighting Controls",
     image: appliancePowerPackImage,
     imageAlt:
-      "Power Pack appliance-control relay with red, black, and white wiring",
-    slug: "appliance-controls",
-    copy: "Coordinate suitable in-room cooktops and individual electric water heaters.",
+      "Power Pack relay for lighting control with red, black, and white wiring",
+    slug: "lighting-controls",
+    copy: "The right light, around real building use.",
   },
 ] as const;
 
@@ -89,7 +81,9 @@ export function ProductSection() {
               className="editorial-link"
               href="/solutions/gem-stat-et"
             >
-              Explore <BrandText>GEM Stat™ ET</BrandText>{" "}
+              <span>
+                Explore <BrandText>GEM Stat™ ET</BrandText>
+              </span>
               <span aria-hidden>↗</span>
             </Link>
           </div>
@@ -127,13 +121,19 @@ export function ProductSection() {
               <div className="connection-loads">
                 <span>HVAC</span>
                 <span>Lighting</span>
-                <span>Appliance</span>
               </div>
               <figcaption>
                 <BrandText>GEM Link® Wireless</BrandText> brings supported room
                 controls and building loads into a coordinated operating view.
               </figcaption>
             </figure>
+            <Link
+              aria-label="Learn more about GEM Link® Wireless HVAC"
+              className="editorial-link product-panel-link"
+              href="/solutions/gem-link-wireless"
+            >
+              Explore GEM Link Wireless <span aria-hidden>↗</span>
+            </Link>
           </div>
 
           <div className="beyond-hvac-panel">
@@ -144,11 +144,7 @@ export function ProductSection() {
                   <div className="supporting-product-image">
                     <Image
                       alt={product.imageAlt}
-                      className={
-                        product.slug === "appliance-controls"
-                          ? "bg-white object-contain"
-                          : "object-cover"
-                      }
+                      className="bg-white object-contain"
                       fill
                       sizes="(max-width: 767px) 38vw, (max-width: 1023px) 28vw, 13vw"
                       src={product.image}
@@ -170,13 +166,6 @@ export function ProductSection() {
                 </article>
               ))}
             </div>
-            <Link
-              aria-label="Learn more about GEM Link® Wireless HVAC"
-              className="editorial-link product-panel-link"
-              href="/solutions/gem-link-wireless"
-            >
-              Explore GEM Link Wireless <span aria-hidden>↗</span>
-            </Link>
           </div>
         </article>
       </div>

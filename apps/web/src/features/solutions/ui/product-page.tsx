@@ -90,7 +90,9 @@ export function ProductPage({ product }: ProductPageProps) {
                     className="editorial-link"
                     href="/solutions/gem-link-wireless"
                   >
-                    <BrandText>GEM Link® Wireless – HVAC solution</BrandText>
+                    <span>
+                      <BrandText>GEM Link® Wireless – HVAC solution</BrandText>
+                    </span>
                   </Link>
                   .
                 </p>
@@ -213,6 +215,7 @@ export function ProductPage({ product }: ProductPageProps) {
         <section
           aria-labelledby="ecosystem-heading"
           className="editorial-section"
+          hidden
         >
           <div className="section-shell">
             <p className="chapter-label">Part of a connected property</p>

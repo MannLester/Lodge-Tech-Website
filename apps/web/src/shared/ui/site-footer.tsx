@@ -2,55 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 
 import bbbAccreditedBusinessSeal from "@/assets/bbb-accredited-business.svg";
+import { solutionNavigationItems } from "@/shared/config/navigation";
 import { BrandText } from "@/shared/ui/brand-text";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
   {
-    label: "Technology",
-    links: [
-      { href: "/#technology", label: "Energy Optimization" },
-      {
-        href: "/solutions/gem-link-wireless",
-        label: "GEM Link® Wireless",
-      },
-      { href: "/solutions/gem-stat-et", label: "GEM Stat™ ET" },
-      {
-        href: "/solutions/lighting-controls",
-        label: "GEM Link® Wireless – Lighting Control",
-      },
-      {
-        href: "/solutions/appliance-controls",
-        label: "GEM Link® – Appliance Control",
-      },
-      { href: "/#technology", label: "Cloud Platform" },
-      { href: "/#technology", label: "Utility Rebate Capture" },
-    ],
+    label: "Products",
+    links: solutionNavigationItems,
   },
   {
-    label: "Solutions",
+    label: "Services & industries",
     links: [
-      { href: "/#industries", label: "Hospitality" },
-      { href: "/#industries", label: "Multifamily Housing" },
-      { href: "/#industries", label: "Senior & Assisted Living" },
-      { href: "/#industries", label: "Student Dormitories" },
-      { href: "/#industries", label: "Commercial Properties" },
+      { href: "/#results", label: "Property Savings Review" },
+      { href: "/#process", label: "Our Turnkey Process" },
+      { href: "/#industries", label: "Industries We Serve" },
     ],
   },
   {
     label: "Company",
     links: [
       { href: "/company", label: "About Us" },
-      { href: "/#results", label: "Savings Review" },
+      { href: "/#results", label: "Property Results" },
       { href: "/#contact", label: "Contact & Support" },
-    ],
-  },
-  {
-    label: "Resources",
-    links: [
-      { href: "/#contact", label: "Blog" },
-      { href: "/#contact", label: "White Papers" },
-      { href: "/#contact", label: "Savings Analysis" },
     ],
   },
 ] as const;
@@ -58,26 +32,12 @@ const footerLinkGroups = [
 export function SiteFooter() {
   return (
     <footer className="border-border bg-surface-muted border-t py-10">
-      <div className="section-shell grid gap-10 md:grid-cols-[1.15fr_2fr] lg:grid-cols-[1fr_2.65fr]">
+      <div className="section-shell grid gap-10 md:grid-cols-[16rem_minmax(0,1fr)] lg:grid-cols-[1fr_2.5fr]">
         <div className="max-w-64">
           <BrandMark href="/#top" />
-          <div
-            aria-label="Featured products"
-            className="text-brand-strong mt-5 grid gap-3 text-sm font-semibold"
-          >
-            <Link
-              className="hover:underline"
-              href="/solutions/gem-link-wireless"
-            >
-              <BrandText>GEM Link® Wireless</BrandText>
-            </Link>
-            <Link className="hover:underline" href="/solutions/gem-stat-et">
-              <BrandText>GEM Stat™ ET</BrandText>
-            </Link>
-          </div>
           <p className="text-muted mt-4 text-sm leading-6">
             <BrandText>
-              GEM Link® Wireless and GEM Stat™ ET energy management for lodging,
+              GEM Link® Wireless HVAC and lighting controls for lodging,
               multifamily, senior living, student housing, and commercial
               properties.
             </BrandText>
@@ -94,7 +54,7 @@ export function SiteFooter() {
           >
             <Image
               alt="BBB Accredited Business"
-              className="h-auto w-32 sm:w-36"
+              className="h-auto w-32 shrink-0 sm:w-36"
               src={bbbAccreditedBusinessSeal}
             />
             <span className="border-border flex flex-col border-l pl-3 text-center text-slate-950">
@@ -114,7 +74,7 @@ export function SiteFooter() {
 
         <nav
           aria-label="Footer navigation"
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
           {footerLinkGroups.map((group) => (
             <div key={group.label}>
@@ -125,7 +85,7 @@ export function SiteFooter() {
                 {group.links.map((link) => (
                   <li key={`${group.label}-${link.label}`}>
                     <Link
-                      className="text-muted hover:text-brand-strong text-sm transition-colors"
+                      className="text-muted hover:text-brand-strong inline-block text-sm leading-6 transition-colors hover:underline"
                       href={link.href}
                     >
                       <BrandText>{link.label}</BrandText>
