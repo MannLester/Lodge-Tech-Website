@@ -34,11 +34,10 @@ for (const product of products) {
         name: "Designed for practical building operations.",
       }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("heading", {
-        name: "See how the solutions work together.",
-      }),
-    ).toBeVisible();
+    await expect(page.locator("#ecosystem-heading")).toBeHidden();
+    await expect(page.locator("#ecosystem-heading")).toHaveText(
+      "See how the solutions work together.",
+    );
     await expect(
       page.getByRole("heading", { name: "Details for technical evaluation." }),
     ).toBeVisible();
@@ -173,35 +172,22 @@ test("primary Solutions navigation exposes only HVAC and lighting routes", async
   await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
 });
 
-test("ecosystem diagram exposes its connections and selected details", async ({
+test("product ecosystem section is hidden while its code and diagram are retained", async ({
   page,
 }) => {
   await page.goto("/solutions/gem-stat-et");
 
-  const diagram = page.getByRole("group", {
-    name: "Connected solution diagram",
-  });
-  await expect(diagram.getByText("PIR occupancy sensor")).toBeVisible();
-  await expect(diagram.getByText("Entry and balcony contacts")).toBeVisible();
-  await expect(diagram.getByText("Control layer")).toBeVisible();
-  await expect(diagram.getByText("Managed loads")).toBeVisible();
-
-  for (const label of products
-    .filter((product) => product.slug !== "appliance-controls")
-    .map((product) => product.label)) {
-    await expect(diagram.getByRole("button", { name: label })).toBeVisible();
-  }
-
-  const lightingControl = diagram.getByRole("button", {
-    name: "GEM Link® Wireless – Lighting Control",
-  });
-  await lightingControl.focus();
-  await page.keyboard.press("Enter");
-  await expect(lightingControl).toHaveAttribute("aria-pressed", "true");
+  const section = page.locator('section[aria-labelledby="ecosystem-heading"]');
+  await expect(section).toHaveAttribute("hidden", "");
+  await expect(section).toBeHidden();
+  await expect(section.locator(".ecosystem-diagram")).toHaveCount(1);
+  await expect(section).toContainText("PIR occupancy sensor");
+  await expect(section).toContainText("Entry and balcony contacts");
   await expect(
-    page.getByRole("link", {
-      name: "Explore GEM Link® Wireless – Lighting Control",
-    }),
+    page.getByRole("group", { name: "Connected solution diagram" }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Details for technical evaluation." }),
   ).toBeVisible();
 });
 
