@@ -371,6 +371,9 @@
 .marketing-site .connection-loads span {
   position: relative;
 }
+.marketing-site .connection-loads span:last-child {
+  grid-column: 3;
+}
 .marketing-site .connection-loads span::before {
   content: "";
   position: absolute;
