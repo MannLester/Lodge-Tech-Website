@@ -215,6 +215,7 @@ export function ProductPage({ product }: ProductPageProps) {
         <section
           aria-labelledby="ecosystem-heading"
           className="editorial-section"
+          hidden
         >
           <div className="section-shell">
             <p className="chapter-label">Part of a connected property</p>
