@@ -30,6 +30,10 @@ describe("SiteHeader", () => {
       "href",
       "/company",
     );
+    expect(screen.getByRole("link", { name: "Results" })).toHaveAttribute(
+      "href",
+      "/results",
+    );
     const desktopNavigation = screen.getByRole("navigation", {
       name: "Primary",
     });
@@ -99,6 +103,9 @@ describe("SiteHeader", () => {
       name: "Contact Us",
     });
     expect(contactLink).toHaveAttribute("href", "/#contact");
+    expect(
+      within(mobileNavigation).getByRole("link", { name: "Results" }),
+    ).toHaveAttribute("href", "/results");
     expect(mobileNavigation).not.toHaveTextContent(/Appliance|DHW|GEM Stat/);
     expect(
       within(mobileNavigation).getByRole("link", {

@@ -1,0 +1,115 @@
+.marketing-site .results-hero {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  background: var(--editorial-paper);
+}
+.marketing-site .results-hero h1 {
+  max-width: 18ch;
+  margin-top: 1.25rem;
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
+}
+.marketing-site .results-hero .editorial-copy {
+  max-width: 42rem;
+}
+.marketing-site .results-case-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.marketing-site .results-highlight {
+  padding: clamp(1.5rem, 3vw, 3rem);
+  background: #123447;
+  color: #f5f7f6;
+}
+.marketing-site .results-metric {
+  margin-top: 1.5rem;
+  font-size: clamp(4rem, 7vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.marketing-site .results-metric span {
+  font-size: 0.5em;
+}
+.marketing-site .results-highlight-description {
+  margin-top: 1rem;
+  max-width: 28ch;
+  color: #b7cbd2;
+  line-height: 1.65;
+}
+.marketing-site .results-costs {
+  margin-top: 2rem;
+}
+.marketing-site .results-costs > div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding-block: 1rem;
+  border-top: 1px solid #4a6573;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.marketing-site .results-costs dt {
+  color: #b7cbd2;
+}
+.marketing-site .results-costs dd {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.marketing-site .results-room-section,
+.marketing-site .results-next {
+  background: var(--editorial-paper);
+}
+.marketing-site .results-table-wrap {
+  overflow-x: auto;
+}
+.marketing-site .results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+.marketing-site .results-table caption {
+  padding-bottom: 1.25rem;
+  text-align: left;
+  color: var(--editorial-muted);
+  font-size: 0.875rem;
+}
+.marketing-site .results-table th,
+.marketing-site .results-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--editorial-line);
+  text-align: right;
+}
+.marketing-site .results-table th:first-child {
+  padding-left: 0;
+  text-align: left;
+}
+.marketing-site .results-table thead th {
+  color: var(--editorial-muted);
+  font-weight: 500;
+}
+.marketing-site .results-table tbody th,
+.marketing-site .results-table td:last-child {
+  font-weight: 600;
+}
+@media (max-width: 63.99rem) {
+  .marketing-site .results-case-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 47.99rem) {
+  .marketing-site .results-hero {
+    padding-block: 3rem;
+  }
+  .marketing-site .results-table {
+    font-size: 0.8125rem;
+  }
+  .marketing-site .results-table th,
+  .marketing-site .results-table td {
+    padding: 1rem 0.4rem;
+  }
+}
