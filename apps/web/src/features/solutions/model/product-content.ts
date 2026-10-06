@@ -4,7 +4,6 @@ import appliancePowerPackImage from "@assets/appliance-power-pack.jpeg";
 import gemStatOfficeSettingImage from "@assets/gem-stat-et/office-setting.jpeg";
 import gemStatTreeSettingImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import gemStatThermostatImage from "@assets/gem-stat-et/thermostat.jpg";
-import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform-branded.png";
 
 export const productSlugs = [
@@ -222,8 +221,11 @@ const productDefinitions: Record<ProductSlug, ProductPageContent> = {
       "Practical lighting strategies coordinated around real building use.",
     metaDescription:
       "Explore GEM Link® Wireless lighting control for suitable property spaces.",
-    heroImage: lightingImage,
-    heroImageAlt: "Illustrative lighting control interface",
+    heroImage: appliancePowerPackImage,
+    heroImageAlt:
+      "Power Pack relay for lighting control with red, black, and white wiring",
+    heroImageClass: "bg-white object-contain p-4",
+    heroPhoto: true,
     features: [
       {
         title: "Occupancy response",
