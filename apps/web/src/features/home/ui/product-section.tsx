@@ -4,15 +4,15 @@ import appliancePowerPackImage from "@assets/appliance-power-pack.jpeg";
 import gemStatImage from "@assets/gem-stat-et/tree-setting.jpeg";
 import gemLinkLogoBlue from "@assets/gem_link_logo_blue.png";
 import gemLinkLogoWhite from "@assets/gem_link_logo_white.png";
-import lightingImage from "@assets/lighting.png";
 import platformImage from "@assets/platform-branded.png";
 import { BrandText } from "@/shared/ui/brand-text";
 
 const supportingProducts = [
   {
     title: "GEM Link® Wireless – Lighting Control",
-    image: lightingImage,
-    imageAlt: "Lighting control application illustration",
+    image: appliancePowerPackImage,
+    imageAlt:
+      "Power Pack relay for lighting control with red, black, and white wiring",
     slug: "lighting-controls",
     copy: "The right light, around real building use.",
   },
@@ -144,11 +144,7 @@ export function ProductSection() {
                   <div className="supporting-product-image">
                     <Image
                       alt={product.imageAlt}
-                      className={
-                        product.slug === "appliance-controls"
-                          ? "bg-white object-contain"
-                          : "object-cover"
-                      }
+                      className="bg-white object-contain"
                       fill
                       sizes="(max-width: 767px) 38vw, (max-width: 1023px) 28vw, 13vw"
                       src={product.image}
