@@ -57,7 +57,7 @@ test("keeps product branding and a contact route in public-page footers", async 
       /Blog|White Papers|Utility Rebate Capture|Cloud Platform/,
     );
     await expect(
-      footer.getByRole("link", { name: "Request a Proposal / Site Survey" }),
+      footer.getByRole("link", { name: "Request for Proposal / Site Survey" }),
     ).toHaveAttribute("href", "/request-for-proposal");
     const bbbLink = footer.getByRole("link", {
       name: "BBB Accredited Business with an A+ rating (opens in a new tab)",
@@ -175,7 +175,9 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   const form = page.getByRole("form", {
     name: "General inquiry",
   });
-  await form.getByRole("button", { name: "Send My Request" }).click();
+  await form
+    .getByRole("button", { name: "Request Proposal / Site Survey" })
+    .click();
 
   await expect(form.getByText("Enter your name.")).toBeVisible();
   await expect(form.getByText("Enter your email.")).toBeVisible();
@@ -192,7 +194,9 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
   await form
     .getByLabel("Project notes")
     .fill("We want to review HVAC and lighting savings.");
-  await form.getByRole("button", { name: "Send My Request" }).click();
+  await form
+    .getByRole("button", { name: "Request Proposal / Site Survey" })
+    .click();
 
   await expect(
     form.getByText(

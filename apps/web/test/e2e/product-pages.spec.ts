@@ -123,7 +123,7 @@ test("Appliance Control leads with the supplied Power Pack photo", async ({
   ).toBeVisible();
 });
 
-test("primary Solutions navigation exposes the four product routes", async ({
+test("primary Solutions navigation exposes only HVAC and lighting routes", async ({
   page,
 }) => {
   await page.goto("/");
@@ -133,24 +133,22 @@ test("primary Solutions navigation exposes the four product routes", async ({
   if (viewport.width >= 1024) {
     const primary = page.getByRole("navigation", { name: "Primary" });
     await primary.getByText("Solutions", { exact: true }).click();
-    await expect(
-      primary.getByRole("link", { name: "GEM Stat™ ET" }),
-    ).toBeVisible();
+    await expect(primary.locator("details a")).toHaveCount(2);
+    await expect(primary).not.toContainText(/GEM Stat|Appliance|DHW/);
     await primary
-      .getByRole("link", { name: "GEM Link® – Appliance Control" })
+      .getByRole("link", { name: "GEM Link® Wireless – Lighting Controls" })
       .click();
   } else {
     await page.getByRole("button", { name: "Open navigation" }).click();
     const mobile = page.getByRole("navigation", { name: "Mobile navigation" });
-    await expect(
-      mobile.getByRole("link", { name: "GEM Stat™ ET" }),
-    ).toBeVisible();
+    await expect(mobile).not.toContainText(/GEM Stat|Appliance|DHW/);
+    await expect(mobile.locator('a[href^="/solutions/"]')).toHaveCount(2);
     await mobile
-      .getByRole("link", { name: "GEM Link® – Appliance Control" })
+      .getByRole("link", { name: "GEM Link® Wireless – Lighting Controls" })
       .click();
   }
 
-  await expect(page).toHaveURL(/\/solutions\/appliance-controls$/);
+  await expect(page).toHaveURL(/\/solutions\/lighting-controls$/);
 });
 
 test("ecosystem diagram exposes its connections and selected details", async ({
