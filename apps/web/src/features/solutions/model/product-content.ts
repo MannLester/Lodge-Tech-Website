@@ -18,7 +18,6 @@ export type ProductSlug = (typeof productSlugs)[number];
 export const solutionSlugs = [
   "gem-link-wireless",
   "lighting-controls",
-  "appliance-controls",
 ] as const;
 
 type Feature = {

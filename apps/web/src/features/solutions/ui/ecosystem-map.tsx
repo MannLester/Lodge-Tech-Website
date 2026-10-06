@@ -8,7 +8,6 @@ import {
   type ProductSlug,
 } from "@/features/solutions/model/product-content";
 import {
-  ApplianceIcon,
   DoorContactIcon,
   HvacIcon,
   LightingIcon,
@@ -32,15 +31,15 @@ type SolutionNodeProps = {
   slug: ProductSlug;
 };
 
-const connectionDescriptions: Record<ProductSlug, string> = {
+type AvailableProductSlug = Exclude<ProductSlug, "appliance-controls">;
+
+const connectionDescriptions: Record<AvailableProductSlug, string> = {
   "gem-stat-et":
     "A complementary room-level thermostat solution for occupancy-aware HVAC control. It is shown beside the GEM Link control path without implying a direct wired connection.",
   "gem-link-wireless":
     "The transceiver receives room signals and applies the configured control strategy to supported HVAC equipment.",
   "lighting-controls":
     "A GEM Link control path can use shared occupancy and door signals to manage suitable lighting loads.",
-  "appliance-controls":
-    "The same occupancy-led strategy can extend to suitable loads such as two-burner cooktops and individual electric water heaters.",
 };
 
 function SolutionNode({
@@ -71,7 +70,9 @@ function SolutionNode({
 }
 
 export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
-  const [selectedSlug, setSelectedSlug] = useState<ProductSlug>(currentSlug);
+  const [selectedSlug, setSelectedSlug] = useState<AvailableProductSlug>(
+    currentSlug === "appliance-controls" ? "gem-link-wireless" : currentSlug,
+  );
   const selected =
     products.find((product) => product.slug === selectedSlug) ?? products[0];
 
@@ -179,15 +180,6 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
             >
               GEM Link® Wireless – Lighting Control
             </SolutionNode>
-            <SolutionNode
-              icon={<ApplianceIcon />}
-              isSelected={selectedSlug === "appliance-controls"}
-              onSelect={() => setSelectedSlug("appliance-controls")}
-              overline="Selected electric loads"
-              slug="appliance-controls"
-            >
-              GEM Link® – Appliance Control
-            </SolutionNode>
           </div>
         </section>
       </div>
@@ -198,7 +190,7 @@ export function EcosystemMap({ currentSlug }: EcosystemMapProps) {
           <h3>
             <BrandText>{selected.label}</BrandText>
           </h3>
-          <p>{connectionDescriptions[selected.slug]}</p>
+          <p>{connectionDescriptions[selectedSlug]}</p>
         </div>
         {selected.slug === currentSlug ? (
           <p className="ecosystem-current">You are viewing this solution.</p>
