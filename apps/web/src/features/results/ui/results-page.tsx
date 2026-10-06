@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import resultsHeroImage from "@assets/results/guest-room-controls.jpeg";
+import resultsHeroImage from "@/assets/results/guest-room-controls.jpeg";
 
 import { BrandText } from "@/shared/ui/brand-text";
 import { SiteFooter } from "@/shared/ui/site-footer";
@@ -28,7 +28,7 @@ export function ResultsPage() {
             aria-hidden="true"
             className="results-hero-image"
             fill
-            preload
+            priority
             sizes="100vw"
             src={resultsHeroImage}
           />
