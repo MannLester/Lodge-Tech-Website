@@ -49,7 +49,14 @@ test("keeps product branding and a contact route in public-page footers", async 
     await expect(gemLinkLinks.first()).toBeVisible();
     await expect(
       footer.getByRole("link", { name: "GEM Stat™ ET", exact: true }),
-    ).toHaveCount(1);
+    ).toHaveCount(0);
+    await expect(footer.locator('a[href^="/solutions/"]')).toHaveCount(2);
+    await expect(footer).not.toContainText(/GEM Stat|Appliance|DHW/);
+    await expect(
+      footer.getByRole("link", {
+        name: "GEM Link® Wireless – Lighting Controls",
+      }),
+    ).toHaveAttribute("href", "/solutions/lighting-controls");
     await expect(
       footer.getByRole("link", { name: "Property Results" }),
     ).toHaveAttribute("href", "/results");
