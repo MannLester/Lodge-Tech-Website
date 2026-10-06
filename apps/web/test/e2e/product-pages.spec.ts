@@ -19,7 +19,10 @@ for (const product of products) {
     await expect(
       page.getByRole("heading", { level: 1, name: product.label }),
     ).toBeVisible();
-    if (product.slug !== "gem-stat-et") {
+    if (
+      product.slug !== "gem-stat-et" &&
+      product.slug !== "appliance-controls"
+    ) {
       await expect(
         page
           .getByRole("navigation", { name: "Product navigation" })
@@ -111,6 +114,25 @@ test("GEM Stat™ ET leads with the thermostat hero photo", async ({ page }) => 
   ).toBeVisible();
 });
 
+test("Lighting Controls uses the Power Pack and omits retired Appliance links", async ({
+  page,
+}) => {
+  await page.goto("/solutions/lighting-controls");
+  const image = page.locator("[data-product-visual]").getByRole("img", {
+    name: "Power Pack relay for lighting control with red, black, and white wiring",
+  });
+  await expect(image).toBeVisible();
+  await expect(image).toHaveCSS("object-fit", "contain");
+  await expect(image).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  await image.evaluate((element: HTMLImageElement) => element.decode());
+  await expect(
+    page.locator('a[href="/solutions/appliance-controls"]'),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: /Appliance Control/ }),
+  ).toHaveCount(0);
+});
+
 test("Appliance Control leads with the supplied Power Pack photo", async ({
   page,
 }) => {
@@ -164,7 +186,9 @@ test("ecosystem diagram exposes its connections and selected details", async ({
   await expect(diagram.getByText("Control layer")).toBeVisible();
   await expect(diagram.getByText("Managed loads")).toBeVisible();
 
-  for (const label of products.map((product) => product.label)) {
+  for (const label of products
+    .filter((product) => product.slug !== "appliance-controls")
+    .map((product) => product.label)) {
     await expect(diagram.getByRole("button", { name: label })).toBeVisible();
   }
 
