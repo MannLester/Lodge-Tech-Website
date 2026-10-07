@@ -19,7 +19,7 @@ export function ResultsSection() {
             utility costs.
           </p>
           <a className="editorial-link" href="#contact">
-            Start a Savings Review <span aria-hidden>↗</span>
+            Know More <span aria-hidden>↗</span>
           </a>
         </div>
         <dl className="assessment-rows">
