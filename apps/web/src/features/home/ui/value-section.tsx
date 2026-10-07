@@ -60,8 +60,9 @@ export function ValueSection() {
               <span>Video concept / Room control</span>
               <strong>Occupied to vacant.</strong>
               <p>
-                Show a guest arriving, setting a comfortable temperature, then
-                leaving as the room follows its configured vacant strategy.
+                Guests choose their comfort while they&apos;re in the room. When
+                they leave, occupancy sensing helps the controls follow the
+                property&apos;s configured energy-saving settings.
               </p>
             </div>
           </div>
