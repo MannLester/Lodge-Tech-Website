@@ -164,7 +164,6 @@
   display: grid;
   gap: 0.4rem;
   padding: 5.5rem clamp(1.25rem, 3vw, 2rem) 1.5rem;
-  background: linear-gradient(transparent, rgb(4 15 23 / 0.82));
   color: #fff;
 }
 .marketing-site .occupancy-video-brief > span {
