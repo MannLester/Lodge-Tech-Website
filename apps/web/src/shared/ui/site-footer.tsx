@@ -35,6 +35,14 @@ export function SiteFooter() {
       <div className="section-shell grid gap-10 md:grid-cols-[16rem_minmax(0,1fr)] lg:grid-cols-[1fr_2.5fr]">
         <div className="max-w-64">
           <BrandMark href="/#top" />
+          <p className="text-brand mt-3 flex flex-col gap-1 text-sm leading-6 font-semibold">
+            <span>
+              <BrandText>GEM Link® Wireless</BrandText>
+            </span>
+            <span>
+              <BrandText>GEM Stat™ ET</BrandText>
+            </span>
+          </p>
           <p className="text-muted mt-4 text-sm leading-6">
             <BrandText>
               GEM Link® Wireless HVAC and lighting controls for lodging,
