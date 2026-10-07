@@ -20,7 +20,7 @@ export function ResultsSection() {
           </p>
           <div className="assessment-actions">
             <a className="editorial-link" href="#contact">
-              Start a Savings Review <span aria-hidden>↗</span>
+              Know More <span aria-hidden>↗</span>
             </a>
           </div>
         </div>
