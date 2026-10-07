@@ -24,7 +24,7 @@ export function ResultsSection() {
           </Link>
           <br />
           <a className="editorial-link" href="#contact">
-            Start a Savings Review <span aria-hidden>↗</span>
+            Know More <span aria-hidden>↗</span>
           </a>
         </div>
         <dl className="assessment-rows">
