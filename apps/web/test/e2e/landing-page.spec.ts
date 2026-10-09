@@ -215,9 +215,8 @@ test("validates and completes the proposal inquiry form", async ({ page }) => {
     .fill("We want to review HVAC and lighting savings.");
   await form.getByRole("button", { name: "Send My Request" }).click();
 
+  await expect(page).toHaveURL(/\/thank-you$/);
   await expect(
-    form.getByText(
-      "Thanks. Your request has been submitted. Our team will follow up about your property.",
-    ),
+    page.getByRole("heading", { name: "Thank you for reaching out." }),
   ).toBeVisible();
 });
