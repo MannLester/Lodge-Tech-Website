@@ -94,6 +94,9 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
       if (response.ok && isObject(body) && body.ok === true) {
         setFields(initialFields);
         setStatus("success");
+        // Load a new document so the Insight Tag sees the conversion URL.
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+        window.location.assign("/thank-you");
         return;
       }
 

@@ -25,7 +25,7 @@ test("persists an inquiry and removes the verification record", async ({
   try {
     await page.goto("/");
     const form = page.getByRole("form", {
-      name: "Proposal or site survey request",
+      name: "General inquiry",
     });
 
     await form.getByLabel("Name").fill("Playwright Verification");
@@ -40,10 +40,9 @@ test("persists an inquiry and removes the verification record", async ({
       .getByRole("button", { name: "Request Proposal / Site Survey" })
       .click();
 
+    await expect(page).toHaveURL(/\/thank-you$/);
     await expect(
-      form.getByText(
-        "Thanks. Your request has been submitted. Our team will follow up about your property.",
-      ),
+      page.getByRole("heading", { name: "Thank you for reaching out." }),
     ).toBeVisible();
 
     const { data, error } = await supabase

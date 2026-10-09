@@ -40,6 +40,7 @@ function fillValidForm() {
 describe("InquiryForm", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn());
+    vi.stubGlobal("location", { assign: vi.fn() });
   });
 
   afterEach(() => {
@@ -65,6 +66,7 @@ describe("InquiryForm", () => {
       screen.getByText("Tell us a little about the project."),
     ).toBeInTheDocument();
     expect(fetch).not.toHaveBeenCalled();
+    expect(window.location.assign).not.toHaveBeenCalled();
   });
 
   it("disables submission while pending and prevents duplicate clicks", async () => {
@@ -110,11 +112,37 @@ describe("InquiryForm", () => {
       "Thanks. Your request has been submitted. Our team will follow up about your property.",
     );
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue("");
+    expect(window.location.assign).toHaveBeenCalledExactlyOnceWith(
+      "/thank-you",
+    );
     expect(fetch).toHaveBeenCalledWith(
       "/api/inquiries",
       expect.objectContaining({ method: "POST" }),
     );
   });
+
+  it.each([
+    { body: { ok: false }, status: 200 },
+    { body: null, status: 200 },
+    { body: { ok: true }, status: 500 },
+  ])(
+    "does not redirect without confirmed success: $status $body",
+    async ({ body, status }) => {
+      vi.mocked(fetch).mockReturnValue(jsonResponse(body, status));
+      render(<InquiryForm />);
+      fillValidForm();
+      fireEvent.click(
+        screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+      );
+      await screen.findByText(
+        "We couldn't submit your request. Your entries are still here; please try again.",
+      );
+      expect(window.location.assign).not.toHaveBeenCalled();
+      expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
+        "Morgan Lee",
+      );
+    },
+  );
 
   it("shows server field errors and preserves values", async () => {
     vi.mocked(fetch).mockReturnValue(
@@ -135,6 +163,7 @@ describe("InquiryForm", () => {
     );
 
     await screen.findByText("That email cannot be accepted.");
+    expect(window.location.assign).not.toHaveBeenCalled();
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
       "Morgan Lee",
     );
@@ -154,6 +183,7 @@ describe("InquiryForm", () => {
     await screen.findByText(
       "We couldn't submit your request. Your entries are still here; please try again.",
     );
+    expect(window.location.assign).not.toHaveBeenCalled();
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
       "Morgan Lee",
     );
