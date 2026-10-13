@@ -24,7 +24,9 @@ test("persists an inquiry and removes the verification record", async ({
 
   try {
     await page.goto("/");
-    const form = page.getByRole("form", { name: "Savings analysis inquiry" });
+    const form = page.getByRole("form", {
+      name: "General inquiry",
+    });
 
     await form.getByLabel("Name").fill("Playwright Verification");
     await form.getByLabel("Work email").fill(email);
@@ -34,12 +36,11 @@ test("persists an inquiry and removes the verification record", async ({
     await form
       .getByLabel("Project notes")
       .fill("Temporary persistence verification record.");
-    await form.getByRole("button", { name: "Submit Inquiry" }).click();
+    await form.getByRole("button", { name: "Send My Request" }).click();
 
+    await expect(page).toHaveURL(/\/thank-you$/);
     await expect(
-      form.getByText(
-        "Thanks. Your savings analysis request has been submitted.",
-      ),
+      page.getByRole("heading", { name: "Thank you for reaching out." }),
     ).toBeVisible();
 
     const { data, error } = await supabase
