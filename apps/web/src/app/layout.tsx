@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Montserrat } from "next/font/google";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
 
 import { siteConfig } from "@/shared/config/site";
+import { MetaPixel } from "@/shared/analytics/meta-pixel";
 import { ThemeScript } from "@lodging-technologies/ui/theme-script";
 
 import "./globals.css";
@@ -38,6 +39,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         {children}
         <Analytics />
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
         <Script id="linkedin-insight" strategy="afterInteractive">
           {`
             window._linkedin_partner_id = "9825954";
