@@ -8,6 +8,7 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { InquiryForm } from "@/features/home/ui/inquiry-form";
+import { consumePendingMetaLead } from "@/shared/analytics/meta-pixel-events";
 
 function jsonResponse(body: unknown, status = 200) {
   return Promise.resolve(
@@ -39,11 +40,13 @@ function fillValidForm() {
 
 describe("InquiryForm", () => {
   beforeEach(() => {
+    window.sessionStorage.clear();
     vi.stubGlobal("fetch", vi.fn());
     vi.stubGlobal("location", { assign: vi.fn() });
   });
 
   afterEach(() => {
+    window.sessionStorage.clear();
     cleanup();
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
@@ -66,6 +69,7 @@ describe("InquiryForm", () => {
       screen.getByText("Tell us a little about the project."),
     ).toBeInTheDocument();
     expect(fetch).not.toHaveBeenCalled();
+    expect(consumePendingMetaLead()).toBe(false);
     expect(window.location.assign).not.toHaveBeenCalled();
   });
 
@@ -112,6 +116,8 @@ describe("InquiryForm", () => {
       "Thanks. Your request has been submitted. Our team will follow up about your property.",
     );
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue("");
+    expect(consumePendingMetaLead()).toBe(true);
+    expect(consumePendingMetaLead()).toBe(false);
     expect(window.location.assign).toHaveBeenCalledExactlyOnceWith(
       "/thank-you",
     );
@@ -138,6 +144,7 @@ describe("InquiryForm", () => {
         "We couldn't submit your request. Your entries are still here; please try again.",
       );
       expect(window.location.assign).not.toHaveBeenCalled();
+      expect(consumePendingMetaLead()).toBe(false);
       expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
         "Morgan Lee",
       );
@@ -163,10 +170,29 @@ describe("InquiryForm", () => {
     );
 
     await screen.findByText("That email cannot be accepted.");
+    expect(consumePendingMetaLead()).toBe(false);
     expect(window.location.assign).not.toHaveBeenCalled();
     expect(screen.getByRole("textbox", { name: /Name/ })).toHaveValue(
       "Morgan Lee",
     );
+  });
+
+  it("still redirects and sends a parameter-free lead when storage is blocked", async () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("Storage blocked");
+    });
+    const fbq = vi.fn();
+    vi.stubGlobal("fbq", fbq);
+    vi.mocked(fetch).mockReturnValue(jsonResponse({ ok: true }, 201));
+    render(<InquiryForm />);
+    fillValidForm();
+    fireEvent.click(
+      screen.getByRole("button", { name: "Request Proposal / Site Survey" }),
+    );
+    await waitFor(() =>
+      expect(window.location.assign).toHaveBeenCalledWith("/thank-you"),
+    );
+    expect(fbq).toHaveBeenCalledExactlyOnceWith("track", "Lead");
   });
 
   it("preserves values after a network failure and can retry", async () => {

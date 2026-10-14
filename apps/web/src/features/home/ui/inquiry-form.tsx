@@ -3,6 +3,11 @@
 import { FormEvent, useRef, useState } from "react";
 
 import {
+  markPendingMetaLead,
+  trackMetaEvent,
+} from "@/shared/analytics/meta-pixel-events";
+
+import {
   getInquiryFieldErrors,
   inquirySubmissionSchema,
   PROPERTY_TYPES,
@@ -94,6 +99,10 @@ export function InquiryForm({ initialMessage = "" }: InquiryFormProps) {
       if (response.ok && isObject(body) && body.ok === true) {
         setFields(initialFields);
         setStatus("success");
+        if (!parsed.data.website && !markPendingMetaLead()) {
+          // Storage restrictions must not prevent a confirmed submission.
+          trackMetaEvent("Lead");
+        }
         // Load a new document so the Insight Tag sees the conversion URL.
         // eslint-disable-next-line @next/next/no-location-assign-relative-destination
         window.location.assign("/thank-you");
