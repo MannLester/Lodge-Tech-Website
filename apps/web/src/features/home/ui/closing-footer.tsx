@@ -30,6 +30,14 @@ export function ClosingFooter({ initialInquiryMessage }: ClosingFooterProps) {
               <p className="chapter-label">Call us</p>
               <a href="tel:+18774355465">(877) 435-5465</a>
             </div>
+            <div className="contact-address">
+              <p className="chapter-label">Company address</p>
+              <address>
+                6701 Peters Creek Rd, Ste 103
+                <br />
+                Roanoke, VA 24019
+              </address>
+            </div>
             <div className="contact-social">
               <p className="chapter-label">Find us online</p>
               <ul>
