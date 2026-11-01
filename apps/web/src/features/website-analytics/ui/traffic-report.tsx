@@ -16,7 +16,6 @@ import {
   sourceName,
   type TrafficRow,
 } from "@/features/website-analytics/ui/traffic-charts";
-import { LinkGenerator } from "@/features/website-analytics/ui/utm-link-generator";
 type Report = {
   totals: {
     sessions: number;
@@ -323,7 +322,6 @@ export function TrafficReport() {
         coverage. Sessions are grouped by start date, including their full
         recorded totals.
       </p>
-      <LinkGenerator />
     </section>
   );
 }
