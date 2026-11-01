@@ -7,12 +7,78 @@ import {
 } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { TrafficTracker } from "@/features/website-analytics/ui/traffic-tracker";
+import { AnalyticsSettingsLink } from "@/shared/ui/analytics-settings-link";
+function TrackerFixture() {
+  return (
+    <>
+      <TrafficTracker />
+      <AnalyticsSettingsLink />
+    </>
+  );
+}
 const route = vi.hoisted(() => ({ path: "/" }));
 vi.mock("next/navigation", () => ({ usePathname: () => route.path }));
 let focused = true,
   visible = "visible";
 route.path = "/";
 const beacon = vi.fn<(url: string, data: Blob) => boolean>(() => true);
+it("fades away while collection continues and remains accessible from the footer", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
+  render(<TrackerFixture />);
+  await act(async () => {});
+  act(() => vi.advanceTimersByTime(4000));
+  expect(
+    screen.getByRole("complementary", {
+      name: "Website analytics preferences",
+    }),
+  ).toHaveClass("opacity-0");
+  act(() => vi.advanceTimersByTime(300));
+  expect(
+    screen.queryByRole("complementary", {
+      name: "Website analytics preferences",
+    }),
+  ).not.toBeInTheDocument();
+  const count = beacon.mock.calls.length;
+  act(() => vi.advanceTimersByTime(15000));
+  expect(beacon.mock.calls.length).toBeGreaterThan(count);
+  fireEvent.click(screen.getByRole("button", { name: "Analytics settings" }));
+  expect(
+    screen.getByRole("heading", { name: "Website visit analytics" }),
+  ).toBeVisible();
+  act(() => vi.advanceTimersByTime(10000));
+  expect(
+    screen.getByRole("heading", { name: "Website visit analytics" }),
+  ).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "Turn off analytics" }));
+  expect(localStorage.getItem("lt.analytics.consent")).toBe("denied");
+  expect(sessionStorage.getItem("lt.analytics.session")).toBeNull();
+});
+it("pauses dismissal while hovered or keyboard-focused", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
+  render(<TrackerFixture />);
+  await act(async () => {});
+  const notice = screen.getByRole("complementary", {
+    name: "Website analytics preferences",
+  });
+  fireEvent.mouseEnter(notice);
+  act(() => vi.advanceTimersByTime(7000));
+  expect(notice).toHaveClass("opacity-100");
+  fireEvent.mouseLeave(notice);
+  act(() => vi.advanceTimersByTime(4000));
+  expect(notice).toHaveClass("opacity-0");
+  const action = screen.getByRole("button", { name: "Turn off analytics" });
+  fireEvent.focus(action);
+  act(() => vi.advanceTimersByTime(7000));
+  expect(notice).toHaveClass("opacity-100");
+  fireEvent.blur(action, { relatedTarget: document.body });
+  act(() => vi.advanceTimersByTime(4000));
+  act(() => vi.advanceTimersByTime(300));
+  expect(
+    screen.queryByRole("complementary", {
+      name: "Website analytics preferences",
+    }),
+  ).not.toBeInTheDocument();
+});
 beforeEach(() => {
   route.path = "/";
   vi.useFakeTimers();
@@ -33,14 +99,14 @@ beforeEach(() => {
 });
 it("internal routes preserve first touch and do not duplicate unchanged paths", async () => {
   localStorage.setItem("lt.analytics.consent", "granted");
-  const view = render(<TrafficTracker />);
+  const view = render(<TrackerFixture />);
   await act(async () => {});
   const first = JSON.parse(sessionStorage.getItem("lt.analytics.session")!);
   const initial = beacon.mock.calls.length;
-  view.rerender(<TrafficTracker />);
+  view.rerender(<TrackerFixture />);
   expect(beacon.mock.calls.length).toBe(initial);
   route.path = "/company";
-  view.rerender(<TrafficTracker />);
+  view.rerender(<TrackerFixture />);
   expect(JSON.parse(sessionStorage.getItem("lt.analytics.session")!).id).toBe(
     first.id,
   );
@@ -50,7 +116,7 @@ it("internal routes preserve first touch and do not duplicate unchanged paths", 
 });
 it("expires after hidden inactivity without crediting the timeout", async () => {
   localStorage.setItem("lt.analytics.consent", "granted");
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   const first = JSON.parse(sessionStorage.getItem("lt.analytics.session")!).id;
   act(() => vi.advanceTimersByTime(10000));
@@ -75,13 +141,13 @@ it("survives blocked storage and failed delivery", async () => {
   });
   beacon.mockReturnValue(false);
   vi.stubGlobal("fetch", vi.fn().mockRejectedValue(Error("offline")));
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   fireEvent.click(screen.getByText("Allow analytics"));
   await act(async () => {});
   act(() => vi.advanceTimersByTime(16000));
   expect(
-    screen.getByRole("button", { name: "Analytics privacy settings" }),
+    screen.getByRole("button", { name: "Analytics settings" }),
   ).toBeVisible();
   beacon.mockReturnValue(true);
   vi.unstubAllGlobals();
@@ -98,7 +164,7 @@ afterEach(() => {
 });
 it("starts automatic collection without an Allow prompt and provides a direct opt-out", async () => {
   vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   expect(beacon).toHaveBeenCalled();
   expect(screen.queryByText("Allow analytics")).not.toBeInTheDocument();
@@ -108,15 +174,19 @@ it("starts automatic collection without an Allow prompt and provides a direct op
   expect(beacon).toHaveBeenCalledTimes(sent);
   expect(sessionStorage.getItem("lt.analytics.session")).toBeNull();
   expect(localStorage.getItem("lt.analytics.consent")).toBe("denied");
-  expect(screen.getByText("Visit analytics: Off")).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "Analytics settings" }));
+  expect(
+    screen.getByRole("button", { name: "Turn on analytics" }),
+  ).toBeVisible();
 });
 it("preserves an existing decline when automatic mode is enabled", async () => {
   vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
   localStorage.setItem("lt.analytics.consent", "denied");
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   act(() => vi.advanceTimersByTime(20000));
   expect(beacon).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole("button", { name: "Analytics settings" }));
   expect(
     screen.getByRole("button", { name: "Turn on analytics" }),
   ).toBeVisible();
@@ -126,7 +196,7 @@ it("does not automatically collect if preference storage is blocked", async () =
   vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
     throw Error("blocked");
   });
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   act(() => vi.advanceTimersByTime(20000));
   expect(beacon).not.toHaveBeenCalled();
@@ -148,11 +218,11 @@ it("refresh retains attribution when the previous document releases ownership", 
     },
   });
   localStorage.setItem("lt.analytics.consent", "granted");
-  const first = render(<TrafficTracker />);
+  const first = render(<TrackerFixture />);
   await act(async () => {});
   const id = JSON.parse(sessionStorage.getItem("lt.analytics.session")!).id;
   first.unmount();
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   expect(JSON.parse(sessionStorage.getItem("lt.analytics.session")!).id).toBe(
     id,
@@ -191,14 +261,14 @@ it("copied session storage rotates when another tab owns the session", async () 
       ),
     },
   });
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   expect(
     JSON.parse(sessionStorage.getItem("lt.analytics.session")!).id,
   ).not.toBe(stored.id);
 });
 it("collects nothing until consent and stops on withdrawal", async () => {
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   act(() => vi.advanceTimersByTime(30000));
   expect(beacon).not.toHaveBeenCalled();
@@ -206,9 +276,7 @@ it("collects nothing until consent and stops on withdrawal", async () => {
   await act(async () => {});
   act(() => vi.advanceTimersByTime(20000));
   expect(beacon).toHaveBeenCalled();
-  fireEvent.click(
-    screen.getByRole("button", { name: "Analytics privacy settings" }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: "Analytics settings" }));
   fireEvent.click(screen.getByRole("button", { name: "Turn off analytics" }));
   const count = beacon.mock.calls.length;
   act(() => vi.advanceTimersByTime(30000));
@@ -217,7 +285,7 @@ it("collects nothing until consent and stops on withdrawal", async () => {
 });
 it("counts a single-page foreground visit and excludes hidden time", async () => {
   localStorage.setItem("lt.analytics.consent", "granted");
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   act(() => vi.advanceTimersByTime(20000));
   visible = "hidden";
@@ -243,7 +311,7 @@ it("counts a single-page foreground visit and excludes hidden time", async () =>
 });
 it("BFCache restoration reuses the page view and does not add the suspension", async () => {
   localStorage.setItem("lt.analytics.consent", "granted");
-  render(<TrafficTracker />);
+  render(<TrackerFixture />);
   await act(async () => {});
   const first = beacon.mock.calls[0][1];
   act(() => vi.advanceTimersByTime(10000));

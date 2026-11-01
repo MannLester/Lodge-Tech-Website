@@ -4,6 +4,7 @@ import Link from "next/link";
 import bbbAccreditedBusinessSeal from "@assets/bbb-accredited-business.svg";
 import { solutionNavigationItems } from "@/shared/config/navigation";
 import { BrandText } from "@/shared/ui/brand-text";
+import { AnalyticsSettingsLink } from "@/shared/ui/analytics-settings-link";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 const footerLinkGroups = [
@@ -105,8 +106,9 @@ export function SiteFooter() {
           ))}
         </nav>
       </div>
-      <div className="section-shell border-border text-muted mt-10 border-t pt-5 text-xs">
-        &copy; 2026 Lodging Technologies LLC. All rights reserved.
+      <div className="section-shell border-border text-muted mt-10 flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-xs">
+        <span>&copy; 2026 Lodging Technologies LLC. All rights reserved.</span>
+        <AnalyticsSettingsLink />
       </div>
     </footer>
   );
