@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import { BarChart3, Settings2, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import {
   attribution,
@@ -13,7 +14,7 @@ const read = (key: string) => {
   try {
     return localStorage.getItem(key);
   } catch {
-    return null;
+    return undefined;
   }
 };
 type Session = {
@@ -207,14 +208,27 @@ async function start() {
 }
 export function TrafficTracker() {
   const pathname = usePathname();
+  const automatic =
+    process.env.NEXT_PUBLIC_ANALYTICS_CONSENT_MODE === "opt-out";
+  const headingId = useId();
   const [choice, setChoice] = useState<string | null | undefined>(undefined);
   const [open, setOpen] = useState(false);
   useEffect(() => {
     subscribers.add(setChoice);
     const c = read(consentKey);
+    // Preserve explicit choices when changing policy. If preference storage is
+    // blocked, fail closed so an opt-out cannot be silently lost on refresh.
+    const initial =
+      c === "granted" || c === "denied"
+        ? c
+        : automatic
+          ? c === undefined
+            ? "denied"
+            : "granted"
+          : null;
     queueMicrotask(() => {
-      setChoice(c);
-      setOpen(c === null);
+      setChoice(initial);
+      setOpen(!automatic && initial === null);
     });
     if (!detach) {
       const handle = () => {
@@ -227,9 +241,12 @@ export function TrafficTracker() {
         eligible = false;
       };
       const storage = (e: StorageEvent) => {
-        if (e.key === consentKey && e.newValue !== "granted") {
+        if (
+          (e.key === consentKey && e.newValue !== "granted") ||
+          e.key === null
+        ) {
           stop(true);
-          subscribers.forEach((fn) => fn(e.newValue));
+          subscribers.forEach((fn) => fn("denied"));
         }
       };
       window.addEventListener("storage", storage);
@@ -255,7 +272,7 @@ export function TrafficTracker() {
         stop();
       }
     };
-  }, []);
+  }, [automatic]);
   useEffect(() => {
     if (choice === undefined) return;
     if (path !== pathname) {
@@ -287,25 +304,90 @@ export function TrafficTracker() {
     setChoice(value);
     setOpen(false);
   }
-  if (!publicPaths.includes(pathname)) return null;
+  if (!publicPaths.includes(pathname) || choice === undefined) return null;
   return (
-    <aside className="fixed bottom-3 left-3 z-50 max-w-sm rounded-xl border bg-white p-4 text-sm text-slate-900 shadow-lg">
+    <aside
+      aria-label="Website analytics preferences"
+      className={`border-border bg-surface text-foreground fixed inset-x-4 bottom-4 z-50 rounded-xl border shadow-[0_8px_40px_rgba(0,0,0,0.22)] sm:right-6 sm:left-auto ${open ? "max-w-md p-5 sm:p-6" : "p-3"}`}
+    >
       {open ? (
         <>
-          <p>
-            Allow first-party visit analytics? We measure campaign sources,
-            pages viewed, and estimated foreground viewing time. No form
-            contents are collected. You can withdraw here at any time.
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="bg-brand-soft text-brand-strong rounded-lg p-2">
+                <BarChart3 aria-hidden="true" className="size-5" />
+              </span>
+              <h2 id={headingId} className="text-lg font-bold">
+                Website visit analytics
+              </h2>
+            </div>
+            <button
+              aria-label="Close analytics settings"
+              className="hover:bg-surface-muted focus-visible:outline-brand -mt-2 -mr-2 inline-flex size-11 shrink-0 items-center justify-center rounded-md"
+              onClick={() => setOpen(false)}
+            >
+              <X aria-hidden="true" className="size-5" />
+            </button>
+          </div>
+          <p className="text-muted mt-4 text-sm leading-6">
+            {automatic
+              ? "We measure traffic sources, pages viewed, and foreground viewing time to improve this website."
+              : "May we measure traffic sources, pages viewed, and foreground viewing time to improve this website?"}{" "}
+            These first-party analytics do not record form contents.
           </p>
-          <div className="mt-3 flex gap-4">
-            <button onClick={() => choose("granted")}>Allow analytics</button>
-            <button onClick={() => choose("denied")}>Decline / withdraw</button>
+          <p className="text-muted mt-2 text-xs leading-5">
+            You can turn this off at any time. This setting applies to our
+            first-party visit measurements.
+          </p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <button
+              className="bg-brand-fill hover:bg-brand-strong focus-visible:outline-brand min-h-12 rounded-md px-4 py-3 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2"
+              onClick={() =>
+                choose(choice === "granted" ? "denied" : "granted")
+              }
+            >
+              {choice === "granted"
+                ? "Turn off analytics"
+                : automatic
+                  ? "Turn on analytics"
+                  : "Allow analytics"}
+            </button>
+            <button
+              className="border-border hover:bg-surface-muted focus-visible:outline-brand min-h-12 rounded-md border px-4 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-2"
+              onClick={() =>
+                choice === null ? choose("denied") : setOpen(false)
+              }
+            >
+              {choice === null ? "Decline analytics" : "Close settings"}
+            </button>
           </div>
         </>
       ) : (
-        <button onClick={() => setOpen(true)}>
-          Analytics privacy settings
-        </button>
+        <div className="flex items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold">
+            <span
+              aria-hidden="true"
+              className={`size-2 rounded-full ${choice === "granted" ? "bg-emerald-500" : "bg-slate-400"}`}
+            />
+            Visit analytics: {choice === "granted" ? "On" : "Off"}
+          </span>
+          <button
+            aria-label={
+              choice === "granted" ? "Turn off analytics" : "Turn on analytics"
+            }
+            className="bg-brand-fill hover:bg-brand-strong focus-visible:outline-brand min-h-11 rounded-md px-4 py-2 text-xs font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2"
+            onClick={() => choose(choice === "granted" ? "denied" : "granted")}
+          >
+            {choice === "granted" ? "Turn off" : "Turn on"}
+          </button>
+          <button
+            aria-label="Analytics privacy settings"
+            className="border-border hover:bg-surface-muted focus-visible:outline-brand inline-flex size-11 shrink-0 items-center justify-center rounded-md border focus-visible:outline-2 focus-visible:outline-offset-2"
+            onClick={() => setOpen(true)}
+          >
+            <Settings2 aria-hidden="true" className="size-4" />
+          </button>
+        </div>
       )}
     </aside>
   );

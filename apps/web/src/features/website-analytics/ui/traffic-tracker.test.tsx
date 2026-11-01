@@ -14,6 +14,7 @@ let focused = true,
 route.path = "/";
 const beacon = vi.fn<(url: string, data: Blob) => boolean>(() => true);
 beforeEach(() => {
+  route.path = "/";
   vi.useFakeTimers();
   localStorage.clear();
   sessionStorage.clear();
@@ -79,7 +80,9 @@ it("survives blocked storage and failed delivery", async () => {
   fireEvent.click(screen.getByText("Allow analytics"));
   await act(async () => {});
   act(() => vi.advanceTimersByTime(16000));
-  expect(screen.getByText("Analytics privacy settings")).toBeVisible();
+  expect(
+    screen.getByRole("button", { name: "Analytics privacy settings" }),
+  ).toBeVisible();
   beacon.mockReturnValue(true);
   vi.unstubAllGlobals();
 });
@@ -87,10 +90,46 @@ afterEach(() => {
   cleanup();
   vi.useRealTimers();
   vi.restoreAllMocks();
+  vi.unstubAllEnvs();
   Object.defineProperty(navigator, "locks", {
     configurable: true,
     value: undefined,
   });
+});
+it("starts automatic collection without an Allow prompt and provides a direct opt-out", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
+  render(<TrafficTracker />);
+  await act(async () => {});
+  expect(beacon).toHaveBeenCalled();
+  expect(screen.queryByText("Allow analytics")).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Turn off analytics" }));
+  const sent = beacon.mock.calls.length;
+  act(() => vi.advanceTimersByTime(30000));
+  expect(beacon).toHaveBeenCalledTimes(sent);
+  expect(sessionStorage.getItem("lt.analytics.session")).toBeNull();
+  expect(localStorage.getItem("lt.analytics.consent")).toBe("denied");
+  expect(screen.getByText("Visit analytics: Off")).toBeVisible();
+});
+it("preserves an existing decline when automatic mode is enabled", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
+  localStorage.setItem("lt.analytics.consent", "denied");
+  render(<TrafficTracker />);
+  await act(async () => {});
+  act(() => vi.advanceTimersByTime(20000));
+  expect(beacon).not.toHaveBeenCalled();
+  expect(
+    screen.getByRole("button", { name: "Turn on analytics" }),
+  ).toBeVisible();
+});
+it("does not automatically collect if preference storage is blocked", async () => {
+  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_CONSENT_MODE", "opt-out");
+  vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+    throw Error("blocked");
+  });
+  render(<TrafficTracker />);
+  await act(async () => {});
+  act(() => vi.advanceTimersByTime(20000));
+  expect(beacon).not.toHaveBeenCalled();
 });
 it("refresh retains attribution when the previous document releases ownership", async () => {
   Object.defineProperty(navigator, "locks", {
@@ -167,8 +206,10 @@ it("collects nothing until consent and stops on withdrawal", async () => {
   await act(async () => {});
   act(() => vi.advanceTimersByTime(20000));
   expect(beacon).toHaveBeenCalled();
-  fireEvent.click(screen.getByText("Analytics privacy settings"));
-  fireEvent.click(screen.getByText("Decline / withdraw"));
+  fireEvent.click(
+    screen.getByRole("button", { name: "Analytics privacy settings" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Turn off analytics" }));
   const count = beacon.mock.calls.length;
   act(() => vi.advanceTimersByTime(30000));
   expect(beacon).toHaveBeenCalledTimes(count);
