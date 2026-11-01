@@ -285,6 +285,7 @@ export type Database = {
       };
     };
     Functions: {
+      analytics_interval_counts: { Args: { intervals: Json }; Returns: Json };
       collect_analytics: { Args: { p: Json }; Returns: undefined };
       analytics_report: {
         Args: {
