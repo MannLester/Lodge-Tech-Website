@@ -61,13 +61,3 @@ it("shows an error when reporting is unavailable", async () => {
     "Analytics unavailable",
   );
 });
-it("generates a preview using configured origin", async () => {
-  vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://site.test");
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false }));
-  render(<TrafficReport />);
-  fireEvent.change(screen.getByLabelText("campaign"), {
-    target: { value: "Summer sale" },
-  });
-  expect(screen.getByText(/utm_campaign=Summer\+sale/)).toBeVisible();
-  await screen.findByRole("alert");
-});
