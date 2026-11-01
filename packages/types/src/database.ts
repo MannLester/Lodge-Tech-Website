@@ -284,7 +284,22 @@ export type Database = {
         Relationships: [];
       };
     };
-    Functions: Record<never, never>;
+    Functions: {
+      collect_analytics: { Args: { p: Json }; Returns: undefined };
+      analytics_report: {
+        Args: {
+          since_at: string;
+          until_at: string;
+          source_filter?: string | null;
+          page_number?: number;
+        };
+        Returns: Json;
+      };
+      cleanup_analytics: {
+        Args: { retention_days?: number };
+        Returns: undefined;
+      };
+    };
     Enums: {
       crm_access_role: "USER" | "MANAGER" | "ADMIN";
       crm_user_status: "INVITED" | "ACTIVE" | "DISABLED";
