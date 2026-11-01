@@ -54,13 +54,18 @@ import {
   type Inquiry,
   type LeadFilters,
 } from "@/features/inquiry";
-import { TrafficReport } from "@/features/website-analytics";
+import {
+  TrafficReport,
+  WebsiteConversionReportPanel,
+  type WebsiteConversionReport,
+} from "@/features/website-analytics";
 import { RoleProvider } from "@/hooks/useRole";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
 type View =
   "account" | "dashboard" | "leads" | "tasks" | "reports" | "access" | "audit";
 type Props = Readonly<{
+  websiteConversionReport: WebsiteConversionReport | null;
   accessResult: AdminAccessResult | null;
   auditResult: AdminAuditResult | null;
   accountResult: AdminAccountResult;
@@ -103,6 +108,7 @@ const navItems: {
 ];
 
 export function AdminDashboardPlaceholder({
+  websiteConversionReport,
   accessResult,
   auditResult,
   accountResult,
@@ -138,7 +144,11 @@ export function AdminDashboardPlaceholder({
         />
       )}
       {view === "reports" && (
-        <ReportsWorkspace inquiries={inquiries} result={inquiryResult} />
+        <ReportsWorkspace
+          inquiries={inquiries}
+          result={inquiryResult}
+          websiteConversionReport={websiteConversionReport}
+        />
       )}
       {view === "access" && (
         <AccessWorkspace result={accessResult ?? { ok: false, message: "" }} />
@@ -735,9 +745,11 @@ function LeadDetail({
 }
 
 function ReportsWorkspace({
+  websiteConversionReport,
   inquiries,
   result,
 }: {
+  websiteConversionReport: WebsiteConversionReport | null;
   inquiries: Inquiry[];
   result: AdminInquiryResult;
 }) {
@@ -747,6 +759,9 @@ function ReportsWorkspace({
         <p className="eyebrow">CRM reporting</p>
         <h1 className="mt-2 text-2xl font-bold">Reports</h1>
         <p className="text-muted mt-3 text-sm">{result.message}</p>
+        {websiteConversionReport && (
+          <WebsiteConversionReportPanel report={websiteConversionReport} />
+        )}
         <TrafficReport />
       </Panel>
     );
@@ -779,6 +794,9 @@ function ReportsWorkspace({
           Lost outcome. These records are excluded from conversion.
         </Notice>
       ) : null}
+      {websiteConversionReport && (
+        <WebsiteConversionReportPanel report={websiteConversionReport} />
+      )}
       <TrafficReport />
       <div className="mt-8 grid gap-8 xl:grid-cols-2">
         <ChartGroup

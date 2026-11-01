@@ -12,6 +12,7 @@ import {
 } from "@/features/admin-auth";
 import { AdminDashboardPlaceholder } from "@/features/admin-dashboard";
 import { loadAdminFollowUps, loadAdminInquiries } from "@/features/inquiry";
+import { loadWebsiteConversionReport } from "@/features/website-analytics";
 
 import type { InquiryStatus } from "@/features/inquiry";
 
@@ -84,6 +85,13 @@ export default async function AdminPage({
 
   return (
     <AdminDashboardPlaceholder
+      websiteConversionReport={
+        view === "reports"
+          ? await loadWebsiteConversionReport(
+              inquiryResult.ok ? inquiryResult.inquiries : [],
+            )
+          : null
+      }
       accountResult={accountResult}
       accountStatus={params.account_status}
       filters={{
