@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Montserrat } from "next/font/google";
 import { Suspense, type ReactNode } from "react";
-import { Analytics } from "@vercel/analytics/next";
+import { TrafficTracker } from "@/features/website-analytics";
 
 import { siteConfig } from "@/shared/config/site";
 import { MetaPixel } from "@/shared/analytics/meta-pixel";
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </head>
       <body>
         {children}
-        <Analytics />
+        <TrafficTracker />
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>

@@ -3,6 +3,18 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "typecheck"],
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "SUPABASE_SECRET_KEY",
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "SUPABASE_URL",
+        "ANALYTICS_ENABLED",
+        "NEXT_PUBLIC_ANALYTICS_TIMEOUT_MS",
+        "NEXT_PUBLIC_ANALYTICS_HEARTBEAT_MS",
+        "NEXT_PUBLIC_ANALYTICS_TIME_ZONE"
+      ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
     "lint": {
@@ -10,6 +22,18 @@
     },
     "typecheck": {
       "dependsOn": ["^typecheck"],
+      "env": [
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "SUPABASE_SECRET_KEY",
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "SUPABASE_URL",
+        "ANALYTICS_ENABLED",
+        "NEXT_PUBLIC_ANALYTICS_TIMEOUT_MS",
+        "NEXT_PUBLIC_ANALYTICS_HEARTBEAT_MS",
+        "NEXT_PUBLIC_ANALYTICS_TIME_ZONE"
+      ],
       "outputs": ["tsconfig.tsbuildinfo", "dist/tsconfig.tsbuildinfo"]
     },
     "clean": {
