@@ -1,0 +1,12 @@
+begin;
+create extension if not exists pgtap with schema extensions;
+set local search_path=public,extensions;
+select plan(4);
+create temporary table trend_test_results(message text);
+insert into trend_test_results select ok(not has_function_privilege('anon','public.analytics_interval_counts(jsonb)','execute'),'anonymous users cannot read trends');
+insert into trend_test_results select ok(not has_function_privilege('authenticated','public.analytics_interval_counts(jsonb)','execute'),'browser auth alone cannot read trends');
+insert into trend_test_results select is(jsonb_array_length(analytics_interval_counts('[{"key":"current","since_at":"2026-11-01T00:00:00Z","until_at":"2026-11-02T00:00:00Z"},{"key":"earlier","since_at":"2026-10-01T00:00:00Z","until_at":"2026-10-02T00:00:00Z"}]'::jsonb)->'counts'),2,'one result per requested interval');
+insert into trend_test_results select is((analytics_interval_counts('[{"key":"current","since_at":"2026-11-01T00:00:00Z","until_at":"2026-11-02T00:00:00Z"}]'::jsonb)->'counts'->0->>'sessions')::bigint,(select count(*) from analytics_sessions where started_at>='2026-11-01T00:00:00Z' and started_at<'2026-11-02T00:00:00Z'),'trend counts match stored sessions');
+insert into trend_test_results select * from finish();
+select json_agg(message) as assertions from trend_test_results;
+rollback;
