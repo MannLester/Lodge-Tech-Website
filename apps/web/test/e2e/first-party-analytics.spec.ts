@@ -17,13 +17,13 @@ test("consent gates collection and withdrawal stops it", async ({ page }) => {
   await page.getByRole("button", { name: "Allow analytics" }).click();
   await expect.poll(() => requests).toBeGreaterThan(0);
   await page
-    .getByRole("button", { name: "Analytics privacy settings" })
+    .getByRole("button", { name: "Analytics settings", exact: true })
     .click();
   await page.getByRole("button", { name: "Turn off analytics" }).click();
   const count = requests;
   await page.reload();
   await expect(
-    page.getByRole("button", { name: "Analytics privacy settings" }),
+    page.getByRole("button", { name: "Analytics settings", exact: true }),
   ).toBeVisible();
   expect(requests).toBe(count);
   expect(
@@ -55,8 +55,15 @@ test("automatic mode starts visits and preserves a direct opt-out across reload"
   await page.screenshot({
     path: `.cache/analytics-control-${page.viewportSize()?.width}.png`,
   });
+  await page.mouse.move(0, 0);
+  await expect(
+    page.getByRole("complementary", { name: "Website analytics preferences" }),
+  ).toBeHidden({ timeout: 7000 });
+  await page.screenshot({
+    path: `.cache/analytics-after-fade-${page.viewportSize()?.width}.png`,
+  });
   await page
-    .getByRole("button", { name: "Analytics privacy settings", exact: true })
+    .getByRole("button", { name: "Analytics settings", exact: true })
     .click();
   await expect(
     page.getByRole("heading", { name: "Website visit analytics", exact: true }),

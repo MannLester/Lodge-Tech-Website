@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { BarChart3, Settings2, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import {
@@ -213,6 +213,39 @@ export function TrafficTracker() {
   const headingId = useId();
   const [choice, setChoice] = useState<string | null | undefined>(undefined);
   const [open, setOpen] = useState(false);
+  const [notice, setNotice] = useState<"visible" | "fading" | "hidden">(
+    "hidden",
+  );
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLElement>(null);
+  const opener = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const showSettings = () => {
+      opener.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      setNotice("visible");
+      setOpen(true);
+      requestAnimationFrame(() => closeButton.current?.focus());
+    };
+    window.addEventListener("lt:analytics-settings", showSettings);
+    return () =>
+      window.removeEventListener("lt:analytics-settings", showSettings);
+  }, []);
+  useEffect(() => {
+    if (choice == null || open || hovered || focused || notice !== "visible")
+      return;
+    const dismissal = setTimeout(() => setNotice("fading"), 4000);
+    return () => clearTimeout(dismissal);
+  }, [choice, open, hovered, focused, notice]);
+  useEffect(() => {
+    if (notice !== "fading" || open || hovered || focused) return;
+    const removal = setTimeout(() => setNotice("hidden"), 300);
+    return () => clearTimeout(removal);
+  }, [notice, open, hovered, focused]);
   useEffect(() => {
     subscribers.add(setChoice);
     const c = read(consentKey);
@@ -228,7 +261,12 @@ export function TrafficTracker() {
           : null;
     queueMicrotask(() => {
       setChoice(initial);
-      setOpen(!automatic && initial === null);
+      setNotice("visible");
+      setOpen(
+        !automatic &&
+          initial === null &&
+          publicPaths.includes(window.location.pathname),
+      );
     });
     if (!detach) {
       const handle = () => {
@@ -303,12 +341,39 @@ export function TrafficTracker() {
     }
     setChoice(value);
     setOpen(false);
+    setNotice("visible");
+    requestAnimationFrame(() =>
+      setFocused(Boolean(panel.current?.contains(document.activeElement))),
+    );
   }
-  if (!publicPaths.includes(pathname) || choice === undefined) return null;
+  function closeSettings() {
+    setOpen(false);
+    setNotice("hidden");
+    setHovered(false);
+    setFocused(false);
+    if (opener.current?.isConnected) opener.current.focus();
+  }
+  if (
+    choice === undefined ||
+    (!open && (!publicPaths.includes(pathname) || notice === "hidden")) ||
+    /^\/(admin|auth|api)(\/|$)/.test(pathname)
+  )
+    return null;
   return (
     <aside
+      ref={panel}
       aria-label="Website analytics preferences"
-      className={`border-border bg-surface text-foreground fixed inset-x-4 bottom-4 z-50 rounded-xl border shadow-[0_8px_40px_rgba(0,0,0,0.22)] sm:right-6 sm:left-auto ${open ? "max-w-md p-5 sm:p-6" : "p-3"}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocusCapture={() => setFocused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          setFocused(false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") closeSettings();
+      }}
+      className={`border-border bg-surface text-foreground fixed inset-x-4 bottom-4 z-50 rounded-xl border shadow-[0_8px_40px_rgba(0,0,0,0.22)] transition-[opacity,transform] duration-300 motion-reduce:transform-none motion-reduce:transition-none sm:right-6 sm:left-auto ${!open && !hovered && !focused && notice === "fading" ? "pointer-events-none translate-y-2 opacity-0" : "translate-y-0 opacity-100"} ${open ? "max-w-md p-5 sm:p-6" : "p-3"}`}
     >
       {open ? (
         <>
@@ -322,9 +387,10 @@ export function TrafficTracker() {
               </h2>
             </div>
             <button
+              ref={closeButton}
               aria-label="Close analytics settings"
               className="hover:bg-surface-muted focus-visible:outline-brand -mt-2 -mr-2 inline-flex size-11 shrink-0 items-center justify-center rounded-md"
-              onClick={() => setOpen(false)}
+              onClick={closeSettings}
             >
               <X aria-hidden="true" className="size-5" />
             </button>
@@ -355,7 +421,7 @@ export function TrafficTracker() {
             <button
               className="border-border hover:bg-surface-muted focus-visible:outline-brand min-h-12 rounded-md border px-4 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-2"
               onClick={() =>
-                choice === null ? choose("denied") : setOpen(false)
+                choice === null ? choose("denied") : closeSettings()
               }
             >
               {choice === null ? "Decline analytics" : "Close settings"}
