@@ -52,7 +52,7 @@ export async function loadWebsiteConversionReport(
         ]),
       ),
       availabilityMessage:
-        "Sessions are consented visits, not unique people. Earlier periods without retained analytics are unavailable. Inquiries / sessions is a volume ratio, not verified visitor conversion.",
+        "Sessions are recorded visits, not unique people. Earlier periods without retained analytics are unavailable. Inquiries / sessions is a volume ratio, not verified visitor conversion.",
     });
   } catch {
     return buildWebsiteConversionReport({

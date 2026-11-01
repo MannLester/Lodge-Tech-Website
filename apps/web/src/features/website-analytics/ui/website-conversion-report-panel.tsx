@@ -36,7 +36,7 @@ export function WebsiteConversionReportPanel({
           <p className="eyebrow">Website performance</p>
           <h2 className="mt-2 text-xl font-bold">Sessions and inquiries</h2>
           <p className="text-muted mt-2 max-w-2xl text-sm">
-            Compare production consented sessions with successful inquiry form
+            Compare production recorded sessions with successful inquiry form
             submissions. Reporting periods use {report.timeZone}.
           </p>
         </div>

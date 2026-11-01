@@ -63,7 +63,7 @@ export function SourceChart({
   return (
     <ChartCard
       title="Where visits came from"
-      description="Share of consented sessions by acquisition source. Select a source to filter."
+      description="Share of recorded sessions by acquisition source. Select a source to filter."
     >
       <div className="grid items-center gap-5 sm:grid-cols-[minmax(10rem,13rem)_1fr]">
         <svg
@@ -159,7 +159,7 @@ export function SourceChart({
       </div>
       {!total && (
         <p className="text-muted text-center text-sm">
-          Source distribution will appear after consented visits are recorded.
+          Source distribution will appear after recorded visits are recorded.
         </p>
       )}
     </ChartCard>

@@ -77,7 +77,7 @@ export function TrafficReport() {
         <h2 className="mt-2 text-xl font-bold">Website visits</h2>
         <p className="text-muted mt-2 max-w-3xl text-sm">
           See where visits come from and how long people view the website. These
-          charts use consented sessions, not verified unique people.
+          charts use recorded sessions, not verified unique people.
         </p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <label className="space-y-1.5 text-xs font-semibold">
@@ -176,7 +176,7 @@ export function TrafficReport() {
               {
                 label: "Sessions",
                 value: report.totals.sessions.toLocaleString(),
-                caption: "Consented website visits",
+                caption: "Recorded website visits",
                 icon: Users,
               },
               {
@@ -220,8 +220,8 @@ export function TrafficReport() {
           </div>
           {!report.totals.sessions && (
             <p className="border-border bg-surface-muted rounded-lg border p-4 text-sm">
-              No consented sessions in this period. Charts will fill as visitors
-              opt in.
+              No recorded sessions in this period. Charts will fill as visits
+              are recorded.
             </p>
           )}
           <div className="grid gap-6 xl:grid-cols-2">
@@ -318,9 +318,9 @@ export function TrafficReport() {
       <p className="text-muted max-w-4xl text-xs leading-5">
         Duration and engagement are estimates. Engagement measures visible,
         focused viewing, not verified attention. Direct / Unknown includes
-        unavailable attribution. Consent, blocking and failed delivery affect
-        coverage. Sessions are grouped by start date, including their full
-        recorded totals.
+        unavailable attribution. Visitor choices, blocking and failed delivery
+        affect coverage. Sessions are grouped by start date, including their
+        full recorded totals.
       </p>
     </section>
   );
