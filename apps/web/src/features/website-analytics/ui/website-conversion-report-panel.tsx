@@ -172,6 +172,12 @@ function ConversionLineChart({ points }: { points: ConversionPoint[] }) {
     chart.left + (index / Math.max(points.length - 1, 1)) * plotWidth;
   const y = (value: number) => chart.top + (1 - value / max) * plotHeight;
   const active = activeIndex === null ? null : points[activeIndex];
+  const recordedIndices = points.flatMap((point, index) =>
+    point.sessions === null ? [] : [index],
+  );
+  const singleIndex = recordedIndices.length === 1 ? recordedIndices[0] : null;
+  const baselineIndex =
+    singleIndex !== null && singleIndex > 0 ? singleIndex - 1 : null;
 
   return (
     <div className="mt-6">
@@ -235,6 +241,51 @@ function ConversionLineChart({ points }: { points: ConversionPoint[] }) {
               strokeWidth="3"
             />
           ))}
+          {baselineIndex !== null && singleIndex !== null && (
+            <g>
+              <path
+                aria-label="Visual zero starting baseline connector"
+                d={`M ${x(baselineIndex)} ${y(0)} L ${x(singleIndex)} ${y(points[singleIndex].sessions!)}`}
+                fill="none"
+                stroke="#0078a8"
+                strokeWidth="3"
+                strokeDasharray="6 4"
+                strokeLinecap="round"
+              />
+              <circle
+                cx={x(baselineIndex)}
+                cy={y(0)}
+                r="5.5"
+                fill="var(--surface)"
+                stroke="#0078a8"
+                strokeWidth="2"
+              >
+                <title>
+                  {points[baselineIndex].detailLabel}: visual starting baseline,
+                  not a recorded session count
+                </title>
+              </circle>
+              <text
+                x={x(baselineIndex) - 8}
+                y={y(0) - 12}
+                fill="#0078a8"
+                fontSize="11"
+                textAnchor="end"
+              >
+                0 baseline
+              </text>
+              <text
+                x={x(singleIndex) - 8}
+                y={Math.max(14, y(points[singleIndex].sessions!) - 10)}
+                fill="#0078a8"
+                fontSize="12"
+                fontWeight="700"
+                textAnchor="end"
+              >
+                {points[singleIndex].sessions} sessions
+              </text>
+            </g>
+          )}
 
           {points.map((point, index) => (
             <g key={point.key}>
@@ -293,6 +344,12 @@ function ConversionLineChart({ points }: { points: ConversionPoint[] }) {
           ) : null}
         </svg>
       </div>
+      {baselineIndex !== null && (
+        <p className="text-muted mt-2 text-xs">
+          The dashed line starts at a visual zero baseline. Only the measured
+          point is included in session totals; earlier traffic was not recorded.
+        </p>
+      )}
       <div className="sr-only">
         <table>
           <caption>Website sessions and inquiry submissions by period</caption>

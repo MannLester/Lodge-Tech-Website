@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
 
 import {
   buildWebsiteConversionReport,
@@ -22,6 +22,34 @@ function report() {
 }
 
 describe("WebsiteConversionReportPanel", () => {
+  afterEach(cleanup);
+  it("connects a single recorded day to a labeled visual zero without altering report data", () => {
+    const now = new Date("2026-11-01T16:00:00Z");
+    const blueprint = createReportBlueprint(now);
+    const last = blueprint.ranges.daily.at(-1)!;
+    const single = buildWebsiteConversionReport({
+      blueprint,
+      inquiries: [],
+      now,
+      sessionCounts: new Map([[last.key, 5]]),
+    });
+    render(<WebsiteConversionReportPanel report={single} />);
+    expect(
+      screen
+        .getByLabelText("Visual zero starting baseline connector")
+        .getAttribute("d"),
+    ).toMatch(/^M .* L /);
+    expect(screen.getByText("0 baseline")).toBeInTheDocument();
+    expect(screen.getByText("5 sessions")).toBeInTheDocument();
+    expect(single.ranges.daily.points.at(-2)?.sessions).toBeNull();
+    expect(single.ranges.daily.sessions).toBe(5);
+  });
+  it("uses only measured trend lines once multiple periods are available", () => {
+    render(<WebsiteConversionReportPanel report={report()} />);
+    expect(
+      screen.queryByLabelText("Visual zero starting baseline connector"),
+    ).not.toBeInTheDocument();
+  });
   it("switches reporting ranges and exposes every chart point accessibly", () => {
     render(<WebsiteConversionReportPanel report={report()} />);
 
