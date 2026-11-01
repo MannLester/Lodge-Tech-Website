@@ -54,10 +54,7 @@ import {
   type Inquiry,
   type LeadFilters,
 } from "@/features/inquiry";
-import {
-  WebsiteConversionReportPanel,
-  type WebsiteConversionReport,
-} from "@/features/website-analytics";
+import { TrafficReport } from "@/features/website-analytics";
 import { RoleProvider } from "@/hooks/useRole";
 import { BrandMark } from "@lodging-technologies/ui/brand-mark";
 
@@ -73,7 +70,6 @@ type Props = Readonly<{
   inquiryResult: AdminInquiryResult;
   session: AdminSession;
   view: View;
-  websiteConversionReport: WebsiteConversionReport | null;
 }>;
 
 const navItems: {
@@ -116,7 +112,6 @@ export function AdminDashboardPlaceholder({
   inquiryResult,
   session,
   view,
-  websiteConversionReport,
 }: Props) {
   const inquiries = inquiryResult.ok ? inquiryResult.inquiries : [];
   const followUps = followUpResult.ok ? followUpResult.followUps : [];
@@ -143,11 +138,7 @@ export function AdminDashboardPlaceholder({
         />
       )}
       {view === "reports" && (
-        <ReportsWorkspace
-          inquiries={inquiries}
-          result={inquiryResult}
-          websiteConversionReport={websiteConversionReport}
-        />
+        <ReportsWorkspace inquiries={inquiries} result={inquiryResult} />
       )}
       {view === "access" && (
         <AccessWorkspace result={accessResult ?? { ok: false, message: "" }} />
@@ -746,11 +737,9 @@ function LeadDetail({
 function ReportsWorkspace({
   inquiries,
   result,
-  websiteConversionReport,
 }: {
   inquiries: Inquiry[];
   result: AdminInquiryResult;
-  websiteConversionReport: WebsiteConversionReport | null;
 }) {
   if (!result.ok)
     return (
@@ -758,6 +747,7 @@ function ReportsWorkspace({
         <p className="eyebrow">CRM reporting</p>
         <h1 className="mt-2 text-2xl font-bold">Reports</h1>
         <p className="text-muted mt-3 text-sm">{result.message}</p>
+        <TrafficReport />
       </Panel>
     );
   const summary = summarizeInquiries(inquiries);
@@ -789,9 +779,7 @@ function ReportsWorkspace({
           Lost outcome. These records are excluded from conversion.
         </Notice>
       ) : null}
-      {websiteConversionReport ? (
-        <WebsiteConversionReportPanel report={websiteConversionReport} />
-      ) : null}
+      <TrafficReport />
       <div className="mt-8 grid gap-8 xl:grid-cols-2">
         <ChartGroup
           rows={summary.months.map((month) => [month.label, month.count])}

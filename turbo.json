@@ -10,9 +10,10 @@
         "SUPABASE_SECRET_KEY",
         "SUPABASE_SERVICE_ROLE_KEY",
         "SUPABASE_URL",
-        "VERCEL_ANALYTICS_TOKEN",
-        "VERCEL_PROJECT_ID",
-        "VERCEL_TEAM_ID"
+        "ANALYTICS_ENABLED",
+        "NEXT_PUBLIC_ANALYTICS_TIMEOUT_MS",
+        "NEXT_PUBLIC_ANALYTICS_HEARTBEAT_MS",
+        "NEXT_PUBLIC_ANALYTICS_TIME_ZONE"
       ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"]
     },
@@ -28,9 +29,10 @@
         "SUPABASE_SECRET_KEY",
         "SUPABASE_SERVICE_ROLE_KEY",
         "SUPABASE_URL",
-        "VERCEL_ANALYTICS_TOKEN",
-        "VERCEL_PROJECT_ID",
-        "VERCEL_TEAM_ID"
+        "ANALYTICS_ENABLED",
+        "NEXT_PUBLIC_ANALYTICS_TIMEOUT_MS",
+        "NEXT_PUBLIC_ANALYTICS_HEARTBEAT_MS",
+        "NEXT_PUBLIC_ANALYTICS_TIME_ZONE"
       ],
       "outputs": ["tsconfig.tsbuildinfo", "dist/tsconfig.tsbuildinfo"]
     },
