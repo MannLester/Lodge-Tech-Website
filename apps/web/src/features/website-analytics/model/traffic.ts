@@ -36,7 +36,7 @@ export const publicPaths = [
 export const pathSchema = z.enum(publicPaths as [string, ...string[]]);
 export const attributionSchema = z
   .object({
-    source: label.min(1),
+    source: label.refine((value) => value.length > 0),
     medium: label.nullable(),
     campaign: label.nullable(),
     content: label.nullable(),
@@ -104,11 +104,11 @@ export function attribution(
 }
 export const snapshotSchema = z
   .object({
-    session_id: z.uuid(),
-    page_view_id: z.uuid(),
-    started_at: z.iso.datetime(),
-    observed_at: z.iso.datetime(),
-    page_observed_at: z.iso.datetime(),
+    session_id: z.string().uuid(),
+    page_view_id: z.string().uuid(),
+    started_at: z.string().datetime(),
+    observed_at: z.string().datetime(),
+    page_observed_at: z.string().datetime(),
     landing_page: pathSchema,
     page_path: pathSchema,
     engagement_time_ms: z.number().int().min(0).max(86400000),
