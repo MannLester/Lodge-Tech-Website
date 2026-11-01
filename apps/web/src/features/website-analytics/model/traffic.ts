@@ -25,6 +25,7 @@ export const publicPaths = [
   "/",
   "/company",
   "/request-for-proposal",
+  "/results",
   ...[
     "gem-stat-et",
     "gem-link-wireless",
