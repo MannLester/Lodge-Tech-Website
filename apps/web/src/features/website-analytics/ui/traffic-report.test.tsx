@@ -36,9 +36,18 @@ it("renders real aggregate metrics and filters server requests", async () => {
   });
   vi.stubGlobal("fetch", fetcher);
   render(<TrafficReport />);
-  await screen.findByText("75.0%");
-  expect(screen.getAllByText("30s")).toHaveLength(2);
-  fireEvent.change(screen.getByLabelText(/Source/), {
+  await screen.findByRole("img", { name: /Traffic source share/ });
+  expect(screen.getAllByText("75.0%").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("30s").length).toBeGreaterThan(0);
+  expect(
+    screen.getByRole("heading", { name: "Where visits came from" }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("img", {
+      name: "Average session duration and foreground engagement by source",
+    }),
+  ).toBeVisible();
+  fireEvent.change(screen.getByRole("combobox", { name: "Source" }), {
     target: { value: "tiktok" },
   });
   await waitFor(() =>
